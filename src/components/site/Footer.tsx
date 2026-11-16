@@ -34,7 +34,7 @@ export function Footer() {
           </ul>
         </nav>
         <p className="border-t border-line pt-6 text-sm text-ink-soft sm:col-span-2">
-          Campus Cycle is a fictional example site for the course Building better websites.
+         Team 11 – Cookie Shop | UGent | Team code: T11-S3F8
         </p>
       </div>
     </footer>
