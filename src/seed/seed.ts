@@ -1,4 +1,4 @@
-// The seed: puts the Campus Cycle example content into a new site's database, so the site has real
+// The seed: puts the Cookie Shop example content into a new site's database, so the site has real
 // workshops, topics, prices, pages and images to show from its very first day.
 //
 // It adds the example content ONCE PER DATABASE. After a run that finished without an error, it notes
@@ -38,7 +38,7 @@ import {
 import { PlainError } from '../lib/plainError'
 import { richText } from './richText'
 
-// true: a new site starts with the Campus Cycle example. Set it to false before your first deploy to
+// true: a new site starts with the Cookie Shop example. Set it to false before your first deploy to
 // start from an empty site (only the first editor is created) and add your own content in /admin. After
 // your first deploy, changing it changes nothing: delete the example records in /admin instead (they
 // do not come back).
@@ -164,23 +164,23 @@ function workshopDescription(workshop: CampusCycleWorkshop) {
 
 export const PAGES = [
   {
-    title: 'Campus Cycle',
+    title: 'Cookie Shop',
     slug: 'home',
     // No word about the clinic here: it is not in the seed, and until you add it the home page says
     // "The repair clinic opens soon".
     intro:
-      'Campus Cycle is the bicycle repair service at the college. Learn to look after your own bicycle in a short maintenance workshop.',
+      'Cookie Shop is a fictional online cookie store created for our web development project.',
     // No body: everything else on the home page comes from its own record: the workshops, the clinic,
     // and the pricing rule from the Site facts global.
   },
   {
-    title: 'About Campus Cycle',
+    title: 'About Cookie Shop',
     slug: 'about',
     intro: 'Who we are, how the workshops work and where to find us.',
     body: richText([
       {
         paragraph:
-          'Campus Cycle is a fictional bicycle repair service at a college. Two staff members run it. It also offers short maintenance workshops.',
+          'Cookie Shop is a fictional business where customers can explore different types of cookies.',
       },
       { heading: 'The workshops' },
       // No numbers here: each workshop's own page shows its facts from its record.
@@ -290,7 +290,7 @@ function sameImage(stored: string | null | undefined, wanted: string): boolean {
 }
 
 /**
- * Adds the Campus Cycle example content that is missing, and leaves everything that exists alone.
+ * Adds the Cookie Shop example content that is missing, and leaves everything that exists alone.
  * Returns how many records it created and how many it found already there.
  *
  * `env` is where it looks for VERCEL and BLOB_READ_WRITE_TOKEN (normally process.env; a test can pass
