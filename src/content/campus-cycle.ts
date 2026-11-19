@@ -1,8 +1,8 @@
 // The facts of the example site. When you turn the starter into your own project, this file and the
 // seed are where the example content lives.
 //
-// Campus Cycle is a made-up bicycle repair service at a college. Every fact here comes from the
-// course's Campus Cycle fact sheet, so the site, the lessons and the exercises all tell the same story.
+// Cookie Shop is a made-up bicycle repair service at a college. Every fact here comes from the
+// course's Cookie Shop fact sheet, so the site, the lessons and the exercises all tell the same story.
 //
 // The seed (src/seed/seed.ts) copies these facts into the database ONCE per database: after its first
 // complete run it notes in the database that the example was added, and every later run, on each
@@ -21,7 +21,7 @@
 // `as const` makes every value here fixed: TypeScript then knows, for example, that the puncture
 // workshop's day is exactly 'Tuesday', not just "some text", and warns about a typo anywhere it is used.
 
-// The site's name: in the header, the footer and every browser tab ("<Page> · Campus Cycle", from
+// The site's name: in the header, the footer and every browser tab ("<Page> · Cookie Shop", from
 // SITE_TITLE below). Change it here, once.
 export const SITE_NAME = 'Cookie Shop'
 
