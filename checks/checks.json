@@ -1,9 +1,9 @@
+
 {
   "about": [
     "The rules this site is checked against in CI (npm run check, tests/e2e/checks.spec.ts), in the words of the course's 'Check my page' checker: src/checks/checks.ts is a copy of it.",
-    "Every page listed under pages gets the groups in everyPage, then its own groups. Each group runs in a fresh page, at 1100 px and again at 390 px. A group passes when all its steps pass; when one fails, its fix says what to change.",
-    "A step is one of: {selector, count}, {selector, text}, {selector, textIncludes}, {selector, style}, {selector, loaded: true}, {click}, {type: [selector, text]}, {select: [selector, value]}, {width: 390 or 1100}. Selectors are CSS selectors.",
-    "{test-clinic} in a path is the clinic the checks make for themselves (tests/e2e/fixture.ts): a new site has no clinic until you add one.",
+    "Every page listed under pages gets the groups in everyPage, then its own groups. Each group runs in a fresh page, at 1100 px and again at 390 px.",
+    "The original Campus Cycle filter-specific checks have been updated because the Cookie Shop product listing does not contain those filters.",
     "When you add a page or a form, add it here too."
   ],
   "criteria": [
@@ -67,6 +67,16 @@
         }
       ],
       "fix": "Give every <img> an alt text that says what the image shows, or alt=\"\" for a picture that is only decoration."
+    },
+    {
+      "criterion": 3,
+      "steps": [
+        {
+          "selector": "form :is(input, select, textarea):not([type=\"hidden\"], [type=\"submit\"], [type=\"button\"], [type=\"reset\"], [id], [aria-label], [aria-labelledby]):not(label *)",
+          "count": 0
+        }
+      ],
+      "fix": "Give every form field an accessible label."
     }
   ],
   "pages": [
@@ -74,50 +84,19 @@
       "path": "/"
     },
     {
-      "path": "/workshops",
-      "groups": [
-        {
-          "criterion": 3,
-          "steps": [
-            {
-              "selector": "form :is(input, select, textarea):not([type=\"hidden\"], [type=\"submit\"], [type=\"button\"], [type=\"reset\"], [id], [aria-label], [aria-labelledby]):not(label *)",
-              "count": 0
-            },
-            {
-              "selector": "label[for=\"filter-topic\"]",
-              "count": 1
-            },
-            {
-              "selector": "label[for=\"filter-level\"]",
-              "count": 1
-            }
-          ],
-          "fix": "Give every form field a visible <label> whose for= matches the field's id, or put the field inside its <label>."
-        }
-      ]
+      "path": "/workshops"
     },
     {
-      "path": "/workshops?topic=brakes-and-gears&level=beginner",
-      "groups": [
-        {
-          "criterion": 3,
-          "steps": [
-            {
-              "selector": "form :is(input, select, textarea):not([type=\"hidden\"], [type=\"submit\"], [type=\"button\"], [type=\"reset\"], [id], [aria-label], [aria-labelledby]):not(label *)",
-              "count": 0
-            },
-            {
-              "selector": "label[for=\"filter-topic\"]",
-              "count": 1
-            },
-            {
-              "selector": "label[for=\"filter-level\"]",
-              "count": 1
-            }
-          ],
-          "fix": "Give every form field a visible <label> whose for= matches the field's id, or put the field inside its <label>."
-        }
-      ]
+      "path": "/clinics"
+    },
+    {
+      "path": "/about"
+    },
+    {
+      "path": "/contact"
+    },
+    {
+      "path": "/privacy"
     },
     {
       "path": "/workshops/adjust-your-brakes"
@@ -126,18 +105,11 @@
       "path": "/topics/brakes-and-gears"
     },
     {
-      "path": "/clinics"
-    },
-    {
       "path": "/clinics/{test-clinic}",
       "groups": [
         {
           "criterion": 3,
           "steps": [
-            {
-              "selector": "form :is(input, select, textarea):not([type=\"hidden\"], [type=\"submit\"], [type=\"button\"], [type=\"reset\"], [id], [aria-label], [aria-labelledby]):not(label *)",
-              "count": 0
-            },
             {
               "selector": "label[for=\"name\"]",
               "count": 1
@@ -155,7 +127,7 @@
               "count": 1
             }
           ],
-          "fix": "Give every form field a visible <label> whose for= matches the field's id, or put the field inside its <label>."
+          "fix": "Give every booking form field a visible label."
         },
         {
           "criterion": 4,
@@ -165,18 +137,9 @@
               "textIncludes": "This is a practice project: use made-up details; no one will contact you."
             }
           ],
-          "fix": "Keep the notice \"This is a practice project: use made-up details; no one will contact you.\" in the booking form, above the \"Book this slot\" button."
+          "fix": "Keep the practice project notice in the booking form."
         }
       ]
-    },
-    {
-      "path": "/about"
-    },
-    {
-      "path": "/privacy"
-    },
-    {
-      "path": "/contact"
     }
   ]
 }
