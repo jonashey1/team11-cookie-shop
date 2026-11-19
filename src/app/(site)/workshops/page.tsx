@@ -1,109 +1,147 @@
-// The workshop list, /workshops: example task 1, "find a workshop by topic and level".
-// The two filters are in the address (/workshops?topic=brakes-and-gears&level=beginner), so a filtered
-// list can be shared, bookmarked and reached again with Back, and the page works without JavaScript.
-// Reading the address: src/tasks/find-workshop/filters.ts. The database question: queries.ts there.
+
 import type { Metadata } from 'next'
-import { getPayload } from 'payload'
-import { cache } from 'react'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
-import { TrackStep } from '@/components/site/TrackStep'
-import { WorkshopCard } from '@/components/site/WorkshopCard'
-import { WorkshopFilters } from '@/components/site/WorkshopFilters'
-import config from '@/payload.config'
-import { filterQuery, filterSummary, parseFilters, type Level, type SearchParams } from '@/tasks/find-workshop/filters'
-import { workshopWhere } from '@/tasks/find-workshop/queries'
 
-export const dynamic = 'force-dynamic'
-
-type Props = { searchParams: Promise<SearchParams> }
-
-// cache(): the page and its browser-tab title (generateMetadata) both need the same list. With cache()
-// the database is asked once per visit and both get that answer.
-const findWorkshops = cache(async (topicSlug: string | null, level: Level | null) => {
-  const payload = await getPayload({ config })
-  const topics = (await payload.find({ collection: 'topics', sort: 'name', depth: 0, limit: 100, joins: false })).docs
-  // The topic named in the address, if one has that slug. An old link may name one that is gone.
-  const topic = topicSlug ? topics.find((candidate) => candidate.slug === topicSlug) : undefined
-  const workshops = (
-    await payload.find({
-      collection: 'workshops',
-      where: workshopWhere({ topic: topicSlug, level }, topic?.id ?? null),
-      sort: 'createdAt',
-      // depth 1 fetches each workshop's image and topics with it; of a topic, only its name and slug.
-      depth: 1,
-      populate: { topics: { name: true, slug: true } },
-      limit: 100,
-    })
-  ).docs
-  return { topics, topic, workshops }
-})
-
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const { topic, level } = parseFilters(await searchParams)
-  const found = await findWorkshops(topic, level)
-  // The tab title names the filters and the count: a screen reader reads it out when the page opens.
-  let title = 'Workshops'
-  if (found.workshops.length === 0) title = 'No workshops match these filters'
-  else if (topic || level) title = filterSummary(level, found.topic?.name ?? null, found.workshops.length)
-  return { title, description: 'Find a bicycle maintenance workshop by topic and level.' }
+export const metadata: Metadata = {
+  title: 'Our Cookies',
+  description:
+    'Discover our delicious cookie selection and explore your favourite flavours.',
 }
 
-export default async function WorkshopsPage({ searchParams }: Props) {
-  const filters = parseFilters(await searchParams)
-  const { topics, topic, workshops } = await findWorkshops(filters.topic, filters.level)
-  // Carried to each workshop's page, so its Back link returns to this same filtered list.
-  const query = filterQuery(filters)
+const cookies = [
+  {
+    id: 1,
+    name: 'Classic Chocolate Chip',
+    description:
+      'A classic cookie filled with delicious chocolate chips. Perfect for chocolate lovers.',
+    flavour: 'Chocolate',
+    price: '€3.50',
+    emoji: '🍪',
+  },
+  {
+    id: 2,
+    name: 'Double Chocolate',
+    description:
+      'A rich chocolate cookie with extra chocolate pieces for an intense chocolate experience.',
+    flavour: 'Chocolate',
+    price: '€3.95',
+    emoji: '🍫',
+  },
+  {
+    id: 3,
+    name: 'White Chocolate',
+    description:
+      'A sweet cookie with creamy white chocolate pieces and a soft centre.',
+    flavour: 'White Chocolate',
+    price: '€3.75',
+    emoji: '🍪',
+  },
+  {
+    id: 4,
+    name: 'Red Velvet',
+    description:
+      'A delicious red velvet cookie with a smooth and sweet flavour.',
+    flavour: 'Red Velvet',
+    price: '€3.95',
+    emoji: '❤️',
+  },
+  {
+    id: 5,
+    name: 'Salted Caramel',
+    description:
+      'The perfect combination of sweet caramel and a touch of sea salt.',
+    flavour: 'Caramel',
+    price: '€3.95',
+    emoji: '🍯',
+  },
+  {
+    id: 6,
+    name: 'Cookies & Cream',
+    description:
+      'A tasty cookie inspired by the classic combination of cookies and cream.',
+    flavour: 'Cookies & Cream',
+    price: '€3.95',
+    emoji: '🍪',
+  },
+]
 
+export default function CookiesPage() {
   return (
     <div className="pb-6">
-      {/* The analytics step "filter_used" (src/lib/analytics.ts), when the user applied filters. Only the
-          chosen level and a topic this site has are sent. once={query}: each choice of filters counts
-          once per browser tab, also after a reload or Back (see TrackStep). key: a new choice starts
-          a fresh TrackStep. */}
-      {(filters.topic || filters.level) && (
-        <TrackStep key={query} event="filter_used" once={query} props={{ topic: topic?.slug ?? '', level: filters.level ?? '' }} />
-      )}
       <PageTitle
-        title="Workshops"
-        intro="Short maintenance workshops for your own bicycle, in small groups. Choose a topic and a level, or look through them all."
+        title="Our Cookies"
+        intro="Discover our cookie collection! Explore different flavours, compare your favourites and find the perfect sweet treat."
         tone="purple"
       />
-      <div className="grid gap-block">
-        <WorkshopFilters topics={topics} filters={filters} />
-        {/* id="results": the form's "#results" scrolls here after Apply filters. scroll-mt-6 keeps a
-            little space above the line. */}
-        <section id="results" aria-labelledby="results-summary" className="grid scroll-mt-6 gap-block">
-          {/* Apply filters loads a new page, and a screen reader then reads the browser tab's title,
-              which names the filters and the count (generateMetadata, above). role="status" adds
-              nothing on that first load; it is there for a later version that updates the list
-              without a new page: a screen reader then reads out the changed line. */}
-          <div role="status" className="grid gap-2">
-            <h2 id="results-summary" className="text-2xl">
-              {workshops.length > 0 ? filterSummary(filters.level, topic?.name ?? null, workshops.length) : 'No workshops match these filters'}
-            </h2>
-            {workshops.length === 0 && (
-              <p className="max-w-(--container-reading)">
-                {filters.topic && !topic
-                  ? `This site has no topic called "${filters.topic}". The link may be out of date. `
-                  : 'None of the workshops matches every filter you chose. '}
-                Choose another topic or level, or see all workshops.
-              </p>
-            )}
-          </div>
-          {workshops.length > 0 ? (
-            <ul className="grid gap-block lg:grid-cols-2">
-              {workshops.map((workshop) => (
-                <li key={workshop.id} className="grid">
-                  <WorkshopCard workshop={workshop} query={query} />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <ButtonLink href="/workshops" variant="secondary" className="w-fit">Clear filters</ButtonLink>
-          )}
-        </section>
-      </div>
+
+      <section
+        aria-labelledby="cookies-heading"
+        className="grid gap-block"
+      >
+        <div className="grid gap-2">
+          <h2 id="cookies-heading" className="text-2xl">
+            Discover Our Flavours
+          </h2>
+          <p>
+            From classic chocolate chip to exciting new combinations,
+            there is a cookie for everyone.
+          </p>
+        </div>
+
+        <ul className="grid gap-block md:grid-cols-2 lg:grid-cols-3">
+          {cookies.map((cookie) => (
+            <li
+              key={cookie.id}
+              className="framed grid content-start gap-4 p-6 offset-purple"
+            >
+              <div
+                className="flex h-36 items-center justify-center rounded-xl bg-mint-wash text-6xl"
+                aria-hidden="true"
+              >
+                {cookie.emoji}
+              </div>
+
+              <div className="grid gap-2">
+                <p className="text-sm font-semibold text-ink-soft">
+                  {cookie.flavour}
+                </p>
+
+                <h3 className="text-xl">{cookie.name}</h3>
+
+                <p>{cookie.description}</p>
+              </div>
+
+              <div className="mt-auto grid gap-3 pt-3">
+                <p className="text-xl font-bold">{cookie.price}</p>
+                <p className="text-sm text-ink-soft">
+                  Example product – online ordering coming soon.
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section
+        aria-labelledby="ordering-heading"
+        className="mt-12 grid gap-4 rounded-panel bg-mint-wash p-6 sm:p-10"
+      >
+        <h2 id="ordering-heading" className="text-2xl">
+          Ready to Order?
+        </h2>
+
+        <p className="max-w-[65ch]">
+          We are working on an easy online ordering experience.
+          Soon, you will be able to select your favourite cookies,
+          choose quantities and submit your order directly
+          through our website.
+        </p>
+
+        <ButtonLink href="/" variant="secondary" className="w-fit">
+          Back to Home
+        </ButtonLink>
+      </section>
     </div>
   )
 }

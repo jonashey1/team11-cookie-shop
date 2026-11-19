@@ -23,7 +23,7 @@
 
 // The site's name: in the header, the footer and every browser tab ("<Page> · Campus Cycle", from
 // SITE_TITLE below). Change it here, once.
-export const SITE_NAME = 'Campus Cycle'
+export const SITE_NAME = 'Cookie Shop'
 
 // The browser tab's title. The home page shows the name alone; every other page gives only its own part
 // (such as "Workshops") and Next.js adds " · " and the name after it, so a tab or a bookmark says both
