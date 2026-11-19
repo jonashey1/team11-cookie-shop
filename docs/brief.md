@@ -1,135 +1,58 @@
 # Project brief
 
-The short description of your site: who it is for and what it does. Its reader has never seen your
-site, so write what a stranger needs to understand it. Keep the brief
-to one page; the details belong in `docs/requirements.md`.
+Team 11 – Cookie Shop
 
-**How to fill in this file**
-
-- Write your own text in the lines and tables under each grey box.
-- Replace every TODO, and the hint after it, with your own text. A section that still holds a TODO
-  counts as not filled in.
-- Delete a line or a table row that you do not use.
-- The grey boxes are guidance. The course's checks do not read them, so you may keep them or delete
-  them. In the editor, a box is every line from the one that starts with `<table` to the line
-  `</td></tr></table>`: to delete a box, delete all of those lines.
-
-In a team, write under the title who wrote this document, by first name or GitHub username.
+Written by: Jonas (jonashey1), on behalf of Team 11.
 
 ## What the site is for
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write the promise the site makes as one sentence, in the form given below. The
-sentence names no feature and no product. Then describe the organisation or topic the site is about.
-Choose a real organisation only if it knows about the project and agrees.
-
-**Example:** Millbrook Library's events help people in the city to reserve a seat at a free event,
-so that the library knows before each event how many people are coming. Millbrook Library is a
-made-up city library. It runs author talks, a reading group and story hours for children.
-
-</td></tr></table>
-
-- **The promise:** TODO: [Your service] helps [who] to [do what], so that [what the organisation gets].
-- **Who runs it:** TODO:
-- **What it offers:** TODO:
-- **Real or made up:** TODO:
+- The promise: Cookie Shop helps customers to choose and order cookies easily, so that the shop can receive and organise customer orders.
+- Who runs it: Cookie Shop is a fictional small business that prepares and sells different types of cookies.
+- What it offers: The shop offers a selection of cookies with different flavours. Customers can explore the assortment, read product descriptions, check prices and submit an order through the website.
+- Real or made up: Cookie Shop is a fictional business created for our university project.
 
 ## Its users
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write one row per kind of user. Two or three kinds are enough.
-
-A team fills in the two other tables too: two comparable sites that serve similar users, and the
-questions the team cannot answer yet. Working alone, you may delete those two tables.
-
-**Example:** A parent looks for a story hour and reserves two seats, so that the family knows it has
-a place. The events coordinator opens the reservations of an event, so that she knows how many chairs
-to set out. Not known yet: how many people come without a reservation. We will ask the coordinator to
-count them at two events.
-
-</td></tr></table>
-
 | Kind of user | What they come to do | What they have when it is done |
 | --- | --- | --- |
-| TODO: | TODO: | TODO: |
-| TODO: | TODO: | TODO: |
+| Customer | Explore the available cookies, compare flavours and prices, and place an order. | A clear overview of the products and confirmation that their order has been submitted. |
+| Shop administrator | View incoming orders and check the products and quantities requested. | An overview of saved orders to help organise preparation. |
 
 | Comparable site (its address) | Date we looked | One thing we learned from it |
 | --- | --- | --- |
-| TODO: | TODO: | TODO: |
-| TODO: | TODO: | TODO: |
+| Het Koekemannetje (https://hetkoekemannetje.nl/pages/onze-koeken) | 19 November 2026 | Presenting different cookie flavours with clear product information helps customers explore the assortment and choose cookies that match their preferences. |
+| Millie's Cookies (https://www.milliescookies.com) | 19 November 2026 | Organising cookies into clear product categories can make browsing easier and help customers find products they want to order. |
 
 | What we do not know yet | How and when we will find out |
 | --- | --- |
-| TODO: | TODO: |
+| Whether customers prefer ordering individual cookies or selecting a mixed box. | We will ask potential users during our first usability tests before Hand-in 2. |
+| Whether customers can complete the ordering process without additional instructions. | We will observe users placing a test order and collect their feedback before Hand-in 2. |
 
 ## The two tasks, ranked
 
-<table width="100%"><tr></tr><tr><td>
+1. Task 1 (the primary task): Select cookies and submit an order.
+   - Type: Transactional.
+   - Outcome: The customer's order, including the selected cookies and quantities, is saved in the database, and the customer receives a clear confirmation on the website.
+   - When it fails: Customers cannot complete their orders, and the shop cannot reliably see what has been requested.
 
-**Guidance.** Task 1 is the primary task: the task that must work before anything else. Write each
-task as an action, with its type. The four types:
-- **Informational:** the user finds and understands something.
-- **Transactional:** the user sends something that the site saves, such as a reservation.
-- **Application:** the user does ongoing work on information that changes.
-- **Platform:** users create content and interact with each other.
+2. Task 2: Find and compare the available cookies.
+   - Type: Informational.
+   - Outcome: Customers can find the available cookies and understand their descriptions, prices and relevant product information.
+   - When it fails: Customers cannot easily decide which cookies they want to order.
 
-Your two tasks have different types, and at least one is transactional. For each task, say what users
-lose when it fails. Then say in two or three sentences why task 1 must work first.
-
-**Example:** 1. Reserve a seat at an event (transactional). Outcome: the reservation is saved for an
-event that still had a seat, and the user sees an honest confirmation. When it fails, the library
-does not know how many people are coming. 2. Find the events of this month that suit you
-(informational). Outcome: the user knows the date, the place and the age group of each event. When it
-fails, a user can still ask at the library's desk. Reserving must work first, because nothing else
-tells the library how many people are coming.
-
-</td></tr></table>
-
-1. **Task 1 (the primary task):** TODO: the task, as an action
-   - **Type:** TODO: informational, transactional, application or platform
-   - **Outcome:** TODO: what the user has when it is done
-   - **When it fails:** TODO: what users lose
-2. **Task 2:** TODO: the task, as an action
-   - **Type:** TODO: informational, transactional, application or platform
-   - **Outcome:** TODO: what the user has when it is done
-   - **When it fails:** TODO: what users lose
-
-**Why task 1 must work first:** TODO: two or three sentences
+Why task 1 must work first: The main purpose of the website is to allow customers to submit cookie orders. The ordering process must work reliably because the shop needs accurate order information. Product information supports this process, but without a working order system the website cannot achieve its main goal.
 
 ## Constraints
-
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** A constraint must hold whatever is built. The first three lines below are the
-project's own limits: keep them. In the last line, add what the organisation can and cannot do, in
-people, time and budget. If you have nothing to add, write "None".
-
-**Example:** Millbrook Library has one events coordinator and no budget for paid software this year.
-
-</td></tr></table>
 
 - Test data only: made-up names, e-mail addresses and bookings, never real personal data.
 - No payments.
 - Free plans only.
-- TODO: add any other constraint your project has, or write "None".
+- The website is developed by six university students within the course schedule. We use the existing starter project and free development tools. Orders are for demonstration purposes only, and no real cookies are sold or delivered.
 
 ## Not in this version
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** List what you decided to leave out, so that nobody mistakes it for something
-forgotten. Give each item its reason, and the condition under which you would look at it again. Two
-or three rows are usual.
-
-**Example:** No waiting list for full events: we found no need for one yet. We look at it again if
-events are full more than a week before they take place.
-
-</td></tr></table>
-
 | Left out | Why | We look at it again when |
 | --- | --- | --- |
-| TODO: | TODO: | TODO: |
-| TODO: | TODO: | TODO: |
+| Online payments | The course does not allow payments, and the website only uses test orders. | The project is developed beyond the university assignment and real transactions become necessary. |
+| Delivery tracking | The website does not process real deliveries, so tracking is unnecessary. | The shop starts handling real orders and deliveries. |
+| Customer accounts | Customers can place test orders without creating an account, keeping the process simple. | User testing shows a clear need for saved customer details or order history. |
