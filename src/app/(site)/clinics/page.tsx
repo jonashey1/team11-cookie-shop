@@ -15,7 +15,7 @@ export default function OrderCookiesPage() {
       <PageTitle
         title="Order Cookies"
         intro="Your favourite cookies, just a few clicks away. Discover our selection and get ready for a simple online ordering experience."
-        tone="coral"
+        tone="purple"
       />
 
       <section aria-labelledby="how-it-works" className="grid gap-block">
