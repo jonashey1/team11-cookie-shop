@@ -42,7 +42,7 @@ import { richText } from './richText'
 // start from an empty site (only the first editor is created) and add your own content in /admin. After
 // your first deploy, changing it changes nothing: delete the example records in /admin instead (they
 // do not come back).
-export const ADD_EXAMPLE_CONTENT = false
+export const ADD_EXAMPLE_CONTENT = true
 
 // The photos live next to this file, in src/seed/images (their sources and licences: SOURCES.md there).
 const IMAGES_FOLDER = fileURLToPath(new URL('./images/', import.meta.url))
