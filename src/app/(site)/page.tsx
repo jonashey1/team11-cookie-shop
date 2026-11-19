@@ -1,123 +1,110 @@
-// The home page. It shows the two things a user comes to do, kept apart so neither hides the other:
-// find a workshop, or book the repair clinic. Everything on it comes from the records editors keep
-// in /admin (the home page's title and intro, the workshops, the topics, the clinic, and the pricing
-// rule in the Site facts global), never from a copy typed here, so a price changed in /admin is right
-// on every page at once.
-import { getPayload } from 'payload'
+
 import { ButtonLink } from '@/components/site/ButtonLink'
-import { FramedCard } from '@/components/site/FramedCard'
 import { Hero } from '@/components/site/Hero'
-import { Notice } from '@/components/site/Notice'
-import { Badge } from '@/components/ui/badge'
-import { SITE_NAME } from '@/content/campus-cycle'
-import { formatPrice, formatWhen, imageFrom, levelLabel } from '@/lib/format'
-import config from '@/payload.config'
 
-// Read the database on every visit, never once while the site is built: editors' changes then show
-// at once, and the build needs no database.
-export const dynamic = 'force-dynamic'
-
-// The home page's picture, from the media library. To use another one, upload it in /admin and put
-// its file name here.
-const HOME_IMAGE = 'workshop-tools'
-
-export default async function HomePage() {
-  const payload = await getPayload({ config })
-  // One after the other, not all at once: simple to read, and quick enough for a page this small.
-  const home = (await payload.find({ collection: 'pages', where: { slug: { equals: 'home' } }, limit: 1 })).docs[0]
-  const picture = (await payload.find({ collection: 'media', where: { filename: { contains: HOME_IMAGE } }, limit: 1 })).docs[0]
-  const workshops = (await payload.find({ collection: 'workshops', sort: 'createdAt', depth: 1, limit: 50 })).docs
-  const topics = (await payload.find({ collection: 'topics', sort: 'name', depth: 0, limit: 50 })).docs
-  // The newest clinic: the one a user can book now.
-  const clinic = (await payload.find({ collection: 'clinics', sort: '-createdAt', depth: 0, limit: 1 })).docs[0]
-  // The facts several pages share, such as the pricing rule (src/globals/SiteFacts.ts).
-  const facts = await payload.findGlobal({ slug: 'site-facts', depth: 0 })
-
+export default function HomePage() {
   return (
     <div className="grid gap-section pt-6 sm:pt-10">
       <Hero
-        title={home?.title ?? SITE_NAME}
-        text={home?.intro}
-        image={imageFrom(picture)}
+        title="Welcome to Cookie Shop"
+        text="Discover delicious cookies, explore our flavours and find your favourites. From classic chocolate chip to exciting new creations, there is something sweet for everyone."
+        image={null}
         actions={
           <>
-            <ButtonLink href="/workshops" size="lg">Find a workshop</ButtonLink>
-            <ButtonLink href={clinic ? `/clinics/${clinic.slug}` : '/clinics'} variant="secondary" size="lg">
-              Repair clinic
+            <ButtonLink href="/workshops" size="lg">
+              Explore Our Cookies
+            </ButtonLink>
+            <ButtonLink href="/about" variant="secondary" size="lg">
+              About Our Shop
             </ButtonLink>
           </>
         }
       />
 
-      <section aria-labelledby="choose" className="grid gap-block">
-        <h2 id="choose" className="text-2xl">What would you like to do?</h2>
+      <section aria-labelledby="discover" className="grid gap-block">
+        <div className="grid gap-3">
+          <h2 id="discover" className="text-2xl">
+            Discover Our Cookie Shop
+          </h2>
+          <p className="max-w-[65ch]">
+            At Cookie Shop, we believe that every moment is better
+            with a delicious cookie. Explore our selection, compare
+            flavours and find the perfect treat for yourself or
+            someone special.
+          </p>
+        </div>
+
         <div className="grid gap-block md:grid-cols-2">
           <div className="framed grid content-start gap-4 p-6 offset-purple sm:p-8">
-            <Badge tone="purple">Learn it yourself</Badge>
-            <h3 className="text-xl">Find a workshop</h3>
-            <p>Short maintenance workshops in small groups. Choose a topic:</p>
-            <ul className="flex flex-wrap gap-2">
-              {topics.map((topic) => (
-                <li key={topic.id}>
-                  {/* min-h-11: 44 px high, a target a finger can hit easily. */}
-                  <ButtonLink href={`/workshops?topic=${topic.slug}`} variant="secondary" size="sm" className="min-h-11">
-                    {topic.name}
-                  </ButtonLink>
-                </li>
-              ))}
-            </ul>
-            <ButtonLink href="/workshops" className="w-fit">See all workshops</ButtonLink>
+            <h3 className="text-xl">Explore Our Cookies</h3>
+            <p>
+              Discover our selection of cookies and learn more about
+              the different flavours we offer. Find your favourite
+              before placing an order.
+            </p>
+            <ButtonLink href="/workshops" className="w-fit">
+              View Our Cookies
+            </ButtonLink>
           </div>
+
           <div className="framed grid content-start gap-4 p-6 offset-coral sm:p-8">
-            <Badge tone="coral">Let us fix it</Badge>
-            <h3 className="text-xl">Repair clinic</h3>
-            {clinic ? (
-              <>
-                <p className="font-semibold">{clinic.name} · {formatWhen(clinic)}</p>
-                <p>{clinic.summary}</p>
-                <ButtonLink href={`/clinics/${clinic.slug}`} className="w-fit">Book a time slot</ButtonLink>
-              </>
-            ) : (
-              <>
-                <p className="font-semibold">The repair clinic opens soon</p>
-                <p>When it opens, you can book a time slot here and bring your bicycle for a check or a repair.</p>
-              </>
-            )}
+            <h3 className="text-xl">Order Your Favourite Cookies</h3>
+            <p>
+              We are developing an online ordering system where you
+              will be able to select your favourite cookies, choose
+              quantities and submit your order.
+            </p>
+            <p className="font-semibold">
+              Online ordering is coming soon.
+            </p>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="workshops" className="grid gap-block">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <h2 id="workshops" className="text-2xl">The workshops</h2>
-          <ButtonLink href="/workshops" variant="link">All workshops and topics</ButtonLink>
+      <section aria-labelledby="why-us" className="grid gap-block">
+        <h2 id="why-us" className="text-2xl">
+          Why Choose Cookie Shop?
+        </h2>
+        <div className="grid gap-block md:grid-cols-3">
+          <div className="framed grid content-start gap-3 p-6 offset-purple">
+            <h3 className="text-lg">Delicious Flavours</h3>
+            <p>
+              Discover a variety of cookie flavours, from timeless
+              favourites to creative combinations.
+            </p>
+          </div>
+
+          <div className="framed grid content-start gap-3 p-6 offset-coral">
+            <h3 className="text-lg">Easy to Explore</h3>
+            <p>
+              Find information about our cookies in one place
+              and discover which flavours suit you best.
+            </p>
+          </div>
+
+          <div className="framed grid content-start gap-3 p-6 offset-purple">
+            <h3 className="text-lg">Made for Cookie Lovers</h3>
+            <p>
+              Whether you want a treat for yourself or something
+              to share, our cookie selection has you covered.
+            </p>
+          </div>
         </div>
-        {/* One colour for every workshop card: purple means workshops, coral means the clinic. */}
-        <ul className="grid gap-block lg:grid-cols-2">
-          {workshops.map((workshop) => (
-            <li key={workshop.id} className="grid">
-              <FramedCard
-                title={workshop.title}
-                href={`/workshops/${workshop.slug}`}
-                image={imageFrom(workshop.image)}
-                accent="purple"
-              >
-                <Badge tone={workshop.level === 'beginner' ? 'mint' : 'yellow'}>{levelLabel(workshop.level)}</Badge>
-                <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
-                  <dt className="text-ink-soft">When</dt>
-                  <dd className="font-semibold">{formatWhen(workshop)}</dd>
-                  <dt className="text-ink-soft">Price</dt>
-                  <dd className="font-semibold">{formatPrice(workshop.price)}</dd>
-                </dl>
-              </FramedCard>
-            </li>
-          ))}
-        </ul>
-        {facts.pricingRule && (
-          <Notice>
-            <p>{facts.pricingRule}</p>
-          </Notice>
-        )}
+      </section>
+
+      <section aria-labelledby="about-us" className="grid gap-block">
+        <h2 id="about-us" className="text-2xl">
+          A Little More About Us
+        </h2>
+        <p className="max-w-[65ch]">
+          Cookie Shop is a fictional cookie business created as
+          a university team project. Our goal is to build a clear,
+          accessible and enjoyable website where customers can
+          discover cookies and eventually place orders online.
+        </p>
+        <ButtonLink href="/about" variant="secondary" className="w-fit">
+          Learn More About Us
+        </ButtonLink>
       </section>
     </div>
   )

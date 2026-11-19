@@ -1,43 +1,128 @@
-// The Contact page. This folder wins over [slug] for /contact, so this file shows it.
-// It is the Contact record from the Pages collection, shown like every plain page, plus the e-mail
-// address and the place from the Site facts global: both are kept once, in /admin, and change here
-// (and on the workshop pages) the moment an editor saves them.
+
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
-import { getPayload } from 'payload'
-import { PlainPage } from '@/components/site/PlainPage'
-import { findPage, pageMetadata } from '@/lib/pages'
-import config from '@/payload.config'
+import { ButtonLink } from '@/components/site/ButtonLink'
+import { PageTitle } from '@/components/site/PageTitle'
 
-export const dynamic = 'force-dynamic'
-
-export async function generateMetadata(): Promise<Metadata> {
-  return pageMetadata(await findPage('contact'))
+export const metadata: Metadata = {
+  title: 'Contact',
+  description:
+    'Get in touch with Cookie Shop and learn more about our university project.',
 }
 
-export default async function ContactPage() {
-  const page = await findPage('contact')
-  if (!page) notFound()
-  const payload = await getPayload({ config })
-  const facts = await payload.findGlobal({ slug: 'site-facts', depth: 0 })
-
+export default function ContactPage() {
   return (
-    <PlainPage page={page}>
-      {/* A short list of labelled facts: each label says what the value is. The global's fields are
-          all required, so it is either complete or, on a site started without the example content,
-          never saved and empty: then the list is left out.
-          On a phone each label sits above its value, so a long e-mail address never pushes the page
-          sideways; minmax(0,1fr) and overflow-wrap let a very long one wrap instead. */}
-      {facts.email && facts.place && (
-        <dl className="grid max-w-(--container-reading) grid-cols-1 gap-x-6 text-lg sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-y-2">
-          <dt className="font-bold whitespace-nowrap">E-mail</dt>
-          <dd className="min-w-0 [overflow-wrap:anywhere]">
-            <a href={`mailto:${facts.email}`}>{facts.email}</a>
-          </dd>
-          <dt className="mt-3 font-bold whitespace-nowrap sm:mt-0">Place</dt>
-          <dd className="min-w-0 [overflow-wrap:anywhere]">{facts.place}</dd>
-        </dl>
-      )}
-    </PlainPage>
+    <div className="grid gap-section pb-6">
+      <PageTitle
+        title="Contact Us"
+        intro="Have a question about Cookie Shop, our cookies or our website? Find out more about our project below."
+        tone="purple"
+      />
+
+      <section aria-labelledby="get-in-touch" className="grid gap-4">
+        <h2 id="get-in-touch" className="text-2xl">
+          Get in Touch
+        </h2>
+
+        <p className="max-w-[65ch]">
+          Welcome to Cookie Shop! We are developing a fictional
+          online cookie store as part of a university project.
+          Our goal is to make discovering and ordering cookies
+          simple, clear and enjoyable.
+        </p>
+
+        <p className="max-w-[65ch]">
+          This is a demonstration website, so we do not currently
+          offer customer support or accept real orders.
+        </p>
+      </section>
+
+      <section aria-labelledby="contact-info" className="grid gap-block">
+        <h2 id="contact-info" className="text-2xl">
+          Information
+        </h2>
+
+        <div className="grid gap-block md:grid-cols-2">
+          <div className="framed grid content-start gap-3 p-6 offset-purple">
+            <h3 className="text-xl">Our Project</h3>
+            <p>
+              Cookie Shop is created by Team 11 for a web
+              development course at Ghent University.
+            </p>
+            <p>
+              Our website is designed to demonstrate how an
+              online cookie store can work.
+            </p>
+          </div>
+
+          <div className="framed grid content-start gap-3 p-6 offset-coral">
+            <h3 className="text-xl">Online Orders</h3>
+            <p>
+              Our online ordering system is currently under
+              development.
+            </p>
+            <p>
+              Orders cannot be placed yet, and no real
+              purchases or payments are processed.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="faq"
+        className="grid gap-4 rounded-panel bg-mint-wash p-6 sm:p-10"
+      >
+        <h2 id="faq" className="text-2xl">
+          Frequently Asked Questions
+        </h2>
+
+        <div className="grid gap-5">
+          <div className="grid gap-2">
+            <h3 className="text-lg">
+              Can I order cookies online?
+            </h3>
+            <p>
+              Not yet. We are currently developing our
+              online ordering functionality.
+            </p>
+          </div>
+
+          <div className="grid gap-2">
+            <h3 className="text-lg">
+              Are the cookies real products?
+            </h3>
+            <p>
+              No. The cookies and prices displayed on this
+              website are examples for our university project.
+            </p>
+          </div>
+
+          <div className="grid gap-2">
+            <h3 className="text-lg">
+              Do I need to pay online?
+            </h3>
+            <p>
+              No. Our planned ordering system does not
+              require online payment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="explore" className="grid gap-4">
+        <h2 id="explore" className="text-2xl">
+          Explore Our Cookies
+        </h2>
+
+        <p>
+          Curious about our selection? Discover our
+          cookie flavours and find your favourite.
+        </p>
+
+        <ButtonLink href="/workshops" className="w-fit">
+          View Our Cookies
+        </ButtonLink>
+      </section>
+    </div>
   )
 }

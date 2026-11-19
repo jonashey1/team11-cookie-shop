@@ -17,9 +17,9 @@ import { cn } from '@/lib/utils'
 
 const LINKS = [
   { href: '/', label: 'Home' },
-  { href: '/workshops', label: 'Workshops' },
-  { href: '/clinics', label: 'Repair clinic' },
-  { href: '/about', label: 'About' },
+  { href: '/workshops', label: 'Our Cookies' },
+  { href: '/clinics', label: 'Order Cookies' },
+  { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact' },
 ]
 
