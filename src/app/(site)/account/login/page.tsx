@@ -1,6 +1,4 @@
-// The log-in page of the optional members' area, /account/login (src/lib/membersArea.ts). While the
-// area is off it does not exist: it answers with the 404 page. A member who is already logged in goes
-// straight to /account.
+
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { headers } from 'next/headers'
@@ -20,24 +18,34 @@ type Props = { searchParams: Promise<Record<string, string | string[] | undefine
 
 export default async function LoginPage({ searchParams }: Props) {
   if (!membersAreaOn()) notFound()
+
   const payload = await getPayload({ config })
+
   if (await signedInMember(payload, await headers())) redirect('/account')
-  // /account/login?signed-out: the log-out button sends the member here.
+
   const signedOut = 'signed-out' in (await searchParams)
 
   return (
     <div className="pb-6">
-      <PageTitle title="Log in" intro="Log in to see the repair clinic bookings you made while logged in." tone="blue" />
+      <PageTitle
+        title="Log in"
+        intro="Log in to access your Cookie Shop account."
+        tone="blue"
+      />
+
       <div className="grid max-w-xl gap-block">
         {signedOut && (
           <Notice tone="success" label="Done" role="status">
             <p>You are logged out.</p>
           </Notice>
         )}
+
         <LoginForm />
+
         <p className="text-ink-soft">
-          No account? You do not need one to book: <Link href="/clinics">book a repair clinic slot</Link>{' '}
-          without logging in. Accounts are made by the site&apos;s editors.
+          No account? You can still{' '}
+          <Link href="/workshops">explore our cookies</Link>{' '}
+          without logging in. Accounts are created by the site&apos;s editors.
         </p>
       </div>
     </div>
