@@ -1,48 +1,18 @@
 # Requirements
 
-What the site must do, written so that someone else can check it. Each requirement expresses a need of
-your users, and has a check that passes or fails on the live site. Add a row per requirement.
+Team 11 – Cookie Shop
 
-**How to fill in this file**
+Written by: Jonas (jonashey1), on behalf of Team 11.
 
-- Write your own text in the lines and tables under each grey box.
-- Replace every TODO, and the hint after it, with your own text. A section that still holds a TODO
-  counts as not filled in.
-- Delete a line or a table row that you do not use.
-- The grey boxes are guidance. The course's checks do not read them, so you may keep them or delete
-  them. In the editor, a box is every line from the one that starts with `<table` to the line
-  `</td></tr></table>`: to delete a box, delete all of those lines.
-
-In a team, write under the title who wrote this document, by first name or GitHub username.
-
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write one row per requirement. Cover both of your user tasks first, then accessibility,
-privacy and speed. The five columns:
-- **Id:** R1, R2 and so on. A number is never used again.
-- **Requirement:** who can do what, under which condition. It names no product.
-- **Serves:** the task or the need behind it, in the words of the user or the organisation, with
-  the evidence it rests on, or how you will collect it.
-- **Check:** the page, the action and the exact result on the live site, so that another person can
-  run the check without asking you.
-- **Result:** "passed" with the date you checked it on the live site, or "not yet" with what is
-  missing, for example "not yet: not built".
-
-A requirement says what the site must do. Ask of each line: can the same outcome be reached in a
-different way? "A user can see which events are full" is a requirement, because a "Full" label and
-"0 seats left" both reach it. "A red Full label on the button" is one way of building it.
-
-**Example of one row:** R1. Requirement: a user can reserve one seat at an event that still has
-seats, with a name and an e-mail address, and sees a confirmation that says the reservation is
-saved. Serves: reserving a seat; the events coordinator needs to know before each event how many
-people are coming. Check: on `/events`, open "Meet the author" and reserve a seat with made-up
-details: the confirmation says the reservation is saved, and the reservation is listed in `/admin`.
-Result: not yet: the reservation is listed in `/admin`, but the confirmation does not say that it
-is saved.
-
-</td></tr></table>
+These requirements describe what our Cookie Shop website must do. They are based on the two user tasks in our project brief: ordering cookies (transactional) and finding and comparing cookies (informational). They also cover accessibility, privacy and performance.
 
 | Id | Requirement | Serves | Check | Result |
 | --- | --- | --- | --- | --- |
-| R1 | TODO: who can do what, under which condition | TODO: the task or the need behind it | TODO: on the live site, what someone does, and what they must see | TODO: "passed" with the date you checked, or "not yet" with what is missing |
-| R2 | TODO: | TODO: | TODO: | TODO: |
+| R1 | A customer can select one or more available cookies, choose the quantity of each and submit an order using made-up contact details. | Primary transactional task: customers need to order cookies. We will validate this need during usability testing before Hand-in 2. | On the live site, open the cookie assortment, select two different cookies, choose a quantity for each and submit an order with made-up details. The site must accept the order and show a confirmation that it was saved. | not yet: cookie ordering functionality has not been verified. |
+| R2 | A shop administrator can view every successfully submitted test order, including the selected cookies and quantities. | Primary transactional task: the shop needs accurate order information to organise preparation. We will verify this with test orders. | On the live site, submit a test order for two different cookies. Open /admin and find the order. Both selected cookies and their quantities must match the submitted order. | not yet: the cookie order administration has not been verified. |
+| R3 | A customer can find the available cookies and understand the flavour, description and price of each product before ordering. | Informational task: customers need enough information to choose cookies. Inspired by the product presentation of Het Koekemannetje; we will validate this during user testing. | Open the cookie assortment on the live site. Every available cookie must have a name, description, flavour information and price that can be read without submitting an order. | not yet: cookie product information has not been verified. |
+| R4 | A customer can compare at least two available cookies using their product information before deciding what to order. | Informational task: customers want to compare flavours and prices. We will check whether users can do this during usability testing. | On the live site, open the assortment and find two different cookies. Their names, descriptions and prices must be accessible so the user can compare them. | not yet: the cookie assortment has not been verified. |
+| R5 | A customer can complete the main ordering task using only a keyboard, without needing a mouse. | Accessibility: customers who cannot use a mouse must still be able to order. We will test this manually. | On the live site, start on the homepage and use only Tab, Shift+Tab, Enter and Space to navigate to the assortment, select cookies and submit a test order. Every interactive element must be reachable and have a visible focus indicator. | not yet: keyboard accessibility has not been tested. |
+| R6 | A customer can read product information and complete the ordering task on a narrow mobile screen without horizontal scrolling. | Accessibility and usability: mobile users need to browse and order comfortably. We will check this at a 390 px viewport. | Open the live website in browser developer tools at 390 px width. Visit the homepage, assortment and ordering pages. All important text and controls must remain visible and usable without horizontal page scrolling. | not yet: mobile layout has not been tested. |
+| R7 | A customer can submit a test order without providing real personal information, and the website does not request payment details. | Privacy: the course requires fictitious test data and prohibits payments. We will verify the fields and ordering process manually. | Open the order form on the live site. Submit an order using a made-up name and e-mail address. The order must be accepted without payment information, and no payment step may appear. | not yet: privacy and order form fields have not been verified. |
+| R8 | A customer can open the homepage and cookie assortment without an excessive loading delay under normal network conditions. | Performance: customers need to browse the assortment without unnecessary waiting. We will measure loading times during testing. | Open the live homepage and assortment in a browser with normal network settings and an empty cache. Use browser developer tools to check that each page's main content becomes visible within 3 seconds. | not yet: loading performance has not been measured. |
