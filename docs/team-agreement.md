@@ -11,11 +11,11 @@ This agreement explains how our team works together on our cookie ordering websi
 | Role | Member | Works in a pair with |
 | --- | --- | --- |
 | Releases and repository | Jonas (jonashey1) | Xander |
-| Content model and data | Xander | Jonas |
+| Content model and data | Xander (xanderrooms9-spec) | Jonas |
 | The informational task | Tessa (teversch) | Esma |
 | The transactional task | Arnaud | Yana |
-| Design and accessibility | Esma | Tessa |
-| Research and testing | Yana | Arnaud |
+| Design and accessibility | Esma (Esma1326) | Tessa |
+| Research and testing | Yana (KYana123) | Arnaud |
 
 How we share the roles: We follow the course's default for a team of six. Each member has one main role. Jonas and Xander work together on the repository, releases and content model. Tessa and Esma work together on the informational task and design. Arnaud and Yana work together on the transactional task and testing. Everyone contributes to the code and documentation, even outside their main role.
 
