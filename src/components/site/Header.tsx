@@ -9,6 +9,7 @@ import { SITE_NAME } from '@/content/campus-cycle'
 import { membersAreaOn, signedInMember } from '@/lib/membersArea'
 import config from '@/payload.config'
 import { MainNav } from './MainNav'
+import { ThemeToggle } from './ThemeToggle'
 
 /**
  * Checks whether a member is logged in.
@@ -52,6 +53,8 @@ export async function Header() {
           </Link>
 
           <MainNav account={membersAreaOn()} loggedIn={member !== null} />
+
+          <ThemeToggle />
 
           {member && (
             <form action={signOut} className="flex min-h-11 flex-wrap items-center gap-3">

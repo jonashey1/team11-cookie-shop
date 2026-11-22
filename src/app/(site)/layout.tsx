@@ -33,13 +33,40 @@ export const metadata: Metadata = {
   ],
 }
 
+// Apply the saved theme before the page becomes visible.
+const themeScript = `
+(function () {
+  try {
+    var savedTheme = localStorage.getItem('cookie-shop-theme');
+    var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var dark = savedTheme === 'dark' ||
+      (savedTheme !== 'light' && systemDark);
+
+    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+  } catch (error) {
+    // The website remains usable if localStorage is unavailable.
+  }
+})();
+`
+
 export default function SiteLayout({
   children,
 }: {
   children: ReactNode
 }) {
   return (
-    <html lang="en" className={hanken.variable}>
+    <html
+      lang="en"
+      className={hanken.variable}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: themeScript }}
+        />
+      </head>
+
       <body className="flex min-h-screen flex-col">
         <Header />
 
