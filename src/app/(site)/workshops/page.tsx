@@ -2,69 +2,13 @@
 import type { Metadata } from 'next'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
+import { COOKIES } from '@/content/cookies'
 
 export const metadata: Metadata = {
   title: 'Our Cookies',
   description:
     'Discover our delicious cookie selection and explore your favourite flavours.',
 }
-
-const cookies = [
-  {
-    id: 1,
-    name: 'Classic Chocolate Chip',
-    description:
-      'A classic cookie filled with delicious chocolate chips. Perfect for chocolate lovers.',
-    flavour: 'Chocolate',
-    price: '€3.50',
-    emoji: '🍪',
-  },
-  {
-    id: 2,
-    name: 'Double Chocolate',
-    description:
-      'A rich chocolate cookie with extra chocolate pieces for an intense chocolate experience.',
-    flavour: 'Chocolate',
-    price: '€3.95',
-    emoji: '🍫',
-  },
-  {
-    id: 3,
-    name: 'White Chocolate',
-    description:
-      'A sweet cookie with creamy white chocolate pieces and a soft centre.',
-    flavour: 'White Chocolate',
-    price: '€3.75',
-    emoji: '🍪',
-  },
-  {
-    id: 4,
-    name: 'Red Velvet',
-    description:
-      'A delicious red velvet cookie with a smooth and sweet flavour.',
-    flavour: 'Red Velvet',
-    price: '€3.95',
-    emoji: '❤️',
-  },
-  {
-    id: 5,
-    name: 'Salted Caramel',
-    description:
-      'The perfect combination of sweet caramel and a touch of sea salt.',
-    flavour: 'Caramel',
-    price: '€3.95',
-    emoji: '🍯',
-  },
-  {
-    id: 6,
-    name: 'Cookies & Cream',
-    description:
-      'A tasty cookie inspired by the classic combination of cookies and cream.',
-    flavour: 'Cookies & Cream',
-    price: '€3.95',
-    emoji: '🍪',
-  },
-]
 
 export default function CookiesPage() {
   return (
@@ -83,6 +27,7 @@ export default function CookiesPage() {
           <h2 id="cookies-heading" className="text-2xl">
             Discover Our Flavours
           </h2>
+
           <p>
             From classic chocolate chip to exciting new combinations,
             there is a cookie for everyone.
@@ -90,7 +35,7 @@ export default function CookiesPage() {
         </div>
 
         <ul className="grid gap-block md:grid-cols-2 lg:grid-cols-3">
-          {cookies.map((cookie) => (
+          {COOKIES.map((cookie) => (
             <li
               key={cookie.id}
               className="framed grid content-start gap-4 p-6 offset-purple"
@@ -114,6 +59,7 @@ export default function CookiesPage() {
 
               <div className="mt-auto grid gap-3 pt-3">
                 <p className="text-xl font-bold">{cookie.price}</p>
+
                 <p className="text-sm text-ink-soft">
                   Example product – online ordering coming soon.
                 </p>
@@ -138,7 +84,11 @@ export default function CookiesPage() {
           through our website.
         </p>
 
-        <ButtonLink href="/" variant="secondary" className="w-fit">
+        <ButtonLink
+          href="/"
+          variant="secondary"
+          className="w-fit"
+        >
           Back to Home
         </ButtonLink>
       </section>

@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 const LINKS = [
   { href: '/', label: 'Home' },
   { href: '/workshops', label: 'Our Cookies' },
+  { href: '/cookie-finder', label: '🍪 Cookie Finder' },
   { href: '/clinics', label: 'Order Cookies' },
   { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact' },
