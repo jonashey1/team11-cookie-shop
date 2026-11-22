@@ -254,3 +254,70 @@
     max-width: var(--container-reading);
   }
 }
+
+/* ==========================================
+   COOKIE SHOP — DARK MODE
+   ========================================== */
+
+/*
+ * The .dark class will be added to the HTML
+ * element when dark mode is enabled.
+ *
+ * The original design tokens remain unchanged
+ * for light mode.
+ */
+
+:root.dark {
+  color-scheme: dark;
+
+  /* Main colours */
+  --color-ink: #f3f6ff;
+  --color-ink-soft: #bac7df;
+  --color-canvas: #101827;
+  --color-line: #41516b;
+  --color-link: #91b8ff;
+  --color-focus: #a8c5ff;
+  --color-blue-tint: #233652;
+
+  /* Accent colours */
+  --color-mint: #48e5d0;
+  --color-mint-tint: #235e5b;
+  --color-mint-wash: #183a3a;
+
+  --color-purple: #aa9aff;
+  --color-purple-tint: #514582;
+  --color-purple-wash: #30294e;
+
+  --color-coral: #ff9292;
+  --color-coral-tint: #82464b;
+  --color-coral-wash: #4a292f;
+
+  --color-yellow: #ffdc65;
+  --color-yellow-tint: #776128;
+  --color-yellow-wash: #40351e;
+
+  /* Brand and feedback colours */
+  --color-brand: var(--color-mint);
+
+  --color-success: var(--color-mint);
+  --color-success-wash: var(--color-mint-wash);
+
+  --color-warning: var(--color-yellow);
+  --color-warning-wash: var(--color-yellow-wash);
+
+  --color-error: var(--color-coral);
+  --color-error-wash: var(--color-coral-wash);
+
+  --color-info: var(--color-link);
+  --color-info-wash: var(--color-blue-tint);
+}
+
+/* Smooth transition between light and dark mode */
+@media (prefers-reduced-motion: no-preference) {
+  html,
+  body {
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+}
