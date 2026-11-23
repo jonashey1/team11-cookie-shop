@@ -19,12 +19,12 @@ type HeroProps = {
 
 export function Hero({ title, text, actions, image }: HeroProps) {
   return (
-    <section className="grid items-center gap-block rounded-panel bg-mint-wash p-6 sm:p-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:p-14">
-      <div className="grid gap-5">
+    <section className="grid items-center gap-block rounded-panel bg-mint-wash p-5 sm:p-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:p-14">
+      <div className="grid min-w-0 gap-4 sm:gap-5">
         <p className="text-sm font-bold tracking-[0.08em] text-ink-soft uppercase">{TAGLINE}</p>
-        <h1 className="text-4xl">{title}</h1>
+        <h1 className="text-3xl leading-tight sm:text-4xl">{title}</h1>
         {text && <p className="max-w-[46ch] text-lg">{text}</p>}
-        {actions && <div className="mt-2 flex flex-wrap gap-3">{actions}</div>}
+        {actions && <div className="mt-2 flex flex-col gap-3 [&>a]:w-full [&>a]:justify-center sm:flex-row sm:flex-wrap sm:[&>a]:w-auto">{actions}</div>}
       </div>
       {image && (
         // The frame and its solid offset are the course's look for a featured picture.

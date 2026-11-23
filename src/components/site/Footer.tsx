@@ -4,10 +4,14 @@ import { SITE_NAME } from '@/content/campus-cycle'
 
 const LINKS = [
   { href: '/', label: 'Home' },
-  { href: '/workshops', label: 'Our Cookies' },
+  { href: '/workshops#cookies', label: 'Our Cookies' },
+  { href: '/workshops#workshops', label: 'Workshops' },
   { href: '/clinics', label: 'Order Cookies' },
+  { href: '/cookie-finder', label: 'Cookie Finder' },
+  { href: '/fortune-cookie', label: 'Fortune Cookie' },
   { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/privacy', label: 'Privacy' },
 ]
 
@@ -52,7 +56,7 @@ export function Footer() {
 
         <div className="border-t border-line pt-6 sm:col-span-2">
           <p className="text-sm font-semibold">
-            Team 11 – Cookie Shop | UGent | Team code: T11-S3F8
+            Team 11 - Cookie Shop | UGent | Team code: T11-S3F8
           </p>
 
           <p className="mt-2 text-sm text-ink-soft">

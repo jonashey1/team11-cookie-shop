@@ -11,7 +11,7 @@ export default function HomePage() {
         image={null}
         actions={
           <>
-            <ButtonLink href="/clinics" size="lg">
+            <ButtonLink href="/clinics" size="lg" className="min-h-14 border-2 border-ink bg-yellow-tint px-8 text-lg font-black text-ink shadow-[5px_5px_0_0_#001b50] transition-transform hover:-translate-y-0.5 hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
               Order Cookies
             </ButtonLink>
             <ButtonLink href="/workshops" variant="secondary" size="lg">

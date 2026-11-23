@@ -1,3 +1,4 @@
+
 import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 import path from 'path'
@@ -11,13 +12,18 @@ const nextConfig: NextConfig = {
   // The build checks the types of every file, the tests too. In a site that is no longer the Campus
   // Cycle example, the starter's tests of the example are left out (scripts/lib/starterTests.mjs).
   ...(starterTests() === 'site' ? { typescript: { tsconfigPath: SITE_TSCONFIG } } : {}),
+
   images: {
     localPatterns: [
       {
         pathname: '/api/media/file/**',
       },
+      {
+        pathname: '/images/workshops/**',
+      },
     ],
   },
+
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
@@ -27,6 +33,7 @@ const nextConfig: NextConfig = {
 
     return webpackConfig
   },
+
   turbopack: {
     root: path.resolve(dirname),
   },
