@@ -1,4 +1,4 @@
-// The facts of the example site. When you turn the starter into your own project, this file and the
+﻿// The facts of the example site. When you turn the starter into your own project, this file and the
 // seed are where the example content lives.
 //
 // Cookie Shop is a made-up bicycle repair service at a college. Every fact here comes from the
@@ -21,20 +21,20 @@
 // `as const` makes every value here fixed: TypeScript then knows, for example, that the puncture
 // workshop's day is exactly 'Tuesday', not just "some text", and warns about a typo anywhere it is used.
 
-// The site's name: in the header, the footer and every browser tab ("<Page> · Cookie Shop", from
+// The site's name: in the header, the footer and every browser tab ("<Page> Â· Cookie Shop", from
 // SITE_TITLE below). Change it here, once.
 export const SITE_NAME = 'Cookie Shop'
 
 // The browser tab's title. The home page shows the name alone; every other page gives only its own part
-// (such as "Workshops") and Next.js adds " · " and the name after it, so a tab or a bookmark says both
+// (such as "Workshops") and Next.js adds " Â· " and the name after it, so a tab or a bookmark says both
 // what the page is and which site it belongs to. Used by src/app/(site)/layout.tsx.
-export const SITE_TITLE = { default: SITE_NAME, template: `%s · ${SITE_NAME}` }
+export const SITE_TITLE = { default: SITE_NAME, template: `%s Â· ${SITE_NAME}` }
 
 export const CAMPUS_CYCLE = {
   // The place, the e-mail address and the pricing rule (below) go into the Site facts global
   // (src/globals/SiteFacts.ts): every page that shows them reads them from there.
-  place: 'Workshop B, Student Centre',
-  email: 'hello@campuscycle.example',
+  place: 'Cookie Shop, Ghent',
+  email: 'hello@cookieshop.example',
   // Only the puncture workshop has a stated end time. The others have none on purpose: never make one
   // up. The gear workshop must end by 15:00 (its latestEnd), because the Saturday repair clinic uses
   // the same room from 15:00. That is a limit, not an end time.
@@ -140,3 +140,4 @@ export const BOOKING_CONFIRMATION = `Your booking is saved. ${MADE_UP_DATA_NOTIC
 
 // The kinds of value above, for code that wants to name them, for example `(w: CampusCycleWorkshop)`.
 export type CampusCycleWorkshop = (typeof CAMPUS_CYCLE.workshops)[number]
+
