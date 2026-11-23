@@ -1,4 +1,5 @@
-﻿import { getPayload } from 'payload'
+﻿
+import { getPayload } from 'payload'
 import config from '../src/payload.config'
 
 async function main() {
@@ -47,9 +48,13 @@ async function main() {
 
   console.log('Cookie Shop browser-check fixtures are ready.')
   await payload.destroy()
+
+  // Explicitly exit so GitHub Actions does not wait
+  // for remaining database connections.
+  process.exit(0)
 }
 
 main().catch((error) => {
   console.error(error)
-  process.exitCode = 1
+  process.exit(1)
 })
