@@ -1,23 +1,43 @@
+
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ArrowRight, ShoppingBag, X } from 'lucide-react'
 
 const STORAGE_KEY = 'cookie-shop-hide-floating-order'
 
+const subscribe = () => () => {}
+
+function getClientSnapshot() {
+  return true
+}
+
+function getServerSnapshot() {
+  return false
+}
+
 export function FloatingOrderButton() {
   const pathname = usePathname()
-  const [dismissed, setDismissed] = useState(true)
 
-  useEffect(() => {
+  const hydrated = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  )
+
+  const [dismissed, setDismissed] = useState(false)
+
+  let storedDismissed = false
+
+  if (hydrated) {
     try {
-      setDismissed(sessionStorage.getItem(STORAGE_KEY) === 'true')
+      storedDismissed = sessionStorage.getItem(STORAGE_KEY) === 'true'
     } catch {
-      setDismissed(false)
+      // The button remains available when storage is unavailable.
     }
-  }, [])
+  }
 
   function dismiss() {
     setDismissed(true)
@@ -30,7 +50,9 @@ export function FloatingOrderButton() {
   }
 
   if (
+    !hydrated ||
     dismissed ||
+    storedDismissed ||
     pathname === '/clinics' ||
     pathname?.startsWith('/clinics/')
   ) {

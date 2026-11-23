@@ -21,7 +21,10 @@ async function loggedInMember() {
   if (!membersAreaOn()) return null
 
   try {
-    return await signedInMember(await getPayload({ config }), await headers())
+    return await signedInMember(
+      await getPayload({ config }),
+      await headers(),
+    )
   } catch (error) {
     console.error('Could not look up the logged-in member:', error)
     return null
@@ -58,8 +61,12 @@ export async function Header() {
             {SITE_NAME}
           </Link>
 
+          {/* Desktop navigation: the page's single nav element. */}
           <div className="hidden min-[900px]:block">
-            <MainNav account={membersAreaOn()} loggedIn={member !== null} />
+            <MainNav
+              account={membersAreaOn()}
+              loggedIn={member !== null}
+            />
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
@@ -67,13 +74,19 @@ export async function Header() {
             <AccessibilityCenter />
           </div>
 
+          {/* Mobile menu: same links, without a second nav element. */}
           <details className="group relative order-3 w-full min-[900px]:hidden">
             <summary className="flex min-h-11 cursor-pointer list-none items-center justify-center gap-2 rounded-control border-2 border-ink bg-canvas px-4 font-bold text-ink hover:bg-blue-tint [&::-webkit-details-marker]:hidden">
               <Menu aria-hidden="true" className="size-5" />
               Browse Cookie Shop
             </summary>
+
             <div className="mt-2 rounded-panel border-2 border-line bg-canvas p-3">
-              <MainNav account={membersAreaOn()} loggedIn={member !== null} />
+              <MainNav
+                account={membersAreaOn()}
+                loggedIn={member !== null}
+                mobile
+              />
             </div>
           </details>
 
@@ -85,6 +98,7 @@ export async function Header() {
               <span className="font-semibold">
                 {member.name || member.email}
               </span>
+
               <Button type="submit" variant="secondary">
                 Log out
               </Button>
