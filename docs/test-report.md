@@ -101,3 +101,16 @@ Ask a participant to complete the following without guidance: "Find two cookies,
 ## Conclusion
 
 The follow-up sister test lasted approximately three minutes across an iPhone and laptop. She explored the chatbot and, after being prompted to order, completed the order smoothly. She appreciated dark mode and larger text. After the session, the participant reported difficulty quickly locating the ordering route. A homepage navigation improvement is prepared, but its deployment and retest are not yet verified. Separately, a production test order and its database record were confirmed on 23 November 2026, and Vercel Analytics recorded page views. H3's user-observation improvement and several reproducible acceptance checks remain to be completed and recorded honestly.
+
+## Follow-up usability test – After improvement
+
+**Participant:** Same participant as the initial usability test (my sister).
+
+**Improvement:** A more visible "Order Cookies" button was added to the homepage, linking directly to the ordering page.
+
+**Test:** The participant revisited the updated website and evaluated how easily she could find the ordering process.
+
+**Result:** The participant confirmed that the ordering process was clearer and easier to find than during the first test.
+
+**Conclusion:** The improvement addressed the usability issue identified during the initial test. The follow-up feedback indicates that the more visible ordering button improved navigation and discoverability.
+
