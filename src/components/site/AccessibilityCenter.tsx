@@ -65,6 +65,39 @@ const OPTIONS = [
   },
 ] as const
 
+function readPreferences(): Preferences {
+  if (typeof window === 'undefined') {
+    return { ...DEFAULTS }
+  }
+
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY)
+
+    if (!stored) {
+      return { ...DEFAULTS }
+    }
+
+    const parsed: unknown = JSON.parse(stored)
+
+    if (!parsed || typeof parsed !== 'object') {
+      return { ...DEFAULTS }
+    }
+
+    const values = parsed as Partial<Preferences>
+
+    return {
+      largeText: values.largeText === true,
+      highContrast: values.highContrast === true,
+      highlightLinks: values.highlightLinks === true,
+      reduceMotion: values.reduceMotion === true,
+      largeCursor: values.largeCursor === true,
+    }
+  } catch {
+    // Accessibility settings work without local storage.
+    return { ...DEFAULTS }
+  }
+}
+
 function applyPreferences(preferences: Preferences) {
   const root = document.documentElement
 
@@ -77,42 +110,17 @@ function applyPreferences(preferences: Preferences) {
 
 export function AccessibilityCenter() {
   const [open, setOpen] = useState(false)
-  const [preferences, setPreferences] = useState<Preferences>(DEFAULTS)
-  const [ready, setReady] = useState(false)
+
+  const [preferences, setPreferences] =
+    useState<Preferences>(readPreferences)
 
   const triggerRef = useRef<HTMLButtonElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let saved = DEFAULTS
-
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY)
-
-      if (stored) {
-        const parsed: unknown = JSON.parse(stored)
-
-        if (parsed && typeof parsed === 'object') {
-          const values = parsed as Partial<Preferences>
-
-          saved = {
-            largeText: values.largeText === true,
-            highContrast: values.highContrast === true,
-            highlightLinks: values.highlightLinks === true,
-            reduceMotion: values.reduceMotion === true,
-            largeCursor: values.largeCursor === true,
-          }
-        }
-      }
-    } catch {
-      // The accessibility tools still work without local storage.
-    }
-
-    applyPreferences(saved)
-    setPreferences(saved)
-    setReady(true)
-  }, [])
+    applyPreferences(preferences)
+  }, [preferences])
 
   useEffect(() => {
     if (!open) return
@@ -180,10 +188,9 @@ export function AccessibilityCenter() {
         ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
-        disabled={!ready}
         aria-label="Open accessibility settings"
         title="Accessibility settings"
-        className="inline-flex min-h-11 items-center gap-2 rounded-control border-2 border-ink bg-canvas px-3 font-semibold text-ink hover:bg-blue-tint disabled:opacity-50"
+        className="inline-flex min-h-11 items-center gap-2 rounded-control border-2 border-ink bg-canvas px-3 font-semibold text-ink hover:bg-blue-tint"
       >
         <Accessibility aria-hidden="true" className="size-5" />
         <span className="hidden sm:inline">Accessibility</span>
@@ -297,4 +304,3 @@ export function AccessibilityCenter() {
     </>
   )
 }
-

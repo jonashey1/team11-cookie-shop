@@ -89,7 +89,7 @@ export default function FAQPage() {
         <div className="mb-12 text-center">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-blue-tint px-4 py-2 font-semibold text-ink">
             <HelpCircle aria-hidden="true" className="size-5" />
-            We're here to help
+            We&apos;re here to help
           </div>
 
           <h1 className="mb-5 text-3xl md:text-4xl">
@@ -145,7 +145,7 @@ export default function FAQPage() {
           </h2>
 
           <p className="mb-6 text-ink-soft">
-            Didn't find the answer you were looking for?
+            Didn&apos;t find the answer you were looking for?
             Visit our contact page.
           </p>
 
