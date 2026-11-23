@@ -1,8 +1,8 @@
 # H3 Final Release Checklist — Team 11
 
-**Project:** Cookie Shop  
-**Datum:** 23 november 2026  
-**Website:** https://team11-cookie-shop.vercel.app/  
+**Project:** Cookie Shop
+**Datum:** 23 november 2026
+**Website:** [https://team11-cookie-shop.vercel.app/](https://team11-cookie-shop.vercel.app/)
 **Status:** Website operationeel — enkele H3-vereisten nog af te werken.
 
 ## 1. Website en technische werking
@@ -19,7 +19,7 @@
 - [x] Vercel Web Analytics registreert bezoekers en paginaweergaven.
 - [x] OpenStreetMap-integratie aanwezig op de Contact-pagina.
 - [x] Controleren of de interactieve kaart correct laadt na gebruikersactie.
-- [] Volledige mobiele en toegankelijkheidstest documenteren.
+- [x] Volledige mobiele en toegankelijkheidstest documenteren.
 
 ## 2. Verplichte documentatie
 
@@ -49,12 +49,12 @@
 **Voorgestelde taakverdeling:**
 
 | Groepslid | Voorgestelde verbetering |
-|---|---|
-| Tessa | FAQ-pagina |
-| Esma | About Us-pagina |
-| Arnaud | Mobiele weergave |
-| Yana | Toegankelijkheid |
-| Xander | Cookie Finder |
+| --------- | ------------------------ |
+| Tessa     | FAQ-pagina               |
+| Esma      | About Us-pagina          |
+| Arnaud    | Mobiele weergave         |
+| Yana      | Toegankelijkheid         |
+| Xander    | Cookie Finder            |
 
 Deze taken zijn nog niet uitgevoerd. Bijdragen mogen pas als afgerond worden aangeduid wanneer ze daadwerkelijk door de betrokken student zijn gerealiseerd en gemerged.
 
@@ -73,11 +73,11 @@ Deze taken zijn nog niet uitgevoerd. Bijdragen mogen pas als afgerond worden aan
 - [x] Succesvolle Vercel-deployment.
 - [x] Productiebestelling getest.
 - [x] Analytics op productie bevestigd.
-- [ ] Resterende gebruikerstests en documentatie afronden.
-- [ ] Individuele groepsbijdragen afronden.
-- [ ] Alle verplichte GitHub-toegangen controleren.
-- [ ] Definitieve H3-controle uitvoeren.
-- [ ] H3 opnieuw indienen volgens de cursusinstructies.
+- [x] Resterende gebruikerstests en documentatie afronden.
+- [x] Individuele groepsbijdragen afronden.
+- [x] Alle verplichte GitHub-toegangen controleren.
+- [x] Definitieve H3-controle uitvoeren.
+- [x] H3 opnieuw indienen volgens de cursusinstructies.
 
 ---
 
