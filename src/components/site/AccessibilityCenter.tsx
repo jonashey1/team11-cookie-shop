@@ -3,7 +3,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import {
-  Accessibility,
   Contrast,
   Eye,
   Link2,
@@ -108,6 +107,25 @@ function applyPreferences(preferences: Preferences) {
   root.classList.toggle('a11y-large-cursor', preferences.largeCursor)
 }
 
+function UniversalAccessIcon({ className = 'size-5' }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      viewBox="0 0 48 48"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="24" cy="24" r="21" />
+      <circle cx="24" cy="13" r="3.2" fill="currentColor" stroke="none" />
+      <path d="M12 20 Q24 24 36 20" />
+      <path d="M24 23 L24 29 M24 29 L18 39 M24 29 L30 39" />
+    </svg>
+  )
+}
 export function AccessibilityCenter() {
   const [open, setOpen] = useState(false)
 
@@ -192,7 +210,7 @@ export function AccessibilityCenter() {
         title="Accessibility settings"
         className="inline-flex min-h-11 items-center gap-2 rounded-control border-2 border-ink bg-canvas px-3 font-semibold text-ink hover:bg-blue-tint"
       >
-        <Accessibility aria-hidden="true" className="size-5" />
+        <UniversalAccessIcon className="size-6" />
         <span className="hidden sm:inline">Accessibility</span>
       </button>
 
@@ -219,7 +237,7 @@ export function AccessibilityCenter() {
                   id="accessibility-title"
                   className="flex items-center gap-2 text-2xl font-black"
                 >
-                  <Accessibility aria-hidden="true" className="size-7" />
+                  <UniversalAccessIcon className="size-7" />
                   Accessibility
                 </h2>
 

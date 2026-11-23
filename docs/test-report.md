@@ -114,3 +114,17 @@ The follow-up sister test lasted approximately three minutes across an iPhone an
 
 **Conclusion:** The improvement addressed the usability issue identified during the initial test. The follow-up feedback indicates that the more visible ordering button improved navigation and discoverability.
 
+
+## H3 acceptance checks - 23 November 2026
+
+The following acceptance checks were performed manually on the live production website at https://team11-cookie-shop.vercel.app/ on 23 November 2026.
+
+| Requirement | Reproducible check | Result | Observed outcome |
+| --- | --- | --- | --- |
+| R1 | Open /clinics. Select 2 Classic Chocolate Chip cookies and 3 Double Chocolate cookies. Enter fictional contact details and submit the order. | passed | The order was successfully submitted and a confirmation was displayed. |
+| R2 | After completing R1, open /admin and inspect the newly submitted order in the Orders collection. Compare the products and quantities with the submitted order. | passed | Both products were stored with the correct quantities: 2 Classic Chocolate Chip and 3 Double Chocolate. |
+| R3 | Open /workshops. Inspect all six cookies without placing an order. Check that each cookie displays its name, flavour, description and price. | passed | All six cookies displayed the required information. |
+| R7 | Open /clinics and complete an order using fictional contact details. Check whether payment information or a payment step is required. | passed | Fictional contact details were accepted. No payment information or payment step was required. |
+
+These checks were carried out on the production website. The results above are based on the manual acceptance tests reported by the tester.
+

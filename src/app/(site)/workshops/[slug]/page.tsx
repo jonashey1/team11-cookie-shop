@@ -17,7 +17,8 @@ import { PageTitle } from '@/components/site/PageTitle'
 import { ParentLink } from '@/components/site/ParentLink'
 import { TopicList } from '@/components/site/TopicList'
 import { Badge } from '@/components/ui/badge'
-import { formatPrice, formatWhen, imageFrom, levelLabel } from '@/lib/format'
+import { formatPrice, formatWhen, levelLabel } from '@/lib/format'
+import { workshopImage } from '@/lib/workshop-image'
 import config from '@/payload.config'
 import { filterQuery, parseFilters, type SearchParams } from '@/tasks/find-workshop/filters'
 
@@ -61,7 +62,7 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
         title={workshop.title}
         intro={workshop.summary}
         tone="purple"
-        image={imageFrom(workshop.image)}
+        image={workshopImage(workshop)}
         imageAccent="purple"
         className="mt-3 sm:mt-4"
       >

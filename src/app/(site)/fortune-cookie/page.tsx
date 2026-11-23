@@ -452,10 +452,6 @@ export default function FortuneCookiePage() {
                 {selectedCookie.description}
               </p>
 
-              <p className="mb-5 text-xl font-bold">
-                {selectedCookie.price}
-              </p>
-
               <Link
                 href="/workshops"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-control border-2 border-ink bg-ink px-5 py-3 font-bold text-canvas no-underline hover:opacity-90"

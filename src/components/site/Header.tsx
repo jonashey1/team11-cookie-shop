@@ -1,7 +1,7 @@
 
 import { headers } from 'next/headers'
 import Link from 'next/link'
-import { Cookie } from 'lucide-react'
+import { Cookie, Menu } from 'lucide-react'
 import { getPayload } from 'payload'
 import { signOut } from '@/app/(site)/account/actions'
 import { Button } from '@/components/ui/button'
@@ -9,6 +9,7 @@ import { SITE_NAME } from '@/content/campus-cycle'
 import { membersAreaOn, signedInMember } from '@/lib/membersArea'
 import config from '@/payload.config'
 import { AccessibilityCenter } from './AccessibilityCenter'
+import { FloatingOrderButton } from './FloatingOrderButton'
 import { MainNav } from './MainNav'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -41,7 +42,7 @@ export async function Header() {
       </a>
 
       <header className="border-b border-line">
-        <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-x-8 gap-y-3 px-gutter py-4">
+        <div className="mx-auto flex w-full max-w-none flex-wrap items-center justify-between gap-x-3 gap-y-3 px-4 py-4 lg:gap-x-4 lg:px-6">
           <Link
             href="/"
             className="flex min-h-11 items-center gap-3 font-heading text-xl font-black text-ink no-underline"
@@ -57,12 +58,24 @@ export async function Header() {
             {SITE_NAME}
           </Link>
 
-          <MainNav account={membersAreaOn()} loggedIn={member !== null} />
+          <div className="hidden min-[900px]:block">
+            <MainNav account={membersAreaOn()} loggedIn={member !== null} />
+          </div>
 
           <div className="flex flex-wrap items-center gap-2">
             <ThemeToggle />
             <AccessibilityCenter />
           </div>
+
+          <details className="group relative order-3 w-full min-[900px]:hidden">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-center gap-2 rounded-control border-2 border-ink bg-canvas px-4 font-bold text-ink hover:bg-blue-tint [&::-webkit-details-marker]:hidden">
+              <Menu aria-hidden="true" className="size-5" />
+              Browse Cookie Shop
+            </summary>
+            <div className="mt-2 rounded-panel border-2 border-line bg-canvas p-3">
+              <MainNav account={membersAreaOn()} loggedIn={member !== null} />
+            </div>
+          </details>
 
           {member && (
             <form
@@ -79,6 +92,8 @@ export async function Header() {
           )}
         </div>
       </header>
+
+      <FloatingOrderButton />
     </>
   )
 }

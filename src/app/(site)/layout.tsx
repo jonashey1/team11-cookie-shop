@@ -64,7 +64,9 @@ export default function SiteLayout({
       suppressHydrationWarning
     >
       <head>
-        <script
+        <Script
+          id="cookie-shop-theme"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
       </head>
@@ -75,7 +77,7 @@ export default function SiteLayout({
         <main
           id="main"
           tabIndex={-1}
-          className="mx-auto w-full max-w-page flex-1 px-gutter focus:outline-none"
+          className="mx-auto w-full max-w-page flex-1 px-gutter pb-28 focus:outline-none sm:pb-24 lg:pb-0"
         >
           {children}
         </main>
