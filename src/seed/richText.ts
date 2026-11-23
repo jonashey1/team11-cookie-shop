@@ -1,4 +1,4 @@
-// A small helper for the seed: it turns a short list of headings, paragraphs and bulleted lists into
+﻿// A small helper for the seed: it turns a short list of headings, paragraphs and bulleted lists into
 // the JSON that a rich-text field stores.
 //
 // WHY: Payload's rich-text editor (Lexical) does not save HTML. It saves a tree of "nodes": a root,
@@ -8,7 +8,7 @@
 //
 //   richText([
 //     { heading: 'Where' },
-//     { paragraph: 'Workshop B, Student Centre.' },
+//     { paragraph: 'Cookie Shop, Ghent.' },
 //     { list: ['Tools', 'A tutor'] },
 //     { paragraph: ['Read ', { text: 'the licence', url: 'https://creativecommons.org/licenses/by-sa/4.0/' }, '.'] },
 //   ])
@@ -91,3 +91,4 @@ export function richText(blocks: RichTextBlock[]) {
     },
   }
 }
+

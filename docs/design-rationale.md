@@ -1,153 +1,77 @@
-For teams; a learner working alone can delete this file.
-
 # Design rationale
 
-Why your site looks and behaves the way it does. It is read by whoever changes the design later, so
-they know what each choice protects.
-
-**How to fill in this file**
-
-- Write your own text in the lines and tables under each grey box.
-- Replace every TODO, and the hint after it, with your own text. A section that still holds a TODO
-  counts as not filled in.
-- Delete a line or a table row that you do not use.
-- The grey boxes are guidance. The course's checks do not read them, so you may keep them or delete
-  them. In the editor, a box is every line from the one that starts with `<table` to the line
-  `</td></tr></table>`: to delete a box, delete all of those lines.
-
-Write under the title who wrote this document, by first name or GitHub username.
+**Written by:** jonashey1 (draft for Team 11; team review needed)
 
 ## Sketches
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Show your first sketches of the main pages, at phone width and at laptop width, and
-say in a few lines what you changed between them. Photos of paper sketches are fine.
-
-Upload each picture to the `docs/` folder on GitHub (**Add file**, then **Upload files**), and show
-it with a line such as `![Home page sketched at phone width](sketch-home-phone.jpg)`. Give the file
-a name without spaces, and write that name with the same capitals. Keep faces and names out of the
-photos.
-
-**Example:** In the first sketch the reservation form was on a page of its own. In the second it is
-on the event's page, under the seats left, so that the user sees both at once.
-
-</td></tr></table>
-
-- **Our sketches:** TODO: the lines that show your pictures, or links to them
-- **What we changed between them:** TODO:
+- **Our sketches:** Initial paper or digital sketches have not been supplied for this report. Add genuine phone-width and laptop-width sketches to `docs/` and link them here before finalising this section. Do not fabricate earlier sketches.
+- **What we changed between them:** The implemented interface uses responsive wrapping navigation and content containers. A comparison of actual early sketches, including any design changes, must be added after the team provides the sketches.
 
 ## Palette and type
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Define each colour once, as a custom property (a CSS variable) in
-`src/app/(site)/globals.css`, and write one row per colour. Then write one row per pair of text
-colour and background colour, with the contrast ratio you measured. Normal text needs at least 4.5:1,
-and large text at least 3:1. Add rows as you need them.
-
-**Example:** Text `#1d3557` on the page background `#f8f5ee`: 11.35:1, measured with WebAIM's
-Contrast Checker. We chose a warm background because the library's own posters use one.
-
-</td></tr></table>
+The following values are defined in `src/app/(site)/globals.css`.
 
 | Colour (its name and value) | What it is used for |
 | --- | --- |
-| TODO: | TODO: |
-| TODO: | TODO: |
+| Ink `#001c54` | Main text and strong borders in light mode |
+| Canvas `#ffffff` | Main background in light mode |
+| Soft ink `#46597a` | Secondary text |
+| Link blue `#0d51d7` | Links and focus indicators |
+| Mint `#33dfc8` | Brand accent and framed offsets |
+| Purple `#705bfe` | Additional accent |
+| Coral `#ff6868` | Additional accent and error states |
+| Yellow `#ffcf11` | Additional accent and warnings |
+| Dark canvas `#101827` | Main background when dark mode is active |
+| Dark ink `#f3f6ff` | Main text when dark mode is active |
 
 | Text colour | Background colour | Contrast ratio | Measured with |
 | --- | --- | --- | --- |
-| TODO: | TODO: | TODO: | TODO: |
+| `#001c54` | `#ffffff` | 16.23:1 | WCAG relative-luminance formula, calculated from CSS values |
+| `#46597a` | `#ffffff` | 7.07:1 | WCAG relative-luminance formula |
+| `#0d51d7` | `#ffffff` | 6.61:1 | WCAG relative-luminance formula |
+| `#f3f6ff` | `#101827` | 16.44:1 | WCAG relative-luminance formula |
 
-- **Our fonts and sizes:** TODO:
-- **Why these colours and fonts fit our users:** TODO:
+- **Our fonts and sizes:** The CSS design system uses Hanken Grotesk through `next/font`, with system sans-serif fallback. Base body size is approximately 17 px (`1.0625rem`); larger headings use responsive `clamp()` sizes. Headings use heavy weights to establish hierarchy.
+- **Why these colours and fonts fit our users:** Navy and white keep the ordering information readable; bright accents make interactive and playful cookie content more recognisable without using accent colours as the only way to communicate meaning. A separate dark mode supports personal preferences.
 
 ## Layout at phone and laptop width
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write one row per main page: how it is laid out at each width. The starter's checks
-look at both widths.
-
-**Example:** On a phone, the events are one column of cards and the filters open from a button. On a
-laptop, the cards are three in a row and the filters stay visible on the left.
-
-</td></tr></table>
+These are design intentions and code-supported patterns; a visual check at exactly 390 px and 1100 px remains necessary.
 
 | Page | On a phone (390 px wide) | On a laptop (1100 px wide) |
 | --- | --- | --- |
-| TODO: | TODO: | TODO: |
-| TODO: | TODO: | TODO: |
+| Home | Content should stack vertically with clear calls to action | More horizontal room for introductory content and calls to action |
+| Our Cookies | Catalogue should remain readable in a narrow viewport | Catalogue can use available width for more content per row |
+| Order Cookies / booking | Form controls should fit one narrow column | Form can use a wider reading area without overly long lines |
+| Navigation | Links wrap onto additional lines if needed | Links fit into fewer rows |
 
 ## The principles we applied
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Name three to five design principles, each with the place on your site where it shows.
-Four principles to start from:
-- **Visibility of system status** (Nielsen's first heuristic): the site shows what is happening.
-- **Error prevention** (also one of Nielsen's ten heuristics): the design stops the most common
-  mistake before a user makes it.
-- **Fitts's Law:** a large target close to the finger or the pointer is easy to hit.
-- **Signifiers:** a button looks like a button, and colour is never the only signal.
-
-The course's module on user experience teaches more: visual perception, the other heuristics of
-Nielsen's ten, and UX patterns with their trade-offs.
-
-**Example:** Visibility of system status: each event says how many seats are left. It shows on the
-events list and on each event's page.
-
-</td></tr></table>
-
 | Principle | What we did | Where it shows on our site |
 | --- | --- | --- |
-| TODO: | TODO: | TODO: |
-| TODO: | TODO: | TODO: |
-| TODO: | TODO: | TODO: |
+| Visibility of system status | Booking form distinguishes pending, invalid and saved outcomes | Order form and confirmation page |
+| Error prevention | Server-side validation, required fields and availability checks protect submissions | Booking flow |
+| Fitts's Law | Navigation uses links with a minimum height of 44 px (`min-h-11`) | Main navigation |
+| Signifiers and consistency | Links are underlined and buttons have recognisable frames and focus states | Navigation and forms |
+| Accessibility and user control | Added dark mode and a five-option Accessibility Center | Across the public site |
 
 ## Forms and feedback
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** For each form, write what the user sees in each of the seven states. Where a state
-cannot happen on a form, say so. Copy the two parts below for each further form. The states:
-- **Empty:** what is required and what is optional.
-- **Pending:** the request is on its way.
-- **Invalid:** an answer is missing or wrong.
-- **Full:** a rule refused the request, for example because the last seat was taken.
-- **Failed:** the request did not get through, or no answer came back.
-- **Repeated:** the same request was sent twice.
-- **Saved:** the confirmation, which says honestly what happened.
-
-**Example:** Full: the last seat was taken while the user was typing. The message says that the
-event is full, the event now shows "Full", and the name and e-mail address stay in the form.
-
-</td></tr></table>
-
-**Form:** TODO: the name of the form, and the page it is on
+**Form:** Practice order / booking form at `/clinics/[slug]`.
 
 | State | What the user sees |
 | --- | --- |
-| Empty | TODO: |
-| Pending | TODO: |
-| Invalid | TODO: |
-| Full | TODO: |
-| Failed | TODO: |
-| Repeated | TODO: |
-| Saved | TODO: |
+| Empty | Time slot, name and email are requested; note is optional |
+| Pending | Booking submit control shows a saving state and prevents repeated clicks |
+| Invalid | A summary and field-specific error messages explain what needs correction; entered values are retained |
+| Full | A server-side capacity or availability rejection is returned as a booking problem; confirm exact wording during live test |
+| Failed | A connection failure keeps the form data and explains that the server could not be reached |
+| Repeated | A request ID is used to avoid saving the same submission twice |
+| Saved | The site redirects to the booking confirmation route |
+
+The descriptions above reflect the booking code and its documented behaviour. They do not replace a live manual test of every state.
 
 ## What makes it our own
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Say what differs from the starter beyond its colours: layout, fonts, images, words.
-For a choice you kept from the starter, say why it fits your users.
-
-**Example:** Every event card starts with its date in large type, because users look for a day
-first. We kept the starter's form layout, because most of our users reserve on a phone.
-
-</td></tr></table>
-
-- **What differs from the starter:** TODO: layout, fonts, images, words
-- **What we kept from the starter, and why it fits our users:** TODO:
+- **What differs from the starter:** Cookie Shop terminology and catalogue, Cookie Finder, Fortune Cookie, dark/light theme switching, Accessibility Center, interactive FAQ and a Watermelon AI chat widget. These are voluntary creative extras beyond the required H2 scope, added to improve the experience and potentially earn a bonus point, without any guarantee. The main navigation uses cookie-oriented labels, although some technical collection and URL names still come from the starter.
+- **What we kept from the starter, and why it fits our users:** The accessible form pattern, visible error feedback, CMS-backed records and server-side validation provide a practical basis for the order task. Retaining these patterns reduces the risk of breaking the primary transactional workflow.
