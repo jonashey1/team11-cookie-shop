@@ -19,7 +19,7 @@
 - [x] Vercel Web Analytics registreert bezoekers en paginaweergaven.
 - [x] OpenStreetMap-integratie aanwezig op de Contact-pagina.
 - [x] Controleren of de interactieve kaart correct laadt na gebruikersactie.
-- [x] Volledige mobiele en toegankelijkheidstest documenteren.
+- [ ] Volledige mobiele en toegankelijkheidstest met reproduceerbare stappen documenteren.
 
 ## 2. Verplichte documentatie
 
@@ -28,9 +28,9 @@
 - [x] D7 — Handoverdocument aangevuld.
 - [x] Overgebleven `TODO:`-regels uit deze drie documenten verwijderd.
 - [x] H3-checklist toegevoegd aan de repository.
-- [ ] D6 — Testverslag aanvullen met werkelijk uitgevoerde productietests.
-- [ ] D6 — Minstens één waargenomen gebruiksprobleem, verbetering en hertest documenteren.
-- [ ] R1–R8 — Acceptatiecriteria opnieuw controleren en resultaten registreren.
+- [x] D6 — Bevestigde productietests en feedback van de testpersoon toegevoegd.
+- [ ] D6 — Verbeterde bestelknop deployen en daarna de echte hertest documenteren.
+- [ ] R1–R8 — Nog ontbrekende acceptatiecontroles uitvoeren en registreren.
 - [ ] Definitieve inhoud en opmaak van D5 en D7 controleren.
 
 ## 3. GitHub en groepsbijdragen
@@ -73,11 +73,11 @@ Deze taken zijn nog niet uitgevoerd. Bijdragen mogen pas als afgerond worden aan
 - [x] Succesvolle Vercel-deployment.
 - [x] Productiebestelling getest.
 - [x] Analytics op productie bevestigd.
-- [x] Resterende gebruikerstests en documentatie afronden.
-- [x] Individuele groepsbijdragen afronden.
-- [x] Alle verplichte GitHub-toegangen controleren.
-- [x] Definitieve H3-controle uitvoeren.
-- [x] H3 opnieuw indienen volgens de cursusinstructies.
+- [ ] Resterende gebruikerstests en documentatie afronden.
+- [ ] Individuele groepsbijdragen afronden.
+- [ ] Alle verplichte GitHub-toegangen controleren.
+- [ ] Definitieve H3-controle uitvoeren.
+- [ ] H3 opnieuw indienen volgens de cursusinstructies.
 
 ---
 

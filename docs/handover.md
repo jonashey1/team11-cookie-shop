@@ -1,4 +1,4 @@
-﻿# Hand-over
+# Hand-over
 
 Prepared for Team 11 by Jonas (`jonashey1`), 23 November 2026. This document describes roles, not an assertion that all team members have accepted them. Never store passwords, tokens or connection strings here.
 
@@ -17,10 +17,10 @@ Prepared for Team 11 by Jonas (`jonashey1`), 23 November 2026. This document des
 
 | Responsibility | Owner (a role) | Who can log in | Last tested |
 | --- | --- | --- | --- |
-| Content | Content editor | Authorized Payload editors | 23 November 2026: local test order visible in admin; production content edit not independently verified |
+| Content | Content editor | Authorized Payload editors | 23 November 2026: production test order visible in admin; editing CMS content not independently verified |
 | Access | Repository administrator | GitHub owner and authorized Payload administrators | Never: collaborator acceptance remains outstanding |
 | Updates | Website developer | GitHub contributors with approved PR access | 23 November 2026: PR-based release used; future update procedure not rehearsed |
-| Monitoring | Website maintainer | Team members with Vercel access | Never: production analytics dashboard still to verify |
+| Monitoring | Website maintainer | Team members with Vercel access | 23 November 2026: Vercel Analytics showed 1 visitor and 7 page views; custom-event reporting not verified |
 | Backup and restore | Database administrator | Authorized Neon/Vercel account owner | Never: backup restoration on test data not rehearsed |
 | Ownership | Team project coordinator | GitHub/Vercel/Neon account owners | Never: account transfer and recovery not rehearsed |
 
@@ -30,8 +30,8 @@ Prepared for Team 11 by Jonas (`jonashey1`), 23 November 2026. This document des
 
 ## Left out, and in which order
 
-1. **Finish and verify production acceptance checks:** Confirm an order made on the live site appears with correct quantities in production Payload `/admin`. Without this, the transactional task is not fully demonstrated end-to-end.
-2. **Verify the two H3 services on production:** Enable/read Vercel Web Analytics and open the OpenStreetMap link from the live Contact page. Without this, integration and measurement evidence is incomplete.
+1. **Finish and verify production acceptance checks:** Production order persistence was confirmed on 23 November 2026. Still record an item-by-item and quantity match for the exact R2 acceptance scenario.
+2. **Verify the two H3 services on production:** Vercel Web Analytics page views were confirmed on 23 November 2026. Still click to load the OpenStreetMap iframe and record its result; custom-event availability is not confirmed.
 3. **Confirm the second task and the collection links:** Run the cookie comparison task from the homepage; separately follow a live workshop-to-topic-to-workshop link, because the course checker still expects the existing CMS relationship.
 4. **Complete the remaining team collaboration evidence:** Every member needs their own qualifying merged code PR or genuine co-authored work; invite the missing member and teacher.
 5. **Improve long-term operations:** Test database backup restoration using only disposable test data, confirm ownership of all services and test recovery from a failed deployment.
