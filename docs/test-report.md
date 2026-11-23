@@ -52,6 +52,10 @@ This report documents the functional testing, user observation and release check
 - **Production order verification:** The live ordering process and its database storage were checked.
 - **Our decision:** The user test was completed successfully. The additional release checks were performed. No further changes were identified as necessary during the reported tests.
 
+## Not tested yet
+
+All planned checks have been completed. No additional outstanding tests were identified during this testing round.
+
 ## Conclusion
 
 On 23 November 2026, a family member independently completed the task of ordering three cookies on a laptop without assistance or reported difficulties.
