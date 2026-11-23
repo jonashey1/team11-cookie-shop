@@ -1,139 +1,46 @@
 # Decision: an integration
 
-Whether the site connects to another service, and to which. Its reader comes later, with one
-question: can I change this, and what happens if I do?
-
-**How to fill in this file**
-
-- Write your own text in the lines and tables under each grey box.
-- Replace every TODO, and the hint after it, with your own text. A section that still holds a TODO
-  counts as not filled in.
-- Delete a line or a table row that you do not use.
-- The grey boxes are guidance. The course's checks do not read them, so you may keep them or delete
-  them. In the editor, a box is every line from the one that starts with `<table` to the line
-  `</td></tr></table>`: to delete a box, delete all of those lines.
-
 ## The question
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write in one sentence what had to be decided. Add the need of your users behind it,
-or the requirement it serves, and what forces a choice now.
-
-**Example:** Do we show a map of the way to the library, and from which service? Users who reserve
-a seat need to find the building (requirement R4).
-
-</td></tr></table>
-
-- **The question:** TODO: one sentence
-- **The need or requirement behind it:** TODO:
+- **The question:** Which external integration adds a useful, safe experience to the fictional Cookie Shop without requiring payment processing or real customer data?
+- **The need or requirement behind it:** H3 requires an integration from the course's suggested list, used by a visitor on the live website.
 
 ## Options considered
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write at least two options, one row each: what the option would give, and what it
-would cost. No integration at all is an option too: it is the first row here. Choose your
-integration from the course's suggested list (Integration Patterns: APIs and Webhooks, Your
-integration project's candidates):
-- a chat window (tawk.to);
-- an e-mail service for confirmations (Resend);
-- a booking calendar (Cal.com);
-- a newsletter sign-up;
-- a map (OpenStreetMap).
-
-None of these has been tried with this starter, so check the one you choose yourself. The brief rules
-out payments, so the list has no payment provider. Add a row for each further option.
-
-**Example:** No integration: the address as text on the "Visit us" page. It costs nothing and sends
-no data to anyone, but a user must look up the way in another app.
-
-</td></tr></table>
-
 | Option | What it would give | What it would cost |
 | --- | --- | --- |
-| No integration | TODO: | TODO: |
-| TODO: | TODO: | TODO: |
+| No integration | No external requests or dependencies | Does not meet the H3 integration requirement |
+| OpenStreetMap | An interactive map users can open from the Contact page | An external service and an external privacy notice; minimal development |
+| Resend email confirmations | Automatic confirmation emails | API credentials, a verified sender domain, deliverability and privacy management |
 
 ## The decision
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write the option you chose as one sentence. Once it is installed, add what you
-installed, where its settings are, and how you checked that it does what you expected: the grading
-list asks for it. Until then, write "Not installed yet" on those lines. In a team, name who took part
-in the decision. Working alone, delete that line.
-
-**Example:** We chose a map from OpenStreetMap on the "Visit us" page. Its code is in the page's
-file, with the library's place in it. We opened the page on the live site, on a phone and on a
-laptop: the map shows the marker on the library.
-
-</td></tr></table>
-
-- **We chose:** TODO:
-- **What we installed, and where its settings are:** TODO:
-- **How we checked that it does what we expected:** TODO:
-- **Who took part in the decision:** TODO:
+- **We chose:** OpenStreetMap, embedded on the Contact page after an explicit opt-in click.
+- **What we installed, and where its settings are:** The Contact page at `src/app/(site)/contact/page.tsx` renders `src/components/site/OptionalGhentMap.tsx`, which loads an OpenStreetMap iframe of central Ghent only after the visitor clicks a button. No API key or third-party script is required. The page explains that Cookie Shop is fictional and does not have a physical store.
+- **How we checked that it does what we expected:** The opt-in iframe implementation and its destination were inspected in the H3 code package. **Opening it from the deployed production site still needs a manual check.** This is an embedded map integration, not a real shop locator.
+- **Who took part in the decision:** Proposed for Team 11; team confirmation is required.
 
 ## Why
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Give each reason with its evidence: what you checked before you decided. Then say what
-that evidence cannot tell you. Two or three reasons are enough.
-
-**Example:** The map needs no account and no key: we read OpenStreetMap's page on embedding a map.
-The events coordinator told us that people phone the library to ask the way. Her answer cannot tell
-us how many users would look at a map.
-
-</td></tr></table>
-
-- **Why we chose it:** TODO: each reason with what you checked
-- **What this evidence cannot tell us:** TODO:
+- **Why we chose it:** OpenStreetMap is on the course's suggested list and needs no secret or database migration. An explicit click avoids loading a map provider automatically on the Contact page. Resend would be unnecessary for a site that forbids real orders and asks for invented contact details.
+- **What this evidence cannot tell us:** Source inspection cannot establish that the external map will always be reachable; the map is illustrative and does not guide anyone to a real shop.
 
 ## Consequences
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write what you accepted with the choice, both the good and the bad. One line for each
-point below is enough.
-
-**Example:** OpenStreetMap receives each user's internet address when the map loads, and our
-privacy page says so. When the service is down, the page still shows the address as text.
-
-</td></tr></table>
-
-- **The accounts it needs, and its cost in money and in time:** TODO:
-- **Who maintains it:** TODO:
-- **What we give up:** TODO:
-- **How we could leave the service later:** TODO:
-- **The personal data that leaves our site, and whether it needs a cookie banner:** TODO:
-- **What happens to our site when the service is down:** TODO:
+- **The accounts it needs, and its cost in money and in time:** No account or API key for a simple external link; a short manual browser test is required.
+- **Who maintains it:** Website maintainer (team role).
+- **What we give up:** No physical shop marker, because the shop is fictional.
+- **How we could leave the service later:** Remove `<OptionalGhentMap />` from the Contact page and delete its component.
+- **The personal data that leaves our site, and whether it needs a cookie banner:** No request to OpenStreetMap is made until the visitor clicks to load the iframe. After loading the map, the provider can receive the visitor's IP address and browser information. The Cookie Shop page itself does not place an OpenStreetMap cookie.
+- **What happens to our site when the service is down:** The rest of the site and the ordering flow still work; the external link may not load.
 
 ## Facts read on
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** List each provider's page you read, with its link and the date you read it. Plans and
-limits change, so the date tells the next reader how old the facts are. Add a row for each page.
-
-**Example:** OpenStreetMap's page on embedding a map, with its link, read on 20 April 2026.
-
-</td></tr></table>
-
 | Page | Its link | Read on |
 | --- | --- | --- |
-| TODO: | TODO: | TODO: date |
+| Existing Contact page and proposed map link | `src/app/(site)/contact/page.tsx` | 23 November 2026 |
+| OpenStreetMap map and provider information | https://www.openstreetmap.org/ | Live verification pending |
 
 ## Review when
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Name the event that should make someone look at this decision again. One line is
-enough.
-
-**Example:** We review it when the library moves, or when the map stops loading on the live site.
-
-</td></tr></table>
-
-TODO: when to review it.
+Review when Cookie Shop gains a real pickup address, the map link stops working, or the team decides to embed a map instead of opening it externally.

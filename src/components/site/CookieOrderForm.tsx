@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { COOKIES } from '@/content/cookies'
 import { saveOrder } from '@/tasks/order-cookies/saveOrder'
+import { track } from '@/lib/analytics'
 
 const money = (cents: number) =>
   new Intl.NumberFormat('en-BE', { style: 'currency', currency: 'EUR' }).format(cents / 100)
@@ -44,6 +45,7 @@ export function CookieOrderForm() {
       const result = await saveOrder(data)
       if (result.success) {
         setConfirmed(result.orderName)
+        track('cookie_order_saved')
         setQuantities({})
       } else {
         setError(result.message)

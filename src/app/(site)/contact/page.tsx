@@ -2,6 +2,7 @@
 import type { Metadata } from 'next'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
+import { OptionalGhentMap } from '@/components/site/OptionalGhentMap'
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -57,16 +58,16 @@ export default function ContactPage() {
           <div className="framed grid content-start gap-3 p-6 offset-coral">
             <h3 className="text-xl">Online Orders</h3>
             <p>
-              Our online ordering system is currently under
-              development.
+              Our test-order form is available on the Order Cookies page.
             </p>
             <p>
-              Orders cannot be placed yet, and no real
-              purchases or payments are processed.
+              You can submit fictional orders using made-up details. No real purchases or payments are processed.
             </p>
           </div>
         </div>
       </section>
+
+      <OptionalGhentMap />
 
       <section
         aria-labelledby="faq"
@@ -82,8 +83,7 @@ export default function ContactPage() {
               Can I order cookies online?
             </h3>
             <p>
-              Not yet. We are currently developing our
-              online ordering functionality.
+              Yes, you can place a fictional test order through the Order Cookies page. No real orders or payments are accepted.
             </p>
           </div>
 

@@ -21,7 +21,7 @@
 // what describes the step, such as the filters chosen.
 import { track as vercelTrack } from '@vercel/analytics'
 
-export type AnalyticsEvent = 'filter_used' | 'booking_saved'
+export type AnalyticsEvent = 'filter_used' | 'booking_saved' | 'cookie_order_saved'
 
 /**
  * True when NEXT_PUBLIC_ANALYTICS names a tool, any tool. NEXT_PUBLIC_ settings are copied into the
@@ -29,12 +29,12 @@ export type AnalyticsEvent = 'filter_used' | 'booking_saved'
  * again.
  */
 export function analyticsOn(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_ANALYTICS)
+  return process.env.NEXT_PUBLIC_ANALYTICS !== 'off'
 }
 
 export function track(event: AnalyticsEvent, props?: Record<string, string>): void {
   try {
-    if (process.env.NEXT_PUBLIC_ANALYTICS === 'vercel') vercelTrack(event, props)
+    if (process.env.NEXT_PUBLIC_ANALYTICS !== 'off') vercelTrack(event, props)
     // Your own tool's line goes here (see the top of this file).
   } catch {
     // Analytics must never break the page: if the tool fails, the user carries on as if nothing happened.
