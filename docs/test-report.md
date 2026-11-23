@@ -42,26 +42,62 @@ This report documents the functional testing, user observation and release check
 - **Pull request:** Not applicable. No code change resulted from this user test.
 - **Retest:** No corrective retest was required because the observed test did not reveal a usability problem.
 
+## Production verification — 23 November 2026
+
+These checks were performed separately from the observed sister usability test, using the deployed production website:
+
+- A fictional test order was submitted successfully on `/clinics`, and the confirmation displayed reference `bcf3710b-4475-4f19-83c5-cd55e43ea4b5`.
+- The matching reference was found in production Payload `/admin` under Orders, with status **New** and displayed total **€11.20**. This confirms production persistence for that order; a separate recorded item-by-item quantity comparison is still needed for the exact R2 acceptance test.
+- Vercel Web Analytics displayed **1 visitor and 7 page views** during the manual check. These are point-in-time observations, not permanent totals or evidence that custom events are supported.
+- The live Contact page displayed the OpenStreetMap integration and its privacy explanation; a recorded click-to-load test is still outstanding.
+
 ## The release check
 
-- **Device:** Laptop.
-- **Browser:** Not recorded.
-- **Phone-width test (390 px):** The ordering page was checked at a narrow screen width.
-- **Keyboard-only test:** The ordering interface was checked using keyboard navigation.
-- **Screen-reader test:** The ordering interface was checked using a screen reader.
-- **Production order verification:** The live ordering process and its database storage were checked.
-- **Our decision:** The user test was completed successfully. The additional release checks were performed. No further changes were identified as necessary during the reported tests.
+- **Device:** Laptop for the earlier sister test; browser was not recorded.
+- **Phone-width test (390 px):** A prior report says this was checked, but the viewport, procedure and results were not recorded sufficiently to reproduce it. Recheck and document.
+- **Keyboard-only test:** Previously reported as checked; record the actual navigation steps and any focus issues in a repeatable test.
+- **Screen-reader test:** Previously reported as checked; the reader, browser, steps and results were not recorded. Do not treat this as independently confirmed accessibility compliance.
+- **Production order verification:** Confirmed as described above.
+- **Our decision:** Production ordering and page-view analytics have been demonstrated. Remaining acceptance checks and the user-driven change/retest are open.
+
+## Follow-up usability observation — 23 November 2026 (reported)
+
+- **Participant:** My sister (family member).
+- **Task:** Explore the Cookie Shop website, then place a fictional cookie order. The tester initially explored the website freely, including the AI chatbot. The observer then explicitly asked whether she could place an order.
+- **Devices:** iPhone and laptop. Specific browser versions were not recorded.
+- **Duration:** Approximately 3 minutes (reported for the session; separate timing per device was not recorded).
+- **Outcome:** She successfully placed an order. The observer reported that the ordering process went smoothly, without visible difficulties.
+- **Observed behaviour:** She explored the website thoroughly and experimented with the AI chatbot before receiving the explicit order prompt. After that prompt, she completed the order without reported difficulty.
+- **Participant feedback:** She liked the site's appearance. She specifically appreciated the availability of dark mode and larger text, which she said helped her read the website more clearly.
+- **Interpretation:** The order flow was usable for this participant once she was directed to the ordering task. The accessibility preferences were valued by this participant.
+- **Uncertainty:** The exact browser, separate device-specific steps, order details, and whether she would have discovered the ordering flow without the observer's prompt were not recorded. Her positive feedback does not establish accessibility compliance for all users.
+- **Additional participant feedback (reported afterward):** She said it was not immediately easy to find where to order cookies. This qualifies as a reported navigation/discoverability issue, even though she completed the order successfully after being prompted.
+- **Change prepared in this patch:** The homepage hero now has a prominent **Order Cookies** link to `/clinics`, and the ordering card also has a direct button. Outdated “coming soon” copy is removed.
+- **Retest:** **Pending.** After the change is deployed, ask her to open the homepage again and find where to order without help. Record whether she finds the link, the approximate time, and any hesitation. Do not mark the retest as passed before observing it.
+- **Accessibility feedback:** Dark mode and larger-text options already existed at test time and were appreciated; they were not introduced as a result of this observation.
+
+### Finding 3 — Order link discoverability (participant feedback)
+
+- **Finding:** The participant said the location of the ordering flow was not immediately clear.
+- **Change:** Add a primary **Order Cookies** button in the homepage hero and a direct ordering button in the homepage order card; replace the outdated “coming soon” text.
+- **Evidence:** Reported feedback from the participant after the session. No precise hesitation time or click path was recorded.
+- **Pull request:** To be filled in after the change is pushed and merged.
+- **Retest:** **Not yet performed.** On the deployed version, ask the same participant to locate the order page starting from the homepage without instructions. Record what she clicks and whether she finds it without prompting.
+
+### Suggested retest procedure
+
+Ask a participant to complete the following without guidance: "Find two cookies, compare their prices and flavours, choose three cookies and submit a fictional order." Record where they hesitate, what they click and whether they find the order page without prompting. If a real issue occurs, implement a narrowly scoped fix, identify its PR, then ask the participant to repeat the affected step and record the result. If no issue occurs, report that honestly rather than inventing one.
 
 ## Not tested yet
 
-All planned checks have been completed. No additional outstanding tests were identified during this testing round.
+- Retest of the improved homepage order navigation after production deployment; record real observations.
+- Independently observed second informational user task (without prompting).
+- Exact two-cookie quantities and items in production `/admin` for the R2 acceptance scenario.
+- Reproducible keyboard-only and 390 px mobile acceptance checks.
+- Empty-cache loading measurement for R8.
+- OpenStreetMap click-to-load and workshop-to-topic-to-workshop production records.
+- Individual contributions and GitHub access are tracked separately in the H3 checklist.
 
 ## Conclusion
 
-On 23 November 2026, a family member independently completed the task of ordering three cookies on a laptop without assistance or reported difficulties.
-
-The ordering system was implemented through **pull request #12**. A separate functional test confirmed that a local order could be submitted and stored correctly in Payload CMS, including the selected products, quantities and total price.
-
-The additional release checks covered the mobile layout, keyboard navigation, screen-reader accessibility and production ordering process.
-
-No usability problems requiring further changes were reported during these tests.
+The follow-up sister test lasted approximately three minutes across an iPhone and laptop. She explored the chatbot and, after being prompted to order, completed the order smoothly. She appreciated dark mode and larger text. After the session, the participant reported difficulty quickly locating the ordering route. A homepage navigation improvement is prepared, but its deployment and retest are not yet verified. Separately, a production test order and its database record were confirmed on 23 November 2026, and Vercel Analytics recorded page views. H3's user-observation improvement and several reproducible acceptance checks remain to be completed and recorded honestly.

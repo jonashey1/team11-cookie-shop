@@ -11,11 +11,11 @@ export default function HomePage() {
         image={null}
         actions={
           <>
-            <ButtonLink href="/workshops" size="lg">
-              Explore Our Cookies
+            <ButtonLink href="/clinics" size="lg">
+              Order Cookies
             </ButtonLink>
-            <ButtonLink href="/about" variant="secondary" size="lg">
-              About Our Shop
+            <ButtonLink href="/workshops" variant="secondary" size="lg">
+              Explore Our Cookies
             </ButtonLink>
           </>
         }
@@ -50,13 +50,12 @@ export default function HomePage() {
           <div className="framed grid content-start gap-4 p-6 offset-coral sm:p-8">
             <h3 className="text-xl">Order Your Favourite Cookies</h3>
             <p>
-              We are developing an online ordering system where you
-              will be able to select your favourite cookies, choose
-              quantities and submit your order.
+              Ready to choose your favourites? Select cookies, adjust quantities
+              and submit a fictional test order. No payment is required.
             </p>
-            <p className="font-semibold">
-              Online ordering is coming soon.
-            </p>
+            <ButtonLink href="/clinics" className="w-fit">
+              Order Cookies
+            </ButtonLink>
           </div>
         </div>
       </section>

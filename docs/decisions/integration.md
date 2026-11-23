@@ -1,4 +1,4 @@
-﻿# Decision: an integration
+# Decision: an integration
 
 ## The question
 
@@ -17,7 +17,7 @@
 
 - **We chose:** OpenStreetMap, embedded on the Contact page after an explicit opt-in click.
 - **What we installed, and where its settings are:** The Contact page at `src/app/(site)/contact/page.tsx` renders `src/components/site/OptionalGhentMap.tsx`, which loads an OpenStreetMap iframe of central Ghent only after the visitor clicks a button. No API key or third-party script is required. The page explains that Cookie Shop is fictional and does not have a physical store.
-- **How we checked that it does what we expected:** The opt-in iframe implementation and its destination were inspected in the H3 code package. **Opening it from the deployed production site still needs a manual check.** This is an embedded map integration, not a real shop locator.
+- **How we checked that it does what we expected:** The deployed Contact page was inspected on 23 November 2026: the OpenStreetMap section and privacy explanation were present. A separate recorded click-to-load test of the iframe is still required. This is an illustrative map, not a real shop locator.
 - **Who took part in the decision:** Proposed for Team 11; team confirmation is required.
 
 ## Why
@@ -43,4 +43,4 @@
 
 ## Review when
 
-Review when Cookie Shop gains a real pickup address, the map link stops working, or the team decides to embed a map instead of opening it externally.
+Review when Cookie Shop gains a real pickup address, the embedded map stops working, or the privacy implications change.

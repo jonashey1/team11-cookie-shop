@@ -1,4 +1,4 @@
-﻿# Decision: analytics
+# Decision: analytics
 
 ## The question
 
@@ -17,17 +17,17 @@
 
 - **We chose:** Vercel Web Analytics.
 - **What we installed, and where its settings are:** `@vercel/analytics` is already a project dependency. The site layout mounts `<Analytics />`, and `src/components/site/CookieOrderForm.tsx` calls `track('cookie_order_saved')` only after a successful server response. The helper is in `src/lib/analytics.ts`. Vercel project > Analytics is the provider dashboard. No customer names or email addresses are passed to tracking.
-- **How we checked that it does what we expected:** The code path was inspected in the H3 package. **Live page-view collection and event arrival have not yet been verified**; a team member must enable/check the Vercel Analytics dashboard, visit the live site and confirm a page view. On a Hobby plan, the custom event may not be available: the live order can instead be checked in Payload `/admin`.
+- **How we checked that it does what we expected:** Code path reviewed. On 23 November 2026, Vercel Web Analytics on production displayed **1 visitor and 7 page views** after test browsing. A successful production order was independently confirmed in Payload `/admin`. Arrival of the custom `cookie_order_saved` event is **not** verified and may depend on the Vercel plan.
 - **Who took part in the decision:** Proposed for Team 11; the team must confirm this decision before the final hand-in.
 
 ## Why
 
 - **Why we chose it:** The website already deploys on Vercel, and the starter includes `@vercel/analytics` and the analytics helper. This minimises changes to the working order flow. Page views are sufficient to check basic reach; the successful-order event is additional instrumentation.
-- **What this evidence cannot tell us:** A code review cannot prove the provider received events or that the production dashboard is enabled. Page views alone do not measure saved orders; the free plan may not show custom events.
+- **What this evidence cannot tell us:** Page views were observed on production, but they alone do not measure saved orders or prove custom events arrive; the free plan may not show custom events.
 
 ## Consequences
 
-- **Its cost in money and in time:** No extra software installation; a team member must enable and inspect analytics in Vercel. Pricing and quotas depend on the current Vercel plan.
+- **Its cost in money and in time:** No extra software installation; analytics is enabled and was inspected in Vercel on 23 November 2026; continue checking it. Pricing and quotas depend on the current Vercel plan.
 - **Who maintains it:** Website maintainer (team role).
 - **What we give up:** We do not have a full conversion funnel or paid custom-event reporting on the Hobby plan.
 - **How we could leave the tool later:** Remove `<Analytics />` from the layout and the event call; disable analytics in Vercel.
@@ -38,7 +38,7 @@
 | Page | Its link | Read on |
 | --- | --- | --- |
 | Existing starter analytics implementation | `src/lib/analytics.ts` and `src/app/(site)/layout.tsx` | 23 November 2026 |
-| Vercel Web Analytics documentation (provider reference; live policy to recheck) | https://vercel.com/docs/analytics | Verification pending |
+| Vercel Web Analytics documentation (provider reference; live policy to recheck) | https://vercel.com/docs/analytics | 23 November 2026 (dashboard checked; provider policy should be rechecked) |
 
 ## Review when
 
