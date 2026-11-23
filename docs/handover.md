@@ -1,4 +1,4 @@
-# Hand-over
+﻿# Hand-over
 
 Prepared for Team 11 by Jonas (`jonashey1`), 23 November 2026. This document describes roles, not an assertion that all team members have accepted them. Never store passwords, tokens or connection strings here.
 

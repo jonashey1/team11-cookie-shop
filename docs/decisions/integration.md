@@ -1,4 +1,4 @@
-# Decision: an integration
+﻿# Decision: an integration
 
 ## The question
 
