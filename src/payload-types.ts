@@ -77,6 +77,7 @@ export interface Config {
     timeSlots: TimeSlot;
     bookings: Booking;
     repairs: Repair;
+    orders: Order;
     throttle: Throttle;
     members: Member;
     'payload-kv': PayloadKv;
@@ -105,6 +106,7 @@ export interface Config {
     timeSlots: TimeSlotsSelect<false> | TimeSlotsSelect<true>;
     bookings: BookingsSelect<false> | BookingsSelect<true>;
     repairs: RepairsSelect<false> | RepairsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
     throttle: ThrottleSelect<false> | ThrottleSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -440,6 +442,28 @@ export interface Repair {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: number;
+  name: string;
+  requestId?: string | null;
+  customerName: string;
+  email: string;
+  items: {
+    cookieId: number;
+    cookieName: string;
+    quantity: number;
+    unitPriceCents: number;
+    id?: string | null;
+  }[];
+  totalCents: number;
+  status?: ('new' | 'processing' | 'completed' | 'cancelled') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "throttle".
  */
 export interface Throttle {
@@ -507,6 +531,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'repairs';
         value: number | Repair;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: number | Order;
       } | null)
     | ({
         relationTo: 'throttle';
@@ -707,6 +735,29 @@ export interface RepairsSelect<T extends boolean = true> {
   name?: T;
   price?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  name?: T;
+  requestId?: T;
+  customerName?: T;
+  email?: T;
+  items?:
+    | T
+    | {
+        cookieId?: T;
+        cookieName?: T;
+        quantity?: T;
+        unitPriceCents?: T;
+        id?: T;
+      };
+  totalCents?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
