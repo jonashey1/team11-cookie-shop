@@ -321,3 +321,85 @@
       color 180ms ease;
   }
 }
+
+/* ==========================================
+   COOKIE SHOP — ACCESSIBILITY CENTER
+   ========================================== */
+
+/* 1. Larger text */
+html.a11y-large-text {
+  font-size: 112.5%;
+}
+
+/* 2. High contrast — light mode */
+html.a11y-high-contrast:not(.dark) {
+  --color-ink: #000000;
+  --color-ink-soft: #171717;
+  --color-canvas: #ffffff;
+  --color-line: #000000;
+  --color-link: #0033aa;
+  --color-focus: #0000cc;
+  --color-blue-tint: #e5ecff;
+}
+
+/* High contrast — dark mode */
+html.a11y-high-contrast.dark {
+  --color-ink: #ffffff;
+  --color-ink-soft: #f0f0f0;
+  --color-canvas: #000000;
+  --color-line: #ffffff;
+  --color-link: #aaccff;
+  --color-focus: #ffff00;
+  --color-blue-tint: #202020;
+}
+
+/* Stronger borders */
+html.a11y-high-contrast button,
+html.a11y-high-contrast input,
+html.a11y-high-contrast select,
+html.a11y-high-contrast textarea {
+  border-color: var(--color-ink);
+}
+
+/* 3. Highlight links */
+html.a11y-highlight-links a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+  text-underline-offset: 0.25em;
+}
+
+/* 4. Reduce motion */
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
+}
+
+
+/* 5. Larger cursor */
+
+/* Larger arrow cursor */
+html.a11y-large-cursor,
+html.a11y-large-cursor body,
+html.a11y-large-cursor * {
+  cursor: url("/cursors/large-arrow.svg") 4 4, auto !important;
+}
+
+/* Larger hand cursor for clickable elements */
+html.a11y-large-cursor a,
+html.a11y-large-cursor button,
+html.a11y-large-cursor [role='button'],
+html.a11y-large-cursor [role='switch'],
+html.a11y-large-cursor summary {
+  cursor: url("/cursors/large-pointer.svg") 8 2, pointer !important;
+}
+
+/* Keep a text cursor in editable fields */
+html.a11y-large-cursor input,
+html.a11y-large-cursor textarea,
+html.a11y-large-cursor [contenteditable='true'] {
+  cursor: text !important;
+}

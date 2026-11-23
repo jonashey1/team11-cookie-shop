@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { SITE_NAME } from '@/content/campus-cycle'
 import { membersAreaOn, signedInMember } from '@/lib/membersArea'
 import config from '@/payload.config'
+import { AccessibilityCenter } from './AccessibilityCenter'
 import { MainNav } from './MainNav'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -46,7 +47,11 @@ export async function Header() {
             className="flex min-h-11 items-center gap-3 font-heading text-xl font-black text-ink no-underline"
           >
             <span className="framed grid size-10 place-items-center rounded-control bg-yellow-tint [--offset-size:3px]">
-              <Cookie aria-hidden="true" className="size-6" strokeWidth={2.25} />
+              <Cookie
+                aria-hidden="true"
+                className="size-6"
+                strokeWidth={2.25}
+              />
             </span>
 
             {SITE_NAME}
@@ -54,10 +59,16 @@ export async function Header() {
 
           <MainNav account={membersAreaOn()} loggedIn={member !== null} />
 
-          <ThemeToggle />
+          <div className="flex flex-wrap items-center gap-2">
+            <ThemeToggle />
+            <AccessibilityCenter />
+          </div>
 
           {member && (
-            <form action={signOut} className="flex min-h-11 flex-wrap items-center gap-3">
+            <form
+              action={signOut}
+              className="flex min-h-11 flex-wrap items-center gap-3"
+            >
               <span className="font-semibold">
                 {member.name || member.email}
               </span>
