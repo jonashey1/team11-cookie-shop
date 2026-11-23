@@ -242,7 +242,9 @@ jobs:
         run: |
           npm run migrate
           npm run seed
-
+      - name: Add Cookie Shop browser-check fixtures
+        if: steps.changes.outputs.run == 'true'
+        run: node --import tsx scripts/ci-cookie-fixtures.ts
       - name: Build the site
         if: steps.changes.outputs.run == 'true'
         run: npm run build
