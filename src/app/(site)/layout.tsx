@@ -2,6 +2,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Hanken_Grotesk } from 'next/font/google'
+import Script from 'next/script'
 import type { ReactNode } from 'react'
 import { Footer } from '@/components/site/Footer'
 import { Header } from '@/components/site/Header'
@@ -82,6 +83,16 @@ export default function SiteLayout({
         <Footer />
 
         <FortuneCookiePopup />
+
+        {/* Optional creative enhancement: Watermelon AI Cookie Assistant. */}
+        <Script
+          id="watermelon-chatbot"
+          src="https://chatwidget-prod.web.app/embed/init.iife.js"
+          strategy="afterInteractive"
+          type="module"
+          data-watermelon-widget-id="E8AgMVf16MQ"
+          data-watermelon-settings-id="18166"
+        />
 
         {process.env.NEXT_PUBLIC_ANALYTICS === 'vercel' && (
           <Analytics />
