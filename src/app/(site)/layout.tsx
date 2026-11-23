@@ -5,6 +5,7 @@ import { Hanken_Grotesk } from 'next/font/google'
 import type { ReactNode } from 'react'
 import { Footer } from '@/components/site/Footer'
 import { Header } from '@/components/site/Header'
+import { FortuneCookiePopup } from '@/components/site/FortuneCookiePopup'
 import './globals.css'
 
 // Main font used throughout the Cookie Shop website.
@@ -79,6 +80,8 @@ export default function SiteLayout({
         </main>
 
         <Footer />
+
+        <FortuneCookiePopup />
 
         {process.env.NEXT_PUBLIC_ANALYTICS === 'vercel' && (
           <Analytics />
