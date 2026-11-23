@@ -58,10 +58,10 @@ export default function CookiesPage() {
               </div>
 
               <div className="mt-auto grid gap-3 pt-3">
-                <p className="text-xl font-bold">{cookie.price}</p>
+                <p className="text-xl font-bold">{new Intl.NumberFormat('en-BE', { style: 'currency', currency: 'EUR' }).format(cookie.price / 100)}</p>
 
                 <p className="text-sm text-ink-soft">
-                  Example product – online ordering coming soon.
+                  Available for fictional test orders; no payment is taken.
                 </p>
               </div>
             </li>
@@ -78,18 +78,15 @@ export default function CookiesPage() {
         </h2>
 
         <p className="max-w-[65ch]">
-          We are working on an easy online ordering experience.
-          Soon, you will be able to select your favourite cookies,
-          choose quantities and submit your order directly
-          through our website.
+          Choose your favourite cookies, select quantities and submit a fictional test order. No real purchases or payments are accepted.
         </p>
 
         <ButtonLink
-          href="/"
+          href="/clinics"
           variant="secondary"
           className="w-fit"
         >
-          Back to Home
+          Order Cookies
         </ButtonLink>
       </section>
     </div>

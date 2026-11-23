@@ -94,9 +94,7 @@ export default function SiteLayout({
           data-watermelon-settings-id="18166"
         />
 
-        {process.env.NEXT_PUBLIC_ANALYTICS === 'vercel' && (
-          <Analytics />
-        )}
+        <Analytics />
       </body>
     </html>
   )

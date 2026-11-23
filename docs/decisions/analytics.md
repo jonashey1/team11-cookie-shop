@@ -1,132 +1,45 @@
-# Decision: analytics
-
-Whether the site measures how it is used, and with which tool. Its reader comes later, with one
-question: can I change this, and what happens if I do? The starter's
-analytics are off until `NEXT_PUBLIC_ANALYTICS` names a tool; see `src/lib/analytics.ts`.
-
-**How to fill in this file**
-
-- Write your own text in the lines and tables under each grey box.
-- Replace every TODO, and the hint after it, with your own text. A section that still holds a TODO
-  counts as not filled in.
-- Delete a line or a table row that you do not use.
-- The grey boxes are guidance. The course's checks do not read them, so you may keep them or delete
-  them. In the editor, a box is every line from the one that starts with `<table` to the line
-  `</td></tr></table>`: to delete a box, delete all of those lines.
+﻿# Decision: analytics
 
 ## The question
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write in one sentence what had to be decided. Add the need or the requirement behind
-it, and what you want the numbers to tell you.
-
-**Example:** Do we measure how the site is used, and with which tool? The library wants to know how
-many people who open an event's page go on to reserve a seat (requirement R1).
-
-</td></tr></table>
-
-- **The question:** TODO: one sentence
-- **The need or requirement behind it:** TODO:
+- **The question:** How can Team 11 see whether visitors reach the cookie pages and successfully complete the fictional ordering task?
+- **The need or requirement behind it:** The final project requires working analytics; the team also needs a privacy-conscious way to spot problems in the primary task.
 
 ## Options considered
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write at least two options, one row each: what the option would give, and what it
-would cost. One of them is the simplest thing, which is the first row here. The other usual options
-for analytics are Vercel Web Analytics, which the starter can switch on, and Matomo, only if someone
-already hosts it for you. Add a row for each further option.
-
-**Example:** No analytics: it costs nothing and collects nothing, but we cannot see whether anyone
-opens an event's page.
-
-</td></tr></table>
-
 | Option | What it would give | What it would cost |
 | --- | --- | --- |
-| No analytics | TODO: | TODO: |
-| TODO: | TODO: | TODO: |
+| No analytics | No tracking or setup | No evidence of page visits or task completion |
+| Vercel Web Analytics | Page views within the existing hosting platform, with a client-side completion event wired into the order form | Setup and verification time; custom events may require a paid plan |
+| Self-hosted Matomo | More control over collected metrics | A separate server, maintenance and privacy configuration |
 
 ## The decision
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write the option you chose as one sentence. Once it is installed, add what you
-installed, where its settings are, and how you checked that it does what you expected: the grading
-list asks for it. Until then, write "Not installed yet" on those lines. In a team, name who took part
-in the decision. Working alone, delete that line.
-
-**Example:** We chose Vercel Web Analytics. It is switched on with `NEXT_PUBLIC_ANALYTICS=vercel` in
-Vercel's settings and with **Enable** on the project's Analytics tab. We opened the live site with
-the browser's Network tab open, and saw the request named `view` that records a page view.
-
-</td></tr></table>
-
-- **We chose:** TODO:
-- **What we installed, and where its settings are:** TODO:
-- **How we checked that it does what we expected:** TODO:
-- **Who took part in the decision:** TODO:
+- **We chose:** Vercel Web Analytics.
+- **What we installed, and where its settings are:** `@vercel/analytics` is already a project dependency. The site layout mounts `<Analytics />`, and `src/components/site/CookieOrderForm.tsx` calls `track('cookie_order_saved')` only after a successful server response. The helper is in `src/lib/analytics.ts`. Vercel project > Analytics is the provider dashboard. No customer names or email addresses are passed to tracking.
+- **How we checked that it does what we expected:** The code path was inspected in the H3 package. **Live page-view collection and event arrival have not yet been verified**; a team member must enable/check the Vercel Analytics dashboard, visit the live site and confirm a page view. On a Hobby plan, the custom event may not be available: the live order can instead be checked in Payload `/admin`.
+- **Who took part in the decision:** Proposed for Team 11; the team must confirm this decision before the final hand-in.
 
 ## Why
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Give each reason with its evidence: what you checked before you decided. Then say what
-that evidence cannot tell you. Two or three reasons are enough.
-
-**Example:** It needs no second account, because the site already runs on Vercel. We read Vercel's
-pricing page: the free plan includes page views. That page cannot tell us whether page views alone
-will answer our question.
-
-</td></tr></table>
-
-- **Why we chose it:** TODO: each reason with what you checked
-- **What this evidence cannot tell us:** TODO:
+- **Why we chose it:** The website already deploys on Vercel, and the starter includes `@vercel/analytics` and the analytics helper. This minimises changes to the working order flow. Page views are sufficient to check basic reach; the successful-order event is additional instrumentation.
+- **What this evidence cannot tell us:** A code review cannot prove the provider received events or that the production dashboard is enabled. Page views alone do not measure saved orders; the free plan may not show custom events.
 
 ## Consequences
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Write what you accepted with the choice, both the good and the bad. One line for each
-point below is enough.
-
-**Example:** On the free plan we see page views only, so we cannot count saved reservations. To
-leave the tool, we remove the setting and switch Analytics off in Vercel.
-
-</td></tr></table>
-
-- **Its cost in money and in time:** TODO:
-- **Who maintains it:** TODO:
-- **What we give up:** TODO: what you cannot learn, and what the free plan leaves out
-- **How we could leave the tool later:** TODO:
-- **The data it collects about our users, and whether it needs a cookie banner:** TODO:
+- **Its cost in money and in time:** No extra software installation; a team member must enable and inspect analytics in Vercel. Pricing and quotas depend on the current Vercel plan.
+- **Who maintains it:** Website maintainer (team role).
+- **What we give up:** We do not have a full conversion funnel or paid custom-event reporting on the Hobby plan.
+- **How we could leave the tool later:** Remove `<Analytics />` from the layout and the event call; disable analytics in Vercel.
+- **The data it collects about our users, and whether it needs a cookie banner:** Page-view metadata are processed by Vercel; no names, emails or order details are sent in the custom event. Verify current provider privacy/cookie documentation before publishing a privacy statement; the integration itself does not set a marketing-cookie consent flow.
 
 ## Facts read on
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** List each provider's page you read, with its link and the date you read it. Plans and
-limits change, so the date tells the next reader how old the facts are. Add a row for each page.
-
-**Example:** Vercel's pricing page for Web Analytics, with its link, read on 20 April 2026.
-
-</td></tr></table>
-
 | Page | Its link | Read on |
 | --- | --- | --- |
-| TODO: | TODO: | TODO: date |
+| Existing starter analytics implementation | `src/lib/analytics.ts` and `src/app/(site)/layout.tsx` | 23 November 2026 |
+| Vercel Web Analytics documentation (provider reference; live policy to recheck) | https://vercel.com/docs/analytics | Verification pending |
 
 ## Review when
 
-<table width="100%"><tr></tr><tr><td>
-
-**Guidance.** Name the event that should make someone look at this decision again. One line is
-enough.
-
-**Example:** We review it when the library asks how many reservations come from each event's page,
-because the free plan cannot answer that.
-
-</td></tr></table>
-
-TODO: when to review it.
+Review when the Vercel plan changes, the site begins handling real orders, or the team needs order-level conversion reports instead of page views.
