@@ -18,8 +18,8 @@
 - [x] Geen echte betalingen of aankopen.
 - [x] Vercel Web Analytics registreert bezoekers en paginaweergaven.
 - [x] OpenStreetMap-integratie aanwezig op de Contact-pagina.
-- [ ] Controleren of de interactieve kaart correct laadt na gebruikersactie.
-- [ ] Volledige mobiele en toegankelijkheidstest documenteren.
+- [x] Controleren of de interactieve kaart correct laadt na gebruikersactie.
+- [] Volledige mobiele en toegankelijkheidstest documenteren.
 
 ## 2. Verplichte documentatie
 
