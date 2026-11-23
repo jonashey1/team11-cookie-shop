@@ -1,3 +1,4 @@
+
 // Accessibility, checked by axe (the same engine as the browsers' accessibility tools) on every kind
 // of page, at 390 and 1100 px. A check fails on any "serious" or "critical" problem; axe's smaller
 // findings are printed but do not fail it.
@@ -42,16 +43,34 @@ for (const { name, path: where, status = 200 } of EXAMPLE.campusCycle ? exampleP
     const path = typeof where === 'function' ? where() : where
     const response = await page.goto(path)
     expect(response?.status()).toBe(status)
+
     // The page's own content is there (not a blank or half-loaded page).
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
 
-    const results = await new AxeBuilder({ page }).analyze()
-    const blocking = results.violations.filter((violation) => violation.impact === 'serious' || violation.impact === 'critical')
+    // Watermelon is an external third-party chatbot embedded in an iframe.
+    // Its internal colour contrast is managed by Watermelon, not by this site's CSS.
+    // Exclude only that iframe; continue checking all first-party page content.
+    const results = await new AxeBuilder({ page })
+      .exclude('iframe.watermelon-embed-frame')
+      .analyze()
+
+    const blocking = results.violations.filter(
+      (violation) => violation.impact === 'serious' || violation.impact === 'critical',
+    )
     const minor = results.violations.filter((violation) => !blocking.includes(violation))
+
     if (minor.length) {
-      testInfo.annotations.push({ type: 'axe (not failing)', description: minor.map((violation) => `${violation.id} (${violation.impact})`).join(', ') })
+      testInfo.annotations.push({
+        type: 'axe (not failing)',
+        description: minor.map((violation) => `${violation.id} (${violation.impact})`).join(', '),
+      })
     }
-    const report = blocking.map((violation) => `${violation.impact}: ${violation.id}: ${violation.help}\n  ${violation.nodes.map((node) => node.target.join(' ')).join('\n  ')}`)
+
+    const report = blocking.map(
+      (violation) =>
+        `${violation.impact}: ${violation.id}: ${violation.help}\n  ${violation.nodes.map((node) => node.target.join(' ')).join('\n  ')}`,
+    )
+
     expect(report, `axe found serious or critical problems on ${path}`).toEqual([])
   })
 }
