@@ -113,26 +113,29 @@ export default function CookieFinderPage() {
                 {question.subtitle}
               </p>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                {question.options.map((option) => {
-                  const Icon = answerIcons[option.value]
-                  return (
-                    <button
-                      key={option.label}
-                      type="button"
-                      disabled={!interactive}
-                      onClick={() => chooseAnswer(option.value)}
-                      className="boutique-answer flex min-h-20 min-w-0 items-center gap-3 rounded-control border border-line bg-canvas p-3 sm:p-4 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
-                    >
-                      <span className="boutique-finder-icon" aria-hidden="true">
-                        <Icon size={24} />
-                      </span>
+              {interactive ? (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {question.options.map((option) => {
+                    const Icon = answerIcons[option.value]
+                    return (
+                      <button
+                        key={option.label}
+                        type="button"
+                        onClick={() => chooseAnswer(option.value)}
+                        className="boutique-answer flex min-h-20 min-w-0 items-center gap-3 rounded-control border border-line bg-canvas p-3 sm:p-4 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
+                      >
+                        <span className="boutique-finder-icon" aria-hidden="true">
+                          <Icon size={24} />
+                        </span>
 
-                      <span>{option.label}</span>
-                    </button>
-                  )
-                })}
-              </div>
+                        <span>{option.label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              ) : (
+                <p role="status">Loading the answers…</p>
+              )}
             </div>
 
             <div className="mt-block flex flex-wrap items-center justify-between gap-stack">
