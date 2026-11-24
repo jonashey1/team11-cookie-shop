@@ -15,7 +15,7 @@ import { CookieShopExperience } from '@/components/site/CookieShopExperience'
 const journeys = [
   { title: 'Discover', label: 'Cookie Finder', text: 'Find the flavour that fits your taste.', href: '/cookie-finder', icon: Cookie, visual: journeyVisuals.discover },
   { title: 'Compare', label: 'Cookie Comparison', text: 'See what sets each cookie apart.', href: '/cookies#comparison', icon: Scale, visual: journeyVisuals.compare },
-  { title: 'Personalise', label: 'Box Builder', text: 'Make a four-cookie box your own.', href: '/build-your-box', icon: PackageOpen, visual: journeyVisuals.personalise },
+  { title: 'Personalise', label: 'Box Builder', text: 'Make a four-cookie box your own.', href: '/clinics#build-your-box', icon: PackageOpen, visual: journeyVisuals.personalise },
 ] satisfies readonly { title: string; label: string; text: string; href: string; icon: typeof Cookie; visual: ExcellenceVisual | null }[]
 
 export const dynamic = 'force-dynamic'
@@ -31,7 +31,7 @@ export default async function HomePage() {
           <p>Six flavours. Endless combinations. Find your favourite or create your own perfect box.</p>
           <div className="flex flex-wrap gap-3">
             <ButtonLink href="/cookies#cookies" size="lg">Explore Our Cookies</ButtonLink>
-            <ButtonLink href="/build-your-box" variant="secondary" size="lg">Build a cookie box</ButtonLink>
+            <ButtonLink href="/clinics#build-your-box" variant="secondary" size="lg">Build a cookie box</ButtonLink>
           </div>
           <p className="boutique-hand">Your taste. Your choice. Your perfect cookie.</p>
         </div>

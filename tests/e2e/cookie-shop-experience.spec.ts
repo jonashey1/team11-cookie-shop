@@ -22,7 +22,7 @@ test('connects the Passport to the Taste Map and the shared comparison', async (
 })
 
 test('keeps personalisation local and saves or restores exactly four cookies', async ({ page }) => {
-  await page.goto('/build-your-box')
+  await page.goto('/clinics#build-your-box')
   await page.getByRole('button', { name: 'Chocolate Lovers' }).press('Enter')
   await page.getByText('Personalise your box', { exact: true }).press('Enter')
   await page.getByLabel(/Name your box/).fill('Weekend favourites')

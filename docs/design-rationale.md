@@ -40,14 +40,14 @@ The values below are the live design tokens in `src/app/(site)/globals.css` (the
 
 ## Layout at phone and laptop width
 
-Checked on production in a browser on 24 November 2026: at 390 px the homepage, the assortment, Order Cookies and Compare had no horizontal page scrolling. PR #27's CI checks widths from 320 to 1440 px. No physical phone was used for this check.
+Checked on production in a browser on 24 November 2026 (before the comparison moved onto Our Cookies): at 390 px the homepage, the assortment, Order Cookies and Compare had no horizontal page scrolling. PR #27's CI checks widths from 320 to 1440 px. No physical phone was used for this check.
 
 | Page | On a phone (390 px wide) | On a laptop (1100 px wide) |
 | --- | --- | --- |
 | Home | Hero, Order Cookies button and feature cards stack in one column | Wider hero with the same calls to action; cards use several columns |
 | Our Cookies | One product card per row; the Taste Map follows the cards | Several cards per row; the Taste Map has room for its plotted markers and name list |
-| Compare | The comparison table scrolls sideways inside its own box, not the page | All selected cookies side by side |
-| Order Cookies | Products, basket and details are three stacked numbered sections; a floating basket button links to the basket | The same three sections with more room per product row |
+| Our Cookies – comparison section | The comparison table scrolls sideways inside its own box, not the page | All selected cookies side by side |
+| Order Cookies | Products, basket and details are three stacked numbered sections, followed by the Box Builder; a floating basket button links to the basket | The same sections with more room per product row |
 | Navigation | A menu button opens the same links as on laptop | All menu links in one row, Order Cookies highlighted |
 
 ## The principles we applied

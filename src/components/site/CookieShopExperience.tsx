@@ -5,7 +5,7 @@ import { CookieCommercialPlayer } from './CookieCommercialPlayer'
 const features = [
   { label: 'Discover', description: 'Find your perfect cookie.', href: '/cookie-finder', Icon: Cookie },
   { label: 'Compare', description: 'Choose with confidence.', href: '/cookies#comparison', Icon: Scale },
-  { label: 'Personalise', description: 'Build your own box.', href: '/build-your-box', Icon: PackageOpen },
+  { label: 'Personalise', description: 'Build your own box.', href: '/clinics#build-your-box', Icon: PackageOpen },
 ] as const
 
 export function CookieShopExperience() {

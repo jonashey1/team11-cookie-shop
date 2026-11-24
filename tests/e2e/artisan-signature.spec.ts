@@ -32,6 +32,8 @@ test('a fictional checkout preserves its basket on a network failure and prints 
   await placeOrder.press('Enter')
   await expect(page.locator('form').getByRole('alert')).toContainText('Order not confirmed.')
   await expect(page.locator('.cookie-order-celebration')).toHaveCount(0)
+  // A failed order keeps the order page's address (the checkout link may add #customer-details).
+  await expect(page).toHaveURL(/\/clinics(#[\w-]+)?$/)
   await expect(name).toHaveValue('Fictional Signature Customer')
   await expect(email).toHaveValue('signature-checkout@example.invalid')
   await expect(basket).toContainText(/Total:.*10[.,]95/)
@@ -40,6 +42,8 @@ test('a fictional checkout preserves its basket on a network failure and prints 
   const receipt = page.locator('.cookie-order-receipt')
   await expect(receipt.getByRole('heading', { name: 'Thank you for your order!' })).toBeVisible()
   await expect(receipt).toContainText('Your test order is saved.')
+  // The address marks the saved order, so Vercel Analytics counts it as a page view.
+  await expect(page).toHaveURL(/\/clinics\/confirmed$/)
   const celebration = receipt.locator('.cookie-order-celebration')
   await expect(celebration).toBeVisible()
   await expect(celebration).toHaveAttribute('aria-hidden', 'true')

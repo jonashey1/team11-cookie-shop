@@ -1,15 +1,6 @@
-import type { Metadata } from 'next'
-import { PageTitle } from '@/components/site/PageTitle'
-import { CookieBoxBuilder } from '@/components/site/CookieBoxBuilder'
+import { permanentRedirect } from 'next/navigation'
 
-const title = 'Build Your Own Cookie Box'
-const intro = 'Choose any four cookies to create your perfect box.'
-
-export const metadata: Metadata = { title, description: intro }
-
-export default function BuildYourBoxPage() {
-  return <>
-    <PageTitle title={title} intro={intro} tone="blue" />
-    <CookieBoxBuilder />
-  </>
+// The Box Builder is now a section of Order Cookies, so old links and bookmarks go straight there.
+export default function LegacyPage() {
+  permanentRedirect('/clinics#build-your-box')
 }

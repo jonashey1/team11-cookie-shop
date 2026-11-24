@@ -46,7 +46,7 @@ test('offers three direct, working discovery links without playing the commercia
   for (const [label, path] of [
     ['Find your perfect cookie.', '/cookie-finder'],
     ['Choose with confidence.', '/cookies#comparison'],
-    ['Build your own box.', '/build-your-box'],
+    ['Build your own box.', '/clinics#build-your-box'],
   ]) {
     await page.goto('/')
     const experience = page.getByRole('region', { name: 'More than just cookies.' })

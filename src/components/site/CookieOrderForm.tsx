@@ -52,6 +52,11 @@ export function CookieOrderForm() {
         setConfirmed(result.receipt)
         setQuantities({})
         track('cookie_order_saved')
+        // The receipt stays on this page, but the address changes to /clinics/confirmed. Vercel's free
+        // plan drops custom events such as the one above; it does record page views, so a saved order
+        // shows up in Analytics as a view of /clinics/confirmed. Next.js keeps its router in step
+        // with this change, and nothing is reloaded.
+        window.history.pushState(null, '', '/clinics/confirmed')
       } else {
         setError(result.message)
       }
@@ -180,7 +185,7 @@ export function CookieOrderForm() {
         </div>
         <div className="grid gap-2">
           <label htmlFor="email" className="font-bold">Email (made-up)</label>
-          <input id="email" name="email" type="email" inputMode="email" autoCapitalize="none" required autoComplete="off" placeholder="example@email.com" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-base text-ink placeholder:text-ink-soft placeholder:opacity-100" />
+          <input id="email" name="email" type="email" inputMode="email" autoCapitalize="none" required autoComplete="off" placeholder="name@cookieshop.example" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-base text-ink placeholder:text-ink-soft placeholder:opacity-100" />
         </div>
         {error && <div role="alert" className="rounded-control border border-ink bg-error-wash p-4"><strong>Order not confirmed.</strong> {error}</div>}
         <Button type="submit" disabled={pending || chosen.length === 0} className="w-fit max-w-full whitespace-normal text-center">

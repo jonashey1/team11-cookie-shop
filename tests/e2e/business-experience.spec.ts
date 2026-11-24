@@ -7,7 +7,7 @@ test('builds a box with keyboard controls and preserves existing basket items', 
   await page.getByRole('button', { name: 'Add one Salted Caramel', exact: true }).click()
   await page.goto('/')
   await page.getByRole('link', { name: 'Build a cookie box', exact: true }).click()
-  await expect(page).toHaveURL(/\/build-your-box$/)
+  await expect(page).toHaveURL(/\/clinics#build-your-box$/)
   const submit = page.getByRole('button', { name: 'Add box to basket' })
   await expect(submit).toBeDisabled()
   await expect(page.getByRole('heading', { name: 'Build Your Own Cookie Box' })).toBeVisible()
