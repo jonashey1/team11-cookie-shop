@@ -1060,3 +1060,27 @@ html:has(.boutique-order-dock) { scroll-padding-block-end: 6rem; }
   iframe[title="Watermelon chatbot"],
   iframe[src*="chatwidget-prod.web.app"] { display: none !important; }
 }
+
+.mobile-comparison { min-width: 0; }
+.mobile-comparison-scroll { max-inline-size: 100%; }
+.mobile-comparison-hint { display: none; }
+.excellence-question h2 { scroll-margin-block-start: 1.1rem; }
+@media (max-width: 40rem) {
+  .boutique-hero-copy h1 { font-size: clamp(2.25rem, 10vw, 3.5rem); }
+  .boutique-hero-art > img { aspect-ratio: 1.4; object-position: center 56%; }
+  .excellence-quiz .excellence-question > p { margin-block-end: .65rem; }
+  .excellence-answer-art { aspect-ratio: 1.95; }
+  .excellence-answer { line-height: 1.3; }
+  .excellence-passport .experience-passport-match { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); align-items: start; gap: .55rem; }
+  .excellence-passport .experience-passport-match h2 { font-size: clamp(1.3rem, 5.5vw, 2rem); overflow-wrap: anywhere; margin-block-end: .45rem; }
+  .excellence-passport .experience-passport-match p { font-size: .92rem; }
+  .mobile-comparison-hint { display: block; margin-block-end: .35rem; font-size: .875rem; color: var(--color-ink-soft); }
+  .mobile-comparison-scroll { overflow-x: auto; overscroll-behavior-inline: contain; border-block-end: 1px solid var(--color-line); }
+  .mobile-comparison-scroll table { min-inline-size: 30rem; }
+  section[aria-labelledby="customer-details"] input { font-size: max(16px, 1rem); scroll-margin-block-end: 5.5rem; }
+  body:has(section[aria-labelledby="customer-details"] input:focus) .boutique-order-dock { visibility: hidden; }
+}
+@media (max-width: 40rem) and (max-height: 30rem) {
+  .excellence-answer-art { aspect-ratio: 2.6; }
+}
+html.a11y-large-text .excellence-passport .experience-passport-match { grid-template-columns: 1fr; }

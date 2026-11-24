@@ -35,6 +35,7 @@ export default function CookieFinderPage() {
 
   function chooseAnswer(answer: Answer) {
     const updated = [...answers.slice(0, step), answer]
+    moveToQuestion.current = step < QUESTIONS.length - 1
     setAnswers(updated)
 
     if (step < QUESTIONS.length - 1) {
@@ -44,12 +45,14 @@ export default function CookieFinderPage() {
 
   function goBack() {
     if (step > 0) {
+      moveToQuestion.current = true
       setAnswers((previous) => previous.slice(0, -1))
       setStep(step - 1)
     }
   }
 
   function restart() {
+    moveToQuestion.current = true
     setStep(0)
     setAnswers([])
   }
@@ -59,10 +62,21 @@ export default function CookieFinderPage() {
   const preferences = QUESTIONS.flatMap((question, index) => question.options.filter(option => option.value === answers[index]).map(option => option.label))
   const resultImage = result && cookieImage(result.name)
   const resultHeading = useRef<HTMLHeadingElement>(null)
+  const questionHeading = useRef<HTMLHeadingElement>(null)
+  const moveToQuestion = useRef(false)
 
   useEffect(() => {
     if (finished) resultHeading.current?.focus()
-  }, [finished])
+    else if (moveToQuestion.current) {
+      moveToQuestion.current = false
+      const heading = questionHeading.current
+      heading?.focus({ preventScroll: true })
+      if (heading) {
+        const bounds = heading.getBoundingClientRect()
+        if (bounds.top < 0 || bounds.bottom > window.innerHeight) heading.scrollIntoView({ block: 'start' })
+      }
+    }
+  }, [finished, step, answers.length])
 
   return (
     <div className="mx-auto max-w-3xl pb-section pt-block">
@@ -105,7 +119,7 @@ export default function CookieFinderPage() {
             </div>
 
             <div key={step} className="excellence-question">
-              <h2 className="mb-3 text-2xl font-bold sm:text-3xl">
+              <h2 ref={questionHeading} tabIndex={-1} className="mb-3 text-2xl font-bold sm:text-3xl">
                 {question.title}
               </h2>
 

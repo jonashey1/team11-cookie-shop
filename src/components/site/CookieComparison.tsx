@@ -68,6 +68,9 @@ export function CookieComparison() {
       )}
 
       {cookies.length > 0 ? (
+        <div className="mobile-comparison">
+          <p id="comparison-scroll-hint" className="mobile-comparison-hint">Swipe sideways to see every selected cookie.</p>
+          <div className="mobile-comparison-scroll" role="region" aria-label="Cookie characteristics" aria-describedby="comparison-scroll-hint" tabIndex={0}>
         <table className="w-full table-fixed border-separate border-spacing-y-2 text-start [overflow-wrap:anywhere]">
           <caption className="sr-only">Selected cookies compared side by side</caption>
           <thead>
@@ -143,6 +146,8 @@ export function CookieComparison() {
             )
           })}
         </table>
+          </div>
+        </div>
       ) : null}
 
       {canCompare(ids) ? (
