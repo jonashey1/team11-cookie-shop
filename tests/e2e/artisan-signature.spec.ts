@@ -32,7 +32,8 @@ test('a fictional checkout preserves its basket on a network failure and prints 
   await placeOrder.press('Enter')
   await expect(page.locator('form').getByRole('alert')).toContainText('Order not confirmed.')
   await expect(page.locator('.cookie-order-celebration')).toHaveCount(0)
-  await expect(page).toHaveURL(/\/clinics$/)
+  // A failed order keeps the order page's address (the checkout link may add #customer-details).
+  await expect(page).toHaveURL(/\/clinics(#[\w-]+)?$/)
   await expect(name).toHaveValue('Fictional Signature Customer')
   await expect(email).toHaveValue('signature-checkout@example.invalid')
   await expect(basket).toContainText(/Total:.*10[.,]95/)
