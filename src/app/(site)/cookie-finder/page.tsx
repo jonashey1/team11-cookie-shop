@@ -1,13 +1,17 @@
 
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareFinderResult } from '@/components/site/CookieComparisonControls'
 import { explainCookieMatch, QUESTIONS, type Answer } from '@/lib/cookie-finder'
 
+const subscribe = () => () => {}
+
 export default function CookieFinderPage() {
+  // An answer cannot be handled until the quiz has hydrated.
+  const interactive = useSyncExternalStore(subscribe, () => true, () => false)
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<Answer[]>([])
 
@@ -46,16 +50,16 @@ export default function CookieFinderPage() {
 
   return (
     <div className="mx-auto max-w-3xl pb-section pt-block">
-      <div className="mb-block rounded-panel border border-line bg-blue-tint p-6 text-center sm:p-block">
+      <div className="mb-block border-y border-line bg-yellow-wash p-4 sm:p-block">
         <p className="mb-3 text-sm font-bold uppercase tracking-widest text-ink-soft">
-          Cookie Shop · Interactive Experience
+          Cookie Finder
         </p>
 
         <h1 className="mb-4 text-4xl font-bold sm:text-5xl">
           Find Your Perfect Cookie 🍪
         </h1>
 
-        <p className="mx-auto max-w-xl text-lg text-ink-soft">
+        <p className="max-w-xl text-lg text-ink-soft">
           Answer four quick questions and discover which of our
           delicious cookies matches your taste!
         </p>
@@ -101,8 +105,9 @@ export default function CookieFinderPage() {
                   <button
                     key={option.label}
                     type="button"
+                    disabled={!interactive}
                     onClick={() => chooseAnswer(option.value)}
-                    className="flex min-h-28 items-center gap-4 rounded-frame border border-line bg-blue-tint p-5 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
+                    className="flex min-h-20 min-w-0 items-center gap-3 rounded-control border border-line bg-canvas p-3 sm:p-4 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
                   >
                     <span className="text-3xl" aria-hidden="true">
                       {option.emoji}

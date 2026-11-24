@@ -24,7 +24,7 @@ export function CookieComparison() {
 
   return (
     <section className="grid gap-block pb-block" aria-labelledby="comparison-heading">
-      <div className="grid gap-3 rounded-panel border border-line bg-yellow-wash p-4 sm:p-6">
+      <div className="grid gap-3 rounded-frame border-s-4 border-brand bg-blue-tint p-4 sm:p-6">
         <h2 id="comparison-heading" ref={heading} tabIndex={-1} className="text-2xl">Your selection</h2>
         <div className="flex flex-wrap items-center gap-3">
           <span className="text-sm font-semibold">{ids.length}/{MAX_COMPARISON} selected</span>
@@ -111,7 +111,7 @@ export function CookieComparison() {
           {canCompare(ids) && rows.map((row, index) => {
             const rowId = `comparison-row-${index}`
             const differs = highlight && rowDiffers(row.values)
-            const background = differs ? 'bg-yellow-wash' : 'bg-blue-tint'
+            const background = differs ? 'bg-yellow-wash' : index % 2 ? 'bg-blue-tint' : 'bg-canvas'
             return (
               <tbody key={row.label} className={background}>
                 <tr>
@@ -146,7 +146,7 @@ export function CookieComparison() {
       ) : null}
 
       {canCompare(ids) ? (
-        <div className="grid gap-3 rounded-panel border border-line bg-yellow-wash p-4 sm:p-6">
+        <div className="grid gap-3 rounded-frame border-s-4 border-brand bg-blue-tint p-4 sm:p-6">
           <h2 className="text-2xl">Find your perfect match</h2>
           <ul className="grid gap-2">
             {comparisonInsights(cookies).map(insight => (

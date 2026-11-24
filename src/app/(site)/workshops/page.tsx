@@ -1,11 +1,12 @@
 
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import { Suspense } from 'react'
 import { getPayload } from 'payload'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
-import { COOKIES } from '@/content/cookies'
+import { COOKIES, type CookieProduct } from '@/content/cookies'
 import { cookieImage } from '@/lib/workshop-image'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareCookieButton, ComparisonTray } from '@/components/site/CookieComparisonControls'
@@ -19,23 +20,31 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic'
 
-export default async function CookiesPage() {
-  const payload = await getPayload({ config })
+const tastingNotes = {
+  1: 'The one that started it all.',
+  2: 'For the serious chocolate lover.',
+  3: 'A softer kind of indulgence.',
+  4: 'A little different, in a good way.',
+  5: 'Sweet meets salty.',
+  6: 'A familiar favourite with a twist.',
+} satisfies Record<CookieProduct['id'], string>
 
-  const result = await payload.find({
-    collection: 'workshops',
-    depth: 1,
-    limit: 100,
-    sort: 'title',
-  })
+const accents = {
+  1: 'border-t-brand',
+  2: 'border-t-ink-soft',
+  3: 'border-t-line',
+  4: 'border-t-coral',
+  5: 'border-t-yellow',
+  6: 'border-t-purple',
+} satisfies Record<CookieProduct['id'], string>
 
-  const workshops = result.docs
+export default function CookiesPage() {
 
   return (
     <div className="pb-block">
       <PageTitle
         title="Our Cookies"
-        intro="Discover our cookie collection! Explore different flavours, compare your favourites and find the perfect sweet treat."
+        intro="Six flavours, from chocolate classics to sweet-and-salty caramel. Compare them side by side or choose four for your own box."
         tone="blue"
         className="border border-line"
       >
@@ -74,7 +83,7 @@ export default async function CookiesPage() {
             return (
               <li
                 key={cookie.id}
-                className="flex flex-col gap-stack rounded-panel border border-line bg-blue-tint p-5"
+                className={`flex min-w-0 flex-col gap-stack rounded-frame border border-line border-t-4 bg-canvas p-3 sm:p-4 ${accents[cookie.id]}`}
               >
                 {image && (
                   <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
@@ -95,7 +104,7 @@ export default async function CookiesPage() {
 
                   <h3 className="text-xl">{cookie.name}</h3>
 
-                  <p>{cookie.description}</p>
+                  <p className="font-heading italic text-ink-soft">{tastingNotes[cookie.id]}</p><p>{cookie.description}</p>
                 </div>
 
                 <div className="mt-auto grid gap-2 border-t border-line pt-stack">
@@ -159,18 +168,32 @@ export default async function CookiesPage() {
           </p>
         </div>
 
-        {workshops.length > 0 ? (
-          <ul className="grid gap-block md:grid-cols-2">
-            {workshops.map((workshop) => (
-              <li key={workshop.id} className="grid min-w-0">
-                <WorkshopCard workshop={workshop} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No cookie workshops are available at the moment.</p>
-        )}
+        <Suspense fallback={<p role="status">Loading cookie workshops…</p>}>
+          <WorkshopCatalogue />
+        </Suspense>
       </section>
     </div>
+  )
+}
+
+async function WorkshopCatalogue() {
+  const payload = await getPayload({ config })
+  const { docs: workshops } = await payload.find({
+    collection: 'workshops',
+    depth: 1,
+    limit: 100,
+    sort: 'title',
+  })
+
+  if (!workshops.length) return <p>No cookie workshops are available at the moment.</p>
+
+  return (
+    <ul className="grid gap-block md:grid-cols-2">
+      {workshops.map((workshop) => (
+        <li key={workshop.id} className="grid min-w-0">
+          <WorkshopCard workshop={workshop} />
+        </li>
+      ))}
+    </ul>
   )
 }

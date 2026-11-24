@@ -44,7 +44,7 @@ export default function ContactPage() {
         </h2>
 
         <div className="grid gap-block md:grid-cols-2">
-          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-6">
+          <div className="grid content-start gap-stack border-t-2 border-brand bg-blue-tint p-4 sm:p-6">
             <h3 className="text-xl">Our Project</h3>
             <p>
               Cookie Shop is created by Team 11 for a web
@@ -56,7 +56,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-6">
+          <div className="grid content-start gap-stack border-t-2 border-brand bg-blue-tint p-4 sm:p-6">
             <h3 className="text-xl">Online Orders</h3>
             <p>
               Our test-order form is available on the Order Cookies page.

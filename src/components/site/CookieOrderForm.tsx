@@ -63,7 +63,7 @@ export function CookieOrderForm() {
 
   if (confirmed) {
     return (
-      <section aria-labelledby="order-confirmed" className="cookie-order-receipt grid gap-stack rounded-panel border border-line bg-success-wash p-6 sm:p-block" role="status">
+      <section aria-labelledby="order-confirmed" className="cookie-order-receipt grid gap-stack rounded-frame border border-line border-t-4 border-t-success bg-success-wash p-4 sm:p-block" role="status">
         <h2 id="order-confirmed" ref={receiptHeading} tabIndex={-1} className="text-3xl">Thank you for your order!</h2>
         <p>Your test order is saved.</p>
         <p>This is a fictional order for a university project. No payment has been taken and no products will be shipped.</p>
@@ -118,9 +118,14 @@ export function CookieOrderForm() {
         </div>
       </section>
 
-      <section aria-labelledby="basket" className="grid gap-stack rounded-panel border border-line bg-yellow-wash p-6 sm:p-block">
+      <section aria-labelledby="basket" className="grid gap-stack rounded-frame border border-line border-t-4 border-t-brand bg-yellow-wash p-4 sm:p-block">
         <h2 id="basket" className="text-3xl">2. Review your basket</h2>
-        {chosen.length === 0 ? <p>Your basket is empty. Add a cookie above to continue.</p> : (
+        {chosen.length === 0 ? <div className="flex flex-wrap items-center gap-3 border-y border-line py-4">
+          <svg aria-hidden="true" viewBox="0 0 48 48" className="size-12 shrink-0 text-ink-soft" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+            <path d="M9 18h30l-5 21H14L9 18Zm7 0 8-10 8 10M19 24l2 9m8-9-2 9" />
+          </svg>
+          <p>Your basket is empty. Choose a cookie from the assortment or add one above.</p>
+        </div> : (
           <ul className="grid gap-3">
             {chosen.map((cookie) => (
               <li key={cookie.id} className="flex flex-wrap items-center gap-3 border-b border-line pb-3">
@@ -159,7 +164,7 @@ export function CookieOrderForm() {
         </section>
       )}
 
-      <section aria-labelledby="customer-details" className="max-w-reading grid min-w-0 gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-block">
+      <section aria-labelledby="customer-details" className="max-w-reading grid min-w-0 gap-stack rounded-frame border border-line border-s-4 border-s-brand bg-blue-tint p-4 sm:p-block">
         <h2 id="customer-details" className="text-3xl">3. Send your test order</h2>
         <div className="grid gap-2">
           <label htmlFor="customerName" className="font-bold">Name (made-up)</label>

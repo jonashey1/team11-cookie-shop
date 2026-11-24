@@ -14,12 +14,12 @@ type HeroProps = {
   title: string
   text?: string | null
   actions?: ReactNode
-  image?: { src: string; alt: string; width: number; height: number } | null
+  image?: { src: string; alt: string; width: number; height: number; unoptimized?: boolean } | null
 }
 
 export function Hero({ title, text, actions, image }: HeroProps) {
   return (
-    <section className="grid items-center gap-block rounded-panel border border-line bg-blue-tint p-5 sm:p-block lg:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] lg:px-10 lg:py-10">
+    <section className="grid items-center gap-5 border-y border-line py-5 sm:gap-block sm:py-block md:grid-cols-[minmax(0,1.04fr)_minmax(0,1fr)] lg:gap-14">
       <div className="grid min-w-0 gap-stack sm:gap-5">
         <p className="text-sm font-bold tracking-[0.08em] text-ink-soft uppercase">{TAGLINE}</p>
         <h1 className="max-w-[14ch] text-4xl leading-tight text-ink">{title}</h1>
@@ -27,14 +27,15 @@ export function Hero({ title, text, actions, image }: HeroProps) {
         {actions && <div className="mt-2 flex flex-col gap-stack [&>a]:w-full [&>a]:justify-center sm:flex-row sm:flex-wrap sm:[&>a]:w-auto">{actions}</div>}
       </div>
       {image && (
-        <div className="relative aspect-[5/4] overflow-hidden rounded-frame bg-yellow-wash lg:aspect-[4/5]">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-frame border border-line bg-yellow-wash md:aspect-square">
           <Image
             src={image.src}
             alt={image.alt}
             fill
             preload
+            unoptimized={image.unoptimized}
             sizes="(min-width: 80rem) 32rem, (min-width: 64rem) 43vw, 88vw"
-            className="object-cover"
+            className="object-cover object-[center_55%]"
           />
         </div>
       )}

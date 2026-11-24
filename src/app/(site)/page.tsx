@@ -9,12 +9,13 @@ export default function HomePage() {
     <div className="grid gap-section pt-block">
       <Hero
         title="Welcome to Cookie Shop"
-        text="Discover delicious cookies, explore our flavours and find your favourites. From classic chocolate chip to exciting new creations, there is something sweet for everyone."
+        text="Your taste. Your choice. Your perfect cookie. Find a flavour that suits you, compare your favourites or choose four for your own box."
         image={{
-          src: '/images/workshops/classic-chocolate-chip.png',
+          src: '/images/signature-hero.webp',
+          unoptimized: true,
           alt: 'Three classic chocolate chip cookies on a plate with baking ingredients.',
           width: 800,
-          height: 1400,
+          height: 1000,
         }}
         actions={
           <>
@@ -36,10 +37,8 @@ export default function HomePage() {
             Discover Our Cookie Shop
           </h2>
           <p className="max-w-reading text-ink-soft">
-            At Cookie Shop, we believe that every moment is better
-            with a delicious cookie. Explore our selection, compare
-            flavours and find the perfect treat for yourself or
-            someone special.
+            Start with a classic or try one of our other flavours.
+            Compare a few to see what sets them apart, then order the ones you want to try.
           </p>
         </div>
 

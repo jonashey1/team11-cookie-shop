@@ -30,7 +30,7 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
       return { success: false, message: 'Enter a valid email address.' }
     }
 
-    if (!/^[0-9a-f-]{36}$/i.test(requestId)) {
+    if (!/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(requestId)) {
       return { success: false, message: 'Please reload the page and try again.' }
     }
 
@@ -46,6 +46,10 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
       return { success: false, message: 'Your shopping cart is empty.' }
     }
 
+    if (submittedItems.length > COOKIES.length) {
+      return { success: false, message: 'Invalid cookie selection.' }
+    }
+
     const items: Order['items'] = []
     const cookieIds = new Set<number>()
     let totalCents = 0
@@ -55,15 +59,17 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
         typeof item !== 'object' ||
         item === null ||
         !('cookieId' in item) ||
-        !('quantity' in item)
+        !('quantity' in item) ||
+        typeof item.cookieId !== 'number' ||
+        typeof item.quantity !== 'number'
       ) {
         return { success: false, message: 'Invalid cookie selection.' }
       }
 
       const cookie = COOKIES.find(
-        (product) => product.id === Number(item.cookieId),
+        (product) => product.id === item.cookieId,
       )
-      const quantity = Number(item.quantity)
+      const quantity = item.quantity
 
       if (
         !cookie ||
