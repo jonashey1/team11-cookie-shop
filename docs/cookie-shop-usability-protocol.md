@@ -12,7 +12,7 @@ We are testing the website, not you. Think aloud and use it as you normally woul
 
 1. Locate a known flavour and add it to the basket.
 2. Find a flavour recommendation and compare it with another choice. Explain your decision.
-3. Fill a six-cookie box, change one flavour and add it to the basket.
+3. Fill a four-cookie box, replace one cookie without changing the other slots, then add it to the basket.
 4. Change a quantity, remove a product and continue shopping. Return and explain the total.
 5. Enter an invalid email, correct it and submit a fictional order. Identify the reference and print action.
 6. Repeat the core order using keyboard only or a phone. Try an accessibility setting if useful.

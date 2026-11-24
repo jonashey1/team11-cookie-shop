@@ -1,18 +1,23 @@
 import { describe, expect, it } from 'vitest'
 import { COOKIES } from '@/content/cookies'
-import { boxPrice, fillBox, mergeBox } from '@/lib/cookie-box'
+import { BOX_SUGGESTIONS, boxPrice, emptyBox, mergeBox } from '@/lib/cookie-box'
 import { explainCookieMatch, findCookie, QUESTIONS, type Answer } from '@/lib/cookie-finder'
 import { analyticsCsv, parseAnalyticsFilters, summarizeOrders } from '@/lib/order-analytics'
 
 describe('box configuration', () => {
-  it('fills exactly the selected capacity, calculates the catalogue total, and preserves existing quantities', () => {
-    const entries = fillBox(4, [1, 2])
+  it('prices four cookies from the catalogue and preserves existing quantities', () => {
+    const entries = BOX_SUGGESTIONS['Chocolate Lovers']
     expect(entries).toEqual([1, 2, 1, 2])
     expect(boxPrice(entries)).toBe(2 * (COOKIES[0].price + COOKIES[1].price))
     expect(mergeBox({ 1: 1, 5: 2 }, entries)).toEqual({ 1: 3, 2: 2, 5: 2 })
     expect(mergeBox({ 1: 19 }, entries)).toBeNull()
-    expect(fillBox(6, [])).toEqual([])
-    expect(fillBox(12, [1, 2])).toHaveLength(12)
+    expect(mergeBox({}, [1, 2, 3])).toBeNull()
+    expect(mergeBox({}, [1, 2, 3, 4, 5])).toBeNull()
+    expect(emptyBox()).toEqual([null, null, null, null])
+    for (const suggestion of Object.values(BOX_SUGGESTIONS)) {
+      expect(suggestion).toHaveLength(4)
+      expect(suggestion.every(id => COOKIES.some(cookie => cookie.id === id))).toBe(true)
+    }
   })
 })
 
