@@ -9,6 +9,7 @@ import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 import { ParentLink } from '@/components/site/ParentLink'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
+import { starterWorkshopSlugs, starterWorkshopTopicSlugs } from '@/lib/public-workshop-content'
 import config from '@/payload.config'
 
 export const dynamic = 'force-dynamic'
@@ -17,6 +18,7 @@ type Props = { params: Promise<{ slug: string }> }
 
 // cache(): the page and its browser-tab title ask for the same records once per visit.
 const findTopic = cache(async (slug: string) => {
+  if (starterWorkshopTopicSlugs.some(starterSlug => starterSlug === slug)) return undefined
   const payload = await getPayload({ config })
   const topic = (
     await payload.find({
@@ -36,7 +38,7 @@ const findTopic = cache(async (slug: string) => {
     ? (
         await payload.find({
           collection: 'workshops',
-          where: { id: { in: ids } },
+          where: { id: { in: ids }, slug: { not_in: starterWorkshopSlugs } },
           // depth 1 fetches each workshop's image and topics with it; of a topic, only its name and slug.
           depth: 1,
           populate: { topics: { name: true, slug: true } },

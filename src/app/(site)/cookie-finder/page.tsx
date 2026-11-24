@@ -4,10 +4,20 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import { cookieImage } from '@/lib/workshop-image'
+import { Cookie, IceCreamCone, Scale, Sparkles, Layers3, Candy } from 'lucide-react'
 import Link from 'next/link'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareFinderResult } from '@/components/site/CookieComparisonControls'
 import { explainCookieMatch, QUESTIONS, type Answer } from '@/lib/cookie-finder'
+
+const answerIcons = {
+  chocolate: Candy,
+  sweet: IceCreamCone,
+  balanced: Scale,
+  adventurous: Sparkles,
+  classic: Cookie,
+  'cookies-and-cream': Layers3,
+} satisfies Record<Answer, typeof Cookie>
 
 const subscribe = () => () => {}
 
@@ -59,7 +69,7 @@ export default function CookieFinderPage() {
         </p>
 
         <h1 className="mb-4 text-4xl font-bold sm:text-5xl">
-          Find Your Perfect Cookie 🍪
+          Find Your Perfect Cookie
         </h1>
 
         <p className="max-w-xl text-lg text-ink-soft">
@@ -104,21 +114,24 @@ export default function CookieFinderPage() {
               </p>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                {question.options.map((option) => (
-                  <button
-                    key={option.label}
-                    type="button"
-                    disabled={!interactive}
-                    onClick={() => chooseAnswer(option.value)}
-                    className="boutique-answer flex min-h-20 min-w-0 items-center gap-3 rounded-control border border-line bg-canvas p-3 sm:p-4 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
-                  >
-                    <span className="text-3xl" aria-hidden="true">
-                      {option.emoji}
-                    </span>
+                {question.options.map((option) => {
+                  const Icon = answerIcons[option.value]
+                  return (
+                    <button
+                      key={option.label}
+                      type="button"
+                      disabled={!interactive}
+                      onClick={() => chooseAnswer(option.value)}
+                      className="boutique-answer flex min-h-20 min-w-0 items-center gap-3 rounded-control border border-line bg-canvas p-3 sm:p-4 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
+                    >
+                      <span className="boutique-finder-icon" aria-hidden="true">
+                        <Icon size={24} />
+                      </span>
 
-                    <span>{option.label}</span>
-                  </button>
-                ))}
+                      <span>{option.label}</span>
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
@@ -155,7 +168,7 @@ export default function CookieFinderPage() {
                 className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-yellow-wash text-3xl"
                 aria-hidden="true"
               >
-                {result.emoji}
+                <Cookie size={26} />
               </div>
 
               {resultImage && <Image src={resultImage.src} alt="" width={360} height={300} className="mx-auto mb-5 aspect-[6/5] w-full max-w-xs rounded-frame object-cover" />}

@@ -11,6 +11,7 @@ import { cookieImage } from '@/lib/workshop-image'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareCookieButton, ComparisonTray } from '@/components/site/CookieComparisonControls'
 import { filterQuery, parseFilters, type SearchParams } from '@/tasks/find-workshop/filters'
+import { starterWorkshopSlugs } from '@/lib/public-workshop-content'
 import config from '@/payload.config'
 
 export const metadata: Metadata = {
@@ -171,7 +172,7 @@ export default function CookiesPage({ searchParams }: { searchParams: Promise<Se
 async function WorkshopCatalogue({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const filters = parseFilters(await searchParams)
   const payload = await getPayload({ config })
-  const where: Where = {}
+  const where: Where = { slug: { not_in: starterWorkshopSlugs } }
   if (filters.topic) where['topics.slug'] = { equals: filters.topic }
   if (filters.level) where.level = { equals: filters.level }
   const { docs: workshops } = await payload.find({

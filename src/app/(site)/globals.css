@@ -786,3 +786,59 @@ html.a11y-large-cursor [contenteditable='true'] {
 @media (min-width: 48rem) {
   .boutique-workshop-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* Frame the front cookie of each existing illustration inside its compartment. */
+.boutique-slot-art img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 265%;
+  max-width: none;
+  height: auto;
+  transform: translate(var(--slot-x, -50%), var(--slot-y));
+  clip-path: var(--slot-cut);
+}
+[data-flavour='1'] { --slot-y: -62%; --slot-cut: polygon(33% 61%, 36% 56%, 43% 53%, 51% 53%, 59% 56%, 64% 60%, 65% 65%, 60% 69%, 54% 71%, 43% 71%, 37% 69%, 33% 65%); }
+[data-flavour='2'] { --slot-y: -62%; --slot-cut: polygon(33% 62%, 36% 57%, 42% 55%, 51% 54%, 57% 56%, 63% 59%, 66% 63%, 63% 67%, 59% 70%, 51% 71%, 43% 71%, 36% 68%); }
+[data-flavour='3'] { --slot-y: -62%; --slot-cut: polygon(32% 62%, 36% 57%, 42% 54%, 51% 53%, 58% 56%, 63% 60%, 65% 64%, 61% 68%, 54% 71%, 43% 71%, 37% 69%, 33% 65%); }
+[data-flavour='4'] { --slot-y: -62%; --slot-cut: polygon(31% 61%, 35% 56%, 42% 54%, 50% 53%, 58% 54%, 64% 58%, 65% 62%, 63% 67%, 57% 70%, 49% 72%, 41% 71%, 34% 68%); }
+[data-flavour='5'] { --slot-y: -62%; --slot-cut: polygon(32% 62%, 36% 57%, 43% 54%, 50% 54%, 58% 55%, 63% 59%, 66% 63%, 63% 67%, 57% 70%, 49% 71%, 42% 70%, 35% 67%); }
+[data-flavour='6'] { --slot-y: -61%; --slot-cut: polygon(30% 62%, 33% 57%, 41% 54%, 48% 53%, 55% 54%, 61% 57%, 64% 61%, 63% 65%, 57% 69%, 48% 70%, 40% 70%, 34% 67%); }
+
+.boutique-finder-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.6rem;
+  block-size: 2.6rem;
+  border: 1px solid var(--color-line);
+  border-radius: 48% 43%;
+  color: var(--color-link);
+  background: var(--color-yellow-wash);
+}
+.boutique-order-dock {
+  inset-inline-start: max(.5rem, env(safe-area-inset-left));
+  inset-block-end: max(.5rem, env(safe-area-inset-bottom));
+  max-inline-size: calc(100% - 6rem);
+}
+.boutique-basket-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .55rem;
+}
+@media (max-width: 39.99rem) {
+  .boutique-basket-item { grid-template-columns: auto minmax(0, 1fr); padding: .4rem .55rem; gap: 0 .55rem; }
+  .boutique-basket-item > img { width: 2.5rem; height: 2.5rem; }
+  .boutique-basket-details p { line-height: 1.25; }
+  .boutique-basket-controls { grid-column: 2; }
+  .boutique-basket-controls button { min-width: 44px; min-height: 44px; }
+}
+@media (min-width: 40rem) {
+  .boutique-order-dock {
+    inset-inline-start: max(1.5rem, env(safe-area-inset-left));
+    inset-block-end: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+html:has(.boutique-order-dock) { scroll-padding-block-end: 6rem; }

@@ -88,8 +88,8 @@ export function CookieBoxBuilder() {
               <li key={index} data-flavour={cookie?.id} className="boutique-box-slot relative grid min-h-32 min-w-0 content-start sm:min-h-48">
                 {cookie ? (
                   <>
-                    <div className="relative aspect-[5/4] overflow-hidden rounded-t-frame bg-yellow-wash">
-                      {image && <Image src={image.src} alt={image.alt} fill sizes="(min-width: 768px) 300px, 42vw" className="object-cover object-[center_55%]" />}
+                    <div className="boutique-slot-art relative aspect-[5/4] overflow-hidden rounded-t-frame">
+                      {image && <Image src={image.src} alt="" width={480} height={720} sizes="(min-width: 768px) 480px, 90vw" />}
                     </div>
                     <div className="grid gap-1 px-2 py-2 sm:px-3">
                       <p className="font-heading font-bold break-words">{cookie.name}</p>

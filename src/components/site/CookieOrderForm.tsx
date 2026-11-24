@@ -128,13 +128,13 @@ export function CookieOrderForm() {
         </div> : (
           <ul className="grid gap-3">
             {chosen.map((cookie) => (
-              <li key={cookie.id} data-flavour={cookie.id} className="boutique-basket-line flex flex-wrap items-center gap-3 border-b border-line">
+              <li key={cookie.id} data-flavour={cookie.id} className="boutique-basket-line boutique-basket-item border-b border-line">
                 <BasketImage name={cookie.name} />
-                <div className="min-w-0 flex-1">
+                <div className="boutique-basket-details min-w-0 flex-1">
                   <strong>{cookie.name} × {quantities[cookie.id]}</strong>
                   <p className="text-sm">{formatOrderAmount(cookie.price)} each · {formatOrderAmount(cookie.price * quantities[cookie.id])} subtotal</p>
                 </div>
-                <div className="flex flex-wrap items-center gap-1">
+                <div className="boutique-basket-controls flex flex-wrap items-center gap-1">
                   <Button type="button" variant="secondary" size="icon" aria-label={`Decrease basket quantity of ${cookie.name}`} disabled={pending} onClick={() => changeQuantity(cookie.id, -1)}>−</Button>
                   <Button type="button" variant="secondary" size="icon" aria-label={`Increase basket quantity of ${cookie.name}`} disabled={pending || quantities[cookie.id] >= 20} onClick={() => changeQuantity(cookie.id, 1)}>+</Button>
                   <Button type="button" variant="quiet" aria-label={`Remove ${cookie.name} from basket`} disabled={pending} onClick={() => changeQuantity(cookie.id, -quantities[cookie.id])}>Remove</Button>

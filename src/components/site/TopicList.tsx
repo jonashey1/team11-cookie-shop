@@ -3,6 +3,7 @@
 //
 // What to change for your own site: the label text, and where a topic links to (topicHref).
 import type { Topic } from '@/payload-types'
+import { starterWorkshopTopicSlugs } from '@/lib/public-workshop-content'
 import { cn } from '@/lib/utils'
 import { ButtonLink } from './ButtonLink'
 
@@ -13,7 +14,9 @@ type TopicLike = number | Pick<Topic, 'id' | 'name' | 'slug'>
 export const topicHref = (slug: string) => `/topics/${slug}`
 
 export function TopicList({ topics, className }: { topics?: TopicLike[] | null; className?: string }) {
-  const shown = (topics ?? []).filter((topic): topic is Pick<Topic, 'id' | 'name' | 'slug'> => typeof topic === 'object')
+  const shown = (topics ?? []).filter((topic): topic is Pick<Topic, 'id' | 'name' | 'slug'> =>
+    typeof topic === 'object' && !starterWorkshopTopicSlugs.some(slug => slug === topic.slug),
+  )
   if (shown.length === 0) return null
   // The label on its own line, the chips side by side below it, wrapping onto a new row when there
   // is no room.

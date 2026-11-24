@@ -20,6 +20,8 @@ test('finds workshops from the homepage, navigation, and topic by keyboard', asy
   await expect(page).toHaveURL(/\?topic=chocolate-lovers#workshops$/)
   await overview.getByRole('link', { name: 'Show all workshops' }).press('Enter')
   await expect(page).toHaveURL(/\/workshops#workshops$/)
+  await expect(overview.getByRole('link', { name: title })).toBeVisible()
+  await expect(overview.getByRole('link', { name: /repair a puncture|adjust your brakes|service a gear system|true a wheel/i })).toHaveCount(0)
 
   await page.goto('/')
   const header = page.getByRole('banner')

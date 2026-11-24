@@ -19,6 +19,7 @@ import { TopicList } from '@/components/site/TopicList'
 import { Badge } from '@/components/ui/badge'
 import { formatPrice, formatWhen, levelLabel } from '@/lib/format'
 import { workshopImage } from '@/lib/workshop-image'
+import { starterWorkshopSlugs } from '@/lib/public-workshop-content'
 import config from '@/payload.config'
 import { filterQuery, parseFilters, type SearchParams } from '@/tasks/find-workshop/filters'
 
@@ -28,6 +29,7 @@ type Props = { params: Promise<{ slug: string }>; searchParams: Promise<SearchPa
 
 // cache(): the page and its browser-tab title ask for the same record once per visit.
 const findWorkshop = cache(async (slug: string) => {
+  if (starterWorkshopSlugs.some(starterSlug => starterSlug === slug)) return undefined
   const payload = await getPayload({ config })
   const found = await payload.find({
     collection: 'workshops',
