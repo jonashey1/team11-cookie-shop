@@ -1,4 +1,5 @@
 
+import { Cookie } from 'lucide-react'
 import Link from 'next/link'
 import { SITE_NAME } from '@/content/campus-cycle'
 
@@ -17,11 +18,11 @@ const LINKS = [
 
 export function Footer() {
   return (
-    <footer className="signature-footer mt-section border-t border-brand pb-24">
+    <footer className="signature-footer boutique-footer mt-section pb-24">
       <div className="mx-auto grid max-w-page gap-block px-gutter py-block sm:grid-cols-[1.1fr_1fr] sm:py-10">
         <div className="grid content-start gap-stack">
-          <p className="font-heading text-2xl font-bold tracking-tight">
-            {SITE_NAME}
+          <p className="boutique-footer-brand font-heading font-bold tracking-tight">
+            <Cookie aria-hidden="true" /> {SITE_NAME}
           </p>
 
           <p className="max-w-[40ch] signature-footer-note">
@@ -53,7 +54,7 @@ export function Footer() {
           </ul>
         </nav>
 
-        <div className="border-t border-line pt-stack sm:col-span-2">
+        <div className="boutique-footer-credit border-t pt-stack sm:col-span-2">
           <p className="text-sm font-semibold">
             Team 11 - Cookie Shop | UGent | Team code: T11-S3F8
           </p>

@@ -11,6 +11,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import { cache } from 'react'
+import { ArtisanPhotoFigure } from '@/components/site/ArtisanPhotoFigure'
+import { artisanPhotography } from '@/content/artisan-photography'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { Notice } from '@/components/site/Notice'
 import { PageTitle } from '@/components/site/PageTitle'
@@ -19,6 +21,7 @@ import { TopicList } from '@/components/site/TopicList'
 import { Badge } from '@/components/ui/badge'
 import { formatPrice, formatWhen, levelLabel } from '@/lib/format'
 import { workshopImage } from '@/lib/workshop-image'
+import { starterWorkshopSlugs } from '@/lib/public-workshop-content'
 import config from '@/payload.config'
 import { filterQuery, parseFilters, type SearchParams } from '@/tasks/find-workshop/filters'
 
@@ -28,6 +31,7 @@ type Props = { params: Promise<{ slug: string }>; searchParams: Promise<SearchPa
 
 // cache(): the page and its browser-tab title ask for the same record once per visit.
 const findWorkshop = cache(async (slug: string) => {
+  if (starterWorkshopSlugs.some(starterSlug => starterSlug === slug)) return undefined
   const payload = await getPayload({ config })
   const found = await payload.find({
     collection: 'workshops',
@@ -50,8 +54,11 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
   const workshop = await findWorkshop((await params).slug)
   // No workshop with this slug: the "not found" page, which explains and offers a way on.
   if (!workshop) notFound()
+  const photo = workshop.slug === 'salted-caramel' || workshop.slug === 'cookie-decorating-workshop'
+    ? artisanPhotography.decoratingWorkshop
+    : null
   const filters = parseFilters(await searchParams)
-  const back = `/workshops${filterQuery(filters)}`
+  const back = `/workshops${filterQuery(filters)}#workshops`
   const payload = await getPayload({ config })
   const facts = await payload.findGlobal({ slug: 'site-facts', depth: 0 })
 
@@ -104,6 +111,7 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
               </div>
             </section>
           )}
+          {photo && <ArtisanPhotoFigure photo={photo} sizes="(min-width: 80rem) 45rem, (min-width: 64rem) 60vw, 92vw" />}
           <TopicList topics={workshop.topics} />
           <ButtonLink href={back} variant="secondary" className="w-fit max-w-full whitespace-normal text-center">
             {filters.topic || filters.level ? 'Back to the filtered workshops' : 'Back to all workshops'}

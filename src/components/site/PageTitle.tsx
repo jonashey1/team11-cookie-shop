@@ -32,7 +32,7 @@ export function PageTitle({
   return (
     <header
       className={cn(
-        'mt-5 mb-block grid items-center gap-5 rounded-frame border-s-4 border-s-brand p-4 sm:mt-8 sm:p-7 lg:px-9',
+        'boutique-page-title mt-5 mb-block grid items-center gap-5 rounded-frame border-s-4 border-s-brand p-4 sm:mt-8 sm:p-7 lg:px-9',
         image && 'md:grid-cols-[1.4fr_1fr]',
         TONES[tone],
         className,

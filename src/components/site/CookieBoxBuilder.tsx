@@ -1,5 +1,6 @@
 'use client'
 
+import { Cookie } from 'lucide-react'
 import Image from 'next/image'
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
@@ -77,17 +78,18 @@ export function CookieBoxBuilder() {
           <p role="status">{selection.length} of 4 selected</p>
           <p>Total: {formatOrderAmount(boxPrice(selection))}</p>
         </div>
-        <ul ref={slotList} aria-label="Box slots" className="signature-box-tray grid auto-rows-fr grid-cols-2 gap-2 rounded-frame border-2 border-line bg-yellow-tint p-2 sm:gap-3 sm:p-4">
+        <div aria-hidden="true" className="boutique-box-lid"><Cookie /><span>Cookie Shop</span><small>Your perfect cookie box</small></div>
+        <ul ref={slotList} aria-label="Box slots" className="boutique-box-tray">
           {slots.map((id, index) => {
             const cookie = COOKIES.find(item => item.id === id)
             const image = cookie && cookieImage(cookie.name)
 
             return (
-              <li key={index} className="relative grid min-h-32 min-w-0 content-start rounded-frame sm:min-h-48 border border-line bg-canvas">
+              <li key={index} data-flavour={cookie?.id} className="boutique-box-slot relative grid min-h-32 min-w-0 content-start sm:min-h-48">
                 {cookie ? (
                   <>
-                    <div className="relative aspect-[5/4] overflow-hidden rounded-t-frame bg-yellow-wash">
-                      {image && <Image src={image.src} alt={image.alt} fill sizes="(min-width: 768px) 300px, 42vw" className="object-cover object-[center_55%]" />}
+                    <div className="boutique-slot-art relative aspect-[5/4] overflow-hidden rounded-t-frame">
+                      {image && <Image src={image.src} alt="" width={480} height={720} sizes="(min-width: 768px) 480px, 90vw" />}
                     </div>
                     <div className="grid gap-1 px-2 py-2 sm:px-3">
                       <p className="font-heading font-bold break-words">{cookie.name}</p>

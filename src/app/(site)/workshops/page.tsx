@@ -2,7 +2,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Suspense } from 'react'
-import { getPayload } from 'payload'
+import { getPayload, type Where } from 'payload'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
@@ -10,6 +10,8 @@ import { COOKIES, type CookieProduct } from '@/content/cookies'
 import { cookieImage } from '@/lib/workshop-image'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareCookieButton, ComparisonTray } from '@/components/site/CookieComparisonControls'
+import { filterQuery, parseFilters, type SearchParams } from '@/tasks/find-workshop/filters'
+import { starterWorkshopSlugs } from '@/lib/public-workshop-content'
 import config from '@/payload.config'
 
 export const metadata: Metadata = {
@@ -29,16 +31,7 @@ const tastingNotes = {
   6: 'A familiar favourite with a twist.',
 } satisfies Record<CookieProduct['id'], string>
 
-const accents = {
-  1: 'border-t-brand',
-  2: 'border-t-ink-soft',
-  3: 'border-t-line',
-  4: 'border-t-coral',
-  5: 'border-t-yellow',
-  6: 'border-t-purple',
-} satisfies Record<CookieProduct['id'], string>
-
-export default function CookiesPage() {
+export default function CookiesPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
 
   return (
     <div className="pb-block">
@@ -52,8 +45,8 @@ export default function CookiesPage() {
           <ButtonLink href="/workshops#cookies" variant="secondary" size="sm" className="min-h-11">
             Discover Our Flavours
           </ButtonLink>
-          <ButtonLink href="/workshops#workshops" variant="secondary" size="sm" className="min-h-11">
-            Cookie Workshops
+          <ButtonLink href="#workshops" size="sm" className="min-h-11">
+            Explore our workshops
           </ButtonLink>
         </nav>
       </PageTitle>
@@ -76,28 +69,28 @@ export default function CookiesPage() {
 
         <div><ButtonLink href="/build-your-box" variant="secondary">Build a cookie box</ButtonLink></div>
         <ComparisonTray />
-        <ul className="grid gap-block sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="boutique-assortment">
           {COOKIES.map((cookie) => {
             const image = cookieImage(cookie.name)
 
             return (
               <li
                 key={cookie.id}
-                className={`flex min-w-0 flex-col gap-stack rounded-frame border border-line border-t-4 bg-canvas p-3 sm:p-4 ${accents[cookie.id]}`}
+                data-flavour={cookie.id} className="boutique-product"
               >
                 {image && (
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
+                  <div className="boutique-product-art relative overflow-hidden">
                     <Image
                       src={image.src}
                       alt={image.alt}
                       fill
-                      sizes="(min-width: 80rem) 21rem, (min-width: 64rem) 28vw, (min-width: 40rem) 42vw, 88vw"
+                      sizes="(min-width: 80rem) 31rem, (min-width: 48rem) 45vw, 88vw"
                       className="object-cover"
                     />
                   </div>
                 )}
 
-                <div className="grid content-start gap-2">
+                <div className="boutique-product-copy grid content-start gap-2">
                   <p className="text-sm font-semibold text-ink-soft">
                     {cookie.flavour}
                   </p>
@@ -107,7 +100,7 @@ export default function CookiesPage() {
                   <p className="font-heading italic text-ink-soft">{tastingNotes[cookie.id]}</p><p>{cookie.description}</p>
                 </div>
 
-                <div className="mt-auto grid gap-2 border-t border-line pt-stack">
+                <div className="boutique-product-controls grid gap-2">
                   <p className="font-heading text-xl font-bold tabular-nums">
                     {new Intl.NumberFormat('en-BE', {
                       style: 'currency',
@@ -169,31 +162,41 @@ export default function CookiesPage() {
         </div>
 
         <Suspense fallback={<p role="status">Loading cookie workshops…</p>}>
-          <WorkshopCatalogue />
+          <WorkshopCatalogue searchParams={searchParams} />
         </Suspense>
       </section>
     </div>
   )
 }
 
-async function WorkshopCatalogue() {
+async function WorkshopCatalogue({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const filters = parseFilters(await searchParams)
   const payload = await getPayload({ config })
+  const where: Where = { slug: { not_in: starterWorkshopSlugs } }
+  if (filters.topic) where['topics.slug'] = { equals: filters.topic }
+  if (filters.level) where.level = { equals: filters.level }
   const { docs: workshops } = await payload.find({
     collection: 'workshops',
+    where,
     depth: 1,
     limit: 100,
     sort: 'title',
   })
 
-  if (!workshops.length) return <p>No cookie workshops are available at the moment.</p>
+  const query = filterQuery(filters)
 
   return (
-    <ul className="grid gap-block md:grid-cols-2">
-      {workshops.map((workshop) => (
-        <li key={workshop.id} className="grid min-w-0">
-          <WorkshopCard workshop={workshop} />
-        </li>
-      ))}
-    </ul>
+    <>
+      {query && <ButtonLink href="/workshops#workshops" variant="secondary" className="w-fit">Show all workshops</ButtonLink>}
+      {workshops.length === 0 ? <p>No cookie workshops match this selection.</p> : (
+        <ul className="grid gap-block md:grid-cols-2">
+          {workshops.map((workshop) => (
+            <li key={workshop.id} className="grid min-w-0">
+              <WorkshopCard workshop={workshop} query={query} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   )
 }

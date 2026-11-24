@@ -9,6 +9,7 @@ import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 import { ParentLink } from '@/components/site/ParentLink'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
+import { starterWorkshopSlugs, starterWorkshopTopicSlugs } from '@/lib/public-workshop-content'
 import config from '@/payload.config'
 
 export const dynamic = 'force-dynamic'
@@ -17,6 +18,7 @@ type Props = { params: Promise<{ slug: string }> }
 
 // cache(): the page and its browser-tab title ask for the same records once per visit.
 const findTopic = cache(async (slug: string) => {
+  if (starterWorkshopTopicSlugs.some(starterSlug => starterSlug === slug)) return undefined
   const payload = await getPayload({ config })
   const topic = (
     await payload.find({
@@ -36,7 +38,7 @@ const findTopic = cache(async (slug: string) => {
     ? (
         await payload.find({
           collection: 'workshops',
-          where: { id: { in: ids } },
+          where: { id: { in: ids }, slug: { not_in: starterWorkshopSlugs } },
           // depth 1 fetches each workshop's image and topics with it; of a topic, only its name and slug.
           depth: 1,
           populate: { topics: { name: true, slug: true } },
@@ -62,7 +64,7 @@ export default async function TopicPage({ params }: Props) {
 
   return (
     <div className="pb-block">
-      <ParentLink href="/workshops" label="Workshops" current={topic.name} />
+      <ParentLink href="/workshops#workshops" label="Workshops" current={topic.name} />
       <PageTitle title={topic.name} intro={topic.description} tone="blue" className="mt-3 border border-line sm:mt-4" />
       <section aria-labelledby="topic-workshops" className="grid gap-block">
         <div className="flex flex-wrap items-baseline justify-between gap-stack border-b border-line pb-stack">
@@ -71,7 +73,7 @@ export default async function TopicPage({ params }: Props) {
               ? 'No workshop covers this topic yet'
               : `Workshops about ${topic.name} — ${workshops.length} ${workshops.length === 1 ? 'workshop' : 'workshops'}`}
           </h2>
-          <ButtonLink href={`/workshops?topic=${topic.slug}`} variant="link" className="min-h-11 max-w-full whitespace-normal text-left">
+          <ButtonLink href={`/workshops?topic=${topic.slug}#workshops`} variant="link" className="min-h-11 max-w-full whitespace-normal text-left">
             Filter the workshop list by this topic
           </ButtonLink>
         </div>

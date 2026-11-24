@@ -64,7 +64,7 @@ export function FloatingOrderButton() {
   }
 
   return (
-    <div className="fixed bottom-3 left-3 z-40 flex max-w-[calc(100vw-7rem)] items-center gap-2 rounded-panel border border-line bg-canvas p-1.5 shadow-[3px_3px_0_0_var(--color-brand)] sm:bottom-6 sm:left-6">
+    <div className="boutique-order-dock fixed z-40 flex items-center gap-1 rounded-panel border border-line bg-canvas p-1 shadow-[3px_3px_0_0_var(--color-brand)]">
       <Link
         href={onOrderPage ? '#basket' : '/clinics'}
         aria-label={summary ? `${onOrderPage ? 'Review basket' : 'Order cookies now'}: ${summary}` : 'Order cookies now'}
@@ -73,7 +73,7 @@ export function FloatingOrderButton() {
         <ShoppingBag aria-hidden="true" className="size-4 shrink-0" />
         <span className="min-w-0">
           {onOrderPage ? 'Review basket' : 'Order Cookies'}
-          {summary && <span className="mt-1 block font-normal tabular-nums">{summary}</span>}
+          {summary && <span className="block font-normal tabular-nums sm:mt-1">{summary}</span>}
         </span>
       </Link>
 

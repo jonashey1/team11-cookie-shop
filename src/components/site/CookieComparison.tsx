@@ -76,8 +76,8 @@ export function CookieComparison() {
                 const image = cookieImage(cookie.name)
                 const atLimit = (quantities[cookie.id] ?? 0) >= 20
                 return (
-                  <th key={cookie.id} scope="col" id={`compare-cookie-${cookie.id}`} className="px-1 text-start align-top sm:px-2">
-                    {image && <div className="relative mb-2 aspect-square overflow-hidden rounded-frame bg-yellow-wash">
+                  <th key={cookie.id} data-flavour={cookie.id} scope="col" id={`compare-cookie-${cookie.id}`} className="px-1 text-start align-top sm:px-2">
+                    {image && <div className="boutique-comparison-art relative mb-2 aspect-square overflow-hidden rounded-frame bg-yellow-wash">
                       <Image src={image.src} alt={image.alt} fill className="object-cover" sizes="(min-width: 75rem) 24rem, 45vw" />
                     </div>}
                     <div className="grid gap-2">

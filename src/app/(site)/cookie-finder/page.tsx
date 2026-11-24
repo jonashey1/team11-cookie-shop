@@ -2,10 +2,22 @@
 'use client'
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import Image from 'next/image'
+import { cookieImage } from '@/lib/workshop-image'
+import { Cookie, IceCreamCone, Scale, Sparkles, Layers3, Candy } from 'lucide-react'
 import Link from 'next/link'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareFinderResult } from '@/components/site/CookieComparisonControls'
 import { explainCookieMatch, QUESTIONS, type Answer } from '@/lib/cookie-finder'
+
+const answerIcons = {
+  chocolate: Candy,
+  sweet: IceCreamCone,
+  balanced: Scale,
+  adventurous: Sparkles,
+  classic: Cookie,
+  'cookies-and-cream': Layers3,
+} satisfies Record<Answer, typeof Cookie>
 
 const subscribe = () => () => {}
 
@@ -42,6 +54,7 @@ export default function CookieFinderPage() {
 
   const match = finished ? explainCookieMatch(answers) : null
   const result = match?.cookie
+  const resultImage = result && cookieImage(result.name)
   const resultHeading = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
@@ -50,13 +63,13 @@ export default function CookieFinderPage() {
 
   return (
     <div className="mx-auto max-w-3xl pb-section pt-block">
-      <div className="mb-block border-y border-line bg-yellow-wash p-4 sm:p-block">
+      <div className="boutique-finder-intro mb-block border-y border-line bg-yellow-wash p-4 sm:p-block">
         <p className="mb-3 text-sm font-bold uppercase tracking-widest text-ink-soft">
           Cookie Finder
         </p>
 
         <h1 className="mb-4 text-4xl font-bold sm:text-5xl">
-          Find Your Perfect Cookie 🍪
+          Find Your Perfect Cookie
         </h1>
 
         <p className="max-w-xl text-lg text-ink-soft">
@@ -65,7 +78,7 @@ export default function CookieFinderPage() {
         </p>
       </div>
 
-      <div className="rounded-panel border border-line bg-canvas p-5 sm:p-block">
+      <div className="boutique-quiz border-y border-line bg-canvas p-4 sm:p-block">
         {!finished ? (
           <>
             <div className="mb-8">
@@ -100,23 +113,29 @@ export default function CookieFinderPage() {
                 {question.subtitle}
               </p>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                {question.options.map((option) => (
-                  <button
-                    key={option.label}
-                    type="button"
-                    disabled={!interactive}
-                    onClick={() => chooseAnswer(option.value)}
-                    className="flex min-h-20 min-w-0 items-center gap-3 rounded-control border border-line bg-canvas p-3 sm:p-4 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
-                  >
-                    <span className="text-3xl" aria-hidden="true">
-                      {option.emoji}
-                    </span>
+              {interactive ? (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {question.options.map((option) => {
+                    const Icon = answerIcons[option.value]
+                    return (
+                      <button
+                        key={option.label}
+                        type="button"
+                        onClick={() => chooseAnswer(option.value)}
+                        className="boutique-answer flex min-h-20 min-w-0 items-center gap-3 rounded-control border border-line bg-canvas p-3 sm:p-4 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
+                      >
+                        <span className="boutique-finder-icon" aria-hidden="true">
+                          <Icon size={24} />
+                        </span>
 
-                    <span>{option.label}</span>
-                  </button>
-                ))}
-              </div>
+                        <span>{option.label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              ) : (
+                <p role="status">Loading the answers…</p>
+              )}
             </div>
 
             <div className="mt-block flex flex-wrap items-center justify-between gap-stack">
@@ -143,18 +162,19 @@ export default function CookieFinderPage() {
           </>
         ) : (
           result && (
-            <div className="text-center" aria-live="polite">
+            <div data-flavour={result.id} className="boutique-finder-result text-center" aria-live="polite">
               <p className="mb-3 text-sm font-bold uppercase tracking-widest text-ink-soft">
                 Your Cookie Match
               </p>
 
               <div
-                className="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-yellow-wash text-7xl"
+                className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-yellow-wash text-3xl"
                 aria-hidden="true"
               >
-                {result.emoji}
+                <Cookie size={26} />
               </div>
 
+              {resultImage && <Image src={resultImage.src} alt="" width={360} height={300} className="mx-auto mb-5 aspect-[6/5] w-full max-w-xs rounded-frame object-cover" />}
               <h2 ref={resultHeading} tabIndex={-1} className="mb-4 text-3xl font-bold sm:text-4xl">
                 {result.name}
               </h2>
