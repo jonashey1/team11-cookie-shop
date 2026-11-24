@@ -1,55 +1,90 @@
 # Content and structure
 
-Team 11 · Cookie Shop. This is a retrospective inventory of PR #27. The [brief](brief.md) and [requirements](requirements.md) remain the sources for the team's original outcomes.
+Team 11 · Cookie Shop (T11-S3F8). What content the site holds and how it is organised, as built on the PR #27 branch. The [brief](brief.md) and [requirements](requirements.md) remain the sources for the two user tasks.
 
-## Content inventory and navigation
+The collection the transactional task saves into is named in `src/course-check.config.ts`: `orders`, with the name field `name`.
 
-| Content | Source and maintenance | Route and next step |
+## Content inventory
+
+| Content | Where it comes from | Who keeps it up to date |
 | --- | --- | --- |
-| Six flavours, descriptions, current prices and illustrations | Code catalogue in `src/content/cookies.ts` and approved resolver in `src/lib/workshop-image.ts`; maintainer | `/cookies`: title, six flavour shortcuts, six cards, Taste Map, comparison tray and order links |
-| Cookie workshops and topics | Published Payload workshops and topics, maintained by editors; local illustrations resolve by workshop slug | `/workshops` → `/workshops/[slug]` ↔ `/topics/[slug]`. Topic links can open the filtered overview. |
-| Home and commercial | Page copy, approved media and three workshop previews | `/`: hero, commercial, editorial journey links, workshops preview, cookie collection |
-| Recommendations and comparison | Catalogue IDs, stored qualitative comparison profiles and deterministic Finder rules | `/cookie-finder` → Passport, `/cookies#taste-map`, `/compare`, `/build-your-box` |
-| Cookie ordering and confirmation | Shared basket and the server-validated Payload Orders collection | `/clinics` has product selection, basket, fictional customer details and an inline printable receipt |
-| About, contact and help | Site components and CMS pages where configured; editor and maintainer | `/about`, `/contact`, `/faq`, `/privacy`. The external campus map is optional and opt-in. |
-| Secondary starter compatibility | Clinics, timeslots, bookings and optional member access | `/clinics/[slug]`, `/clinics/[slug]/booked`, `/account`, `/account/login` |
-| Administration | Payload editor role | `/admin`, protected order analytics and CSV export |
-
-Desktop and mobile offer Home, Our Cookies, Workshops, Cookie Finder, About Us, Contact and Order Cookies, with optional account links. The mobile menu uses the same destinations. Footer links include both Our Cookies and Workshops. Legacy `/workshops#cookies`, `#taste-map`, `#comparison` and `#cookie-1` through `#cookie-6` use the client-side compatibility redirect. With scripts unavailable, the Workshops page contains a regular link to Our Cookies.
+| Six cookies: name, description, flavour, price, illustration, tasting profile | Code catalogue `src/content/cookies.ts`; illustrations resolved in `src/lib/workshop-image.ts` | Content-model pair (Jonas, Xander), through a pull request |
+| Workshops: title, level, day, times, price, group size, summary, description, image, topics | Payload collection `workshops` | Editors in `/admin` |
+| Workshop topics: name, description; the workshops of each topic | Payload collection `topics`; the workshop list is a join on `workshops.topics` | Editors in `/admin` |
+| Orders: customer name and e-mail, cookie lines, total, status | Payload collection `orders`, written only by the server's order action | Created by users; read and updated by editors |
+| Homepage, commercial video and its transcript | Page component and `public/` media | Maintainer, through a pull request |
+| Cookie Finder rules, Taste Map positions, comparison characteristics | Code, keyed by the catalogue IDs | Maintainer, through a pull request |
+| About, contact, FAQ copy, campus map link | Page components; CMS `pages` where configured | Maintainer and editors |
+| Privacy page | CMS `pages` | Editors |
+| Starter booking example: clinics, time slots, bookings, repairs | Payload collections kept from the template | Not part of the Cookie Shop tasks; kept so earlier records are not lost |
 
 ## Content model
 
-Payload collection definitions are under [src/collections](../src/collections). Public content and its presentation are separate. A Workshop is a teaching demonstration. The six retail products live in the catalogue, not in Workshop or Repairs records.
+| Collection (slug) | Fields | Links |
+| --- | --- | --- |
+| Workshop (`workshops`) | title*, slug* (unique), level*, day*, start time*, end time, price* (≥ 0), group size*, summary*, description, image (→ media), topics | many-to-many with Topic |
+| Topic (`topics`) | name*, slug* (unique), description; `workshops` is a join, not a stored field | many-to-many with Workshop; a topic cannot be deleted while a workshop uses it |
+| Order (`orders`) | name* (holds the team code for course checks), customer name*, e-mail*, items* (at least one line), total in cents*, status (default New), request ID (unique) | embeds Order lines |
+| Order line (embedded in an order) | cookie ID, cookie name, quantity, unit price in cents | refers to a catalogue cookie by ID; name and price are copied so a receipt stays correct if the catalogue changes |
+| Cookie (code catalogue, **not** a Payload collection) | ID, name, description, flavour, price in cents | referenced by order lines |
+| Clinic, TimeSlot, Booking, Repair (template) | as in the starter | Clinic 1–n TimeSlot 1–n Booking; not used by the Cookie Shop tasks |
+| Page, Media, User, Member, Throttle | generic CMS and system collections | do not count as topic collections |
 
-| Entity | Types, required values and identifiers |
-| --- | --- |
-| Workshop | Required title, unique public slug, level, day, start time, non-negative price, group size and summary. Optional end time, rich description, upload and topics. The server checks slug uniqueness and valid time ranges. |
-| Topic | Required name and unique public slug; optional description. Reverse Workshop join is derived. Deletion is blocked while a workshop references the topic. |
-| Cookie | Six stable numeric IDs in the catalogue. Each gives name, description, flavour and the current integer-cent unit price. Illustration and tasting profile are resolved by the matching identity. |
-| Order | Required name, customer name and email, item array with at least one row, total in cents and timestamps. Status is a select with default new. Unique request ID is enforced by the database and required by the action; the schema also accommodates earlier records. |
-| Order line | Numeric cookie ID, name, quantity and integer-cent unit price. Lines are embedded in an order. The copied name and price preserve the confirmed receipt even if the catalogue later changes. |
-| Clinic / TimeSlot / Booking | Required Clinic name, slug and schedule; required TimeSlot clinic, start and capacity; required Booking slot, name and e-mail. Optional Booking member. Distinct from a Cookie Shop order. |
-| Page / Media | CMS Page title and unique slug, optional intro and rich body; reusable Media has mandatory alt text. |
-| User / Member / Throttle / Repair | Editor authentication, optional separate customer authentication, internal throttling and retained starter repair data respectively. Repair pricing is not cookie pricing. |
+\* = required.
 
 ```mermaid
 erDiagram
-    WORKSHOP }o--o{ TOPIC : "stores topics; reverse join reads workshops"
-    MEDIA o|--o{ WORKSHOP : "illustrates"
+    WORKSHOP }o--o{ TOPIC : "workshops.topics / topics.workshops (join)"
+    MEDIA |o--o{ WORKSHOP : "illustrates"
     ORDER ||--|{ ORDER_LINE : "embeds"
-    COOKIE ||--o{ ORDER_LINE : "catalogue ID; snapshots name and price"
-    CLINIC ||--o{ TIME_SLOT : "owns"
-    TIME_SLOT ||--o{ BOOKING : "receives"
-    MEMBER o|--o{ BOOKING : "may identify"
+    COOKIE ||--o{ ORDER_LINE : "catalogue ID, copied name and price"
+    CLINIC ||--o{ TIME_SLOT : "template example"
+    TIME_SLOT ||--o{ BOOKING : "template example"
 ```
 
-The Cookie relationship above is a code-level reference, without a Payload collection or database foreign key. Workshop topic references are stored once; the Topic derives the reverse view. Workshop slugs remain stable across the overview reorganisation. Existing records were preserved.
+The many-to-many is stored once, on the workshop, and read in both directions: a workshop page lists its topics and each topic page lists its workshops. On production on 24 November 2026 all four workshops and three topics linked consistently in both directions.
 
-The order action validates contact fields and item IDs, quantities and request token, and recalculates the total from the catalogue before saving. A repeated identical request ID returns the existing receipt. The same ID with different content is refused. The course checker looks in `orders.name`, independently of the legacy bookings flow.
+The order action checks the contact fields, cookie IDs, quantities and request ID, and recalculates the total from the catalogue before saving. Sending the same request again returns the existing receipt instead of a second order.
 
-## Primary tasks
+**Known gap:** the course asks for at least four collections for the team's topic. Topic-specific collections today: `workshops`, `topics`, `orders`. Moving the cookie catalogue into a Payload `cookies` collection is the planned fourth; this document is updated when that lands.
 
-1. **Informational:** use Our Cookies to find the available flavours and compare descriptions and prices. A customer may use Finder or the Taste Map without losing a direct path to the catalogue.
-2. **Transactional:** choose cookie quantities on Order Cookies or add from the catalogue or box. Review the shared basket, use made-up details and check the confirmation after the server saves an Order.
+## Sitemap
 
-Optional commercial, workshops and celebration support brand context and feedback. They do not add required purchase steps; the video is user-activated and the receipt appears without waiting for the celebration.
+```text
+/                    Home ─┬─> /cookies, /clinics, /cookie-finder, /build-your-box, /workshops
+/cookies             Our Cookies (assortment, Taste Map) ─> /compare, /clinics
+/compare             Compare up to three cookies ─> /clinics
+/cookie-finder       Finder and Taste Passport ─> /cookies, /compare, /clinics
+/build-your-box      Four-cookie box ─> /clinics
+/clinics             Order Cookies: choose, basket, test order ─> receipt on the same page
+/workshops           Workshop overview ─> /workshops/[slug] ─> /topics/[slug] ─> /workshops/[slug]
+/about, /contact, /faq, /fortune-cookie, /privacy
+/admin               Editors only (incl. order analytics and CSV export)
+```
+
+Redirects kept for old links: `/home` → `/`; `/workshops#cookies`, `#taste-map`, `#comparison`, `#cookie-1`…`#cookie-6` → `/cookies`; the retired example clinic → `/clinics`. `/clinics/[slug]`, `/clinics/[slug]/booked` and `/account` belong to the template booking example and are not linked in the menus.
+
+## Navigation labels
+
+Main menu, the same on phone and laptop: **Home**, **Our Cookies**, **Workshops**, **Cookie Finder**, **About Us**, **Contact**, and the highlighted **Order Cookies** button. The footer adds **Fortune Cookie**, **FAQ** and **Privacy**.
+
+Why users understand them: the labels name what a shop customer looks for in plain words ("Our Cookies" for the products, "Order Cookies" for the action), like the competitor shops in our benchmark. "Order Cookies" is set apart visually because ordering is the primary task, and our usability test showed it had to be easier to find (test report, Finding 3, PR #17). The technical address `/clinics` comes from the template; users only see the label.
+
+## Each user task, step by step
+
+**1. Transactional — order cookies (primary)**
+
+1. Home: choose **Order Cookies** in the hero or menu.
+2. `/clinics`: add cookies with the + buttons (or arrive with cookies already added from Our Cookies, Compare, the Finder or the Box Builder).
+3. Same page, basket: check quantities and the total; change or remove lines.
+4. Same page: enter a made-up name and e-mail and choose **Place test order**.
+5. Same page: the receipt appears only after the server has saved the order; it can be printed.
+
+**2. Informational — find and compare cookies**
+
+1. Home or menu: choose **Our Cookies**.
+2. `/cookies`: read the six cards (name, flavour, description, price); use the Taste Map to see sweetness and chocolate intensity.
+3. Select two or three cookies to compare and open `/compare`.
+4. `/compare`: read the differences side by side; optionally go on to order.
+
+The Cookie Finder (`/cookie-finder`) is an optional route into the same task: a few questions lead to a recommendation, an alternative and links to compare or order.
