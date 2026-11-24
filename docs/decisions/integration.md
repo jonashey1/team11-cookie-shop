@@ -16,8 +16,8 @@
 ## The decision
 
 - **We chose:** OpenStreetMap, embedded on the Contact page after an explicit opt-in click.
-- **What we installed, and where its settings are:** The Contact page at `src/app/(site)/contact/page.tsx` renders `src/components/site/OptionalGhentMap.tsx`, which loads an OpenStreetMap iframe of central Ghent only after the visitor clicks a button. No API key or third-party script is required. The page explains that Cookie Shop is fictional and does not have a physical store.
-- **How we checked that it does what we expected:** The deployed Contact page was inspected on 23 November 2026: the OpenStreetMap section and privacy explanation were present. A separate recorded click-to-load test of the iframe is still required. This is an illustrative map, not a real shop locator.
+- **What we installed, and where its settings are:** The Contact page at `src/app/(site)/contact/page.tsx` renders `src/components/site/OptionalGhentMap.tsx`, which loads a lazy-loaded OpenStreetMap iframe marking Campus Tweekerken only after the user chooses to show it. The address and marker follow [UGent’s official faculty directions](https://www.ugent.be/eb/en/contact/overzicht.htm). No API key or third-party script is required. The page explains that Cookie Shop is fictional and does not have a physical store.
+- **How we checked that it does what we expected:** The deployed Contact page was inspected on 23 November 2026: the OpenStreetMap section and privacy explanation were present. On 24 November 2026, the live iframe was activated from Contact and 15 successful map tile responses were observed. That verifies the older deployed Ghent map. The PR #27 Campus Tweekerken variant was verified separately on the local candidate. This is an illustrative map, not a real shop locator.
 - **Who took part in the decision:** Proposed for Team 11; team confirmation is required.
 
 ## Why
@@ -39,7 +39,7 @@
 | Page | Its link | Read on |
 | --- | --- | --- |
 | Existing Contact page and proposed map link | `src/app/(site)/contact/page.tsx` | 23 November 2026 |
-| OpenStreetMap map and provider information | https://www.openstreetmap.org/ | Live verification pending |
+| OpenStreetMap map and provider information | https://www.openstreetmap.org/ | 24 November 2026 (production map activation checked) |
 
 ## Review when
 

@@ -24,8 +24,8 @@ export function canCompare(ids: readonly CookieId[]) {
   return ids.length >= MIN_COMPARISON
 }
 
-export function comparisonProducts(ids: readonly CookieId[]) {
-  return ids.flatMap(id => COOKIES.filter(cookie => cookie.id === id))
+export function comparisonProducts(ids: readonly CookieId[], products: readonly CookieProduct[] = COOKIES) {
+  return ids.flatMap(id => products.filter(cookie => cookie.id === id))
 }
 
 type Rating = 1 | 2 | 3 | 4 | 5
@@ -46,6 +46,10 @@ export const flavourProfiles: Record<CookieId, Profile> = {
   6: { sweetness: 5, chocolate: 3, texture: 'Soft with crunchy pieces', preference: 'Cookies-and-cream flavours' },
 }
 
+export function profileFor(cookie: CookieProduct) {
+  return cookie.profile ?? flavourProfiles[cookie.id]
+}
+
 type Row = {
   label: string
   values: (string | number | undefined)[]
@@ -56,10 +60,10 @@ export function comparisonRows(cookies: readonly CookieProduct[]): Row[] {
   return [
     { label: 'Price per cookie', kind: 'price', values: cookies.map(cookie => cookie.price) },
     { label: 'Flavour category', values: cookies.map(cookie => cookie.flavour) },
-    { label: 'Sweetness', kind: 'rating', values: cookies.map(cookie => flavourProfiles[cookie.id]?.sweetness) },
-    { label: 'Chocolate intensity', kind: 'rating', values: cookies.map(cookie => flavourProfiles[cookie.id]?.chocolate) },
-    { label: 'Texture', values: cookies.map(cookie => flavourProfiles[cookie.id]?.texture) },
-    { label: 'Best for', values: cookies.map(cookie => flavourProfiles[cookie.id]?.preference) },
+    { label: 'Sweetness', kind: 'rating', values: cookies.map(cookie => profileFor(cookie).sweetness) },
+    { label: 'Chocolate intensity', kind: 'rating', values: cookies.map(cookie => profileFor(cookie).chocolate) },
+    { label: 'Texture', values: cookies.map(cookie => profileFor(cookie).texture) },
+    { label: 'Best for', values: cookies.map(cookie => profileFor(cookie).preference) },
     { label: 'Description and flavour profile', values: cookies.map(cookie => cookie.description) },
   ]
 }
@@ -77,8 +81,8 @@ export function comparisonInsights(cookies: readonly CookieProduct[]) {
 
   return [
     { label: 'Most affordable', cookies: leaders(cookie => cookie.price, Math.min) },
-    { label: 'Richest chocolate flavour', cookies: leaders(cookie => flavourProfiles[cookie.id]?.chocolate, Math.max) },
-    { label: 'Sweetest option', cookies: leaders(cookie => flavourProfiles[cookie.id]?.sweetness, Math.max) },
-    { label: 'Best match for caramel lovers', cookies: cookies.filter(cookie => flavourProfiles[cookie.id]?.caramel) },
+    { label: 'Richest chocolate flavour', cookies: leaders(cookie => profileFor(cookie).chocolate, Math.max) },
+    { label: 'Sweetest option', cookies: leaders(cookie => profileFor(cookie).sweetness, Math.max) },
+    { label: 'Best match for caramel lovers', cookies: cookies.filter(cookie => profileFor(cookie).caramel) },
   ].filter(insight => insight.cookies.length > 0)
 }

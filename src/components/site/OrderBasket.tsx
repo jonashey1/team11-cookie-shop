@@ -1,12 +1,13 @@
 'use client'
 
 import { createContext, useContext, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from 'react'
-import { COOKIES, type CookieProduct } from '@/content/cookies'
+import { COOKIE_IDS, type CookieProduct } from '@/content/cookies'
 
 type Quantities = Record<number, number>
 type BasketSnapshot = { quantities: Quantities; requestId: string | null }
 
 type OrderBasket = {
+  products: readonly CookieProduct[]
   quantities: Quantities
   setQuantities: Dispatch<SetStateAction<Quantities>>
   chosen: CookieProduct[]
@@ -35,7 +36,7 @@ function getBasket() {
   try {
     const stored = JSON.parse(sessionStorage.getItem(STORAGE_KEY) ?? 'null') as Partial<BasketSnapshot> | null
     const quantities: Quantities = {}
-    for (const { id } of COOKIES) {
+    for (const id of COOKIE_IDS) {
       const quantity = stored?.quantities?.[id]
       if (typeof quantity === 'number' && Number.isInteger(quantity) && quantity >= 1 && quantity <= 20) {
         quantities[id] = quantity
@@ -92,15 +93,15 @@ export function formatOrderAmount(cents: number) {
   return currency.format(cents / 100)
 }
 
-export function OrderBasketProvider({ children }: { children: ReactNode }) {
+export function OrderBasketProvider({ children, products }: { children: ReactNode; products: readonly CookieProduct[] }) {
   const { quantities } = useSyncExternalStore(subscribe, getBasket, getServerBasket)
   const [pending, setPending] = useState(false)
-  const chosen = COOKIES.filter((cookie) => (quantities[cookie.id] ?? 0) > 0)
+  const chosen = products.filter((cookie) => (quantities[cookie.id] ?? 0) > 0)
   const count = chosen.reduce((sum, cookie) => sum + quantities[cookie.id], 0)
   const total = chosen.reduce((sum, cookie) => sum + cookie.price * quantities[cookie.id], 0)
 
   return (
-    <OrderBasketContext.Provider value={{ quantities, setQuantities, chosen, count, total, pending, setPending, getRequestId }}>
+    <OrderBasketContext.Provider value={{ products, quantities, setQuantities, chosen, count, total, pending, setPending, getRequestId }}>
       {children}
     </OrderBasketContext.Provider>
   )
@@ -110,4 +111,8 @@ export function useOrderBasket() {
   const basket = useContext(OrderBasketContext)
   if (!basket) throw new Error('useOrderBasket needs an OrderBasketProvider.')
   return basket
+}
+
+export function useCookieCatalog() {
+  return useOrderBasket().products
 }

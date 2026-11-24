@@ -1,5 +1,6 @@
+import { starterWorkshopSlugs } from '../lib/public-workshop-content'
 import type { CollectionConfig } from 'payload'
-import { publicContent } from '../access'
+import { isEditor, publicContent } from '../access'
 import { checkUniqueSlug, requireExistingRelation } from '../lib/modelIntegrity'
 import { levelLabel } from '../lib/format'
 import { LEVELS } from '../tasks/find-workshop/filters'
@@ -11,7 +12,7 @@ export const Workshops: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
-  access: publicContent,
+  access: { ...publicContent, read: ({ req }) => isEditor({ req }) || { slug: { not_in: starterWorkshopSlugs } } },
   hooks: {
     beforeChange: [
       checkUniqueSlug,

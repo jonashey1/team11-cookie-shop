@@ -1,5 +1,6 @@
+import { starterWorkshopTopicSlugs } from '../lib/public-workshop-content'
 import type { CollectionConfig } from 'payload'
-import { publicContent } from '../access'
+import { isEditor, publicContent } from '../access'
 import { checkUniqueSlug, preventDependentDeletion } from '../lib/modelIntegrity'
 import { slug } from './fields'
 
@@ -9,7 +10,7 @@ export const Topics: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
-  access: publicContent,
+  access: { ...publicContent, read: ({ req }) => isEditor({ req }) || { slug: { not_in: starterWorkshopTopicSlugs } } },
   hooks: {
     beforeChange: [checkUniqueSlug],
     beforeDelete: [

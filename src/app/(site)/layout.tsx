@@ -1,4 +1,6 @@
 
+import { connection } from 'next/server'
+import { getCookieCatalog } from '@/lib/read-cookie-catalog'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Hanken_Grotesk } from 'next/font/google'
@@ -37,11 +39,14 @@ export const metadata: Metadata = {
   ],
 }
 
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: {
   children: ReactNode
 }) {
+  await connection()
+  const products = await getCookieCatalog().catch(() => [])
+
   return (
     <html
       lang="en"
@@ -54,7 +59,7 @@ export default function SiteLayout({
       </head>
 
       <body className="flex min-h-screen flex-col">
-        <OrderBasketProvider>
+        <OrderBasketProvider products={products}>
           <Header />
           <FloatingOrderButton />
 
@@ -63,6 +68,7 @@ export default function SiteLayout({
             tabIndex={-1}
             className="mx-auto w-full max-w-page flex-1 px-gutter pb-28 focus:outline-none sm:pb-24 lg:pb-0"
           >
+            {!products.length && <p role="status" className="my-4 rounded-panel border border-line p-4">The cookie catalogue is temporarily unavailable. Please try again later.</p>}
             {children}
           </main>
 

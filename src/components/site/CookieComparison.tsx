@@ -4,36 +4,36 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ButtonLink } from '@/components/site/ButtonLink'
-import { COOKIES } from '@/content/cookies'
+import { useCookieCatalog } from './OrderBasket'
 import {
   canCompare, comparisonInsights, comparisonProducts, comparisonRows,
   MAX_COMPARISON, rowDiffers,
 } from '@/lib/cookie-comparison'
-import { cookieImage } from '@/lib/workshop-image'
 import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 import { addToComparison, clearComparison, removeFromComparison, useCookieComparison } from './useCookieComparison'
 
 export function CookieComparison() {
+  const products = useCookieCatalog()
   const { ids, message } = useCookieComparison()
   const { quantities, pending, setQuantities } = useOrderBasket()
   const [highlight, setHighlight] = useState(true)
   const [basketFeedback, setBasketFeedback] = useState('')
   const heading = useRef<HTMLHeadingElement>(null)
-  const cookies = comparisonProducts(ids)
+  const cookies = comparisonProducts(ids, products)
   const rows = comparisonRows(cookies)
 
   return (
     <section className="grid gap-block pb-block" aria-labelledby="comparison-heading">
       <div className="grid gap-3 rounded-frame border-s-4 border-brand bg-blue-tint p-4 sm:p-6">
-        <h2 id="comparison-heading" ref={heading} tabIndex={-1} className="text-2xl">Your selection</h2>
+        <h3 id="comparison-heading" ref={heading} tabIndex={-1} className="text-2xl">Your selection</h3>
         <div className="flex flex-wrap items-center gap-3">
           <span className="text-sm font-semibold">{ids.length}/{MAX_COMPARISON} selected</span>
           <label className="flex min-h-11 min-w-0 flex-col items-start gap-2 font-semibold sm:flex-row sm:items-center">
             Add a cookie
-            <select value="" disabled={ids.length >= MAX_COMPARISON}
+            <select value="" disabled={!products.length || ids.length >= MAX_COMPARISON}
               className="min-h-11 min-w-0 w-full max-w-64 rounded-control border border-line bg-canvas px-2 text-ink sm:w-auto"
               onChange={event => {
-                const cookie = COOKIES.find(item => item.id === Number(event.target.value))
+                const cookie = products.find(item => item.id === Number(event.target.value))
                 if (cookie) {
                   setBasketFeedback('')
                   addToComparison(cookie.id, cookie.name)
@@ -41,7 +41,7 @@ export function CookieComparison() {
                 }
               }}>
               <option value="">Choose a flavour</option>
-              {COOKIES.filter(cookie => !ids.includes(cookie.id)).map(cookie => (
+              {products.filter(cookie => !ids.includes(cookie.id)).map(cookie => (
                 <option key={cookie.id} value={cookie.id}>{cookie.name}</option>
               ))}
             </select>
@@ -76,7 +76,7 @@ export function CookieComparison() {
           <thead>
             <tr>
               {cookies.map(cookie => {
-                const image = cookieImage(cookie.name)
+                const image = cookie.image
                 const atLimit = (quantities[cookie.id] ?? 0) >= 20
                 return (
                   <th key={cookie.id} data-flavour={cookie.id} scope="col" id={`compare-cookie-${cookie.id}`} className="px-1 text-start align-top sm:px-2">
@@ -152,7 +152,7 @@ export function CookieComparison() {
 
       {canCompare(ids) ? (
         <div className="grid gap-3 rounded-frame border-s-4 border-brand bg-blue-tint p-4 sm:p-6">
-          <h2 className="text-2xl">Find your perfect match</h2>
+          <h3 className="text-2xl">Find your perfect match</h3>
           <ul className="grid gap-2">
             {comparisonInsights(cookies).map(insight => (
               <li key={insight.label}><strong>{insight.label}</strong>{' '}{insight.cookies.map(cookie => cookie.name).join(', ')}</li>
@@ -165,7 +165,7 @@ export function CookieComparison() {
       </p>}
       <nav aria-label="After comparing" className="flex flex-wrap gap-3">
         <ButtonLink href="/clinics" className="whitespace-normal">Go to order</ButtonLink>
-        <ButtonLink href="/workshops#cookies" variant="secondary" className="whitespace-normal">Continue shopping</ButtonLink>
+        <ButtonLink href="/cookies#cookies" variant="secondary" className="whitespace-normal">Continue shopping</ButtonLink>
       </nav>
     </section>
   )

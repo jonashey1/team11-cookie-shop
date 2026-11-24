@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { publicContent } from '../access'
+import { isEditor, publicContent } from '../access'
 import { price } from './fields'
 
 // The repairs the clinic can do, each with its price.
@@ -8,7 +8,7 @@ export const Repairs: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
-  access: publicContent,
+  access: { ...publicContent, read: ({ req }) => isEditor({ req }) || { name: { not_in: ['Full service', 'Each small repair', 'Check'] } } },
   fields: [
     {
       name: 'name',

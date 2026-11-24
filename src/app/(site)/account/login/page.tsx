@@ -45,7 +45,7 @@ export default async function LoginPage({ searchParams }: Props) {
 
         <p className="text-ink-soft">
           No account? You can still{' '}
-          <Link href="/workshops">explore our cookies</Link>{' '}
+          <Link href="/cookies">explore our cookies</Link>{' '}
           without logging in. Accounts are created by the site&apos;s editors.
         </p>
       </div>

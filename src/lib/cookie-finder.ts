@@ -101,10 +101,10 @@ export function findCookie(answers: readonly Answer[]) {
   return COOKIES.find(cookie => cookie.id === best?.[0]) ?? COOKIES[0]
 }
 
-export function explainCookieMatch(answers: readonly Answer[]) {
+export function explainCookieMatch(answers: readonly Answer[], products: readonly CookieProduct[] = COOKIES) {
   const [best, second] = rankedCookies(answers)
-  const cookie = COOKIES.find(product => product.id === best?.[0]) ?? COOKIES[0]
-  const alternative = COOKIES.find(product => product.id === second?.[0])
+  const cookie = products.find(product => product.id === best?.[0]) ?? products[0]
+  const alternative = products.find(product => product.id === second?.[0])
   const relevant = answers.filter(answer => RECOMMENDATIONS[answer][0] === cookie.id)
   const source = relevant.length ? relevant : answers.filter(answer => RECOMMENDATIONS[answer][1] === cookie.id)
   const reasons = [...new Set(source)].map(answer => tasteLabels[answer])

@@ -6,31 +6,32 @@ import { WorkshopCard } from '@/components/site/WorkshopCard'
 import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { Cookie, Scale, PackageOpen } from 'lucide-react'
-import { COOKIES } from '@/content/cookies'
-import { COOKIE_WORKSHOP_SLUGS, cookieImage } from '@/lib/workshop-image'
+import { getCookieCatalog } from '@/lib/read-cookie-catalog'
+import { COOKIE_WORKSHOP_SLUGS } from '@/lib/workshop-image'
 import Link from 'next/link'
 import { journeyVisuals, type ExcellenceVisual } from '@/content/excellence-visuals'
 import { CookieShopExperience } from '@/components/site/CookieShopExperience'
 
 const journeys = [
   { title: 'Discover', label: 'Cookie Finder', text: 'Find the flavour that fits your taste.', href: '/cookie-finder', icon: Cookie, visual: journeyVisuals.discover },
-  { title: 'Compare', label: 'Cookie Comparison', text: 'See what sets each cookie apart.', href: '/workshops#comparison', icon: Scale, visual: journeyVisuals.compare },
-  { title: 'Personalise', label: 'Box Builder', text: 'Make a four-cookie box your own.', href: '/build-your-box', icon: PackageOpen, visual: journeyVisuals.personalise },
+  { title: 'Compare', label: 'Cookie Comparison', text: 'See what sets each cookie apart.', href: '/cookies#comparison', icon: Scale, visual: journeyVisuals.compare },
+  { title: 'Personalise', label: 'Box Builder', text: 'Make a four-cookie box your own.', href: '/clinics#build-your-box', icon: PackageOpen, visual: journeyVisuals.personalise },
 ] satisfies readonly { title: string; label: string; text: string; href: string; icon: typeof Cookie; visual: ExcellenceVisual | null }[]
 
 export const dynamic = 'force-dynamic'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const products = await getCookieCatalog().catch(() => [])
   return (
-    <div className="grid gap-section pt-block">
+    <div className="grid grid-cols-1 gap-section pt-block">
       <section aria-labelledby="boutique-title" className="boutique-hero">
         <div className="boutique-hero-copy">
           <p className="boutique-kicker">The Cookie Boutique</p>
           <h1 id="boutique-title">Life’s better <em>with cookies.</em></h1>
           <p>Six flavours. Endless combinations. Find your favourite or create your own perfect box.</p>
           <div className="flex flex-wrap gap-3">
-            <ButtonLink href="/workshops#cookies" size="lg">Explore Our Cookies</ButtonLink>
-            <ButtonLink href="/build-your-box" variant="secondary" size="lg">Build a cookie box</ButtonLink>
+            <ButtonLink href="/cookies#cookies" size="lg">Explore Our Cookies</ButtonLink>
+            <ButtonLink href="/clinics#build-your-box" variant="secondary" size="lg">Build a cookie box</ButtonLink>
           </div>
           <p className="boutique-hand">Your taste. Your choice. Your perfect cookie.</p>
         </div>
@@ -42,6 +43,8 @@ export default function HomePage() {
           <span aria-hidden="true" className="boutique-crumbs">✦ · ✧</span>
         </div>
       </section>
+
+      <CookieShopExperience />
 
       <nav aria-label="Explore cookie experiences" className="excellence-journeys">
         {journeys.map(({ title, label, text, href, icon: Icon, visual }) => (
@@ -65,7 +68,7 @@ export default function HomePage() {
             <h2 id="boutique-workshops">More than cookies. An experience.</h2>
             <p>These workshops are demonstrations for a fictional university project.</p>
           </div>
-          <ButtonLink href="/workshops#workshops">Explore our workshops</ButtonLink>
+          <ButtonLink href="/workshops">Explore our workshops</ButtonLink>
         </div>
         <Suspense fallback={<p role="status">Loading cookie workshops…</p>}>
           <WorkshopPreview />
@@ -79,8 +82,8 @@ export default function HomePage() {
           <p>Find an old favourite or make room for a new one.</p>
         </div>
         <ul className="boutique-flavours">
-          {COOKIES.map(cookie => {
-            const image = cookieImage(cookie.name)
+          {products.map(cookie => {
+            const image = cookie.image
             return (
               <li key={cookie.id} data-flavour={cookie.id}>
                 {image && <Image src={image.src} alt="" width={256} height={256} sizes="(min-width: 64rem) 15vw, (min-width: 40rem) 30vw, 42vw" />}
@@ -90,12 +93,10 @@ export default function HomePage() {
           })}
         </ul>
         <div className="flex flex-wrap gap-3">
-          <ButtonLink href="/workshops#cookies">View Our Cookies</ButtonLink>
+          <ButtonLink href="/cookies#cookies">View Our Cookies</ButtonLink>
           <ButtonLink href="/clinics" variant="secondary">Order Cookies</ButtonLink>
         </div>
       </section>
-
-      <CookieShopExperience />
 
       <section aria-labelledby="why-us" className="grid gap-block border-y border-line py-block">
         <h2 id="why-us" className="text-3xl">

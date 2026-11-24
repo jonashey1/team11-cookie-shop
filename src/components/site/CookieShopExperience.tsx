@@ -4,8 +4,8 @@ import { CookieCommercialPlayer } from './CookieCommercialPlayer'
 
 const features = [
   { label: 'Discover', description: 'Find your perfect cookie.', href: '/cookie-finder', Icon: Cookie },
-  { label: 'Compare', description: 'Choose with confidence.', href: '/workshops#comparison', Icon: Scale },
-  { label: 'Personalise', description: 'Build your own box.', href: '/build-your-box', Icon: PackageOpen },
+  { label: 'Compare', description: 'Choose with confidence.', href: '/cookies#comparison', Icon: Scale },
+  { label: 'Personalise', description: 'Build your own box.', href: '/clinics#build-your-box', Icon: PackageOpen },
 ] as const
 
 export function CookieShopExperience() {
@@ -14,7 +14,8 @@ export function CookieShopExperience() {
       <div className="mx-auto grid w-full max-w-4xl gap-2 text-start">
         <p className="boutique-kicker">The Cookie Shop Experience</p>
         <h2 id="cookie-shop-experience" className="text-3xl sm:text-4xl">More than just cookies.</h2>
-        <p className="text-ink-soft">A little more personal. A lot more delicious.</p>
+        <p className="text-ink-soft">Follow one cookie lover from picking a flavour to building a box.</p>
+        <p className="text-ink-soft">Your taste. Your choice. Your perfect cookie.</p>
       </div>
 
       <div className="mx-auto w-full max-w-4xl rounded-frame border border-ink bg-canvas p-1.5 sm:p-2">

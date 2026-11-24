@@ -1,4 +1,4 @@
-import { COOKIES } from '@/content/cookies'
+import { COOKIES, type CookieProduct } from '@/content/cookies'
 import type { Order } from '@/payload-types'
 
 export const PERIODS = ['all', '7', '30', '90', 'custom'] as const
@@ -33,12 +33,12 @@ function counts(map: Map<string, number>) {
   return [...map].sort(([a, n], [b, m]) => m - n || a.localeCompare(b))
 }
 
-export function summarizeOrders(orders: Iterable<AnalyticsOrder>) {
+export function summarizeOrders(orders: Iterable<AnalyticsOrder>, catalogue: readonly CookieProduct[] = COOKIES) {
   const products = new Map<string, number>()
   const statuses = new Map<string, number>()
   const sizes = new Map<string, number>()
   const pairs = new Map<string, number>()
-  const knownProducts = new Map<number, string>(COOKIES.map(cookie => [cookie.id, cookie.name]))
+  const knownProducts = new Map<number, string>(catalogue.map(cookie => [cookie.id, cookie.name]))
   let eligibleOrders = 0
   const combinations = new Map<string, number>()
   const periods = new Map<string, { orders: number; cents: number }>()

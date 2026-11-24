@@ -24,16 +24,16 @@ Prepared for Team 11 by Jonas (`jonashey1`), 23 November 2026. This document des
 | Backup and restore | Database administrator | Authorized Neon/Vercel account owner | Never: backup restoration on test data not rehearsed |
 | Ownership | Team project coordinator | GitHub/Vercel/Neon account owners | Never: account transfer and recovery not rehearsed |
 
-- **Who edits which content in `/admin`:** An authorized content editor manages CMS pages, cookie-related records and fictional orders; the order status may be updated by an authorized shop administrator. Product descriptions in `src/content/cookies.ts` currently require a developer.
+- **Who edits which content in `/admin`:** An authorized content editor manages CMS pages, cookie-related records and fictional orders; the order status may be updated by an authorized shop administrator. Edit live catalogue descriptions, prices and profiles in Payload **Cookies**. Prices are integer cents. Check the six cards and the full checkout in an isolated environment before changing production content.
 - **How a new editor gets an account:** The access administrator confirms the person's role and grants an account using Payload's authorized administration flow. No credentials are shared in Git or documents. Remove access when a member leaves.
-- **What needs a developer:** Changing source-defined cookie products, forms, migrations, access rules, layout, analytics, integration and deployment configuration.
+- **What needs a developer:** Changing the supported product IDs, approved images, forms, migrations, access rules, layout, analytics, integration and deployment configuration.
 
 ## Left out, and in which order
 
-1. **Finish and verify production acceptance checks:** Production order persistence was confirmed on 23 November 2026. Still record an item-by-item and quantity match for the exact R2 acceptance scenario.
-2. **Verify the two H3 services on production:** Vercel Web Analytics page views were confirmed on 23 November 2026. Still click to load the OpenStreetMap iframe and record its result; custom-event availability is not confirmed.
-3. **Confirm the second task and the collection links:** Run the cookie comparison task from the homepage; separately follow a live workshop-to-topic-to-workshop link, because the course checker still expects the existing CMS relationship.
-4. **Complete the remaining team collaboration evidence:** Every member needs their own qualifying merged code PR or genuine co-authored work; invite the missing member and teacher.
+1. **Finish and verify production acceptance checks:** Production order persistence was confirmed on 23 November 2026. The historical D6 acceptance table reports an item-by-item and quantity match. The live course checker already finds the team-code order.
+2. **Verify the two H3 services on production:** Vercel Web Analytics page views were confirmed on 23 November 2026. OpenStreetMap loaded live after opt-in on 24 November 2026; the campus variant was checked on the isolated PR #27 candidate. Custom-event availability is not confirmed.
+3. **Confirm the second task and the collection links:** The candidate E2E suite exercises comparison and both sides of the Workshop–Topic relation. On production (24 November 2026) all four workshop pages and three topic pages linked consistently in both directions, and the public course check reported the `workshops.topics` / `topics.workshops` relation. Retest the approved deployed commit; record independent human observation separately.
+4. **Complete the remaining team collaboration evidence:** Every member needs their own qualifying merged code PR or genuine co-authored work; all six team accounts have repository access; the existing teacher invitation is processed by the course app at an authorised hand-in.
 5. **Improve long-term operations:** Test database backup restoration using only disposable test data, confirm ownership of all services and test recovery from a failed deployment.
 
 - **What does not work yet, or could break:** Production orders depend on the database and correct deployment configuration. Preview deployments can fail if the Neon branch quota is reached. Custom analytics events may not be supported on Vercel Hobby. The map is external and may be unavailable. No real payments or deliveries exist by design.
@@ -48,7 +48,11 @@ Prepared for Team 11 by Jonas (`jonashey1`), 23 November 2026. This document des
 How to run, change and deploy the site safely:
 
 - On your own computer: `docs/guides/local-setup.md`.
-- This project has an `orders` collection and source-defined cookie products. Keep production data intact. Do not delete `.data/db`, migrations or the Neon production branch.
+- This project stores products in `cookies` and saved price snapshots in `orders`. Keep production data intact. Do not delete `.data/db`, migrations or the Neon production branch.
 - A change reaches the live site through `main`. Never use Vercel's "Promote to Production": use Redeploy, and check that the build log shows `MIGRATIONS: verified committed migrations`.
 - **How a change goes live:** A contributor creates a branch and PR with the required AI note, reviews the preview and CI checks, verifies both user tasks when relevant, then merges into `main`. Wait until the production deployment is Ready before handing in.
 - **How we go back:** Use **Revert** on the merged PR on GitHub and merge the resulting revert PR, so a new production build and migration verification run. A revert does not undo migrations already applied to the database. Do not use Vercel Instant Rollback.
+
+## Catalogue migration and rollback
+
+The catalogue migration adds the table and related Payload lock metadata and inserts the six approved products with their existing IDs and amounts. The insert preserves an existing matching ID; normal migration history prevents the schema migration from re-running. Committed deployment migrations use the existing guarded Vercel flow. Do not seed or migrate production by hand. Editors cannot create, delete or re-key the six products through the API. Historical orders are never recalculated. If a release must be reverted, leave the additive table and the historical orders intact; only consider a database rollback after a backup and separate approval.

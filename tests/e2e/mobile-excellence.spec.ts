@@ -10,7 +10,7 @@ test('keeps Finder progress and three-cookie comparison usable by touch', async 
   await expect(next).toBeFocused()
   await expect(page.getByRole('progressbar', { name: 'Quiz progress' })).toHaveAttribute('aria-valuenow', '25')
 
-  await page.goto('/workshops')
+  await page.goto('/cookies')
   for (const name of ['Classic Chocolate Chip', 'Double Chocolate', 'White Chocolate']) {
     await page.getByRole('button', { name: 'Compare ' + name, exact: true }).tap()
   }
@@ -22,4 +22,20 @@ test('keeps Finder progress and three-cookie comparison usable by touch', async 
     element.scrollLeft = element.scrollWidth
     return element.scrollLeft > 0 && document.documentElement.scrollWidth <= window.innerWidth
   })).toBe(true)
+})
+
+test('keeps the homepage within 320 pixels with all accessibility settings', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 })
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Open accessibility settings' }).click()
+  for (const name of ['Larger text', 'High contrast', 'Highlight links', 'Reduce motion', 'Larger cursor']) {
+    await page.getByRole('switch', { name, exact: true }).click()
+  }
+  await page.keyboard.press('Escape')
+  await page.getByRole('button', { name: 'Switch to dark mode' }).click()
+  await page.reload()
+  await expect(page.locator('html')).toHaveClass(/a11y-large-text/)
+  await expect(page.locator('main h1')).toBeVisible()
+  await page.evaluate(() => document.fonts.ready)
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 })

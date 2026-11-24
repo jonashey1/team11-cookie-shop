@@ -1,7 +1,8 @@
 'use server'
 
 import { getPayload } from 'payload'
-import { COOKIES } from '@/content/cookies'
+import { COOKIE_IDS } from '@/content/cookies'
+import { readCookieCatalog } from '@/lib/read-cookie-catalog'
 import type { Order } from '@/payload-types'
 import config from '@/payload.config'
 
@@ -46,56 +47,25 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
       return { success: false, message: 'Your shopping cart is empty.' }
     }
 
-    if (submittedItems.length > COOKIES.length) {
+    if (submittedItems.length > COOKIE_IDS.length) {
       return { success: false, message: 'Invalid cookie selection.' }
     }
 
-    const items: Order['items'] = []
+    const selections: { cookieId: number; quantity: number }[] = []
     const cookieIds = new Set<number>()
-    let totalCents = 0
-
     for (const item of submittedItems) {
       if (
-        typeof item !== 'object' ||
-        item === null ||
-        !('cookieId' in item) ||
-        !('quantity' in item) ||
-        typeof item.cookieId !== 'number' ||
-        typeof item.quantity !== 'number'
-      ) {
-        return { success: false, message: 'Invalid cookie selection.' }
-      }
-
-      const cookie = COOKIES.find(
-        (product) => product.id === item.cookieId,
-      )
-      const quantity = item.quantity
-
-      if (
-        !cookie ||
-        !Number.isInteger(quantity) ||
-        quantity < 1 ||
-        quantity > 20
-      ) {
-        return { success: false, message: 'Invalid cookie quantity.' }
-      }
-
-      if (cookieIds.has(cookie.id)) {
+        typeof item !== 'object' || item === null ||
+        !('cookieId' in item) || !('quantity' in item) ||
+        typeof item.cookieId !== 'number' || typeof item.quantity !== 'number' ||
+        !COOKIE_IDS.some(id => id === item.cookieId) ||
+        !Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 20
+      ) return { success: false, message: 'Invalid cookie quantity.' }
+      if (cookieIds.has(item.cookieId)) {
         return { success: false, message: 'Include each cookie only once in your shopping cart.' }
       }
-      cookieIds.add(cookie.id)
-      totalCents += cookie.price * quantity
-
-      items.push({
-        cookieId: cookie.id,
-        cookieName: cookie.name,
-        quantity,
-        unitPriceCents: cookie.price,
-      })
-    }
-
-    if (totalCents > 100000) {
-      return { success: false, message: 'The maximum order value is €1,000.' }
+      cookieIds.add(item.cookieId)
+      selections.push({ cookieId: item.cookieId, quantity: item.quantity })
     }
 
     const payload = await getPayload({ config })
@@ -110,7 +80,7 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
       })
       if (!existing) return undefined
 
-      const sameItems = existing.items.length === items.length && items.every(item =>
+      const sameItems = existing.items.length === selections.length && selections.every(item =>
         existing.items.some(saved => saved.cookieId === item.cookieId && saved.quantity === item.quantity),
       )
       if (existing.customerName !== customerName || existing.email !== email || !sameItems) {
@@ -121,6 +91,25 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
 
     const existing = await savedOrder()
     if (existing) return existing
+
+    const products = await readCookieCatalog(payload)
+    const items: Order['items'] = []
+    let totalCents = 0
+
+    for (const { cookieId, quantity } of selections) {
+      const cookie = products.find(product => product.id === cookieId)
+      if (!cookie) return { success: false, message: 'A selected cookie is unavailable.' }
+      totalCents += cookie.price * quantity
+      items.push({ cookieId, cookieName: cookie.name, quantity, unitPriceCents: cookie.price })
+    }
+
+    if (totalCents > 100000) {
+      return { success: false, message: 'The maximum order value is €1,000.' }
+    }
+    const expectedTotal = formData.get('expectedTotal')
+    if (expectedTotal !== null && String(totalCents) !== expectedTotal) {
+      return { success: false, message: 'A price changed. Reload the page to review your updated basket before placing the order.' }
+    }
 
     const orderName = `Cookie order T11-S3F8 - ${requestId}`
 

@@ -13,8 +13,8 @@ export const BOX_SUGGESTIONS = {
   'Chocolate Lovers': [1, 2, 1, 2],
 } as const satisfies Record<string, readonly [BoxCookieId, BoxCookieId, BoxCookieId, BoxCookieId]>
 
-export function boxPrice(ids: readonly BoxCookieId[]) {
-  return ids.reduce((sum, id) => sum + (COOKIES.find(cookie => cookie.id === id)?.price ?? 0), 0)
+export function boxPrice(ids: readonly BoxCookieId[], products: readonly CookieProduct[] = COOKIES) {
+  return ids.reduce((sum, id) => sum + (products.find(cookie => cookie.id === id)?.price ?? 0), 0)
 }
 
 export function mergeBox(previous: Record<number, number>, ids: readonly BoxCookieId[]) {

@@ -2,10 +2,12 @@
 import type { Metadata } from 'next'
 import { ArtisanPhotoFigure } from '@/components/site/ArtisanPhotoFigure'
 import { artisanPhotography } from '@/content/artisan-photography'
+import { FortuneCookieExperience } from '@/components/site/FortuneCookieExperience'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://team11-cookie-shop.vercel.app/about" },
   title: 'About Us',
   description:
     'Learn more about Cookie Shop, our concept and our university team project.',
@@ -110,9 +112,12 @@ export default function AboutPage() {
           Explore our flavours and find your favourite.
         </p>
 
-        <ButtonLink href="/workshops" className="w-fit">
+        <ButtonLink href="/cookies" className="w-fit">
           Explore Our Cookies
         </ButtonLink>
+      </section>
+      <section id="fortune-cookie" tabIndex={-1} aria-label="Fortune Cookie" className="scroll-mt-24">
+        <FortuneCookieExperience />
       </section>
     </div>
   )

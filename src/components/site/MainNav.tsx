@@ -7,11 +7,11 @@ import { cn } from '@/lib/utils'
 
 const LINKS = [
   { href: '/', label: 'Home' },
-  { href: '/workshops#cookies', label: 'Our Cookies' },
-  { href: '/workshops#workshops', label: 'Workshops' },
+  { href: '/cookies', label: 'Our Cookies' },
+  { href: '/workshops', label: 'Workshops' },
   { href: '/cookie-finder', label: 'Cookie Finder' },
   { href: '/about', label: 'About Us' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/contact', label: 'Contact & FAQ' },
 ]
 
 const ORDER_LINK = { href: '/clinics', label: 'Order Cookies' }
@@ -30,7 +30,6 @@ function currentFor(
   }
 
   if (path === '/') return undefined
-  if (href === '/workshops#cookies') return undefined
   if (pathname.startsWith(`${path}/`)) return 'true'
   if (path === '/workshops' && pathname.startsWith('/topics/')) return 'true'
 
@@ -71,7 +70,7 @@ export function MainNav({
                   ? 'border-ink bg-ink px-4 font-bold text-canvas hover:border-line hover:bg-blue-tint hover:text-ink'
                   : current
                     ? 'border-line bg-yellow-wash px-2.5 font-bold text-ink'
-                    : href === '/workshops#workshops'
+                    : href === '/workshops'
                       ? 'border-line bg-blue-tint px-2.5 text-ink hover:bg-yellow-wash'
                       : 'border-transparent px-2.5 text-ink hover:bg-yellow-wash',
               )}

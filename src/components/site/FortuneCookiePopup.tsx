@@ -141,7 +141,7 @@ export function FortuneCookiePopup() {
         </p>
 
         <Link
-          href="/fortune-cookie"
+          href="/about#fortune-cookie"
           onClick={() => setOpen(false)}
           className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-control border-2 border-ink bg-ink px-6 py-3 text-lg font-black text-canvas no-underline transition-transform hover:scale-[1.02] motion-reduce:transition-none"
         >

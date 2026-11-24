@@ -16,6 +16,7 @@ import { Clinics } from './collections/Clinics'
 import { TimeSlots } from './collections/TimeSlots'
 import { Bookings } from './collections/Bookings'
 import { Repairs } from './collections/Repairs'
+import { Cookies } from './collections/Cookies'
 import { Orders } from './collections/Orders'
 import { Throttle } from './collections/Throttle'
 import { Members } from './collections/Members'
@@ -52,6 +53,7 @@ const config = buildConfig({
     TimeSlots,
     Bookings,
     Repairs,
+    Cookies,
     Orders,
     Throttle,
     Members,

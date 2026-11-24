@@ -2,7 +2,7 @@
 import { randomUUID } from 'node:crypto'
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import { cache } from 'react'
 import { BookingForm } from '@/components/site/BookingForm'
@@ -13,11 +13,11 @@ import { ParentLink } from '@/components/site/ParentLink'
 import { formatPrice, formatSlotTime, formatWhen, imageFrom } from '@/lib/format'
 import { membersAreaOn, signedInMember } from '@/lib/membersArea'
 import config from '@/payload.config'
+import { retiredClinicSlug } from '@/lib/public-workshop-content'
 
 export const dynamic = 'force-dynamic'
 
-// Existing booking data is retained until the Cookie Shop
-// ordering functionality is implemented in a later assignment.
+// Keep the original booking records while routing the old public example link to cookie ordering.
 const CLINIC_IMAGE = 'clinic-tools'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -37,7 +37,9 @@ const findClinic = cache(async (slug: string) => {
 })
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const clinic = await findClinic((await params).slug)
+  const { slug } = await params
+  if (slug === retiredClinicSlug) return {}
+  const clinic = await findClinic(slug)
 
   if (!clinic) return {}
 
@@ -48,7 +50,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ClinicPage({ params }: Props) {
-  const clinic = await findClinic((await params).slug)
+  const { slug } = await params
+  if (slug === retiredClinicSlug) permanentRedirect('/clinics')
+  const clinic = await findClinic(slug)
 
   if (!clinic) notFound()
 
@@ -234,7 +238,7 @@ export default async function ClinicPage({ params }: Props) {
                 </p>
 
                 <ButtonLink
-                  href="/workshops"
+                  href="/cookies"
                   variant="secondary"
                   className="mt-2 w-fit"
                 >
