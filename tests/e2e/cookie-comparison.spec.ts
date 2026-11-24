@@ -14,7 +14,7 @@ test('compares two or three cookies and adds to the existing basket', async ({ p
   const compare = (name: string) => page.getByRole('button', { name: `Compare ${name}`, exact: true })
   await page.goto('/clinics')
   await page.getByRole('button', { name: `Add one ${classic.name}` }).click()
-  await page.goto('/workshops')
+  await page.goto('/cookies')
   const tray = page.getByRole('region', { name: 'Compare cookies' })
   await expect(tray.getByText('0/3 selected')).toBeVisible()
   await compare(classic.name).press('Enter')

@@ -20,7 +20,7 @@ test('focuses the recommendation and links to its priced catalogue card', async 
   await expect(result).toBeFocused()
   await expect(page.getByRole('button', { name: /Try Again/ })).toBeVisible()
   await page.getByRole('link', { name: /Explore Our Cookies/ }).click()
-  await expect(page).toHaveURL(/\/workshops$/)
+  await expect(page).toHaveURL(/\/cookies$/)
   const card = page.locator('#cookies').getByRole('listitem').filter({ has: result })
   await expect(card.getByText(/^€\s*3[,.]95$/)).toBeVisible()
 })

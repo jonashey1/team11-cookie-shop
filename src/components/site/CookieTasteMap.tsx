@@ -54,7 +54,7 @@ export function CookieTasteMap() {
       <div aria-live="polite">
         {selected ? (
           <article data-flavour={selected.id} className="experience-map-detail">
-            {image && <Image src={image.src} alt={image.alt} width={144} height={144} className="aspect-square w-full max-w-36 rounded-frame object-cover" />}
+            {image && <div className="experience-map-detail-art relative"><Image src={image.src} alt={image.alt} fill sizes="(min-width: 40rem) 33vw, 200px" className="rounded-frame object-contain" /></div>}
             <div className="grid gap-2">
               <h3 className="text-2xl">{selected.name}</h3>
               <p>{selected.description}</p>
@@ -66,7 +66,7 @@ export function CookieTasteMap() {
               <p><strong>{formatOrderAmount(selected.price)}</strong></p>
               <div className="flex flex-wrap gap-2">
                 <CompareCookieButton cookie={selected} />
-                <ButtonLink href={`/workshops#cookie-${selected.id}`} variant="secondary">View in assortment</ButtonLink>
+                <ButtonLink href={`/cookies#cookie-${selected.id}`} variant="secondary">View in assortment</ButtonLink>
               </div>
               <a href="#comparison" className="inline-flex min-h-11 items-center underline">View comparison selection</a>
             </div>

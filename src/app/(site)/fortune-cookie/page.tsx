@@ -453,7 +453,7 @@ export default function FortuneCookiePage() {
               </p>
 
               <Link
-                href="/workshops"
+                href="/cookies"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-control border-2 border-ink bg-ink px-5 py-3 font-bold text-canvas no-underline hover:opacity-90"
               >
                 Explore our cookies

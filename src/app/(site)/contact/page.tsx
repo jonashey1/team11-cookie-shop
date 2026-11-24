@@ -127,7 +127,7 @@ export default function ContactPage() {
           cookie flavours and find your favourite.
         </p>
 
-        <ButtonLink href="/workshops" className="w-fit">
+        <ButtonLink href="/cookies" className="w-fit">
           View Our Cookies
         </ButtonLink>
       </section>

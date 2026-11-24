@@ -207,7 +207,7 @@ export default function CookieFinderPage() {
                 <AddCookieToBasket cookie={result} />
                 <CompareFinderResult cookie={result} />
                 <Link
-                  href="/workshops"
+                  href="/cookies"
                   className="inline-flex min-h-11 items-center justify-center rounded-control border border-line bg-canvas px-4 py-2 text-center font-bold text-ink no-underline hover:bg-blue-tint"
                 >
                   Explore Our Cookies →
@@ -233,7 +233,7 @@ export default function CookieFinderPage() {
                   <CompareFinderResult cookie={match.alternative} alternative />
                 </div>
               )}
-              <p className="flex flex-wrap gap-4"><Link href="/workshops#taste-map" className="text-link underline">Explore the Taste Map</Link><Link href="/build-your-box" className="text-link underline">Build a cookie box</Link></p>
+              <p className="flex flex-wrap gap-4"><Link href="/cookies#taste-map" className="text-link underline">Explore the Taste Map</Link><Link href="/build-your-box" className="text-link underline">Build a cookie box</Link></p>
               <p className="text-sm text-ink-soft">
                 This is a fun recommendation quiz using fictional
                 example products. No purchase is required.

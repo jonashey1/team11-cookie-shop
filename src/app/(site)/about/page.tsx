@@ -110,7 +110,7 @@ export default function AboutPage() {
           Explore our flavours and find your favourite.
         </p>
 
-        <ButtonLink href="/workshops" className="w-fit">
+        <ButtonLink href="/cookies" className="w-fit">
           Explore Our Cookies
         </ButtonLink>
       </section>

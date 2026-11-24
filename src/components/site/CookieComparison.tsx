@@ -165,7 +165,7 @@ export function CookieComparison() {
       </p>}
       <nav aria-label="After comparing" className="flex flex-wrap gap-3">
         <ButtonLink href="/clinics" className="whitespace-normal">Go to order</ButtonLink>
-        <ButtonLink href="/workshops#cookies" variant="secondary" className="whitespace-normal">Continue shopping</ButtonLink>
+        <ButtonLink href="/cookies#cookies" variant="secondary" className="whitespace-normal">Continue shopping</ButtonLink>
       </nav>
     </section>
   )

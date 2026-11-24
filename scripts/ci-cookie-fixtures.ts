@@ -46,6 +46,32 @@ async function main() {
     })
   }
 
+  const demoWorkshops = [
+    ['chocolate-cookie-masterclass', 'Chocolate Cookie Masterclass', 'chocolate-and-flavours', 'Chocolate & Flavours'],
+    ['cookie-baking-basics', 'Cookie Baking Basics', 'baking-techniques', 'Baking Techniques'],
+    ['cookie-decorating-workshop', 'Cookie Decorating Workshop', 'cookie-decoration', 'Cookie Decoration'],
+    ['creative-cookie-workshop', 'Creative Cookie Workshop', 'cookie-decoration', 'Cookie Decoration'],
+  ]
+
+  for (const [slug, title, topicSlug, topicName] of demoWorkshops) {
+    const { docs: [workshop] } = await payload.find({ collection: 'workshops', where: { slug: { equals: slug } }, limit: 1 })
+    if (workshop) continue
+
+    const { docs: [existingTopic] } = await payload.find({ collection: 'topics', where: { slug: { equals: topicSlug } }, limit: 1 })
+    const topic = existingTopic ?? await payload.create({
+      collection: 'topics',
+      data: { slug: topicSlug, name: topicName, description: 'Fictional browser-check workshop topic.' },
+    })
+    await payload.create({
+      collection: 'workshops',
+      data: {
+        slug, title, level: 'beginner', day: 'Saturday', startTime: '10:00', price: 15, groupSize: 6,
+        summary: 'Fictional browser-check cookie workshop.',
+        topics: [topic.id],
+      },
+    })
+  }
+
   console.log('Cookie Shop browser-check fixtures are ready.')
   await payload.destroy()
 

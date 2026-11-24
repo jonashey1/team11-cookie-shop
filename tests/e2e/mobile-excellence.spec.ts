@@ -10,7 +10,7 @@ test('keeps Finder progress and three-cookie comparison usable by touch', async 
   await expect(next).toBeFocused()
   await expect(page.getByRole('progressbar', { name: 'Quiz progress' })).toHaveAttribute('aria-valuenow', '25')
 
-  await page.goto('/workshops')
+  await page.goto('/cookies')
   for (const name of ['Classic Chocolate Chip', 'Double Chocolate', 'White Chocolate']) {
     await page.getByRole('button', { name: 'Compare ' + name, exact: true }).tap()
   }

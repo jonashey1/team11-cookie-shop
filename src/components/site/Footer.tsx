@@ -5,8 +5,8 @@ import { SITE_NAME } from '@/content/campus-cycle'
 
 const LINKS = [
   { href: '/', label: 'Home' },
-  { href: '/workshops#cookies', label: 'Our Cookies' },
-  { href: '/workshops#workshops', label: 'Workshops' },
+  { href: '/cookies#cookies', label: 'Our Cookies' },
+  { href: '/workshops', label: 'Workshops' },
   { href: '/clinics', label: 'Order Cookies' },
   { href: '/cookie-finder', label: 'Cookie Finder' },
   { href: '/fortune-cookie', label: 'Fortune Cookie' },

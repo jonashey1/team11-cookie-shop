@@ -15,6 +15,7 @@ test('loads the poster first and plays the commercial on explicit keyboard activ
   await page.goto('/')
   expect((await poster).ok()).toBe(true)
   const experience = page.getByRole('region', { name: 'More than just cookies.' })
+  expect(await experience.evaluate(section => section.previousElementSibling?.classList.contains('boutique-hero'))).toBe(true)
   const player = experience.locator('video')
   const play = experience.getByRole('button', { name: 'Play commercial' })
   await expect(play).toBeVisible()
@@ -44,7 +45,7 @@ test('loads the poster first and plays the commercial on explicit keyboard activ
 test('offers three direct, working discovery links without playing the commercial', async ({ page }) => {
   for (const [label, path] of [
     ['Find your perfect cookie.', '/cookie-finder'],
-    ['Choose with confidence.', '/workshops#comparison'],
+    ['Choose with confidence.', '/cookies#comparison'],
     ['Build your own box.', '/build-your-box'],
   ]) {
     await page.goto('/')

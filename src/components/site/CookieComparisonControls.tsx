@@ -75,7 +75,7 @@ export function CompareFinderResult({ cookie, alternative = false }: { cookie: C
         onClick={() => selected ? removeFromComparison(cookie.id, cookie.name) : addToComparison(cookie.id, cookie.name)}>
         {alternative ? 'Compare alternative' : 'Compare this cookie'}
       </Button>
-      {selected && <Link className="text-link underline" href={canCompare(ids) ? '/compare' : '/workshops#comparison'}>
+      {selected && <Link className="text-link underline" href={canCompare(ids) ? '/compare' : '/cookies#comparison'}>
         {canCompare(ids) ? 'Open comparison' : 'Choose another cookie to compare'}
       </Link>}
       {!alternative && <p role="status" className={message ? 'text-sm' : 'sr-only'}>{message}</p>}

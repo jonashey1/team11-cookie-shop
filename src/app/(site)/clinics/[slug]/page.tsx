@@ -234,7 +234,7 @@ export default async function ClinicPage({ params }: Props) {
                 </p>
 
                 <ButtonLink
-                  href="/workshops"
+                  href="/cookies"
                   variant="secondary"
                   className="mt-2 w-fit"
                 >
