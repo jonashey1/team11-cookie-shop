@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ButtonLink } from './ButtonLink'
 import { COOKIES } from '@/content/cookies'
@@ -17,10 +17,18 @@ export function CookieBoxBuilder() {
   const [feedback, setFeedback] = useState('')
   const dialog = useRef<HTMLDialogElement>(null)
   const slotList = useRef<HTMLUListElement>(null)
+  const focusSlot = useRef<number | null>(null)
   const adding = useRef(false)
   const { pending, quantities, setQuantities } = useOrderBasket()
   const selection = slots.filter(id => id !== null)
   const remaining = slots.length - selection.length
+
+  useLayoutEffect(() => {
+    const index = focusSlot.current
+    if (index === null) return
+    focusSlot.current = null
+    slotList.current?.children[index]?.querySelector('button')?.focus()
+  }, [slots])
 
   function update(next: BoxSlots) {
     adding.current = false
@@ -31,9 +39,9 @@ export function CookieBoxBuilder() {
   function updateSlot(index: number, id: BoxCookieId | null) {
     const next: BoxSlots = [...slots]
     next[index] = id
+    // Restore focus as the old slot button is replaced, before the next keystroke.
+    focusSlot.current = index
     update(next)
-    // The old button is replaced. Focus the new button in the same slot after React updates it.
-    requestAnimationFrame(() => slotList.current?.children[index]?.querySelector('button')?.focus())
   }
 
   function openPicker(next: Picker) {
