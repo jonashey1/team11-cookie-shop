@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { Hero } from '@/components/site/Hero'
+import { CookieShopExperience } from '@/components/site/CookieShopExperience'
 
 export default function HomePage() {
   return (
@@ -26,6 +27,8 @@ export default function HomePage() {
           </>
         }
       />
+
+      <CookieShopExperience />
 
       <section aria-labelledby="discover" className="grid gap-block">
         <div className="grid max-w-reading gap-stack">
