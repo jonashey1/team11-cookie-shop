@@ -87,7 +87,7 @@ export function FortuneCookiePopup() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-[#071633]/75 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-scrim/75 p-4 backdrop-blur-sm"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           setOpen(false)
@@ -100,7 +100,7 @@ export function FortuneCookiePopup() {
         aria-modal="true"
         aria-labelledby="fortune-popup-title"
         aria-describedby="fortune-popup-description"
-        className="relative my-auto w-full max-w-lg rounded-2xl border-2 border-ink bg-canvas p-6 text-center shadow-[9px_9px_0_#8B5CF6] sm:p-9"
+        className="relative my-auto w-full max-w-lg rounded-panel border border-line bg-canvas p-6 text-center shadow-[4px_4px_0_0_var(--color-brand)] sm:p-block"
       >
         <button
           ref={closeButtonRef}
@@ -112,7 +112,7 @@ export function FortuneCookiePopup() {
           <X aria-hidden="true" className="size-5" />
         </button>
 
-        <div className="mb-3 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-purple">
+        <div className="mb-3 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-link">
           <Sparkles aria-hidden="true" className="size-4" />
           A little surprise for you
           <Sparkles aria-hidden="true" className="size-4" />
@@ -120,7 +120,7 @@ export function FortuneCookiePopup() {
 
         <div
           aria-hidden="true"
-          className="mx-auto mb-3 flex size-32 items-center justify-center rounded-full bg-blue-tint text-8xl"
+          className="mx-auto mb-3 flex size-32 items-center justify-center rounded-full bg-yellow-wash text-8xl"
         >
           🥠
         </div>

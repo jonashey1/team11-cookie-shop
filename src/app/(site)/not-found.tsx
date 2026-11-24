@@ -7,13 +7,15 @@ import { SITE_NAME } from '@/content/campus-cycle'
 
 export default function NotFound() {
   return (
-    <div className="pb-6">
+    <div className="pb-block">
       {/* React puts this <title> in the page's <head>: the browser tab says what happened too. This page
           gets no title from the layout, so it adds the site's name itself. */}
       <title>{`Page not found · ${SITE_NAME}`}</title>
       <PageTitle
         title="We could not find that page"
         intro="The link may be mistyped, or the page was moved or removed. Try one of these instead:"
+        tone="yellow"
+        className="border border-line"
       />
       <div className="flex flex-wrap gap-3 px-6 sm:px-10 lg:px-14">
         <ButtonLink href="/">Go to the home page</ButtonLink>

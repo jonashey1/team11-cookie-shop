@@ -1,20 +1,26 @@
 
+import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { Hero } from '@/components/site/Hero'
 
 export default function HomePage() {
   return (
-    <div className="grid gap-section pt-6 sm:pt-10">
+    <div className="grid gap-section pt-block">
       <Hero
         title="Welcome to Cookie Shop"
         text="Discover delicious cookies, explore our flavours and find your favourites. From classic chocolate chip to exciting new creations, there is something sweet for everyone."
-        image={null}
+        image={{
+          src: '/images/workshops/classic-chocolate-chip.png',
+          alt: 'Three classic chocolate chip cookies on a plate with baking ingredients.',
+          width: 800,
+          height: 1400,
+        }}
         actions={
           <>
-            <ButtonLink href="/clinics" size="lg" className="min-h-14 border-2 border-ink bg-yellow-tint px-8 text-lg font-black text-ink shadow-[5px_5px_0_0_#001b50] transition-transform hover:-translate-y-0.5 hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+            <ButtonLink href="/clinics" size="lg" className="min-h-14 whitespace-normal text-center">
               Order Cookies
             </ButtonLink>
-            <ButtonLink href="/workshops" variant="secondary" size="lg">
+            <ButtonLink href="/workshops" variant="secondary" size="lg" className="min-h-14 whitespace-normal text-center">
               Explore Our Cookies
             </ButtonLink>
           </>
@@ -22,11 +28,11 @@ export default function HomePage() {
       />
 
       <section aria-labelledby="discover" className="grid gap-block">
-        <div className="grid gap-3">
-          <h2 id="discover" className="text-2xl">
+        <div className="grid max-w-reading gap-stack">
+          <h2 id="discover" className="text-3xl">
             Discover Our Cookie Shop
           </h2>
-          <p className="max-w-[65ch]">
+          <p className="max-w-reading text-ink-soft">
             At Cookie Shop, we believe that every moment is better
             with a delicious cookie. Explore our selection, compare
             flavours and find the perfect treat for yourself or
@@ -35,37 +41,55 @@ export default function HomePage() {
         </div>
 
         <div className="grid gap-block md:grid-cols-2">
-          <div className="framed grid content-start gap-4 p-6 offset-purple sm:p-8">
-            <h3 className="text-xl">Explore Our Cookies</h3>
+          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-6">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
+              <Image
+                src="/images/workshops/double-chocolate.png"
+                alt="Three double chocolate cookies on a plate with chocolate pieces."
+                fill
+                sizes="(min-width: 80rem) 34rem, (min-width: 48rem) 43vw, 88vw"
+                className="object-cover"
+              />
+            </div>
+            <h3 className="mt-2 text-xl">Explore Our Cookies</h3>
             <p>
               Discover our selection of cookies and learn more about
               the different flavours we offer. Find your favourite
               before placing an order.
             </p>
-            <ButtonLink href="/workshops" className="w-fit">
+            <ButtonLink href="/workshops" className="w-fit max-w-full whitespace-normal text-center">
               View Our Cookies
             </ButtonLink>
           </div>
 
-          <div className="framed grid content-start gap-4 p-6 offset-coral sm:p-8">
-            <h3 className="text-xl">Order Your Favourite Cookies</h3>
+          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-6">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
+              <Image
+                src="/images/workshops/salted-caramel.png"
+                alt="Three salted caramel cookies on a plate with caramel and baking ingredients."
+                fill
+                sizes="(min-width: 80rem) 34rem, (min-width: 48rem) 43vw, 88vw"
+                className="object-cover"
+              />
+            </div>
+            <h3 className="mt-2 text-xl">Order Your Favourite Cookies</h3>
             <p>
               Ready to choose your favourites? Select cookies, adjust quantities
               and submit a fictional test order. No payment is required.
             </p>
-            <ButtonLink href="/clinics" className="w-fit">
+            <ButtonLink href="/clinics" className="w-fit max-w-full whitespace-normal text-center">
               Order Cookies
             </ButtonLink>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="why-us" className="grid gap-block">
-        <h2 id="why-us" className="text-2xl">
+      <section aria-labelledby="why-us" className="grid gap-block border-y border-line py-block">
+        <h2 id="why-us" className="text-3xl">
           Why Choose Cookie Shop?
         </h2>
-        <div className="grid gap-block md:grid-cols-3">
-          <div className="framed grid content-start gap-3 p-6 offset-purple">
+        <div className="grid gap-block md:grid-cols-3 md:gap-stack">
+          <div className="grid content-start gap-stack rounded-frame bg-yellow-wash p-5 sm:p-6">
             <h3 className="text-lg">Delicious Flavours</h3>
             <p>
               Discover a variety of cookie flavours, from timeless
@@ -73,7 +97,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="framed grid content-start gap-3 p-6 offset-coral">
+          <div className="grid content-start gap-stack rounded-frame bg-yellow-wash p-5 sm:p-6">
             <h3 className="text-lg">Easy to Explore</h3>
             <p>
               Find information about our cookies in one place
@@ -81,7 +105,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="framed grid content-start gap-3 p-6 offset-purple">
+          <div className="grid content-start gap-stack rounded-frame bg-yellow-wash p-5 sm:p-6">
             <h3 className="text-lg">Made for Cookie Lovers</h3>
             <p>
               Whether you want a treat for yourself or something
@@ -91,17 +115,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="about-us" className="grid gap-block">
-        <h2 id="about-us" className="text-2xl">
+      <section aria-labelledby="about-us" className="grid justify-items-start gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-block">
+        <h2 id="about-us" className="text-3xl">
           A Little More About Us
         </h2>
-        <p className="max-w-[65ch]">
+        <p className="max-w-reading text-ink-soft">
           Cookie Shop is a fictional cookie business created as
           a university team project. Our goal is to build a clear,
           accessible and enjoyable website where customers can
           discover cookies and eventually place orders online.
         </p>
-        <ButtonLink href="/about" variant="secondary" className="w-fit">
+        <ButtonLink href="/about" variant="secondary" className="w-fit max-w-full whitespace-normal text-center">
           Learn More About Us
         </ButtonLink>
       </section>

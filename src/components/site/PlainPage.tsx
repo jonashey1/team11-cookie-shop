@@ -15,11 +15,11 @@ const INSET = 'px-6 sm:px-10 lg:px-14'
 
 export function PlainPage({ page, children }: { page: Page; children?: ReactNode }) {
   return (
-    <article className="pb-6">
-      <PageTitle title={page.title} intro={page.intro} />
+    <article className="pb-block">
+      <PageTitle title={page.title} intro={page.intro} tone="blue" className="border border-line" />
       {children && <div className={INSET}>{children}</div>}
       {page.body && (
-        <div className={cn('rich-text', INSET, children && 'mt-block')}>
+        <div className={cn('rich-text text-ink', INSET, children && 'mt-block')}>
           <RichText data={page.body} disableContainer />
         </div>
       )}

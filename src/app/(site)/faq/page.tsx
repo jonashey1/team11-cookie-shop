@@ -84,10 +84,10 @@ const faqSections = [
 
 export default function FAQPage() {
   return (
-    <div className="py-12 md:py-16">
+    <div className="py-section">
       <div className="mx-auto max-w-4xl">
-        <div className="mb-12 text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-blue-tint px-4 py-2 font-semibold text-ink">
+        <div className="mb-section rounded-panel border border-line bg-blue-tint p-6 text-center sm:p-block">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-yellow-wash px-4 py-2 font-semibold text-ink">
             <HelpCircle aria-hidden="true" className="size-5" />
             We&apos;re here to help
           </div>
@@ -102,7 +102,7 @@ export default function FAQPage() {
           </p>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-section">
           {faqSections.map((section) => (
             <section key={section.title}>
               <h2 className="mb-5 text-2xl">
@@ -113,9 +113,9 @@ export default function FAQPage() {
                 {section.questions.map((item) => (
                   <details
                     key={item.question}
-                    className="group rounded-frame border-2 border-line bg-canvas transition-colors open:border-ink"
+                    className="group rounded-frame border border-line bg-canvas transition-colors open:border-ink open:bg-blue-tint"
                   >
-                    <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 rounded-frame px-5 py-4 font-bold text-ink hover:bg-blue-tint [&::-webkit-details-marker]:hidden">
+                    <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 rounded-frame px-5 py-4 font-bold text-ink hover:bg-yellow-wash [&::-webkit-details-marker]:hidden">
                       <span>{item.question}</span>
 
                       <ChevronDown
@@ -134,7 +134,7 @@ export default function FAQPage() {
           ))}
         </div>
 
-        <section className="mt-16 rounded-panel border-2 border-ink bg-blue-tint p-6 text-center md:p-10">
+        <section className="mt-section rounded-panel border border-line bg-yellow-wash p-6 text-center md:p-block">
           <Mail
             aria-hidden="true"
             className="mx-auto mb-4 size-8 text-ink"

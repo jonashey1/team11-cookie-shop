@@ -51,7 +51,7 @@ export function PageTitle({
       {image && (
         <div
           className={cn(
-            'framed relative aspect-[3/2] overflow-hidden bg-[#f7f1e8] [--offset-size:8px]',
+            'framed relative aspect-[3/2] overflow-hidden bg-yellow-wash',
             imageAccent === 'purple'
               ? 'offset-purple'
               : 'offset-coral',

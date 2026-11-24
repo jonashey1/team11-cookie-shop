@@ -2,6 +2,33 @@
 import type { Workshop } from '@/payload-types'
 import { imageFrom } from '@/lib/format'
 
+export const COOKIE_IMAGES: Record<string, { src: string; alt: string }> = {
+  'classic-chocolate-chip': {
+    src: '/images/workshops/classic-chocolate-chip.png',
+    alt: 'Three classic chocolate chip cookies on a plate with baking ingredients.',
+  },
+  'double-chocolate': {
+    src: '/images/workshops/double-chocolate.png',
+    alt: 'Three double chocolate cookies on a plate with chocolate pieces.',
+  },
+  'salted-caramel': {
+    src: '/images/workshops/salted-caramel.png',
+    alt: 'Three salted caramel cookies on a plate with caramel and baking ingredients.',
+  },
+  'red-velvet': {
+    src: '/images/workshops/red-velvet.png',
+    alt: 'Three red velvet cookies with white chocolate pieces on a plate.',
+  },
+  'cookies-and-cream': {
+    src: '/images/workshops/cookies-and-cream.png',
+    alt: 'Three cookies and cream cookies with pieces of chocolate sandwich cookies on a plate.',
+  },
+  'white-chocolate': {
+    src: '/images/workshops/white-chocolate.png',
+    alt: 'Three white chocolate cookies on a plate with white chocolate pieces.',
+  },
+}
+
 const WORKSHOP_IMAGES: Record<string, { src: string; alt: string }> = {
   'classic-chocolate-chip': {
     src: '/images/workshops/cookie-baking-basics.png',

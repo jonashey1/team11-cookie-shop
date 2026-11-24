@@ -6,7 +6,9 @@ import Script from 'next/script'
 import type { ReactNode } from 'react'
 import { Footer } from '@/components/site/Footer'
 import { Header } from '@/components/site/Header'
+import { FloatingOrderButton } from '@/components/site/FloatingOrderButton'
 import { FortuneCookiePopup } from '@/components/site/FortuneCookiePopup'
+import { OrderBasketProvider } from '@/components/site/OrderBasket'
 import './globals.css'
 
 // Main font used throughout the Cookie Shop website.
@@ -35,23 +37,6 @@ export const metadata: Metadata = {
   ],
 }
 
-// Apply the saved theme before the page becomes visible.
-const themeScript = `
-(function () {
-  try {
-    var savedTheme = localStorage.getItem('cookie-shop-theme');
-    var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var dark = savedTheme === 'dark' ||
-      (savedTheme !== 'light' && systemDark);
-
-    document.documentElement.classList.toggle('dark', dark);
-    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
-  } catch (error) {
-    // The website remains usable if localStorage is unavailable.
-  }
-})();
-`
-
 export default function SiteLayout({
   children,
 }: {
@@ -64,25 +49,25 @@ export default function SiteLayout({
       suppressHydrationWarning
     >
       <head>
-        <Script
-          id="cookie-shop-theme"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: themeScript }}
-        />
+        {/* Apply the saved theme before the page becomes visible. */}
+        <script id="cookie-shop-theme" src="/cookie-shop-theme.js" async blocking="render" />
       </head>
 
       <body className="flex min-h-screen flex-col">
-        <Header />
+        <OrderBasketProvider>
+          <Header />
+          <FloatingOrderButton />
 
-        <main
-          id="main"
-          tabIndex={-1}
-          className="mx-auto w-full max-w-page flex-1 px-gutter pb-28 focus:outline-none sm:pb-24 lg:pb-0"
-        >
-          {children}
-        </main>
+          <main
+            id="main"
+            tabIndex={-1}
+            className="mx-auto w-full max-w-page flex-1 px-gutter pb-28 focus:outline-none sm:pb-24 lg:pb-0"
+          >
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
+        </OrderBasketProvider>
 
         <FortuneCookiePopup />
 

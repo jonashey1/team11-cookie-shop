@@ -127,7 +127,7 @@ export default async function ClinicPage({ params }: Props) {
     : null
 
   return (
-    <article className="pb-6">
+    <article className="pb-block">
       <ParentLink
         href="/clinics"
         label="Order Cookies"
@@ -138,13 +138,14 @@ export default async function ClinicPage({ params }: Props) {
         title={clinic.name}
         intro="Discover more about our Cookie Shop selection. Online cookie ordering is coming soon."
         image={imageFrom(picture)}
-        className="mt-3 sm:mt-4"
+        tone="blue"
+        className="mt-3 border border-line sm:mt-4"
       />
 
       <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
         <section
           aria-labelledby="facts"
-          className="framed grid gap-4 p-6 offset-coral lg:col-start-2 lg:row-start-1"
+          className="grid min-w-0 gap-stack rounded-panel border border-line bg-yellow-wash p-6 lg:col-start-2 lg:row-start-1"
         >
           <h2 id="facts" className="text-xl">
             At a glance
@@ -213,7 +214,7 @@ export default async function ClinicPage({ params }: Props) {
 
           <section
             aria-labelledby="book"
-            className="framed grid gap-5 p-5 offset-coral sm:p-8"
+            className="grid min-w-0 gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-block"
           >
             <h2 id="book" className="text-2xl">
               Booking information

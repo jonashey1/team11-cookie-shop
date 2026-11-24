@@ -15,14 +15,15 @@ type ErrorPageProps = {
 
 export default function ClinicError({ retry }: ErrorPageProps) {
   return (
-    <div className="pb-6">
+    <div className="pb-block">
       <PageTitle
         title="This page could not be shown"
         intro="Something went wrong while loading this page. Please try again or return to the Cookie Shop ordering page."
         tone="yellow"
+        className="border border-line"
       />
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-stack">
         <Button type="button" onClick={() => retry()}>
           Try again
         </Button>

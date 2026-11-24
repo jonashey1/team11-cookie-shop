@@ -54,7 +54,7 @@ export function MainNav({
     : [...LINKS, ORDER_LINK]
 
   const content = (
-    <ul className="flex flex-col gap-1 min-[900px]:flex-row min-[900px]:flex-wrap min-[900px]:items-center min-[900px]:gap-x-1">
+    <ul className="flex flex-col gap-1 min-[900px]:flex-row min-[900px]:flex-wrap min-[900px]:items-center min-[900px]:justify-center">
       {links.map(({ href, label }) => {
         const current = currentFor(href, pathname)
         const isOrder = href === '/clinics'
@@ -65,12 +65,12 @@ export function MainNav({
               href={href}
               aria-current={current}
               className={cn(
-                'flex min-h-11 items-center whitespace-nowrap rounded-control px-2.5 font-semibold text-ink no-underline focus-visible:outline-offset-6',
+                'flex min-h-11 items-center rounded-control border text-sm font-semibold no-underline focus-visible:outline-offset-2',
                 isOrder
-                  ? 'border-2 border-ink bg-yellow-tint px-4 font-black shadow-[4px_4px_0_0_#001b50] hover:brightness-95'
+                  ? 'border-ink bg-ink px-4 font-bold text-canvas hover:border-line hover:bg-blue-tint hover:text-ink'
                   : current
-                    ? 'framed rounded-control font-bold [--offset-size:4px]'
-                    : 'border-2 border-transparent hover:bg-blue-tint',
+                    ? 'border-line bg-yellow-wash px-2.5 font-bold text-ink'
+                    : 'border-transparent px-2.5 text-ink hover:bg-yellow-wash',
               )}
             >
               {label}

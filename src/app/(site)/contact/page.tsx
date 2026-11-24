@@ -12,11 +12,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="grid gap-section pb-6">
+    <div className="grid gap-section pb-block">
       <PageTitle
         title="Contact Us"
         intro="Have a question about Cookie Shop, our cookies or our website? Find out more about our project below."
-        tone="purple"
+        tone="blue"
+        className="mb-0 border border-line"
       />
 
       <section aria-labelledby="get-in-touch" className="grid gap-4">
@@ -24,14 +25,14 @@ export default function ContactPage() {
           Get in Touch
         </h2>
 
-        <p className="max-w-[65ch]">
+        <p className="max-w-reading text-ink-soft">
           Welcome to Cookie Shop! We are developing a fictional
           online cookie store as part of a university project.
           Our goal is to make discovering and ordering cookies
           simple, clear and enjoyable.
         </p>
 
-        <p className="max-w-[65ch]">
+        <p className="max-w-reading text-ink-soft">
           This is a demonstration website, so we do not currently
           offer customer support or accept real orders.
         </p>
@@ -43,7 +44,7 @@ export default function ContactPage() {
         </h2>
 
         <div className="grid gap-block md:grid-cols-2">
-          <div className="framed grid content-start gap-3 p-6 offset-purple">
+          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-6">
             <h3 className="text-xl">Our Project</h3>
             <p>
               Cookie Shop is created by Team 11 for a web
@@ -55,7 +56,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="framed grid content-start gap-3 p-6 offset-coral">
+          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-6">
             <h3 className="text-xl">Online Orders</h3>
             <p>
               Our test-order form is available on the Order Cookies page.
@@ -71,7 +72,7 @@ export default function ContactPage() {
 
       <section
         aria-labelledby="faq"
-        className="grid gap-4 rounded-panel bg-mint-wash p-6 sm:p-10"
+        className="grid gap-stack rounded-panel border border-line bg-yellow-wash p-6 sm:p-block"
       >
         <h2 id="faq" className="text-2xl">
           Frequently Asked Questions

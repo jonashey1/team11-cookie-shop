@@ -26,14 +26,15 @@ export default async function LoginPage({ searchParams }: Props) {
   const signedOut = 'signed-out' in (await searchParams)
 
   return (
-    <div className="pb-6">
+    <div className="pb-block">
       <PageTitle
         title="Log in"
         intro="Log in to access your Cookie Shop account."
         tone="blue"
+        className="border border-line"
       />
 
-      <div className="grid max-w-xl gap-block">
+      <div className="max-w-reading grid min-w-0 gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-block">
         {signedOut && (
           <Notice tone="success" label="Done" role="status">
             <p>You are logged out.</p>
