@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { Hero } from '@/components/site/Hero'
+import { CookieShopExperience } from '@/components/site/CookieShopExperience'
 
 export default function HomePage() {
   return (
@@ -26,6 +27,8 @@ export default function HomePage() {
           </>
         }
       />
+
+      <CookieShopExperience />
 
       <section aria-labelledby="discover" className="grid gap-block">
         <div className="grid max-w-reading gap-stack">
@@ -81,6 +84,15 @@ export default function HomePage() {
               Order Cookies
             </ButtonLink>
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="choose-your-way" className="grid gap-3 rounded-panel border border-line bg-yellow-wash p-5 sm:p-6">
+        <h2 id="choose-your-way" className="text-2xl">Find your favourites</h2>
+        <div className="flex flex-wrap gap-3">
+          <ButtonLink href="/cookie-finder" variant="secondary">Find a flavour</ButtonLink>
+          <ButtonLink href="/workshops#comparison" variant="secondary">Compare cookies</ButtonLink>
+          <ButtonLink href="/build-your-box">Build a cookie box</ButtonLink>
         </div>
       </section>
 

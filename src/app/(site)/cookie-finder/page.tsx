@@ -3,8 +3,9 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareFinderResult } from '@/components/site/CookieComparisonControls'
-import { findCookie, QUESTIONS, type Answer } from '@/lib/cookie-finder'
+import { explainCookieMatch, QUESTIONS, type Answer } from '@/lib/cookie-finder'
 
 export default function CookieFinderPage() {
   const [step, setStep] = useState(0)
@@ -35,7 +36,8 @@ export default function CookieFinderPage() {
     setAnswers([])
   }
 
-  const result = finished ? findCookie(answers) : null
+  const match = finished ? explainCookieMatch(answers) : null
+  const result = match?.cookie
   const resultHeading = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
@@ -173,7 +175,22 @@ export default function CookieFinderPage() {
                 </button>
               </div>
 
-              <div className="mt-4"><CompareFinderResult cookie={result} /></div>
+              {match && match.reasons.length > 0 && (
+                <p className="mx-auto mt-4 max-w-lg text-sm text-ink-soft">
+                  Your answers about {match.reasons.join(' and ')} contributed to this match.
+                </p>
+              )}
+              <div className="mt-4 grid justify-items-center gap-3">
+                <CompareFinderResult cookie={result} />
+                <AddCookieToBasket cookie={result} />
+              </div>
+              {match?.alternative && (
+                <div className="mt-5 grid gap-2 rounded-panel border border-line bg-canvas p-4">
+                  <p>Another match: <strong>{match.alternative.name}</strong></p>
+                  <CompareFinderResult cookie={match.alternative} alternative />
+                </div>
+              )}
+              <p className="mt-4"><Link href="/build-your-box" className="text-link underline">Build a cookie box</Link></p>
               <p className="mt-8 text-sm text-ink-soft">
                 This is a fun recommendation quiz using fictional
                 example products. No purchase is required.

@@ -415,3 +415,20 @@ html.a11y-large-cursor textarea,
 html.a11y-large-cursor [contenteditable='true'] {
   cursor: text !important;
 }
+
+@media print {
+  body:has(.cookie-order-receipt) > :not(main),
+  body:has(.cookie-order-receipt) main :not(.cookie-order-receipt, .cookie-order-receipt *, :has(.cookie-order-receipt)),
+  .cookie-receipt-actions {
+    display: none !important;
+  }
+  body:has(.cookie-order-receipt) main {
+    padding: 0;
+  }
+  .cookie-order-receipt {
+    background: Canvas;
+    color: CanvasText;
+    border: 0;
+    padding: 0;
+  }
+}

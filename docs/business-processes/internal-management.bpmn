@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions" targetNamespace="https://cookie-shop.example/bpmn">
+ <bpmn:collaboration id="Collaboration"><bpmn:participant id="Pool" name="Internal order management and analytics" processRef="Process"/></bpmn:collaboration>
+ <bpmn:process id="Process" isExecutable="false">
+  <bpmn:laneSet id="Lanes"><bpmn:lane id="Lane0" name="Cookie Shop"><bpmn:flowNodeRef>start</bpmn:flowNodeRef><bpmn:flowNodeRef>validate</bpmn:flowNodeRef><bpmn:flowNodeRef>valid</bpmn:flowNodeRef><bpmn:flowNodeRef>failure</bpmn:flowNodeRef><bpmn:flowNodeRef>save</bpmn:flowNodeRef><bpmn:flowNodeRef>aggregate</bpmn:flowNodeRef></bpmn:lane><bpmn:lane id="Lane1" name="Editor"><bpmn:flowNodeRef>read</bpmn:flowNodeRef><bpmn:flowNodeRef>manage</bpmn:flowNodeRef><bpmn:flowNodeRef>filter</bpmn:flowNodeRef><bpmn:flowNodeRef>view</bpmn:flowNodeRef><bpmn:flowNodeRef>end</bpmn:flowNodeRef></bpmn:lane></bpmn:laneSet>
+  <bpmn:startEvent id="start" name="Receive request"/>
+  <bpmn:serviceTask id="validate" name="Validate and price"/>
+  <bpmn:exclusiveGateway id="valid" name="Valid request?"/>
+  <bpmn:endEvent id="failure" name="Reject request"/>
+  <bpmn:serviceTask id="save" name="Save or reuse order"/>
+  <bpmn:userTask id="read" name="Open Payload order"/>
+  <bpmn:userTask id="manage" name="Review or update status"/>
+  <bpmn:userTask id="filter" name="Choose reporting filters"/>
+  <bpmn:serviceTask id="aggregate" name="Aggregate authorised data"/>
+  <bpmn:userTask id="view" name="Inspect or export totals"/>
+  <bpmn:endEvent id="end" name="Finish"/>
+  <bpmn:sequenceFlow id="Flow0" sourceRef="start" targetRef="validate"/>
+  <bpmn:sequenceFlow id="Flow1" sourceRef="validate" targetRef="valid"/>
+  <bpmn:sequenceFlow id="Flow2" sourceRef="valid" targetRef="failure" name="No"/>
+  <bpmn:sequenceFlow id="Flow3" sourceRef="valid" targetRef="save" name="Yes"/>
+  <bpmn:sequenceFlow id="Flow4" sourceRef="save" targetRef="read"/>
+  <bpmn:sequenceFlow id="Flow5" sourceRef="read" targetRef="manage"/>
+  <bpmn:sequenceFlow id="Flow6" sourceRef="manage" targetRef="filter"/>
+  <bpmn:sequenceFlow id="Flow7" sourceRef="filter" targetRef="aggregate"/>
+  <bpmn:sequenceFlow id="Flow8" sourceRef="aggregate" targetRef="view"/>
+  <bpmn:sequenceFlow id="Flow9" sourceRef="view" targetRef="end"/>
+ </bpmn:process>
+ <bpmndi:BPMNDiagram id="Diagram"><bpmndi:BPMNPlane id="Plane" bpmnElement="Collaboration">
+  <bpmndi:BPMNShape id="PoolDI" bpmnElement="Pool" isHorizontal="true"><dc:Bounds x="12" y="28" width="1686" height="344"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="Lane0DI" bpmnElement="Lane0" isHorizontal="true"><dc:Bounds x="38" y="28" width="1660" height="172"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="Lane1DI" bpmnElement="Lane1" isHorizontal="true"><dc:Bounds x="38" y="200" width="1660" height="172"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="startDI" bpmnElement="start"><dc:Bounds x="68" y="65" width="34" height="34"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="validateDI" bpmnElement="validate"><dc:Bounds x="214" y="65" width="112" height="54"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="validDI" bpmnElement="valid"><dc:Bounds x="360" y="65" width="46" height="46"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="failureDI" bpmnElement="failure"><dc:Bounds x="506" y="65" width="34" height="34"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="saveDI" bpmnElement="save"><dc:Bounds x="652" y="65" width="112" height="54"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="readDI" bpmnElement="read"><dc:Bounds x="798" y="237" width="112" height="54"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="manageDI" bpmnElement="manage"><dc:Bounds x="944" y="237" width="112" height="54"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="filterDI" bpmnElement="filter"><dc:Bounds x="1090" y="237" width="112" height="54"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="aggregateDI" bpmnElement="aggregate"><dc:Bounds x="1236" y="65" width="112" height="54"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="viewDI" bpmnElement="view"><dc:Bounds x="1382" y="237" width="112" height="54"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNShape id="endDI" bpmnElement="end"><dc:Bounds x="1528" y="237" width="34" height="34"/></bpmndi:BPMNShape>
+  <bpmndi:BPMNEdge id="Flow0DI" bpmnElement="Flow0"><di:waypoint x="102" y="82"/><di:waypoint x="214" y="92"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow1DI" bpmnElement="Flow1"><di:waypoint x="326" y="92"/><di:waypoint x="360" y="88"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow2DI" bpmnElement="Flow2"><di:waypoint x="406" y="88"/><di:waypoint x="506" y="82"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow3DI" bpmnElement="Flow3"><di:waypoint x="383" y="65"/><di:waypoint x="383" y="48"/><di:waypoint x="708" y="48"/><di:waypoint x="708" y="65"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow4DI" bpmnElement="Flow4"><di:waypoint x="764" y="92"/><di:waypoint x="781" y="92"/><di:waypoint x="781" y="264"/><di:waypoint x="798" y="264"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow5DI" bpmnElement="Flow5"><di:waypoint x="910" y="264"/><di:waypoint x="944" y="264"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow6DI" bpmnElement="Flow6"><di:waypoint x="1056" y="264"/><di:waypoint x="1090" y="264"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow7DI" bpmnElement="Flow7"><di:waypoint x="1202" y="264"/><di:waypoint x="1219" y="264"/><di:waypoint x="1219" y="92"/><di:waypoint x="1236" y="92"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow8DI" bpmnElement="Flow8"><di:waypoint x="1348" y="92"/><di:waypoint x="1365" y="92"/><di:waypoint x="1365" y="264"/><di:waypoint x="1382" y="264"/></bpmndi:BPMNEdge>
+  <bpmndi:BPMNEdge id="Flow9DI" bpmnElement="Flow9"><di:waypoint x="1494" y="264"/><di:waypoint x="1528" y="254"/></bpmndi:BPMNEdge>
+ </bpmndi:BPMNPlane></bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -65,7 +65,7 @@ export function ComparisonTray() {
   )
 }
 
-export function CompareFinderResult({ cookie }: { cookie: CookieProduct }) {
+export function CompareFinderResult({ cookie, alternative = false }: { cookie: CookieProduct; alternative?: boolean }) {
   const { ids, message } = useCookieComparison()
   const selected = ids.includes(cookie.id)
   return (
@@ -73,12 +73,12 @@ export function CompareFinderResult({ cookie }: { cookie: CookieProduct }) {
       <Button type="button" variant="secondary" className="whitespace-normal"
         aria-pressed={selected}
         onClick={() => selected ? removeFromComparison(cookie.id, cookie.name) : addToComparison(cookie.id, cookie.name)}>
-        Compare this cookie
+        {alternative ? 'Compare alternative' : 'Compare this cookie'}
       </Button>
       {selected && <Link className="text-link underline" href={canCompare(ids) ? '/compare' : '/workshops#comparison'}>
         {canCompare(ids) ? 'Open comparison' : 'Choose another cookie to compare'}
       </Link>}
-      <p role="status" className={message ? 'text-sm' : 'sr-only'}>{message}</p>
+      {!alternative && <p role="status" className={message ? 'text-sm' : 'sr-only'}>{message}</p>}
     </div>
   )
 }

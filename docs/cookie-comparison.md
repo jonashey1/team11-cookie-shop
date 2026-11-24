@@ -15,7 +15,7 @@ A customer can start from the assortment or a Cookie Finder recommendation, comp
 ## Acceptance criteria
 
 - Given the assortment, selecting distinct cookies adds them to the inline selection. At three, a fourth selection reports the limit. The comparison link becomes available at two.
-- Given selected products, opening the comparison shows catalogue names, illustrations and current prices, with accessible ratings out of five. Highlighting and filtering use real differences among known values, and a missing value reads “Not available” in the full view.
+- Given selected products, opening the comparison shows catalogue names, illustrations and current prices, with accessible ratings out of five. All characteristics stay visible. Highlighting marks differences among known values, and a missing value reads “Not available”.
 - Given equal known scores or prices, all joint leaders appear in the summary.
 - Given a nonempty basket, adding a selected product increases its quantity and preserves other items. The existing ordering page shows the resulting total.
 - Given a Cookie Finder result, “Compare this cookie” adds the recommendation without altering quiz scoring. A selection survives same-tab navigation and reload when session storage is available.
