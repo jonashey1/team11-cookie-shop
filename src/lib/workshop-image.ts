@@ -29,6 +29,10 @@ export const COOKIE_IMAGES: Record<string, { src: string; alt: string }> = {
   },
 }
 
+export function cookieImage(name: string) {
+  return COOKIE_IMAGES[name.toLowerCase().replace(' & ', ' and ').replaceAll(' ', '-')]
+}
+
 const WORKSHOP_IMAGES: Record<string, { src: string; alt: string }> = {
   'classic-chocolate-chip': {
     src: '/images/workshops/cookie-baking-basics.png',
