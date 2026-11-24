@@ -72,12 +72,12 @@ export function CookieBoxBuilder() {
 
   return (
     <section aria-label="Cookie box builder" className="mx-auto grid w-full max-w-2xl min-w-0 gap-4 pb-block">
-      <div className="grid gap-4 rounded-panel border-2 border-brand bg-yellow-wash p-3 sm:p-6">
-        <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 font-semibold">
+      <div className="grid gap-4 rounded-frame border-2 border-line bg-yellow-wash p-3 sm:p-6">
+        <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 border-b border-line pb-2 font-semibold">
           <p role="status">{selection.length} of 4 selected</p>
           <p>Total: {formatOrderAmount(boxPrice(selection))}</p>
         </div>
-        <ul ref={slotList} aria-label="Box slots" className="grid auto-rows-fr grid-cols-2 gap-2 rounded-frame border border-line bg-blue-tint p-2 sm:gap-3 sm:p-3">
+        <ul ref={slotList} aria-label="Box slots" className="signature-box-tray grid auto-rows-fr grid-cols-2 gap-2 rounded-frame border-2 border-line bg-yellow-tint p-2 sm:gap-3 sm:p-4">
           {slots.map((id, index) => {
             const cookie = COOKIES.find(item => item.id === id)
             const image = cookie && cookieImage(cookie.name)

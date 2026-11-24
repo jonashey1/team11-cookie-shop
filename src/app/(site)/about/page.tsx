@@ -14,7 +14,7 @@ export default function AboutPage() {
     <div className="grid gap-section pb-block">
       <PageTitle
         title="About Us"
-        intro="Get to know Cookie Shop and discover the idea behind our online cookie store."
+        intro="A university project about choosing cookies your way."
         tone="blue"
         className="mb-0 border border-line"
       />
@@ -40,7 +40,7 @@ export default function AboutPage() {
 
       <section aria-labelledby="our-mission" className="grid gap-block">
         <h2 id="our-mission" className="text-2xl">
-          Our Mission
+          How it works
         </h2>
 
         <div className="grid gap-block md:grid-cols-3">
