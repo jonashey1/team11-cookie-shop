@@ -66,6 +66,17 @@ Automated and agent checks (not human observation):
 - **PR #27 candidate, 24 November 2026:** GitHub Actions run #115 on commit 599c10c passed all jobs (unit tests, types, migrations, browser checks with 72 Playwright tests passed and 4 skipped, AI note, leftovers). Locally: ESLint, TypeScript, build and 44 Vitest tests passed; 20 cold-cache local load samples of / and /cookies were all under 3 s (R8); responsive checks at ten widths from 320 to 1440 px.
 - **Production, 24 November 2026 (browser agent):** the public course check finds a Team 11 order in `orders.name`; every workshop page links to its topics and every topic page lists its workshops, both ways consistent; the footer shows T11-S3F8 on all public routes; `/api/orders` refuses a guest (403); the opt-in map loads OpenStreetMap after the click.
 
+**Conditions of these results:**
+
+| Check | Device and browser | Network | Lab or field |
+| --- | --- | --- | --- |
+| Manual acceptance checks, 23 Nov | Laptop, browser not recorded | Home connection, not throttled | Lab (team member) |
+| Keyboard-only path and 390 px width on production, 24 Nov | Chromium-based browser pane of the Claude desktop app on a laptop; 390 × 844 px by emulation | Home broadband, not throttled | Lab (browser agent) |
+| CI run #115 | GitHub-hosted Linux runner, Chromium and WebKit | Local test server, no real network | Lab |
+| R8 timing (20 samples) | Local machine (automated run by Codex), empty cache; browser per the final audit | Local production build, no real network | Lab; no field data from real users |
+
+Not tested under these conditions: a physical phone, a throttled mobile network, a screen reader, and field data from real users.
+
 **Improvement with its evidence:** the homepage Order Cookies button (#17), retested in Session 3 (#18).
 
 ## Not tested yet
