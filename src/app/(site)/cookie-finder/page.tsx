@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { COOKIES } from '@/content/cookies'
 
-type Answer = 'chocolate' | 'sweet' | 'balanced' | 'adventurous'
+type Answer = 'chocolate' | 'sweet' | 'balanced' | 'adventurous' | 'classic' | 'cookies-and-cream'
 
 type Question = {
   title: string
@@ -25,7 +25,7 @@ const QUESTIONS: Question[] = [
       { label: 'Rich chocolate', emoji: '🍫', value: 'chocolate' },
       { label: 'Sweet and creamy', emoji: '🍦', value: 'sweet' },
       { label: 'A little sweet and salty', emoji: '🍯', value: 'balanced' },
-      { label: 'Something different', emoji: '✨', value: 'adventurous' },
+      { label: 'Something different', emoji: '✨', value: 'cookies-and-cream' },
     ],
   },
   {
@@ -33,9 +33,9 @@ const QUESTIONS: Question[] = [
     subtitle: 'Choose the feeling that fits you best.',
     options: [
       { label: 'Something intensely chocolatey', emoji: '🍫', value: 'chocolate' },
-      { label: 'A comforting sweet treat', emoji: '🍪', value: 'sweet' },
+      { label: 'A comforting sweet treat', emoji: '🍪', value: 'classic' },
       { label: 'A balanced flavour combination', emoji: '⚖️', value: 'balanced' },
-      { label: 'A fun new flavour', emoji: '🎉', value: 'adventurous' },
+      { label: 'A fun new flavour', emoji: '🎉', value: 'cookies-and-cream' },
     ],
   },
   {
@@ -53,7 +53,7 @@ const QUESTIONS: Question[] = [
     subtitle: 'One final question before we find your match.',
     options: [
       { label: 'I always choose chocolate', emoji: '🍫', value: 'chocolate' },
-      { label: 'I love classic sweet flavours', emoji: '🤍', value: 'sweet' },
+      { label: 'I love classic sweet flavours', emoji: '🤍', value: 'classic' },
       { label: 'I enjoy unexpected combinations', emoji: '🧂', value: 'balanced' },
       { label: 'Surprise me!', emoji: '🎲', value: 'adventurous' },
     ],
@@ -65,6 +65,8 @@ const RECOMMENDATIONS: Record<Answer, number[]> = {
   sweet: [3, 6],
   balanced: [5, 1],
   adventurous: [4, 6],
+  classic: [1, 3],
+  'cookies-and-cream': [6, 4],
 }
 
 function findCookie(answers: Answer[]) {
