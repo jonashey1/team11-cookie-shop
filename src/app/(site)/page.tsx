@@ -23,7 +23,7 @@ export const dynamic = 'force-dynamic'
 export default async function HomePage() {
   const products = await getCookieCatalog().catch(() => [])
   return (
-    <div className="grid gap-section pt-block">
+    <div className="grid grid-cols-1 gap-section pt-block">
       <section aria-labelledby="boutique-title" className="boutique-hero">
         <div className="boutique-hero-copy">
           <p className="boutique-kicker">The Cookie Boutique</p>
