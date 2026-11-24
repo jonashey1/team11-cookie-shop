@@ -100,7 +100,7 @@ export function CookieOrderForm() {
         </div>
         <div className="grid gap-block sm:grid-cols-2 lg:grid-cols-3">
           {COOKIES.map((cookie) => (
-            <article key={cookie.id} className="grid min-w-0 content-between gap-stack rounded-panel border border-line bg-blue-tint p-5">
+            <article key={cookie.id} data-flavour={cookie.id} className="boutique-order-choice grid min-w-0 content-between gap-stack border border-line p-5">
               <div className="grid gap-3">
                 <span aria-hidden="true" className="grid size-14 place-items-center rounded-full bg-yellow-wash text-3xl">{cookie.emoji}</span>
                 <h3 className="text-xl">{cookie.name}</h3>
@@ -128,7 +128,7 @@ export function CookieOrderForm() {
         </div> : (
           <ul className="grid gap-3">
             {chosen.map((cookie) => (
-              <li key={cookie.id} className="flex flex-wrap items-center gap-3 border-b border-line pb-3">
+              <li key={cookie.id} data-flavour={cookie.id} className="boutique-basket-line flex flex-wrap items-center gap-3 border-b border-line">
                 <BasketImage name={cookie.name} />
                 <div className="min-w-0 flex-1">
                   <strong>{cookie.name} × {quantities[cookie.id]}</strong>
@@ -155,7 +155,7 @@ export function CookieOrderForm() {
         <section aria-labelledby="basket-suggestions" className="grid gap-3 rounded-panel border border-line bg-canvas p-4">
           <h2 id="basket-suggestions" className="text-xl">You might also enjoy</h2>
           <ul className="flex flex-wrap gap-4">
-            {suggestions.map(cookie => <li key={cookie.id} className="grid min-w-0 gap-1">
+            {suggestions.map(cookie => <li key={cookie.id} className="boutique-basket-line grid min-w-0 gap-1">
               <strong>{cookie.name}</strong>
               <span className="text-sm">{selectedFlavours.has(cookie.flavour) ? 'Similar flavour' : 'A different flavour'} · {formatOrderAmount(cookie.price)}</span>
               <AddCookieToBasket cookie={cookie} />

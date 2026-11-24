@@ -19,7 +19,7 @@ export default function AboutPage() {
         className="mb-0 border border-line"
       />
 
-      <section aria-labelledby="our-story" className="grid gap-4">
+      <section aria-labelledby="our-story" className="boutique-story grid gap-4">
         <h2 id="our-story" className="text-2xl">
           Our Story
         </h2>
@@ -38,7 +38,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section aria-labelledby="our-mission" className="grid gap-block">
+      <section aria-labelledby="our-mission" className="boutique-editorial grid gap-block">
         <h2 id="our-mission" className="text-2xl">
           How it works
         </h2>

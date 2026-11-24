@@ -1,99 +1,65 @@
 
 import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
-import { Hero } from '@/components/site/Hero'
+import { Cookie, Scale, PackageOpen } from 'lucide-react'
+import { COOKIES } from '@/content/cookies'
+import { cookieImage } from '@/lib/workshop-image'
+import Link from 'next/link'
 import { CookieShopExperience } from '@/components/site/CookieShopExperience'
 
 export default function HomePage() {
   return (
     <div className="grid gap-section pt-block">
-      <Hero
-        title="Welcome to Cookie Shop"
-        text="Your taste. Your choice. Your perfect cookie. Find a flavour that suits you, compare your favourites or choose four for your own box."
-        image={{
-          src: '/images/signature-hero.webp',
-          unoptimized: true,
-          alt: 'Three classic chocolate chip cookies on a plate with baking ingredients.',
-          width: 800,
-          height: 1000,
-        }}
-        actions={
-          <>
-            <ButtonLink href="/clinics" size="lg" className="min-h-14 whitespace-normal text-center">
-              Order Cookies
-            </ButtonLink>
-            <ButtonLink href="/workshops" variant="secondary" size="lg" className="min-h-14 whitespace-normal text-center">
-              Explore Our Cookies
-            </ButtonLink>
-          </>
-        }
-      />
+      <section aria-labelledby="boutique-title" className="boutique-hero">
+        <div className="boutique-hero-copy">
+          <p className="boutique-kicker">The Cookie Boutique</p>
+          <h1 id="boutique-title">Life’s better <em>with cookies.</em></h1>
+          <p>Six flavours. Endless combinations. Find your favourite or create your own perfect box.</p>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href="/workshops#cookies" size="lg">Explore Our Cookies</ButtonLink>
+            <ButtonLink href="/build-your-box" variant="secondary" size="lg">Build a cookie box</ButtonLink>
+          </div>
+          <p className="boutique-hand">Your taste. Your choice. Your perfect cookie.</p>
+        </div>
+        <div className="boutique-hero-art">
+          <Image src="/images/signature-hero.webp" unoptimized preload
+            alt="Three classic chocolate chip cookies on a plate with baking ingredients."
+            width={800} height={1000} />
+          <span aria-hidden="true" className="boutique-stamp"><Cookie /> Six flavours</span>
+          <span aria-hidden="true" className="boutique-crumbs">✦ · ✧</span>
+        </div>
+      </section>
+
+      <nav aria-label="Explore cookie experiences" className="boutique-strip">
+        <Link href="/cookie-finder"><Cookie aria-hidden="true" /><span><strong>Discover</strong>Cookie Finder</span></Link>
+        <Link href="/workshops#comparison"><Scale aria-hidden="true" /><span><strong>Compare</strong>Cookie Comparison</span></Link>
+        <Link href="/build-your-box"><PackageOpen aria-hidden="true" /><span><strong>Personalise</strong>Box Builder</span></Link>
+      </nav>
+
+      <section aria-labelledby="discover" className="boutique-collection">
+        <div>
+          <p className="boutique-kicker">The collection</p>
+          <h2 id="discover">Discover Our Cookie Shop</h2>
+          <p>Find an old favourite or make room for a new one.</p>
+        </div>
+        <ul className="boutique-flavours">
+          {COOKIES.map(cookie => {
+            const image = cookieImage(cookie.name)
+            return (
+              <li key={cookie.id} data-flavour={cookie.id}>
+                {image && <Image src={image.src} alt="" width={256} height={256} sizes="(min-width: 64rem) 15vw, (min-width: 40rem) 30vw, 42vw" />}
+                <strong>{cookie.name}</strong>
+              </li>
+            )
+          })}
+        </ul>
+        <div className="flex flex-wrap gap-3">
+          <ButtonLink href="/workshops#cookies">View Our Cookies</ButtonLink>
+          <ButtonLink href="/clinics" variant="secondary">Order Cookies</ButtonLink>
+        </div>
+      </section>
 
       <CookieShopExperience />
-
-      <section aria-labelledby="discover" className="grid gap-block">
-        <div className="grid max-w-reading gap-stack">
-          <h2 id="discover" className="text-3xl">
-            Discover Our Cookie Shop
-          </h2>
-          <p className="max-w-reading text-ink-soft">
-            Start with a classic or try one of our other flavours.
-            Compare a few to see what sets them apart, then order the ones you want to try.
-          </p>
-        </div>
-
-        <div className="grid gap-block md:grid-cols-2">
-          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
-              <Image
-                src="/images/workshops/double-chocolate.png"
-                alt="Three double chocolate cookies on a plate with chocolate pieces."
-                fill
-                sizes="(min-width: 80rem) 34rem, (min-width: 48rem) 43vw, 88vw"
-                className="object-cover"
-              />
-            </div>
-            <h3 className="mt-2 text-xl">Explore Our Cookies</h3>
-            <p>
-              Discover our selection of cookies and learn more about
-              the different flavours we offer. Find your favourite
-              before placing an order.
-            </p>
-            <ButtonLink href="/workshops" className="w-fit max-w-full whitespace-normal text-center">
-              View Our Cookies
-            </ButtonLink>
-          </div>
-
-          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
-              <Image
-                src="/images/workshops/salted-caramel.png"
-                alt="Three salted caramel cookies on a plate with caramel and baking ingredients."
-                fill
-                sizes="(min-width: 80rem) 34rem, (min-width: 48rem) 43vw, 88vw"
-                className="object-cover"
-              />
-            </div>
-            <h3 className="mt-2 text-xl">Order Your Favourite Cookies</h3>
-            <p>
-              Ready to choose your favourites? Select cookies, adjust quantities
-              and submit a fictional test order. No payment is required.
-            </p>
-            <ButtonLink href="/clinics" className="w-fit max-w-full whitespace-normal text-center">
-              Order Cookies
-            </ButtonLink>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="choose-your-way" className="grid gap-3 rounded-panel border border-line bg-yellow-wash p-5 sm:p-6">
-        <h2 id="choose-your-way" className="text-2xl">Find your favourites</h2>
-        <div className="flex flex-wrap gap-3">
-          <ButtonLink href="/cookie-finder" variant="secondary">Find a flavour</ButtonLink>
-          <ButtonLink href="/workshops#comparison" variant="secondary">Compare cookies</ButtonLink>
-          <ButtonLink href="/build-your-box">Build a cookie box</ButtonLink>
-        </div>
-      </section>
 
       <section aria-labelledby="why-us" className="grid gap-block border-y border-line py-block">
         <h2 id="why-us" className="text-3xl">

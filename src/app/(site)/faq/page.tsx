@@ -86,8 +86,8 @@ export default function FAQPage() {
   return (
     <div className="py-section">
       <div className="mx-auto max-w-4xl">
-        <div className="mb-section rounded-panel border border-line bg-blue-tint p-6 text-center sm:p-block">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-yellow-wash px-4 py-2 font-semibold text-ink">
+        <div className="boutique-page-title mb-section border-y border-line p-6 sm:p-block">
+          <div className="mb-5 inline-flex items-center gap-2 boutique-kicker">
             <HelpCircle aria-hidden="true" className="size-5" />
             We&apos;re here to help
           </div>
@@ -96,7 +96,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
 
-          <p className="mx-auto max-w-2xl text-lg text-ink-soft">
+          <p className="max-w-2xl text-lg text-ink-soft">
             Curious about our cookies or our website?
             Find answers to the most common questions below.
           </p>

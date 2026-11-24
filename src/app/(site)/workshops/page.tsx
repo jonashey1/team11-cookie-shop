@@ -29,15 +29,6 @@ const tastingNotes = {
   6: 'A familiar favourite with a twist.',
 } satisfies Record<CookieProduct['id'], string>
 
-const accents = {
-  1: 'border-t-brand',
-  2: 'border-t-ink-soft',
-  3: 'border-t-line',
-  4: 'border-t-coral',
-  5: 'border-t-yellow',
-  6: 'border-t-purple',
-} satisfies Record<CookieProduct['id'], string>
-
 export default function CookiesPage() {
 
   return (
@@ -76,28 +67,28 @@ export default function CookiesPage() {
 
         <div><ButtonLink href="/build-your-box" variant="secondary">Build a cookie box</ButtonLink></div>
         <ComparisonTray />
-        <ul className="grid gap-block sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="boutique-assortment">
           {COOKIES.map((cookie) => {
             const image = cookieImage(cookie.name)
 
             return (
               <li
                 key={cookie.id}
-                className={`flex min-w-0 flex-col gap-stack rounded-frame border border-line border-t-4 bg-canvas p-3 sm:p-4 ${accents[cookie.id]}`}
+                data-flavour={cookie.id} className="boutique-product"
               >
                 {image && (
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
+                  <div className="boutique-product-art relative overflow-hidden">
                     <Image
                       src={image.src}
                       alt={image.alt}
                       fill
-                      sizes="(min-width: 80rem) 21rem, (min-width: 64rem) 28vw, (min-width: 40rem) 42vw, 88vw"
+                      sizes="(min-width: 80rem) 31rem, (min-width: 48rem) 45vw, 88vw"
                       className="object-cover"
                     />
                   </div>
                 )}
 
-                <div className="grid content-start gap-2">
+                <div className="boutique-product-copy grid content-start gap-2">
                   <p className="text-sm font-semibold text-ink-soft">
                     {cookie.flavour}
                   </p>
@@ -107,7 +98,7 @@ export default function CookiesPage() {
                   <p className="font-heading italic text-ink-soft">{tastingNotes[cookie.id]}</p><p>{cookie.description}</p>
                 </div>
 
-                <div className="mt-auto grid gap-2 border-t border-line pt-stack">
+                <div className="boutique-product-controls grid gap-2">
                   <p className="font-heading text-xl font-bold tabular-nums">
                     {new Intl.NumberFormat('en-BE', {
                       style: 'currency',

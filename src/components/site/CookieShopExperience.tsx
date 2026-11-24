@@ -10,9 +10,9 @@ const features = [
 
 export function CookieShopExperience() {
   return (
-    <section aria-labelledby="cookie-shop-experience" className="grid min-w-0 gap-5 border-y border-line bg-blue-tint px-3 py-5 sm:gap-6 sm:px-6 sm:py-block">
+    <section aria-labelledby="cookie-shop-experience" className="boutique-commercial grid min-w-0 gap-5 border-y border-line px-3 py-5 sm:gap-6 sm:px-6 sm:py-block">
       <div className="mx-auto grid w-full max-w-4xl gap-2 text-start">
-        <p className="text-sm font-bold tracking-wider text-ink-soft uppercase">The Cookie Shop Experience</p>
+        <p className="boutique-kicker">The Cookie Shop Experience</p>
         <h2 id="cookie-shop-experience" className="text-3xl sm:text-4xl">More than just cookies.</h2>
         <p className="text-ink-soft">A little more personal. A lot more delicious.</p>
       </div>

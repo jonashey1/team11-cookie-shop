@@ -20,7 +20,7 @@ export default function ContactPage() {
         className="mb-0 border border-line"
       />
 
-      <section aria-labelledby="get-in-touch" className="grid gap-4">
+      <section aria-labelledby="get-in-touch" className="boutique-story grid gap-4">
         <h2 id="get-in-touch" className="text-2xl">
           Get in Touch
         </h2>
@@ -38,7 +38,7 @@ export default function ContactPage() {
         </p>
       </section>
 
-      <section aria-labelledby="contact-info" className="grid gap-block">
+      <section aria-labelledby="contact-info" className="boutique-editorial grid gap-block">
         <h2 id="contact-info" className="text-2xl">
           Information
         </h2>
