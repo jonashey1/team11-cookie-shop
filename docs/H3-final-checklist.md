@@ -1,94 +1,27 @@
-# H3 Final Release Checklist — Team 11
+# H3-releasechecklist — Team 11
 
-**Project:** Cookie Shop
-**Datum:** 23 november 2026
-**Website:** [https://team11-cookie-shop.vercel.app/](https://team11-cookie-shop.vercel.app/)
-**Status:** Website operationeel — enkele H3-vereisten nog af te werken.
+Stand van de releasekandidaat in [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27). De [academische auditmatrix](final-academic-compliance.md) bevat de onderbouwing en bronverwijzingen.
 
-## 1. Website en technische werking
+## Technisch bevestigd
 
-- [x] Cookie Shop-website ontwikkeld en online gepubliceerd.
-- [x] Website succesvol gedeployed via Vercel.
-- [x] H3-pull request gemerged naar `main`.
-- [x] Alle acht GitHub-checks bij de merge geslaagd.
-- [x] Zes koekjes met correcte prijzen beschikbaar.
-- [x] Functionerend winkelmandje en bestelformulier.
-- [x] Testbestelling succesvol geplaatst op de productiewebsite.
-- [x] Bestelling effectief teruggevonden in Payload Admin.
-- [x] Geen echte betalingen of aankopen.
-- [x] Vercel Web Analytics registreert bezoekers en paginaweergaven.
-- [x] OpenStreetMap-integratie aanwezig op de Contact-pagina.
-- [x] Controleren of de interactieve kaart correct laadt na gebruikersactie.
-- [ ] Volledige mobiele en toegankelijkheidstest met reproduceerbare stappen documenteren.
+- [x] Acht vaste openbare bestemmingen. De oude Comparison-, FAQ- en Fortune Cookie-URL’s verwijzen door. De workshop- en topicroutes blijven beschikbaar.
+- [x] Vier gebruikte collecties op de geïsoleerde kandidaat: `cookies`, `orders`, `workshops`, `topics`. Workshops en topics linken publiek in beide richtingen.
+- [x] Zes CMS-producten, serverprijzen, bescherming bij prijswijzigingen en historische prijssnapshots getest op geïsoleerde data.
+- [x] Additieve migratie getest op een lege en een bestaande testdatabase. Geen productiemigratie handmatig uitgevoerd.
+- [x] GitHub CI voor de geteste broncode: Chromium, WebKit, migraties, types en leftovers geslaagd. De kandidaatpreview vereist Vercel-login.
+- [x] Teamcode en bestaande productieorder bevestigd via de [cursuschecker](https://team11-cookie-shop.vercel.app/api/course-check?include=team&code=T11-S3F8). Geen nieuwe order nodig.
+- [x] `CAMPUS_CYCLE_LEFTOVERS=fail` staat aan. Bekende voorbeeldrecords zijn op de kandidaat afgeschermd voor gasten; records blijven bewaard.
+- [x] D0–D7 aanwezig. D6 maakt onderscheid tussen de historische deelnemer en geautomatiseerde checks.
 
-## 2. Verplichte documentatie
+## Vóór fiattering van de merge
 
-- [x] D5 — Analyticsbeslissing aangevuld.
-- [x] D5 — Integratiebeslissing aangevuld.
-- [x] D7 — Handoverdocument aangevuld.
-- [x] Overgebleven `TODO:`-regels uit deze drie documenten verwijderd.
-- [x] H3-checklist toegevoegd aan de repository.
-- [x] D6 — Bevestigde productietests en feedback van de testpersoon toegevoegd.
-- [ ] D6 — Verbeterde bestelknop deployen en daarna de echte hertest documenteren.
-- [ ] R1–R8 — Nog ontbrekende acceptatiecontroles uitvoeren en registreren.
-- [ ] Definitieve inhoud en opmaak van D5 en D7 controleren.
+- [ ] Controleer of de officiële teltregel workshop- en topicdetails mee laat tellen. De kandidaat telt acht vaste bestemmingen en twee detailtemplates. Zonder officiële tekst blijft volledige paginaconformiteit onbevestigd.
+- [ ] Laat het contentmodelpaar de additieve migratie beoordelen en de eigenaar de release goedkeuren.
 
-## 3. GitHub en groepsbijdragen
+## Na een uitdrukkelijk goedgekeurde merge
 
-**Huidige situatie:** Het grootste deel van de website en de H3-uitwerking is voorlopig door Jonas gerealiseerd. De andere groepsleden hebben volgens de huidige informatie nog geen eigen codebijdrage geleverd.
-
-- [x] H3-verbeteringen via een pull request gemerged.
-- [ ] Tessa — Eigen codebijdrage en gemergede PR.
-- [ ] Esma — Eigen codebijdrage en gemergede PR.
-- [ ] Arnaud — Eigen codebijdrage en gemergede PR.
-- [ ] Yana — Eigen codebijdrage en gemergede PR.
-- [ ] Xander — Eigen codebijdrage en gemergede PR, indien officieel groepslid.
-- [ ] GitHub-toegang van alle groepsleden controleren.
-- [ ] Toegang voor docent `jnmoons` controleren.
-
-**Voorgestelde taakverdeling:**
-
-| Groepslid | Voorgestelde verbetering |
-| --------- | ------------------------ |
-| Tessa     | FAQ-pagina               |
-| Esma      | About Us-pagina          |
-| Arnaud    | Mobiele weergave         |
-| Yana      | Toegankelijkheid         |
-| Xander    | Cookie Finder            |
-
-Deze taken zijn nog niet uitgevoerd. Bijdragen mogen pas als afgerond worden aangeduid wanneer ze daadwerkelijk door de betrokken student zijn gerealiseerd en gemerged.
-
-## 4. Gebruikerstaken en relaties
-
-- [x] Transactionele gebruikerstaak: een fictieve bestelling plaatsen.
-- [x] Bestelling wordt opgeslagen en is zichtbaar in Payload Admin.
-- [x] Gebruikers kunnen koekjes en prijzen bekijken.
-- [ ] Tweede gebruikerstaak volledig testen en documenteren, inclusief toetsenbord en mobiel.
-- [ ] Workshop–Topic-relatie in beide richtingen controleren op de productiewebsite.
-- [ ] Controleren of alle vereiste CMS-collecties en bijbehorende records correct werken.
-
-## 5. Definitieve indiening
-
-- [x] H3-codewijzigingen gemerged naar `main`.
-- [x] Succesvolle Vercel-deployment.
-- [x] Productiebestelling getest.
-- [x] Analytics op productie bevestigd.
-- [ ] Resterende gebruikerstests en documentatie afronden.
-- [ ] Individuele groepsbijdragen afronden.
-- [ ] Alle verplichte GitHub-toegangen controleren.
-- [ ] Definitieve H3-controle uitvoeren.
-- [ ] H3 opnieuw indienen volgens de cursusinstructies.
-
----
-
-## Eindstatus
-
-**Technische basis: geslaagd.**
-
-De live website, het bestelproces, de databaseopslag en de bezoekersanalytics zijn gecontroleerd en werken.
-
-**H3 nog niet volledig afgerond.**
-
-De belangrijkste resterende aandachtspunten zijn de individuele groepsbijdragen, de aantoonbare gebruikersverbetering met hertest, de CMS-relaties en de volledige testdocumentatie.
-
-De bestaande website hoeft hiervoor niet opnieuw gebouwd te worden.
+- [ ] Controleer de exacte `main`-SHA, groene CI, Vercel Production Ready voor diezelfde SHA en de bevestigde migratie in de buildlog.
+- [ ] Controleer de live bestemmingen, vier CMS-collecties, beide kanten van Workshop–Topic, teamcode, bestaande cursusorder, publieke afscherming van voorbeelden en D0–D7 op `main`.
+- [ ] Controleer in de cursusapp de vereiste echte D6-observatie en hertest. Gebruik het [protocol](cookie-shop-usability-protocol.md). De eerder gerapporteerde hertest blijft in D6 staan.
+- [ ] Verifieer echte H3-bijdragen voor Tessa, Arnaud, Esma, Yana en Xander. Voor Jonas is een kwalificerende PR gevonden. Alle zes teamaccounts hebben GitHub-toegang. De cursusapp verwerkt de uitnodiging voor `jnmoons` bij indiening.
+- [ ] Dien in via **My team → Final hand-in** met repository `jonashey1/team11-cookie-shop`, branch `main` en website `https://team11-cookie-shop.vercel.app/`. Controleer de opgeslagen commit en docenttoegang. De laatst geëxporteerde indiening verwees naar een oudere SHA.

@@ -26,6 +26,8 @@ This report documents the functional testing, user observation and release check
 
 ## What we changed, and the retest
 
+The historical notes below reflect their dates. The later reported follow-up supersedes earlier pending wording; its exact build and timings were not recorded.
+
 ### Finding 1 — A working cookie ordering system was needed
 
 - **Finding:** The website previously did not support placing cookie orders.
