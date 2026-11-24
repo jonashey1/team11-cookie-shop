@@ -70,6 +70,17 @@ export default async function OrderAnalyticsPage({ searchParams }: {
         </table> : <p>No records match the active filters.</p>}
       </section>
       <section className="order-analytics__panel">
+        <h2>Frequently ordered together</h2>
+        <p>Date range: {filters?.from && filters?.to ? `${filters.from} to ${filters.to} (UTC)` : 'All time'}. {data.eligibleOrders} orders contain at least two distinct catalogue flavours.</p>
+        {data.productPairs.length ? <table>
+          <caption>One occurrence per pair and qualifying order.</caption>
+          <thead><tr><th scope="col">Flavour pair</th><th scope="col">Orders</th><th scope="col">Share of qualifying orders</th></tr></thead>
+          <tbody>{data.productPairs.map(([pair, count]) => <tr key={pair}><th scope="row">{pair}</th><td>{count}</td><td>{Math.round(count / data.eligibleOrders * 100)}%</td></tr>)}</tbody>
+        </table> : <p>No qualifying flavour pairs match the active filters.</p>}
+        {data.eligibleOrders > 0 && data.eligibleOrders < 10 && <p>This small fictional sample cannot support reliable conclusions.</p>}
+        <p>These pairs come from whole orders. Use them to identify combinations worth testing.</p>
+      </section>
+      <section className="order-analytics__panel">
         <h2>Business insights</h2>
         {data.orderCount ? <ul>
           <li>Most ordered: {data.most.join(', ') || 'Not enough order data to generate this insight.'}</li>
