@@ -7,9 +7,9 @@
 - **Our sketches:** Initial paper or digital sketches have not been supplied for this report. Add genuine phone-width and laptop-width sketches to `docs/` and link them here before finalising this section. Do not fabricate earlier sketches.
 - **What we changed between them:** The implemented interface uses responsive wrapping navigation and content containers. A comparison of actual early sketches, including any design changes, must be added after the team provides the sketches.
 
-## Palette and type
+## Palette and type (historical starter reference)
 
-The following values are defined in `src/app/(site)/globals.css`.
+These values describe the earlier starter palette, retained as historical design context. The current palette is described below.
 
 | Colour (its name and value) | What it is used for |
 | --- | --- |
@@ -75,3 +75,14 @@ The descriptions above reflect the booking code and its documented behaviour. Th
 
 - **What differs from the starter:** Cookie Shop terminology and catalogue, Cookie Finder, Fortune Cookie, dark/light theme switching, Accessibility Center, interactive FAQ and a Watermelon AI chat widget. These are voluntary creative extras beyond the required H2 scope, added to improve the experience and potentially earn a bonus point, without any guarantee. The main navigation uses cookie-oriented labels, although some technical collection and URL names still come from the starter.
 - **What we kept from the starter, and why it fits our users:** The accessible form pattern, visible error feedback, CMS-backed records and server-side validation provide a practical basis for the order task. Retaining these patterns reduces the risk of breaking the primary transactional workflow.
+
+## PR #27 rationale and observed implementation
+
+The current CSS tokens use cocoa ink (#38251d) on cream (#fff8ee), soft cocoa (#684e40) for secondary text and deep terracotta (#873b24) for links. Georgia/Cambria shape the headings; Hanken Grotesk is the body face. Sass or additional fonts are not needed.
+
+- **Recognition and similarity:** six illustrations repeat across the assortment and order cards. Each item has a visible name and flavour, so identifying it does not depend on colour or recall.
+- **Proximity and common region:** title, price and illustration sit in each product region. Quantity controls, basket review and customer details each have their own labelled section.
+- **Continuity and hierarchy:** the assortment moves from direct flavour links to all products and then to optional Taste Map exploration. The workshop overview now has a dedicated menu link. The homepage hero still offers direct discovery and box actions before the commercial.
+- **Closure and figure/ground:** the receipt confirms completion with persistent text, reference and total. Motion is decorative and may be disabled. Theme tokens maintain the foreground and background distinction in the standard, dark and high-contrast views.
+- **Feedback and error prevention:** labels remain visible after typing. A failed order remains actionable without showing celebration. The successful order reference is stable on retry.
+- **Evidence:** Chromium and WebKit exercise representative mobile and desktop views. The corrected screenshots show the streamed workshop content at both widths. This review is retrospective and does not supply original sketches or new participant observations.

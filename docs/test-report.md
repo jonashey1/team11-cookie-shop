@@ -128,3 +128,13 @@ The following acceptance checks were performed manually on the live production w
 
 These checks were carried out on the production website. The results above are based on the manual acceptance tests reported by the tester.
 
+
+## PR #27 final candidate audit — 24 November 2026
+
+This later technical evidence does not replace the human sessions above. The historical follow-up section reports feedback from the same participant after the ordering navigation was improved, so the earlier “pending” statements describe the earlier state. The follow-up did not record the exact build, independent timings or a second participant.
+
+- Chromium regression: 70 passed and four baseline skips at 390/1100 px; no serious or critical axe findings on sampled routes. ESLint, TypeScript, production build, 44 Vitest and the official leftovers scan passed.
+- Cold-cache local candidate R8: 20 samples under three seconds. See the final audit for the exact split and the hosted SSO limitation.
+- Isolated fictional checkout: the same request replay produced exactly one saved order at 390 and 1100 px. This is separate from production evidence. The public production course checker already finds an existing Team 11 order.
+- Workshop screenshots were recaptured after the streamed list resolved; all four expected cards and their detail pages loaded on each viewport.
+- Next human session: ask the participant to find two cookies that differ in taste and price and explain a choice. Separately ask them to order three cookies and identify whether the order was saved. Use fictional details on isolated data. Record device, commit, timings, unaided completion, observed hesitation and comments in the [existing protocol](cookie-shop-usability-protocol.md). If you change anything based on an observation, record a genuine repeat of that task.
