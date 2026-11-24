@@ -226,7 +226,7 @@ jobs:
 
       - name: Install the browser
         if: steps.changes.outputs.run == 'true'
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium webkit
 
       # Next.js's build cache, kept between runs: later builds are faster.
       - uses: actions/cache@v4
@@ -263,6 +263,12 @@ jobs:
 
       - name: Browser checks at 390 and 1100 px, with axe
         if: steps.changes.outputs.run == 'true'
+        run: npm run check
+
+      - name: WebKit browser checks at 390 and 1100 px
+        if: steps.changes.outputs.run == 'true'
+        env:
+          PLAYWRIGHT_ENGINE: webkit
         run: npm run check
 
       - name: The site's log, when a check failed

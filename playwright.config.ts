@@ -13,6 +13,9 @@ import { BASE_URL } from './tests/e2e/helpers'
 import { exampleTests, starterTests } from './scripts/lib/starterTests.mjs'
 
 const inCI = Boolean(process.env.CI)
+// The release audit can run the same assertions in WebKit on its supported Linux runner.
+const webkit = process.env.PLAYWRIGHT_ENGINE === 'webkit'
+const desktop = webkit ? devices['Desktop Safari'] : devices['Desktop Chrome']
 // In a site that is no longer the Campus Cycle example, the checks of the example's two tasks are not
 // run: the accessibility scan and checks/checks.json still are (scripts/lib/starterTests.mjs).
 const leftOut = starterTests() === 'site' ? exampleTests().map((file) => `**/${file}`) : []
@@ -37,11 +40,11 @@ export default defineConfig({
     navigationTimeout: 15_000,
     // On your own computer: the Chrome you already have, so nothing needs downloading. In CI: the
     // Chromium that `npx playwright install --with-deps chromium` installs.
-    ...(inCI ? {} : { channel: 'chrome' }),
+    ...(!inCI && !webkit ? { channel: 'chrome' } : {}),
     screenshot: 'only-on-failure',
   },
   projects: [
-    { name: 'phone-390', use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 } } },
-    { name: 'laptop-1100', use: { ...devices['Desktop Chrome'], viewport: { width: 1100, height: 800 } } },
+    { name: 'phone-390', use: { ...desktop, viewport: { width: 390, height: 844 } } },
+    { name: 'laptop-1100', use: { ...desktop, viewport: { width: 1100, height: 800 } } },
   ],
 })
