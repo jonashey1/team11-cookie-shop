@@ -755,3 +755,34 @@ html.a11y-large-cursor [contenteditable='true'] {
   border-block-start: 4px solid var(--flavour-edge, var(--flavour-accent));
 }
 .a11y-high-contrast :is(.boutique-hero, .boutique-commercial, .boutique-box-lid) { background-image: none; }
+
+.boutique-workshops {
+  display: grid;
+  gap: 1.45rem;
+  padding: clamp(1rem, 4vw, 3rem);
+  border-block: 3px double var(--color-line);
+  background: var(--boutique-paper);
+}
+.boutique-workshops-intro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+}
+.boutique-workshops-intro h2 {
+  max-width: 20ch;
+  margin-block: .35rem .6rem;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
+}
+.boutique-workshop-list { display: grid; gap: 1rem; }
+.boutique-workshop-list > li { display: grid; min-width: 0; }
+.boutique-workshop-card {
+  border-inline-start: 4px solid var(--color-line);
+  background: var(--color-canvas);
+  box-shadow: none;
+}
+@media (min-width: 48rem) {
+  .boutique-workshop-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

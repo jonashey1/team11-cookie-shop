@@ -51,7 +51,7 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
   // No workshop with this slug: the "not found" page, which explains and offers a way on.
   if (!workshop) notFound()
   const filters = parseFilters(await searchParams)
-  const back = `/workshops${filterQuery(filters)}`
+  const back = `/workshops${filterQuery(filters)}#workshops`
   const payload = await getPayload({ config })
   const facts = await payload.findGlobal({ slug: 'site-facts', depth: 0 })
 

@@ -30,6 +30,7 @@ function currentFor(
   }
 
   if (path === '/') return undefined
+  if (href === '/workshops#cookies') return undefined
   if (pathname.startsWith(`${path}/`)) return 'true'
   if (path === '/workshops' && pathname.startsWith('/topics/')) return 'true'
 
@@ -70,7 +71,9 @@ export function MainNav({
                   ? 'border-ink bg-ink px-4 font-bold text-canvas hover:border-line hover:bg-blue-tint hover:text-ink'
                   : current
                     ? 'border-line bg-yellow-wash px-2.5 font-bold text-ink'
-                    : 'border-transparent px-2.5 text-ink hover:bg-yellow-wash',
+                    : href === '/workshops#workshops'
+                      ? 'border-line bg-blue-tint px-2.5 text-ink hover:bg-yellow-wash'
+                      : 'border-transparent px-2.5 text-ink hover:bg-yellow-wash',
               )}
             >
               {label}

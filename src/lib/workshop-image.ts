@@ -70,6 +70,8 @@ const WORKSHOP_IMAGES: Record<string, { src: string; alt: string }> = {
   },
 }
 
+export const COOKIE_WORKSHOP_SLUGS = Object.keys(WORKSHOP_IMAGES)
+
 export function workshopImage(workshop: Workshop) {
   return WORKSHOP_IMAGES[workshop.slug] ?? imageFrom(workshop.image)
 }

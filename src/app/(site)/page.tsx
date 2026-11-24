@@ -1,11 +1,17 @@
 
+import { Suspense } from 'react'
+import { getPayload } from 'payload'
+import config from '@/payload.config'
+import { WorkshopCard } from '@/components/site/WorkshopCard'
 import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { Cookie, Scale, PackageOpen } from 'lucide-react'
 import { COOKIES } from '@/content/cookies'
-import { cookieImage } from '@/lib/workshop-image'
+import { COOKIE_WORKSHOP_SLUGS, cookieImage } from '@/lib/workshop-image'
 import Link from 'next/link'
 import { CookieShopExperience } from '@/components/site/CookieShopExperience'
+
+export const dynamic = 'force-dynamic'
 
 export default function HomePage() {
   return (
@@ -35,6 +41,20 @@ export default function HomePage() {
         <Link href="/workshops#comparison"><Scale aria-hidden="true" /><span><strong>Compare</strong>Cookie Comparison</span></Link>
         <Link href="/build-your-box"><PackageOpen aria-hidden="true" /><span><strong>Personalise</strong>Box Builder</span></Link>
       </nav>
+
+      <section aria-labelledby="boutique-workshops" className="boutique-workshops">
+        <div className="boutique-workshops-intro">
+          <div>
+            <p className="boutique-kicker">Cookie Workshops</p>
+            <h2 id="boutique-workshops">More than cookies. An experience.</h2>
+            <p>These workshops are demonstrations for a fictional university project.</p>
+          </div>
+          <ButtonLink href="/workshops#workshops">Explore our workshops</ButtonLink>
+        </div>
+        <Suspense fallback={<p role="status">Loading cookie workshops…</p>}>
+          <WorkshopPreview />
+        </Suspense>
+      </section>
 
       <section aria-labelledby="discover" className="boutique-collection">
         <div>
@@ -107,5 +127,37 @@ export default function HomePage() {
         </ButtonLink>
       </section>
     </div>
+  )
+}
+
+async function loadWorkshopPreview() {
+  try {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'workshops',
+      where: { slug: { in: COOKIE_WORKSHOP_SLUGS } },
+      depth: 1,
+      limit: 3,
+      sort: 'title',
+    })
+    return docs
+  } catch (error) {
+    console.error('Could not load the homepage workshop preview:', error)
+    return null
+  }
+}
+
+async function WorkshopPreview() {
+  const workshops = await loadWorkshopPreview()
+
+  if (!workshops) return <p>Workshop previews are temporarily unavailable.</p>
+  if (!workshops.length) return null
+
+  return (
+    <ul className="boutique-workshop-list">
+      {workshops.map(workshop => (
+        <li key={workshop.id}><WorkshopCard workshop={workshop} preview /></li>
+      ))}
+    </ul>
   )
 }

@@ -175,12 +175,12 @@ describe('example task 1: find a workshop by topic and level', () => {
 
   it('the Back link keeps the filters the user came with', async () => {
     const filtered = await workshop('adjust-your-brakes', { topic: 'brakes-and-gears', level: 'beginner' })
-    expect(filtered).toMatch(/href="\/workshops\?topic=brakes-and-gears&amp;level=beginner"[^>]*>Back to the filtered workshops</)
-    expect(filtered).toMatch(/aria-label="Breadcrumb"[^>]*>.*href="\/workshops\?topic=brakes-and-gears&amp;level=beginner"[^>]*>Workshops</)
+    expect(filtered).toMatch(/href="\/workshops\?topic=brakes-and-gears&amp;level=beginner#workshops"[^>]*>Back to the filtered workshops</)
+    expect(filtered).toMatch(/aria-label="Breadcrumb"[^>]*>.*href="\/workshops\?topic=brakes-and-gears&amp;level=beginner#workshops"[^>]*>Workshops</)
     const plain = await workshop('adjust-your-brakes')
-    expect(plain).toMatch(/href="\/workshops"[^>]*>Back to all workshops</)
+    expect(plain).toMatch(/href="\/workshops#workshops"[^>]*>Back to all workshops</)
     // A filter the site does not know is not carried back.
-    expect(await workshop('adjust-your-brakes', { level: 'expert' })).toMatch(/href="\/workshops"[^>]*>Back to all workshops</)
+    expect(await workshop('adjust-your-brakes', { level: 'expert' })).toMatch(/href="\/workshops#workshops"[^>]*>Back to all workshops</)
   })
 
   it('an unknown workshop or topic address gives the 404 page', async () => {

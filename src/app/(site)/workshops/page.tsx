@@ -2,7 +2,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Suspense } from 'react'
-import { getPayload } from 'payload'
+import { getPayload, type Where } from 'payload'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
@@ -10,6 +10,7 @@ import { COOKIES, type CookieProduct } from '@/content/cookies'
 import { cookieImage } from '@/lib/workshop-image'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareCookieButton, ComparisonTray } from '@/components/site/CookieComparisonControls'
+import { filterQuery, parseFilters, type SearchParams } from '@/tasks/find-workshop/filters'
 import config from '@/payload.config'
 
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ const tastingNotes = {
   6: 'A familiar favourite with a twist.',
 } satisfies Record<CookieProduct['id'], string>
 
-export default function CookiesPage() {
+export default function CookiesPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
 
   return (
     <div className="pb-block">
@@ -43,8 +44,8 @@ export default function CookiesPage() {
           <ButtonLink href="/workshops#cookies" variant="secondary" size="sm" className="min-h-11">
             Discover Our Flavours
           </ButtonLink>
-          <ButtonLink href="/workshops#workshops" variant="secondary" size="sm" className="min-h-11">
-            Cookie Workshops
+          <ButtonLink href="#workshops" size="sm" className="min-h-11">
+            Explore our workshops
           </ButtonLink>
         </nav>
       </PageTitle>
@@ -160,31 +161,41 @@ export default function CookiesPage() {
         </div>
 
         <Suspense fallback={<p role="status">Loading cookie workshops…</p>}>
-          <WorkshopCatalogue />
+          <WorkshopCatalogue searchParams={searchParams} />
         </Suspense>
       </section>
     </div>
   )
 }
 
-async function WorkshopCatalogue() {
+async function WorkshopCatalogue({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const filters = parseFilters(await searchParams)
   const payload = await getPayload({ config })
+  const where: Where = {}
+  if (filters.topic) where['topics.slug'] = { equals: filters.topic }
+  if (filters.level) where.level = { equals: filters.level }
   const { docs: workshops } = await payload.find({
     collection: 'workshops',
+    where,
     depth: 1,
     limit: 100,
     sort: 'title',
   })
 
-  if (!workshops.length) return <p>No cookie workshops are available at the moment.</p>
+  const query = filterQuery(filters)
 
   return (
-    <ul className="grid gap-block md:grid-cols-2">
-      {workshops.map((workshop) => (
-        <li key={workshop.id} className="grid min-w-0">
-          <WorkshopCard workshop={workshop} />
-        </li>
-      ))}
-    </ul>
+    <>
+      {query && <ButtonLink href="/workshops#workshops" variant="secondary" className="w-fit">Show all workshops</ButtonLink>}
+      {workshops.length === 0 ? <p>No cookie workshops match this selection.</p> : (
+        <ul className="grid gap-block md:grid-cols-2">
+          {workshops.map((workshop) => (
+            <li key={workshop.id} className="grid min-w-0">
+              <WorkshopCard workshop={workshop} query={query} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   )
 }
