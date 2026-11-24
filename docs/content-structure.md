@@ -8,7 +8,8 @@ The collection the transactional task saves into is named in `src/course-check.c
 
 | Content | Where it comes from | Who keeps it up to date |
 | --- | --- | --- |
-| Six cookies: name, description, flavour, price, illustration, tasting profile | Code catalogue `src/content/cookies.ts`; illustrations resolved in `src/lib/workshop-image.ts` | Content-model pair (Jonas, Xander), through a pull request |
+| Six cookies: name, description, flavour, price | Payload collection `cookies` | Editors in `/admin` |
+| Cookie illustrations and tasting profiles (Taste Map, Finder) | Code, found by the cookie's fixed catalogue number (`src/lib/workshop-image.ts`, `src/lib/cookie-comparison.ts`) | Maintainer, through a pull request |
 | Workshops: title, level, day, times, price, group size, summary, description, image, topics | Payload collection `workshops` | Editors in `/admin` |
 | Workshop topics: name, description; the workshops of each topic | Payload collection `topics`; the workshop list is a join on `workshops.topics` | Editors in `/admin` |
 | Orders: customer name and e-mail, cookie lines, total, status | Payload collection `orders`, written only by the server's order action | Created by users; read and updated by editors |
@@ -25,8 +26,8 @@ The collection the transactional task saves into is named in `src/course-check.c
 | Workshop (`workshops`) | title*, slug* (unique), level*, day*, start time*, end time, price* (≥ 0), group size*, summary*, description, image (→ media), topics | many-to-many with Topic |
 | Topic (`topics`) | name*, slug* (unique), description; `workshops` is a join, not a stored field | many-to-many with Workshop; a topic cannot be deleted while a workshop uses it |
 | Order (`orders`) | name* (holds the team code for course checks), customer name*, e-mail*, items* (at least one line), total in cents*, status (default New), request ID (unique) | embeds Order lines |
-| Order line (embedded in an order) | cookie ID, cookie name, quantity, unit price in cents | refers to a catalogue cookie by ID; name and price are copied so a receipt stays correct if the catalogue changes |
-| Cookie (code catalogue, **not** a Payload collection) | ID, name, description, flavour, price in cents | referenced by order lines |
+| Cookie (`cookies`) | catalogue number* (unique, fixed 1–6), name*, slug* (unique), description*, flavour*, price in cents* (≥ 1) | 1 cookie – many order lines, through the catalogue number |
+| Order line (embedded in an order) | cookie ID (= catalogue number), cookie name, quantity, unit price in cents | refers to a Cookie by its catalogue number; name and price are copied so a receipt stays correct after an editor changes the cookie |
 | Clinic, TimeSlot, Booking, Repair (template) | as in the starter | Clinic 1–n TimeSlot 1–n Booking; not used by the Cookie Shop tasks |
 | Page, Media, User, Member, Throttle | generic CMS and system collections | do not count as topic collections |
 
@@ -37,16 +38,16 @@ erDiagram
     WORKSHOP }o--o{ TOPIC : "workshops.topics / topics.workshops (join)"
     MEDIA |o--o{ WORKSHOP : "illustrates"
     ORDER ||--|{ ORDER_LINE : "embeds"
-    COOKIE ||--o{ ORDER_LINE : "catalogue ID, copied name and price"
+    COOKIE ||--o{ ORDER_LINE : "catalogue number, copied name and price"
     CLINIC ||--o{ TIME_SLOT : "template example"
     TIME_SLOT ||--o{ BOOKING : "template example"
 ```
 
 The many-to-many is stored once, on the workshop, and read in both directions: a workshop page lists its topics and each topic page lists its workshops. On production on 24 November 2026 all four workshops and three topics linked consistently in both directions.
 
-The order action checks the contact fields, cookie IDs, quantities and request ID, and recalculates the total from the catalogue before saving. Sending the same request again returns the existing receipt instead of a second order.
+The order action checks the contact fields, cookie numbers, quantities and request ID before it opens the database, then takes each cookie's name and price from the `cookies` collection and calculates the total itself; the browser never sends a price. Pages read the cookies on the server, and the site layout hands them to the browser components (basket, comparison, box builder, Taste Map, order form), so every page shows the price the order will charge. Sending the same request again returns the existing receipt instead of a second order.
 
-**Known gap:** the course asks for at least four collections for the team's topic. Topic-specific collections today: `workshops`, `topics`, `orders`. Moving the cookie catalogue into a Payload `cookies` collection is the planned fourth; this document is updated when that lands.
+**Collections of our own topic:** `cookies`, `orders`, `workshops` and `topics` (PR #29 added `cookies`; its migration copied the six cookies with their existing numbers, words and prices). The template's `clinics`, `timeSlots`, `bookings` and `repairs` are not counted.
 
 ## Sitemap
 
@@ -56,7 +57,8 @@ The order action checks the contact fields, cookie IDs, quantities and request I
 /compare             Compare up to three cookies ─> /clinics
 /cookie-finder       Finder and Taste Passport ─> /cookies, /compare, /clinics
 /build-your-box      Four-cookie box ─> /clinics
-/clinics             Order Cookies: choose, basket, test order ─> receipt on the same page
+/clinics             Order Cookies: choose, basket, test order ─> receipt on the same page;
+                     the address becomes /clinics/confirmed (confirmation, not counted as a page)
 /workshops           Workshop overview ─> /workshops/[slug] ─> /topics/[slug] ─> /workshops/[slug]
 /about, /contact, /faq, /fortune-cookie, /privacy
 /admin               Editors only (incl. order analytics and CSV export)
@@ -78,7 +80,7 @@ Why users understand them: the labels name what a shop customer looks for in pla
 2. `/clinics`: add cookies with the + buttons (or arrive with cookies already added from Our Cookies, Compare, the Finder or the Box Builder).
 3. Same page, basket: check quantities and the total; change or remove lines.
 4. Same page: enter a made-up name and e-mail and choose **Place test order**.
-5. Same page: the receipt appears only after the server has saved the order; it can be printed.
+5. Same page: the receipt appears only after the server has saved the order, and the address changes to `/clinics/confirmed`; the receipt can be printed.
 
 **2. Informational — find and compare cookies**
 
