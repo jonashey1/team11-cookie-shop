@@ -1,5 +1,7 @@
 # Final academic compliance audit — Team 11
 
+**Release, 24 November 2026:** PR #30 merged into PR #27, PR #27 merged into `main` as `7936846`. The Vercel production deployment of `7936846` is Ready and its build log shows `20261124_202843_cookie_catalog` migrated and `MIGRATIONS: verified committed migrations`. Production course check: own collections include `cookies` (6) and `orders`; many-to-many `workshops.topics ↔ topics.workshops`; transactional `status: ok` with the team code (newest order record 7, the controlled analytics check). The nine counted pages answer 200 with T11-S3F8; `/compare`, `/faq`, `/fortune-cookie` and `/build-your-box` redirect to sections.
+
 Audit target: [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27), application commit `7a45b7f7aa113b2be8637ef4601c16b149213462`. Production observed separately at `a46eebb8ac2943a0e89370e59db0c84bd49ea1d7`. This is a retrospective review. No submission, production write or permission change was performed.
 
 ## Source coverage
