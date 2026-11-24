@@ -864,3 +864,223 @@ html:has(.boutique-order-dock) { scroll-padding-block-end: 6rem; }
     gap: clamp(1.25rem, 4vw, 3.5rem);
   }
 }
+
+.experience-passport {
+  position: relative;
+  border: 3px double var(--flavour-edge, var(--flavour-accent));
+  background: var(--boutique-paper);
+  display: grid;
+  gap: 1rem;
+}
+.experience-profile-title { font: italic 700 clamp(1.8rem, 5vw, 3.4rem) / 1.1 var(--font-heading); }
+.experience-passport-match { display: grid; align-items: center; gap: 1rem; }
+.experience-passport-match img { margin: 0; }
+.experience-passport-preferences { border-block: 1px dashed var(--color-line); padding-block: .7rem; }
+.experience-passport-preferences ul { display: flex; flex-wrap: wrap; gap: .5rem; margin-block-start: .5rem; }
+.experience-passport-preferences li { padding: .35rem .65rem; background: var(--flavour-paper); border-inline-start: 3px solid var(--color-line); }
+.experience-map { display: grid; gap: 1.25rem; padding: clamp(.8rem,3vw,2rem); background: var(--boutique-paper); border-block: 3px double var(--color-line); min-width: 0; }
+.experience-map h2 { font: 700 clamp(1.9rem,5vw,3.5rem) / 1.15 var(--font-heading); }
+.experience-map-layout { display: grid; gap: 1rem; min-width: 0; }
+.experience-map-grid {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  grid-template-rows: repeat(5, minmax(3rem,1fr));
+  place-items: center;
+  margin-block: .5rem;
+  border: 1px solid var(--color-line);
+  background-image: linear-gradient(to right,var(--color-line) 1px,transparent 1px), linear-gradient(to bottom,var(--color-line) 1px,transparent 1px);
+  background-size: 20% 20%;
+}
+.experience-map-marker, .experience-map-key span {
+  display: inline-grid;
+  place-items: center;
+  background: var(--flavour-paper);
+  color: var(--color-ink);
+  border: 2px solid var(--flavour-edge,var(--flavour-accent));
+  border-radius: 46% 43%;
+  font-weight: 700;
+}
+.experience-map-marker { inline-size: 44px; block-size: 44px; }
+.experience-map :is(button)[aria-pressed='true'] { outline: 2px solid var(--color-ink); outline-offset: 2px; }
+.experience-map-key { display: grid; align-content: center; gap: .25rem; }
+.experience-map-key button { min-height: 44px; text-align: start; padding-inline: .25rem; }
+.experience-map-key span { width: 1.7rem; height: 1.7rem; margin-inline-end: .35rem; }
+.experience-map-detail { display: grid; gap: 1rem; padding: .75rem; border-block-start: 3px solid var(--flavour-edge,var(--flavour-accent)); background: var(--flavour-paper); }
+.experience-box-tools { border-block: 1px dashed var(--color-line); padding-block: .5rem; }
+.experience-box-tools label { display: block; margin-block: .6rem .25rem; font-weight: 600; }
+.experience-kraft-label,.experience-gift-card { background: var(--boutique-paper); border: 1px solid var(--color-line); padding: .6rem .8rem; overflow-wrap: anywhere; white-space: pre-wrap; }
+.experience-kraft-label { width: fit-content; margin-inline: auto; font-weight: 700; }
+.experience-gift-card { max-width: 40ch; margin-block-start: .5rem; font-style: italic; }
+@media (min-width: 40rem) {
+  .experience-passport-match,.experience-map-detail { grid-template-columns: minmax(0,1fr) minmax(0,1.4fr); }
+  .experience-map-layout { grid-template-columns: minmax(0,1.5fr) minmax(0,1fr); align-items: center; }
+}
+
+.excellence-quiz {
+  padding: clamp(.7rem, 3vw, 2rem);
+  background: var(--boutique-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 1.6rem 2.1rem 1.2rem .8rem;
+}
+.excellence-progress {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .25rem;
+}
+.excellence-progress span { min-height: .45rem; border-radius: 1rem; background: var(--color-line); }
+.excellence-progress span[data-complete='true'] { background: var(--color-link); }
+.excellence-question h2 { font-size: clamp(1.55rem, 4vw, 2.7rem); text-align: center; }
+.excellence-question > p { margin-block-end: 1rem; text-align: center; }
+.excellence-answers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(.5rem, 2vw, 1rem); }
+.excellence-answer {
+  display: grid;
+  align-content: start;
+  gap: .45rem;
+  min-height: 44px;
+  min-width: 0;
+  padding: clamp(.3rem, 1.2vw, .65rem);
+  background: var(--flavour-paper, var(--color-canvas));
+  border: 1px solid var(--flavour-edge, var(--color-line));
+  border-radius: 1rem 1.3rem .85rem .85rem;
+  font-weight: 700;
+  text-align: start;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.excellence-answer > :last-child { padding: .18rem .25rem .32rem; }
+.excellence-answer-art {
+  display: block;
+  position: relative;
+  aspect-ratio: 1.7;
+  overflow: hidden;
+  border-radius: 45% 30% .55rem .55rem / 12% 8% .55rem .55rem;
+}
+.excellence-answer-art img,.excellence-journey-art img { object-fit: cover; }
+.excellence-answer:active { box-shadow: inset 0 0 0 2px var(--color-link); }
+.excellence-answer:focus-visible,.excellence-journey:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+@media (hover: hover) {
+  .excellence-answer:hover { border-color: var(--color-ink); }
+  .excellence-journey:hover .excellence-journey-label { text-decoration: underline; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html:not(.a11y-reduce-motion) :is(.excellence-answer-art,.excellence-journey-art) img { transition: transform .18s ease-out; }
+  html:not(.a11y-reduce-motion) :is(.excellence-answer,.excellence-journey):hover img { transform: scale(1.035); }
+}
+.boutique-quiz:has(.excellence-passport) { padding: 0; border: 0; }
+.excellence-passport {
+  border-radius: .65rem 2.25rem .65rem 2.25rem;
+  padding: clamp(.85rem, 3.5vw, 2rem);
+  gap: .85rem;
+  background: var(--boutique-paper);
+}
+.excellence-passport-stamp {
+  justify-self: start;
+  border: 3px double var(--flavour-edge, var(--flavour-accent));
+  border-radius: 50% 43% 47% 45% / 20% 22% 22% 20%;
+  background: var(--flavour-paper);
+  padding: .4rem .65rem;
+}
+.excellence-passport .experience-passport-match img { border-radius: 42% 36% .55rem .85rem / 12% 9% .55rem .85rem; }
+.excellence-passport-actions { display: flex; flex-wrap: wrap; align-items: start; gap: .55rem; }
+.excellence-alternative {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .55rem;
+  padding: .65rem;
+  border-block: 1px dashed var(--color-line);
+  background: var(--color-canvas);
+}
+.excellence-journeys {
+  display: grid;
+  gap: .65rem;
+}
+.excellence-journey {
+  display: grid;
+  grid-template-columns: minmax(5rem, .65fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: .7rem;
+  min-width: 0;
+  padding: .55rem;
+  border: 1px solid var(--color-line);
+  border-radius: .65rem 1.55rem .65rem 1.1rem;
+  background: var(--flavour-paper, var(--boutique-paper));
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.excellence-journey-art {
+  display: grid;
+  position: relative;
+  place-items: center;
+  overflow: hidden;
+  min-height: 4.75rem;
+  border-radius: 45% 30% .35rem .5rem / 20% 16% .35rem .5rem;
+}
+.excellence-journey-copy { display: grid; align-content: center; gap: .16rem; padding: .25rem; }
+.excellence-journey-copy strong { font: 700 clamp(1.35rem, 3vw, 2.4rem) / 1.1 var(--font-heading); }
+.excellence-journey-label { text-decoration: underline; text-underline-offset: .2em; font-weight: 700; }
+.excellence-workshops {
+  position: relative;
+  border: 0;
+  border-radius: 52% 38% .85rem 1.2rem / 1.25rem 1.4rem .85rem 1.2rem;
+  padding-block: clamp(1.5rem, 5vw, 3rem);
+}
+.excellence-workshops .boutique-workshops-intro { border-inline-start: 4px double var(--color-line); padding-inline-start: .9rem; }
+.experience-map {
+  border: 1px solid var(--color-line);
+  border-radius: 2.2rem .8rem 1.4rem .8rem;
+}
+.experience-map-grid {
+  border-radius: .7rem;
+  background-image: linear-gradient(to right,color-mix(in srgb,var(--color-line) 44%,transparent) 1px,transparent 1px),
+    linear-gradient(to bottom,color-mix(in srgb,var(--color-line) 44%,transparent) 1px,transparent 1px);
+}
+.experience-map-grid button[aria-pressed='true'] { border-style: double; outline-offset: 2px; }
+.experience-map-detail { border-radius: .65rem 1.65rem .65rem .65rem; }
+.experience-map-key { padding-inline-start: .7rem; border-inline-start: 1px dashed var(--color-line); }
+@media (min-width: 40rem) {
+  .excellence-journeys { grid-template-columns: 1.1fr 1fr 1.08fr; align-items: start; }
+  .excellence-journey { grid-template-columns: 1fr; }
+  .excellence-journey-art { aspect-ratio: 1.9; }
+  .excellence-journey:nth-child(2) { margin-block-start: 1rem; }
+  .excellence-journey:nth-child(3) .excellence-journey-art { border-radius: .45rem 46% .55rem .55rem / .45rem 20% .55rem .55rem; }
+}
+@media (min-width: 1050px) {
+  .excellence-header > div { column-gap: .55rem; }
+  .excellence-header > div > a { gap: .35rem; font-size: 1.05rem; white-space: nowrap; }
+  .excellence-main-nav { gap: .1rem; }
+  .excellence-main-nav a { padding-inline: .38rem; white-space: nowrap; }
+}
+@media print {
+  .boutique-order-dock,
+  iframe[title="Watermelon chatbot"],
+  iframe[src*="chatwidget-prod.web.app"] { display: none !important; }
+}
+
+.mobile-comparison { min-width: 0; }
+.mobile-comparison-scroll { max-inline-size: 100%; }
+.mobile-comparison-hint { display: none; }
+.excellence-question h2 { scroll-margin-block-start: 1.1rem; }
+@media (max-width: 40rem) {
+  .boutique-hero-copy h1 { font-size: clamp(2.25rem, 10vw, 3.5rem); }
+  .boutique-hero-art > img { aspect-ratio: 1.4; object-position: center 56%; }
+  .excellence-quiz .excellence-question > p { margin-block-end: .65rem; }
+  .excellence-answer-art { aspect-ratio: 1.95; }
+  .excellence-answer { line-height: 1.3; }
+  .excellence-passport .experience-passport-match { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); align-items: start; gap: .55rem; }
+  .excellence-passport .experience-passport-match h2 { font-size: clamp(1.3rem, 5.5vw, 2rem); overflow-wrap: anywhere; margin-block-end: .45rem; }
+  .excellence-passport .experience-passport-match p { font-size: .92rem; }
+  .mobile-comparison-hint { display: block; margin-block-end: .35rem; font-size: .875rem; color: var(--color-ink-soft); }
+  .mobile-comparison-scroll { overflow-x: auto; overscroll-behavior-inline: contain; border-block-end: 1px solid var(--color-line); }
+  .mobile-comparison-scroll table { min-inline-size: 30rem; }
+  section[aria-labelledby="customer-details"] input { font-size: max(16px, 1rem); scroll-margin-block-end: 5.5rem; }
+  body:has(section[aria-labelledby="customer-details"] input:focus) .boutique-order-dock { visibility: hidden; }
+}
+@media (max-width: 40rem) and (max-height: 30rem) {
+  .excellence-answer-art { aspect-ratio: 2.6; }
+}
+html.a11y-large-text .excellence-passport .experience-passport-match { grid-template-columns: 1fr; }

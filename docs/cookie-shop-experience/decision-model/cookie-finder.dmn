@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" id="cookie_finder" name="Cookie Finder" namespace="https://team11-cookie-shop.vercel.app/decision-model">
+  <inputData id="answers_input" name="Answers"><variable name="answers"/></inputData>
+  <decision id="score" name="Score products">
+    <variable name="scores"/>
+    <informationRequirement><requiredInput href="#answers_input"/></informationRequirement>
+    <literalExpression><text><![CDATA[
+for id in [1,2,3,4,5,6] return {
+  id: id,
+  points: sum(append(for answer in answers return (
+    if answer = "chocolate" then (if id = 2 then 3 else if id = 1 then 1 else 0)
+    else if answer = "sweet" then (if id = 3 then 3 else if id = 6 then 1 else 0)
+    else if answer = "balanced" then (if id = 5 then 3 else if id = 1 then 1 else 0)
+    else if answer = "adventurous" then (if id = 4 then 3 else if id = 6 then 1 else 0)
+    else if answer = "classic" then (if id = 1 then 3 else if id = 3 then 1 else 0)
+    else if answer = "cookies-and-cream" then (if id = 6 then 3 else if id = 4 then 1 else 0)
+    else 0), 0))
+}
+    ]]></text></literalExpression>
+  </decision>
+  <decision id="rank" name="Rank candidate cookies">
+    <variable name="ranked"/>
+    <informationRequirement><requiredDecision href="#score"/></informationRequirement>
+    <literalExpression><text><![CDATA[sort(scores[points > 0], function(a,b) if a.points = b.points then a.id < b.id else a.points > b.points)]]></text></literalExpression>
+  </decision>
+  <decision id="match" name="Choose recommendation">
+    <variable name="matchId" typeRef="number"/>
+    <informationRequirement><requiredDecision href="#rank"/></informationRequirement>
+    <literalExpression><text>if count(ranked) = 0 then 1 else ranked[1].id</text></literalExpression>
+  </decision>
+  <decision id="alternative" name="Choose alternative">
+    <variable name="alternativeId" typeRef="number"/>
+    <informationRequirement><requiredDecision href="#rank"/></informationRequirement>
+    <literalExpression><text>if count(ranked) &lt; 2 then null else ranked[2].id</text></literalExpression>
+  </decision>
+</definitions>

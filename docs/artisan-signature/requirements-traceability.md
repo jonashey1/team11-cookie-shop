@@ -18,3 +18,7 @@ The R1–R8 wording below is a faithful summary of this team's [requirements](..
 | Optional improvements | Finder, detailed comparison, box, recommendations, analytics, commercial and Artisan Signature. | Existing public routes and protected editor dashboard | Site and browser suites | Documented in [business upgrade](../business-upgrade.md) | Optional work does not substitute for a required submission |
 
 BPMN files and the [journey map](../customer-journey-map.md) describe discovery, comparison, four-cookie personalisation, basket, validation, order save and confirmation, and internal management. The flow remains applicable, since no customer step or record was removed. XML and reference validation do not replace a formal BPMN modeler check.
+
+## Cookie Shop Experience follow-up
+
+See the [extension acceptance summary](../cookie-shop-experience/README.md) and [test and R8 evidence](../cookie-shop-experience/review.md) for the latest optional work and current course limitations. R1–R7 and the protected order model are unchanged. R8 uses a five-sample local baseline and candidate comparison. The earlier hosted production R8 results remain a separate reference.

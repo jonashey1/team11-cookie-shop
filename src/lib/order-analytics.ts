@@ -1,3 +1,4 @@
+import { COOKIES } from '@/content/cookies'
 import type { Order } from '@/payload-types'
 
 export const PERIODS = ['all', '7', '30', '90', 'custom'] as const
@@ -36,6 +37,9 @@ export function summarizeOrders(orders: Iterable<AnalyticsOrder>) {
   const products = new Map<string, number>()
   const statuses = new Map<string, number>()
   const sizes = new Map<string, number>()
+  const pairs = new Map<string, number>()
+  const knownProducts = new Map<number, string>(COOKIES.map(cookie => [cookie.id, cookie.name]))
+  let eligibleOrders = 0
   const combinations = new Map<string, number>()
   const periods = new Map<string, { orders: number; cents: number }>()
   let orderCount = 0
@@ -60,6 +64,14 @@ export function summarizeOrders(orders: Iterable<AnalyticsOrder>) {
     cookies += size
     sizes.set(String(size), (sizes.get(String(size)) ?? 0) + 1)
     const mix = [...new Set(order.items.map(item => item.cookieName))].sort().join(' + ')
+    const ids = [...new Set(order.items.filter(item => item.quantity > 0 && knownProducts.has(item.cookieId)).map(item => item.cookieId))].sort((a, b) => a - b)
+    if (ids.length >= 2) eligibleOrders++
+    ids.forEach((left, index) => {
+      for (const right of ids.slice(index + 1)) {
+        const label = knownProducts.get(left) + ' + ' + knownProducts.get(right)
+        pairs.set(label, (pairs.get(label) ?? 0) + 1)
+      }
+    })
     if (mix) combinations.set(mix, (combinations.get(mix) ?? 0) + 1)
   }
 
@@ -74,6 +86,7 @@ export function summarizeOrders(orders: Iterable<AnalyticsOrder>) {
     sizes: [...sizes].sort(([a], [b]) => Number(a) - Number(b)),
     statuses: counts(statuses),
     combinations: counts(combinations),
+    productPairs: counts(pairs), eligibleOrders,
     periods: [...periods].sort(([a], [b]) => a.localeCompare(b)),
   }
 }

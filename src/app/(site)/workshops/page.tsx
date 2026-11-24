@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 import { getPayload, type Where } from 'payload'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
+import { CookieTasteMap } from '@/components/site/CookieTasteMap'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
 import { COOKIES, type CookieProduct } from '@/content/cookies'
 import { cookieImage } from '@/lib/workshop-image'
@@ -48,6 +49,7 @@ export default function CookiesPage({ searchParams }: { searchParams: Promise<Se
           <ButtonLink href="#workshops" size="sm" className="min-h-11">
             Explore our workshops
           </ButtonLink>
+          <ButtonLink href="#taste-map" variant="secondary" size="sm">Taste Map</ButtonLink>
         </nav>
       </PageTitle>
 
@@ -65,8 +67,23 @@ export default function CookiesPage({ searchParams }: { searchParams: Promise<Se
             From classic chocolate chip to exciting new combinations,
             there is a cookie for everyone.
           </p>
+          <nav aria-label="Jump to a cookie flavour">
+            <ul className="flex flex-wrap gap-2">
+              {COOKIES.map((cookie) => (
+                <li key={cookie.id}>
+                  <a
+                    href={`#cookie-${cookie.id}`}
+                    className="inline-flex min-h-11 items-center rounded-panel border border-line px-3 py-2 text-sm font-semibold underline underline-offset-4"
+                  >
+                    {cookie.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
+        <CookieTasteMap />
         <div><ButtonLink href="/build-your-box" variant="secondary">Build a cookie box</ButtonLink></div>
         <ComparisonTray />
         <ul className="boutique-assortment">
@@ -76,7 +93,10 @@ export default function CookiesPage({ searchParams }: { searchParams: Promise<Se
             return (
               <li
                 key={cookie.id}
-                data-flavour={cookie.id} className="boutique-product"
+                id={`cookie-${cookie.id}`}
+                tabIndex={-1}
+                data-flavour={cookie.id}
+                className="boutique-product scroll-mt-24"
               >
                 {image && (
                   <div className="boutique-product-art relative overflow-hidden">
@@ -95,19 +115,20 @@ export default function CookiesPage({ searchParams }: { searchParams: Promise<Se
                     {cookie.flavour}
                   </p>
 
-                  <h3 className="text-xl">{cookie.name}</h3>
+                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                    <h3 className="text-xl">{cookie.name}</h3>
+                    <p className="font-heading text-xl font-bold tabular-nums">
+                      {new Intl.NumberFormat('en-BE', {
+                        style: 'currency',
+                        currency: 'EUR',
+                      }).format(cookie.price / 100)}
+                    </p>
+                  </div>
 
                   <p className="font-heading italic text-ink-soft">{tastingNotes[cookie.id]}</p><p>{cookie.description}</p>
                 </div>
 
                 <div className="boutique-product-controls grid gap-2">
-                  <p className="font-heading text-xl font-bold tabular-nums">
-                    {new Intl.NumberFormat('en-BE', {
-                      style: 'currency',
-                      currency: 'EUR',
-                    }).format(cookie.price / 100)}
-                  </p>
-
                   <div className="flex flex-wrap items-start gap-2">
                     <CompareCookieButton cookie={cookie} />
                     <AddCookieToBasket cookie={cookie} />

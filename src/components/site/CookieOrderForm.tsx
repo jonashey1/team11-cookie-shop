@@ -168,11 +168,11 @@ export function CookieOrderForm() {
         <h2 id="customer-details" className="text-3xl">3. Send your test order</h2>
         <div className="grid gap-2">
           <label htmlFor="customerName" className="font-bold">Name (made-up)</label>
-          <input id="customerName" name="customerName" required minLength={2} maxLength={100} autoComplete="off" placeholder="Example Customer" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-ink" />
+          <input id="customerName" name="customerName" type="text" autoCapitalize="words" required minLength={2} maxLength={100} autoComplete="off" placeholder="Example Customer" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-ink" />
         </div>
         <div className="grid gap-2">
           <label htmlFor="email" className="font-bold">Email (made-up)</label>
-          <input id="email" name="email" type="email" required autoComplete="off" placeholder="example@example.com" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-ink" />
+          <input id="email" name="email" type="email" inputMode="email" autoCapitalize="none" required autoComplete="off" placeholder="example@example.com" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-ink" />
         </div>
         {error && <div role="alert" className="rounded-control border border-ink bg-error-wash p-4"><strong>Order not confirmed.</strong> {error}</div>}
         <Button type="submit" disabled={pending || chosen.length === 0} className="w-fit max-w-full whitespace-normal text-center">

@@ -55,7 +55,7 @@ export function MainNav({
     : [...LINKS, ORDER_LINK]
 
   const content = (
-    <ul className="flex flex-col gap-1 min-[900px]:flex-row min-[900px]:flex-wrap min-[900px]:items-center min-[900px]:justify-center">
+    <ul className="excellence-main-nav flex flex-col gap-1 min-[1050px]:flex-row min-[1050px]:flex-wrap min-[1050px]:items-center min-[1050px]:justify-center">
       {links.map(({ href, label }) => {
         const current = currentFor(href, pathname)
         const isOrder = href === '/clinics'
