@@ -6,7 +6,8 @@ import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
 import { COOKIES } from '@/content/cookies'
-import { COOKIE_IMAGES } from '@/lib/workshop-image'
+import { cookieImage } from '@/lib/workshop-image'
+import { CompareCookieButton, ComparisonTray } from '@/components/site/CookieComparisonControls'
 import config from '@/payload.config'
 
 export const metadata: Metadata = {
@@ -63,9 +64,10 @@ export default async function CookiesPage() {
           </p>
         </div>
 
+        <ComparisonTray />
         <ul className="grid gap-block sm:grid-cols-2 lg:grid-cols-3">
           {COOKIES.map((cookie) => {
-            const image = COOKIE_IMAGES[cookie.name.toLowerCase().replace(' & ', ' and ').replaceAll(' ', '-')]
+            const image = cookieImage(cookie.name)
 
             return (
               <li
@@ -102,6 +104,7 @@ export default async function CookiesPage() {
                     }).format(cookie.price / 100)}
                   </p>
 
+                  <CompareCookieButton cookie={cookie} />
                   <p className="text-sm text-ink-soft">
                     Available for fictional test orders; no payment is taken.
                   </p>

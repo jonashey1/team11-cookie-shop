@@ -3,6 +3,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { CompareFinderResult } from '@/components/site/CookieComparisonControls'
 import { findCookie, QUESTIONS, type Answer } from '@/lib/cookie-finder'
 
 export default function CookieFinderPage() {
@@ -172,6 +173,7 @@ export default function CookieFinderPage() {
                 </button>
               </div>
 
+              <div className="mt-4"><CompareFinderResult cookie={result} /></div>
               <p className="mt-8 text-sm text-ink-soft">
                 This is a fun recommendation quiz using fictional
                 example products. No purchase is required.
