@@ -4,7 +4,7 @@ Audit target: [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27),
 
 ## Source coverage
 
-- Official UGent section 1.3 was verified from four PDF exports of the same 16-page chapter and embedded Team 11 hand-in snapshot (24 November 2026). The live course pages still require sign-in. The chapter confirms the team cards, submission workflow and the scope listed below. It refers readers to separate team project instructions and final grading list, and does not define D5. The learner lecture notes informed design and content modelling.
+- Official UGent section 1.3 was verified from four PDF exports of the same 16-page chapter and embedded Team 11 hand-in snapshot (24 November 2026). The live course pages still require sign-in. The chapter confirms the team cards, submission workflow and the scope listed below. The new UGent §2.1 and §3.1 exports confirm the D0 template, D5/D7 allocation and team-project minimums. §3.1 refers to a separate final grading list and assessment chapter; the seven-point subdivision is unverified. The general course export is an overview, not the full Module 10.8 grading text. The learner lecture notes informed design and content modelling.
 - The [official autumn 2026 starter](https://github.com/buildingbetterwebsites/campuscycle-starter/tree/course-2026-autumn) independently confirms the decision-record and test-report formats. The repository documentation and history across the 27 remote branch names contain the two Team 11 records and D6 evidence, but no copy of the separate team-project chapter, final grading list or such a numeric participant threshold. Both course landing pages and section 1.3 online require sign-in; the supplied section 1.3 PDF remains the source for the hand-in workflow.
 - The [starter check contract](COURSE-CHECK-CONTRACT.md) verifies the machine interface. The [project brief](brief.md), [requirements](requirements.md) and [historical H3 checklist](H3-final-checklist.md) are project records, not substitutes for the official rubric.
 - Statuses apply only to the evidence named in each row. Scope labels identified as provisional require reconciliation with the official exports. No grade is inferred from CI.
@@ -39,9 +39,9 @@ Audit target: [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27),
 | D2 — Needs and requirements | [Requirements](requirements.md) | PARTIALLY VERIFIED — acceptance criteria and historical evidence present; official H1 needs and requirements; detailed rubric not supplied |
 | D3 — Content and structure | [Content and structure](content-structure.md) | PARTIALLY VERIFIED — PR #27 inventory, sitemap and ER diagram reconciled with code; official H2 content and structure |
 | D4 — Design rationale | [Design rationale](design-rationale.md), [customer journey](customer-journey-map.md) | PARTIALLY VERIFIED — rationale and workflow present; official H2 design rationale |
-| D5 | [Analytics](decisions/analytics.md) and [integration](decisions/integration.md) are labelled D5 in the repository | PARTIALLY VERIFIED — both records exist and meet the published starter structure (two filled records, seven headings, options and no unfinished template markers). Team decision participants are unconfirmed; provider facts and results have the limits stated in the records. The exact D5 label and any additional grading criteria await the separate course chapter. |
+| D5 | [Analytics](decisions/analytics.md) and [integration](decisions/integration.md) are labelled D5 in the repository | PARTIALLY VERIFIED — both records exist and meet the published starter structure (two filled records, seven headings, options and no unfinished template markers). Team decision participants are unconfirmed; provider facts and results have the limits stated in the records. UGent §3.1 identifies D5 as decision records; any additional grading criteria await the separate grading chapter. |
 | D6 — First test report | [Test report](test-report.md) and [usability protocol](cookie-shop-usability-protocol.md) | PARTIALLY VERIFIED — historical human and technical evidence distinct; the first test report belongs to H2; exact participant minimum and final human evidence remain unconfirmed |
-| D7 | Mentioned in historical checklist outside the D0–D6 audit scope | NOT VERIFIED — check applicability and definition against the final rubric |
+| D7 — Handover note | [Existing handover](handover.md); UGent §3.1 allocates D7 to the final hand-in | PARTIALLY VERIFIED — operation and release instructions reviewed; ownership and backup rehearsal need human confirmation |
 
 ## Project requirements (local R1–R8, not official course identifiers)
 
@@ -62,12 +62,12 @@ GitHub accepted collaborator listing identifies the accounts below. The merged P
 
 | Member | GitHub / access | Qualifying merged PR and actual code | Threshold evidence |
 | --- | --- | --- | --- |
-| Jonas Heyneman | jonashey1 / admin | [#12](https://github.com/jonashey1/team11-cookie-shop/pull/12), Cookie Order Form, Orders and server persistence; merged PR author | Demonstrated |
-| Tessa Verschaeve | teversch / write | None found | Missing |
-| Arnaud Houwenhuyse | Arnaud-97 / write | None found | Missing |
-| Esma Sözeri | Esma1326 / write | None found | Missing |
-| Yana Koubari | KYana123 / write | None found | Missing |
-| Xander Rooms | xanderrooms9-spec / write | None found; legacy pending invitation also displayed | Missing |
+| Jonas | jonashey1 / admin | [#12](https://github.com/jonashey1/team11-cookie-shop/pull/12), Cookie Order Form, Orders and server persistence; merged PR author | Demonstrated |
+| Tessa | teversch / write | None found | Missing |
+| Arnaud | Arnaud-97 / write | None found | Missing |
+| Esma | Esma1326 / write | None found | Missing |
+| Yana | KYana123 / write | None found | Missing |
+| Xander | xanderrooms9-spec / write | None found; legacy pending invitation also displayed | Missing |
 | Teacher | jnmoons / pending | Invitation exists; accepted collaborator entry absent | Hand-in blocker to verify with course process |
 
 Use real findings from manual accessibility, transaction, information and usability checks to identify any genuinely necessary correction. A team member may implement such a change or pair with a verified contributor. Confirm authorship and GitHub-linked email before adding trailers. No artificial changes or retroactive authorship.
@@ -84,3 +84,47 @@ The order action enforces catalogue IDs, valid quantities, limits and idempotenc
 2. Obtain final approval. After merging separately, wait for Vercel to report Ready for the exact final GitHub `main` SHA.
 3. Confirm `https://github.com/jonashey1/team11-cookie-shop`, branch `main`, and `https://team11-cookie-shop.vercel.app/`. Check footer and the production team endpoint. Existing valid evidence was found. Create a fictional order manually only if the endpoint no longer finds official evidence: use Order Cookies, select quantities, enter made-up details, submit once, verify the receipt and check `orders.name` contains `T11-S3F8`.
 4. In the team's **Final hand-in** card, check the repository, `main` (prefilled) and the live URL. Any member can choose **Hand in for Team 11** or **Hand in again** on behalf of the group. Confirm **Saved · your teacher reads it** and the recorded branch, SHA and deployment. This latest recorded hand-in counts. Earlier A/H1/H2 cards show checks immediately; revisit them only as needed. The PDF recorded H3 for `d7a78785e04b1a7ce3757866ebe3e15fa2d47a9f`; it is not the final PR #27 release.
+
+## Required scope from UGent §3.1
+
+Source: [Start: your team, your topic and your two user tasks](https://betterwebsitesv2.vercel.app/learn/building-better-websites-ugent/start-your-team-your-topic-and-your-two-user-tasks), PDF pp. 3 and 11. The official threshold is 6–9 pages, at least four collections for the team's topic, one public many-to-many shown from both directions, analytics and one integration with decision records, original topic-specific content and design, two live tasks and all eight team-kit documents.
+
+| Criterion | Status | Evidence and owner action |
+| --- | --- | --- |
+| Two distinct tasks | VERIFIED at previous production and independently sampled on the candidate in isolated tests | D1 keeps ordering and saving selected cookies first; the informational task is finding and comparing available cookies. Current regressions preserve the workflows. Recheck the final main deployment before hand-in. |
+| 6–9 qualifying pages | FAILED on the literal public-page count | Eleven distinct fixed public pages before counting any details. Confirm any course exclusions beyond those stated on §3.1 p. 11; if none apply, approve a consolidation that preserves approved functions and old deep links. |
+| Four topic-specific collections | FAILED on verified evidence | Three content-bearing collections confirmed: workshops, topics and orders. The server-side code catalogue is not a Payload collection. The agreed content-model pair must author and review a genuine fourth collection with relevant user-facing use and an additive migration. |
+| Many-to-many visible both ways | VERIFIED | Workshop topics are stored in Payload; the Topic reverse join renders matching workshops. Production returned the relation in the course checker, and candidate tests exercise four workshops and three topic pages. |
+| Suggested analytics and integration; D5 | PARTIALLY VERIFIED | Two decision records; historical live analytics page views and live opt-in map verified, no confirmed custom order event. Team decision participants require confirmation. |
+| Original design and topic-specific copy | PARTIALLY VERIFIED | Approved design and live primary routes verified. The direct public legacy clinic path was discovered by this audit and redirected on the candidate. CMS API records still contain historical example copy. Owner must review Pages, Site facts and the legacy clinic in production admin without deleting historical records. |
+| All D0–D7 | PARTIALLY VERIFIED | All document locations exist. Official §2.1 records the D0 structure, and the repository already records dates; this audit did not reconfirm each agreement or individual role. D6 and D7 limitations stay visible. |
+| Final grading and release | PARTIALLY VERIFIED | Section 1.3 confirms H3 alone is graded. The complete team assessment rubric, exact seven-point distribution and Module 10.8 grading lines were not in these exports. Do not infer a mark. |
+
+### Route inventory
+
+Each row refers to a distinct public content destination unless noted. §3.1 p. 11 excludes confirmation, privacy and not-found; no blanket exclusion for public optional pages was found.
+
+| Route | Meaningful content and counting |
+| --- | --- |
+| `/` | Home and commercial; 1 |
+| `/cookies` | Assortment and Taste Map; 1 |
+| `/workshops` | Workshop overview; 1 |
+| `/clinics` | Product selection, basket and checkout; 1 |
+| `/cookie-finder` | Recommendation and Passport; 1 |
+| `/compare` | Product comparison; 1 |
+| `/build-your-box` | Box Builder; 1 |
+| `/about` | Team and project story; 1 |
+| `/contact` | Contact and opt-in map; 1 |
+| `/faq` | Help; 1 |
+| `/fortune-cookie` | Public interactive experience; 1 |
+| `/workshops/[slug]`, `/topics/[slug]` | Four workshop details and three topic details. Counting conventions for repeated templates remain unconfirmed; even excluding all seven leaves eleven. |
+| `/clinics/[slug]`, `/account`, `/account/login`, CMS routes | Conditional or legacy routes, not used to reach the conservative floor. The known example clinic now redirects on the candidate; `/home` already redirects to the homepage. |
+| `/clinics/[slug]/booked`, `/privacy`, 404 | Officially excluded. |
+
+### Collection qualification
+
+Schema locations and current fields are in [D3](content-structure.md). The production course endpoint returned 4 workshops, 3 topics, 6 orders, 1 clinic, 3 slots, 1 booking and 3 repairs. The last four kinds relate to the legacy booking example, not the main Cookie Shop ordering task. The single published clinic has the starter repair clinic name. Orders is the only one of the qualifying three marked as added outside the template, but the adapted workshop and topic records are demonstrably on this team's topic. Users, media, generic pages, members and throttling are excluded. The site is not credited for unused or generic collections.
+
+### Personal work and final release
+
+Use authentic unsolved work for contributions: a real route consolidation, reviewed content model and migration, an observed accessibility issue, checkout regression evidence, and consumer-facing content or relationship checks. The individual contribution threshold is evidence for the teacher; the supplied cards distinguish it from an automatic mark. Resolve the two structural gaps before approving the final merge. After approved deployment, recheck the existing course order and submit on the team Final hand-in card. Revisit A/H1/H2 if the course app still shows an unresolved access or checkpoint finding. Do not claim a new hand-in until the card records the correct SHA.

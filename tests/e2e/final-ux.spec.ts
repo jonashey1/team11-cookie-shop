@@ -82,3 +82,9 @@ test('lists the four workshop detail routes with their three related topics', as
     await page.goto('/workshops')
   }
 })
+
+test('redirects the retired example clinic URL to the cookie ordering page', async ({ page }) => {
+  await page.goto('/clinics/saturday-repair-clinic')
+  await expect(page).toHaveURL(/\/clinics$/)
+  await expect(page.getByRole('heading', { name: '1. Choose your cookies' })).toBeVisible()
+})
