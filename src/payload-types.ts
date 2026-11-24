@@ -77,6 +77,7 @@ export interface Config {
     timeSlots: TimeSlot;
     bookings: Booking;
     repairs: Repair;
+    cookies: CookieRecord;
     orders: Order;
     throttle: Throttle;
     members: Member;
@@ -106,6 +107,7 @@ export interface Config {
     timeSlots: TimeSlotsSelect<false> | TimeSlotsSelect<true>;
     bookings: BookingsSelect<false> | BookingsSelect<true>;
     repairs: RepairsSelect<false> | RepairsSelect<true>;
+    cookies: CookiesSelect<false> | CookiesSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
     throttle: ThrottleSelect<false> | ThrottleSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
@@ -442,6 +444,33 @@ export interface Repair {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cookies".
+ */
+export interface CookieRecord {
+  id: number;
+  /**
+   * Fixed number of this cookie. Its illustration and saved orders use it: do not change it.
+   */
+  catalogueId: number;
+  name: string;
+  /**
+   * The last part of the web address, for example repair-a-puncture. Use lowercase letters, digits and hyphens.
+   */
+  slug: string;
+  description: string;
+  /**
+   * Shown as "Flavour: ..." on the cards, for example Chocolate.
+   */
+  flavour: string;
+  /**
+   * The price of one cookie in cents: 350 is €3.50.
+   */
+  priceCents: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "orders".
  */
 export interface Order {
@@ -531,6 +560,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'repairs';
         value: number | Repair;
+      } | null)
+    | ({
+        relationTo: 'cookies';
+        value: number | CookieRecord;
       } | null)
     | ({
         relationTo: 'orders';
@@ -735,6 +768,20 @@ export interface RepairsSelect<T extends boolean = true> {
   name?: T;
   price?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cookies_select".
+ */
+export interface CookiesSelect<T extends boolean = true> {
+  catalogueId?: T;
+  name?: T;
+  slug?: T;
+  description?: T;
+  flavour?: T;
+  priceCents?: T;
   updatedAt?: T;
   createdAt?: T;
 }

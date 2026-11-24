@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { COOKIES } from '@/content/cookies'
+import { useCookies } from '@/components/site/CookieCatalogue'
 import { flavourProfiles, type CookieId } from '@/lib/cookie-comparison'
 import { cookieImage } from '@/lib/workshop-image'
 import { ButtonLink } from './ButtonLink'
@@ -14,8 +14,9 @@ const chocolateLabels = ['Mildest', 'Mild', 'Moderate', 'Rich', 'Most intense'] 
 
 export function CookieTasteMap() {
   const [selectedId, setSelected] = useState<CookieId | null>(null)
-  const selected = COOKIES.find(cookie => cookie.id === selectedId)
-  const image = selected && cookieImage(selected.name)
+  const catalogue = useCookies()
+  const selected = catalogue.find(cookie => cookie.id === selectedId)
+  const image = selected && cookieImage(selected)
 
   return (
     <section id="taste-map" aria-labelledby="taste-map-heading" className="experience-map scroll-mt-8">
@@ -28,7 +29,7 @@ export function CookieTasteMap() {
         <div>
           <p className="text-sm font-semibold">Sweetness · sweeter at the top</p>
           <div className="experience-map-grid" role="group" aria-label="Flavour map">
-            {COOKIES.map(cookie => {
+            {catalogue.map(cookie => {
               const { chocolate, sweetness } = flavourProfiles[cookie.id]
               return (
                 <button key={cookie.id} type="button" data-flavour={cookie.id}
@@ -42,7 +43,7 @@ export function CookieTasteMap() {
           <p className="flex justify-between gap-3 text-sm font-semibold"><span>Mild chocolate</span><span>Intense chocolate</span></p>
         </div>
         <ol className="experience-map-key" aria-label="Find a flavour by name">
-          {COOKIES.map(cookie => (
+          {catalogue.map(cookie => (
             <li key={cookie.id} data-flavour={cookie.id}>
               <button type="button" aria-pressed={selectedId === cookie.id} onClick={() => setSelected(cookie.id)}>
                 <span aria-hidden="true">{cookie.id}</span> {cookie.name}

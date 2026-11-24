@@ -6,6 +6,7 @@ import * as migration_20261004_205526_booking_request_id from './20261004_205526
 import * as migration_20261004_222941_members_area from './20261004_222941_members_area';
 import * as migration_20261123_092425 from './20261123_092425';
 import * as migration_20261123_092825 from './20261123_092825';
+import * as migration_20261124_203238_cookies from './20261124_203238_cookies';
 
 export const migrations = [
   {
@@ -46,6 +47,11 @@ export const migrations = [
   {
     up: migration_20261123_092825.up,
     down: migration_20261123_092825.down,
-    name: '20261123_092825'
+    name: '20261123_092825',
+  },
+  {
+    up: migration_20261124_203238_cookies.up,
+    down: migration_20261124_203238_cookies.down,
+    name: '20261124_203238_cookies'
   },
 ];

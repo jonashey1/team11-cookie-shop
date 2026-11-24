@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from 'react'
 import { COOKIES, type CookieProduct } from '@/content/cookies'
+import { useCookies } from '@/components/site/CookieCatalogue'
 
 type Quantities = Record<number, number>
 type BasketSnapshot = { quantities: Quantities; requestId: string | null }
@@ -95,7 +96,9 @@ export function formatOrderAmount(cents: number) {
 export function OrderBasketProvider({ children }: { children: ReactNode }) {
   const { quantities } = useSyncExternalStore(subscribe, getBasket, getServerBasket)
   const [pending, setPending] = useState(false)
-  const chosen = COOKIES.filter((cookie) => (quantities[cookie.id] ?? 0) > 0)
+  // Names and prices from the database, so the basket total matches what the order action charges.
+  const cookies = useCookies()
+  const chosen = cookies.filter((cookie) => (quantities[cookie.id] ?? 0) > 0)
   const count = chosen.reduce((sum, cookie) => sum + quantities[cookie.id], 0)
   const total = chosen.reduce((sum, cookie) => sum + cookie.price * quantities[cookie.id], 0)
 

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { COOKIES } from '@/content/cookies'
+import { useCookies } from '@/components/site/CookieCatalogue'
 import { saveOrder, type OrderReceipt } from '@/tasks/order-cookies/saveOrder'
 import { track } from '@/lib/analytics'
 import { cookieImage } from '@/lib/workshop-image'
@@ -13,12 +13,13 @@ import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 
 export function CookieOrderForm() {
   const { quantities, setQuantities, chosen, total, pending, setPending, getRequestId } = useOrderBasket()
+  const catalogue = useCookies()
   const [error, setError] = useState('')
   const [confirmed, setConfirmed] = useState<OrderReceipt | null>(null)
   const receiptHeading = useRef<HTMLHeadingElement>(null)
   const submitting = useRef(false)
   const selectedFlavours = new Set(chosen.map(cookie => cookie.flavour))
-  const unselected = COOKIES.filter(cookie => !quantities[cookie.id])
+  const unselected = catalogue.filter(cookie => !quantities[cookie.id])
   const suggestions = chosen.length ? [unselected.find(cookie => selectedFlavours.has(cookie.flavour)), unselected.find(cookie => !selectedFlavours.has(cookie.flavour))].filter(cookie => cookie !== undefined) : []
 
   useEffect(() => { if (confirmed) receiptHeading.current?.focus() }, [confirmed])
@@ -50,6 +51,11 @@ export function CookieOrderForm() {
         setConfirmed(result.receipt)
         setQuantities({})
         track('cookie_order_saved')
+        // The receipt stays on this page, but the address changes to /clinics/confirmed. Vercel's free
+        // plan drops custom events such as the one above; it does record page views, so a saved order
+        // shows up in Analytics as a view of /clinics/confirmed. Next.js keeps its router in step
+        // with this change, and nothing is reloaded.
+        window.history.pushState(null, '', '/clinics/confirmed')
       } else {
         setError(result.message)
       }
@@ -74,7 +80,7 @@ export function CookieOrderForm() {
         </dl>
         <ul className="grid gap-3">
           {confirmed.items.map(item => {
-            const image = cookieImage(item.cookieName)
+            const image = cookieImage({ id: item.cookieId, name: item.cookieName })
             return <li key={item.cookieId} className="flex flex-wrap items-center gap-3 border-b border-line pb-2">
               {image && <Image src={image.src} alt={image.alt} width={48} height={48} className="size-12 rounded-control object-cover" />}
               <div><strong>{item.cookieName}</strong><p>{item.quantity} × {formatOrderAmount(item.unitPriceCents)} · {formatOrderAmount(item.quantity * item.unitPriceCents)}</p></div>
@@ -100,8 +106,8 @@ export function CookieOrderForm() {
           <p>Pick your favourite flavours. You can order up to 20 of each cookie.</p>
         </div>
         <div className="grid gap-block sm:grid-cols-2 lg:grid-cols-3">
-          {COOKIES.map((cookie) => {
-            const image = cookieImage(cookie.name)
+          {catalogue.map((cookie) => {
+            const image = cookieImage(cookie)
             return (
               <article key={cookie.id} data-flavour={cookie.id} className="boutique-order-choice grid min-w-0 content-between gap-stack border border-line p-5">
                 <div className="grid gap-3">
@@ -178,7 +184,7 @@ export function CookieOrderForm() {
         </div>
         <div className="grid gap-2">
           <label htmlFor="email" className="font-bold">Email (made-up)</label>
-          <input id="email" name="email" type="email" inputMode="email" autoCapitalize="none" required autoComplete="off" placeholder="example@email.com" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-base text-ink placeholder:text-ink-soft placeholder:opacity-100" />
+          <input id="email" name="email" type="email" inputMode="email" autoCapitalize="none" required autoComplete="off" placeholder="name@cookieshop.example" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-base text-ink placeholder:text-ink-soft placeholder:opacity-100" />
         </div>
         {error && <div role="alert" className="rounded-control border border-ink bg-error-wash p-4"><strong>Order not confirmed.</strong> {error}</div>}
         <Button type="submit" disabled={pending || chosen.length === 0} className="w-fit max-w-full whitespace-normal text-center">

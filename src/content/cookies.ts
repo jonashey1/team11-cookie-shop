@@ -1,3 +1,12 @@
+// The six cookies as they were first written, before they moved into the Payload collection
+// "cookies" (src/collections/Cookies.ts). The migration 20261124_203238_cookies copied these values
+// into the database. They stay here for two reasons:
+//   - the catalogue numbers (1 to 6) are fixed: illustrations, tasting profiles and saved orders use
+//     them, so the code needs to know which numbers exist;
+//   - when the database has no cookie records yet (a brand-new laptop database before its first
+//     migration), the site can still show something sensible.
+// What users see (name, description, flavour, price) comes from the database: see
+// src/lib/cookie-catalogue.ts on the server and useCookies() in the browser.
 
 export const COOKIES = [
   {
@@ -50,4 +59,21 @@ export const COOKIES = [
   },
 ] as const
 
-export type CookieProduct = (typeof COOKIES)[number]
+/** One of the fixed catalogue numbers, 1 to 6. */
+export type CookieId = (typeof COOKIES)[number]['id']
+
+/** A cookie as the site shows it. Name, description, flavour and price come from the database. */
+export interface CookieProduct {
+  id: CookieId
+  name: string
+  description: string
+  flavour: string
+  /** The price of one cookie, in cents. */
+  price: number
+  emoji: string
+}
+
+/** Is this one of the fixed catalogue numbers? */
+export function isCookieId(value: unknown): value is CookieId {
+  return COOKIES.some(cookie => cookie.id === value)
+}

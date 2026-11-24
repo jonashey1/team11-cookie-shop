@@ -10,6 +10,7 @@ import { Cookie, IceCreamCone, Scale, Sparkles, Layers3, Candy } from 'lucide-re
 import Link from 'next/link'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareFinderResult } from '@/components/site/CookieComparisonControls'
+import { useCookies } from '@/components/site/CookieCatalogue'
 import { explainCookieMatch, QUESTIONS, type Answer } from '@/lib/cookie-finder'
 
 const answerIcons = {
@@ -24,6 +25,7 @@ const answerIcons = {
 const subscribe = () => () => {}
 
 export default function CookieFinderPage() {
+  const catalogue = useCookies()
   // An answer cannot be handled until the quiz has hydrated.
   const interactive = useSyncExternalStore(subscribe, () => true, () => false)
   const [step, setStep] = useState(0)
@@ -57,10 +59,10 @@ export default function CookieFinderPage() {
     setAnswers([])
   }
 
-  const match = finished ? explainCookieMatch(answers) : null
+  const match = finished ? explainCookieMatch(answers, catalogue) : null
   const result = match?.cookie
   const preferences = QUESTIONS.flatMap((question, index) => question.options.filter(option => option.value === answers[index]).map(option => option.label))
-  const resultImage = result && cookieImage(result.name)
+  const resultImage = result && cookieImage(result)
   const resultHeading = useRef<HTMLHeadingElement>(null)
   const questionHeading = useRef<HTMLHeadingElement>(null)
   const moveToQuestion = useRef(false)

@@ -6,7 +6,7 @@ import { WorkshopCard } from '@/components/site/WorkshopCard'
 import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { Cookie, Scale, PackageOpen } from 'lucide-react'
-import { COOKIES } from '@/content/cookies'
+import { getCookieCatalogue } from '@/lib/cookie-catalogue'
 import { COOKIE_WORKSHOP_SLUGS, cookieImage } from '@/lib/workshop-image'
 import Link from 'next/link'
 import { journeyVisuals, type ExcellenceVisual } from '@/content/excellence-visuals'
@@ -20,7 +20,9 @@ const journeys = [
 
 export const dynamic = 'force-dynamic'
 
-export default function HomePage() {
+export default async function HomePage() {
+  // The cookies as editors keep them in /admin.
+  const cookies = await getCookieCatalogue()
   return (
     <div className="grid gap-section pt-block">
       <section aria-labelledby="boutique-title" className="boutique-hero">
@@ -81,8 +83,8 @@ export default function HomePage() {
           <p>Find an old favourite or make room for a new one.</p>
         </div>
         <ul className="boutique-flavours">
-          {COOKIES.map(cookie => {
-            const image = cookieImage(cookie.name)
+          {cookies.map(cookie => {
+            const image = cookieImage(cookie)
             return (
               <li key={cookie.id} data-flavour={cookie.id}>
                 {image && <Image src={image.src} alt="" width={256} height={256} sizes="(min-width: 64rem) 15vw, (min-width: 40rem) 30vw, 42vw" />}

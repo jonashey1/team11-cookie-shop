@@ -1,3 +1,4 @@
+import { COOKIES } from '@/content/cookies'
 
 import type { Workshop } from '@/payload-types'
 import { imageFrom } from '@/lib/format'
@@ -29,7 +30,12 @@ export const COOKIE_IMAGES: Record<string, { src: string; alt: string }> = {
   },
 }
 
-export function cookieImage(name: string) {
+// A cookie's illustration. Pass the cookie itself: its fixed catalogue number finds the picture, so a
+// cookie that an editor renamed in /admin keeps its illustration. A plain name still works.
+export function cookieImage(cookie: string | { id: number; name: string }) {
+  const name = typeof cookie === 'string'
+    ? cookie
+    : COOKIES.find(original => original.id === cookie.id)?.name ?? cookie.name
   return COOKIE_IMAGES[name.toLowerCase().replace(' & ', ' and ').replaceAll(' ', '-')]
 }
 

@@ -28,7 +28,7 @@ test('shows the six approved ordering images and empty checkout examples', async
     expect(decodeURIComponent((await img.getAttribute('src'))!)).toContain(cookieImage(cookie.name)!.src)
     await expect(card.getByRole('button', { name: 'Add one ' + cookie.name, exact: true })).toBeEnabled()
   }
-  for (const [label, example] of [['Name (made-up)', 'Example: Jan'], ['Email (made-up)', 'example@email.com']]) {
+  for (const [label, example] of [['Name (made-up)', 'Example: Jan'], ['Email (made-up)', 'name@cookieshop.example']]) {
     const field = page.getByLabel(label)
     await expect(field).toHaveAttribute('placeholder', example)
     await expect(field).toHaveValue('')

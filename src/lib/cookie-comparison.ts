@@ -24,8 +24,8 @@ export function canCompare(ids: readonly CookieId[]) {
   return ids.length >= MIN_COMPARISON
 }
 
-export function comparisonProducts(ids: readonly CookieId[]) {
-  return ids.flatMap(id => COOKIES.filter(cookie => cookie.id === id))
+export function comparisonProducts(ids: readonly CookieId[], catalogue: readonly CookieProduct[] = COOKIES) {
+  return ids.flatMap(id => catalogue.filter(cookie => cookie.id === id))
 }
 
 type Rating = 1 | 2 | 3 | 4 | 5

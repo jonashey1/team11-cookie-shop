@@ -8,6 +8,7 @@ import { ButtonLink } from '@/components/site/ButtonLink'
 import { canCompare, comparisonProducts, MAX_COMPARISON } from '@/lib/cookie-comparison'
 import { cookieImage } from '@/lib/workshop-image'
 import type { CookieProduct } from '@/content/cookies'
+import { useCookies } from '@/components/site/CookieCatalogue'
 import { addToComparison, clearComparison, removeFromComparison, useCookieComparison } from './useCookieComparison'
 
 export function CompareCookieButton({ cookie }: { cookie: CookieProduct }) {
@@ -26,7 +27,7 @@ export function CompareCookieButton({ cookie }: { cookie: CookieProduct }) {
 export function ComparisonTray() {
   const { ids, message } = useCookieComparison()
   const heading = useRef<HTMLHeadingElement>(null)
-  const selected = comparisonProducts(ids)
+  const selected = comparisonProducts(ids, useCookies())
   return (
     <div id="comparison" className="scroll-mt-24">
       <section aria-labelledby="comparison-selection" className="grid gap-3 rounded-panel border border-line bg-yellow-wash p-4 sm:p-5">
@@ -38,7 +39,7 @@ export function ComparisonTray() {
           <>
             <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {selected.map(cookie => {
-                const image = cookieImage(cookie.name)
+                const image = cookieImage(cookie)
                 return (
                   <li key={cookie.id} className="flex min-w-0 items-center gap-2 rounded-control border border-line bg-canvas p-2">
                     {image && <Image src={image.src} alt="" width={44} height={44} className="size-11 shrink-0 rounded-control object-cover" />}

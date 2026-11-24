@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Button } from '@/components/ui/button'
 import { ButtonLink } from './ButtonLink'
-import { COOKIES } from '@/content/cookies'
+import { useCookies } from '@/components/site/CookieCatalogue'
 import { BOX_SUGGESTIONS, BOX_NAME_LIMIT, BOX_MESSAGE_LIMIT, boxPrice, boxPreviewText, emptyBox, mergeBox, parseSavedBox, type BoxCookieId, type BoxSlots } from '@/lib/cookie-box'
 import { cookieImage } from '@/lib/workshop-image'
 import { formatOrderAmount, useOrderBasket } from './OrderBasket'
@@ -29,6 +29,7 @@ function readSavedBox() {
 }
 
 export function CookieBoxBuilder() {
+  const catalogue = useCookies()
   const [slots, setSlots] = useState<BoxSlots>(emptyBox)
   const [picker, setPicker] = useState<Picker | null>(null)
   const [feedback, setFeedback] = useState('')
@@ -111,14 +112,14 @@ export function CookieBoxBuilder() {
       <div className="grid gap-4 rounded-frame border-2 border-line bg-yellow-wash p-3 sm:p-6">
         <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 border-b border-line pb-2 font-semibold">
           <p role="status">{selection.length} of 4 selected</p>
-          <p>Total: {formatOrderAmount(boxPrice(selection))}</p>
+          <p>Total: {formatOrderAmount(boxPrice(selection, catalogue))}</p>
         </div>
         <div aria-hidden="true" className="boutique-box-lid"><Cookie /><span>Cookie Shop</span><small>Your perfect cookie box</small></div>
         {boxName.trim() && <p className="experience-kraft-label">{boxName}</p>}
         <ul ref={slotList} aria-label="Box slots" className="boutique-box-tray">
           {slots.map((id, index) => {
-            const cookie = COOKIES.find(item => item.id === id)
-            const image = cookie && cookieImage(cookie.name)
+            const cookie = catalogue.find(item => item.id === id)
+            const image = cookie && cookieImage(cookie)
 
             return (
               <li key={index} data-flavour={cookie?.id} className="boutique-box-slot relative grid min-h-32 min-w-0 content-start sm:min-h-48">
@@ -190,8 +191,8 @@ export function CookieBoxBuilder() {
         </div>
         {picker && 'slot' in picker && (
           <ul className="grid gap-2">
-            {COOKIES.map(cookie => {
-              const image = cookieImage(cookie.name)
+            {catalogue.map(cookie => {
+              const image = cookieImage(cookie)
               return (
                 <li key={cookie.id}>
                   <Button type="button" variant="secondary" className="w-full justify-start gap-3 px-2 text-left whitespace-normal"

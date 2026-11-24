@@ -17,6 +17,7 @@ import { TimeSlots } from './collections/TimeSlots'
 import { Bookings } from './collections/Bookings'
 import { Repairs } from './collections/Repairs'
 import { Orders } from './collections/Orders'
+import { Cookies } from './collections/Cookies'
 import { Throttle } from './collections/Throttle'
 import { Members } from './collections/Members'
 import { SiteFacts } from './globals/SiteFacts'
@@ -52,6 +53,7 @@ const config = buildConfig({
     TimeSlots,
     Bookings,
     Repairs,
+    Cookies,
     Orders,
     Throttle,
     Members,

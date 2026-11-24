@@ -9,6 +9,8 @@ import { Header } from '@/components/site/Header'
 import { FloatingOrderButton } from '@/components/site/FloatingOrderButton'
 import { FortuneCookiePopup } from '@/components/site/FortuneCookiePopup'
 import { OrderBasketProvider } from '@/components/site/OrderBasket'
+import { CookieCatalogueProvider } from '@/components/site/CookieCatalogue'
+import { getCookieCatalogue } from '@/lib/cookie-catalogue'
 import './globals.css'
 
 // Main font used throughout the Cookie Shop website.
@@ -17,6 +19,10 @@ const hanken = Hanken_Grotesk({
   display: 'swap',
   variable: '--font-hanken-grotesk',
 })
+
+// Every page shows cookie names and prices from the database (the basket, the floating order
+// button), so every page is made on each visit, never once during the build.
+export const dynamic = 'force-dynamic'
 
 // Website metadata for search engines and browser tabs.
 export const metadata: Metadata = {
@@ -37,11 +43,14 @@ export const metadata: Metadata = {
   ],
 }
 
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: {
   children: ReactNode
 }) {
+  // The cookies from the database, handed to every component that shows or prices a cookie.
+  const cookies = await getCookieCatalogue()
+
   return (
     <html
       lang="en"
@@ -54,6 +63,7 @@ export default function SiteLayout({
       </head>
 
       <body className="flex min-h-screen flex-col">
+        <CookieCatalogueProvider cookies={cookies}>
         <OrderBasketProvider>
           <Header />
           <FloatingOrderButton />
@@ -68,6 +78,7 @@ export default function SiteLayout({
 
           <Footer />
         </OrderBasketProvider>
+        </CookieCatalogueProvider>
 
         <FortuneCookiePopup />
 

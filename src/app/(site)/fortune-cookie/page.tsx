@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Gift, RotateCcw, Sparkles } from 'lucide-react'
-import { COOKIES } from '@/content/cookies'
+import { useCookies } from '@/components/site/CookieCatalogue'
 
 type Fortune = {
   message: string
@@ -204,13 +204,14 @@ function CookieIllustration({
 }
 
 export default function FortuneCookiePage() {
+  const catalogue = useCookies()
   const [stage, setStage] = useState<Stage>('closed')
   const [fortune, setFortune] = useState<Fortune | null>(null)
   const lastIndex = useRef<number | null>(null)
   const revealTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const selectedCookie = fortune
-    ? COOKIES.find((cookie) => cookie.id === fortune.cookieId)
+    ? catalogue.find((cookie) => cookie.id === fortune.cookieId)
     : null
 
   useEffect(() => {

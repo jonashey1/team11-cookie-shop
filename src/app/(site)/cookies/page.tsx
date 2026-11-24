@@ -4,7 +4,8 @@ import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 import { CookieTasteMap } from '@/components/site/CookieTasteMap'
-import { COOKIES, type CookieProduct } from '@/content/cookies'
+import type { CookieProduct } from '@/content/cookies'
+import { getCookieCatalogue } from '@/lib/cookie-catalogue'
 import { cookieImage } from '@/lib/workshop-image'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareCookieButton, ComparisonTray } from '@/components/site/CookieComparisonControls'
@@ -24,7 +25,12 @@ const tastingNotes = {
   6: 'A familiar favourite with a twist.',
 } satisfies Record<CookieProduct['id'], string>
 
-export default function CookiesPage() {
+// The cookies come from the database, so the page is made on every visit, never during the build.
+export const dynamic = 'force-dynamic'
+
+export default async function CookiesPage() {
+  // The cookies as editors keep them in /admin.
+  const cookies = await getCookieCatalogue()
 
   return (
     <div className="pb-block">
@@ -61,7 +67,7 @@ export default function CookiesPage() {
           </p>
           <nav aria-label="Jump to a cookie flavour">
             <ul className="flex flex-wrap gap-2">
-              {COOKIES.map((cookie) => (
+              {cookies.map((cookie) => (
                 <li key={cookie.id}>
                   <a
                     href={`#cookie-${cookie.id}`}
@@ -76,8 +82,8 @@ export default function CookiesPage() {
         </div>
 
         <ul className="boutique-assortment">
-          {COOKIES.map((cookie) => {
-            const image = cookieImage(cookie.name)
+          {cookies.map((cookie) => {
+            const image = cookieImage(cookie)
 
             return (
               <li

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ButtonLink } from '@/components/site/ButtonLink'
-import { COOKIES } from '@/content/cookies'
+import { useCookies } from '@/components/site/CookieCatalogue'
 import {
   canCompare, comparisonInsights, comparisonProducts, comparisonRows,
   MAX_COMPARISON, rowDiffers,
@@ -19,7 +19,8 @@ export function CookieComparison() {
   const [highlight, setHighlight] = useState(true)
   const [basketFeedback, setBasketFeedback] = useState('')
   const heading = useRef<HTMLHeadingElement>(null)
-  const cookies = comparisonProducts(ids)
+  const catalogue = useCookies()
+  const cookies = comparisonProducts(ids, catalogue)
   const rows = comparisonRows(cookies)
 
   return (
@@ -33,7 +34,7 @@ export function CookieComparison() {
             <select value="" disabled={ids.length >= MAX_COMPARISON}
               className="min-h-11 min-w-0 w-full max-w-64 rounded-control border border-line bg-canvas px-2 text-ink sm:w-auto"
               onChange={event => {
-                const cookie = COOKIES.find(item => item.id === Number(event.target.value))
+                const cookie = catalogue.find(item => item.id === Number(event.target.value))
                 if (cookie) {
                   setBasketFeedback('')
                   addToComparison(cookie.id, cookie.name)
@@ -41,7 +42,7 @@ export function CookieComparison() {
                 }
               }}>
               <option value="">Choose a flavour</option>
-              {COOKIES.filter(cookie => !ids.includes(cookie.id)).map(cookie => (
+              {catalogue.filter(cookie => !ids.includes(cookie.id)).map(cookie => (
                 <option key={cookie.id} value={cookie.id}>{cookie.name}</option>
               ))}
             </select>
@@ -76,7 +77,7 @@ export function CookieComparison() {
           <thead>
             <tr>
               {cookies.map(cookie => {
-                const image = cookieImage(cookie.name)
+                const image = cookieImage(cookie)
                 const atLimit = (quantities[cookie.id] ?? 0) >= 20
                 return (
                   <th key={cookie.id} data-flavour={cookie.id} scope="col" id={`compare-cookie-${cookie.id}`} className="px-1 text-start align-top sm:px-2">

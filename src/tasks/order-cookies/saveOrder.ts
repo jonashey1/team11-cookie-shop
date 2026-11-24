@@ -1,7 +1,8 @@
 'use server'
 
 import { getPayload } from 'payload'
-import { COOKIES } from '@/content/cookies'
+import { COOKIES, isCookieId, type CookieId } from '@/content/cookies'
+import { getCookieCatalogue } from '@/lib/cookie-catalogue'
 import type { Order } from '@/payload-types'
 import config from '@/payload.config'
 
@@ -50,9 +51,10 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
       return { success: false, message: 'Invalid cookie selection.' }
     }
 
-    const items: Order['items'] = []
+    // First check the shape of every line without the database: a broken request is refused before
+    // anything is read. The catalogue numbers 1 to 6 are fixed, so the code knows them.
+    const lines: { cookieId: CookieId; quantity: number }[] = []
     const cookieIds = new Set<number>()
-    let totalCents = 0
 
     for (const item of submittedItems) {
       if (
@@ -66,13 +68,11 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
         return { success: false, message: 'Invalid cookie selection.' }
       }
 
-      const cookie = COOKIES.find(
-        (product) => product.id === item.cookieId,
-      )
+      const cookieId = item.cookieId
       const quantity = item.quantity
 
       if (
-        !cookie ||
+        !isCookieId(cookieId) ||
         !Number.isInteger(quantity) ||
         quantity < 1 ||
         quantity > 20
@@ -80,12 +80,25 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
         return { success: false, message: 'Invalid cookie quantity.' }
       }
 
-      if (cookieIds.has(cookie.id)) {
+      if (cookieIds.has(cookieId)) {
         return { success: false, message: 'Include each cookie only once in your shopping cart.' }
       }
-      cookieIds.add(cookie.id)
-      totalCents += cookie.price * quantity
+      cookieIds.add(cookieId)
+      lines.push({ cookieId, quantity })
+    }
 
+    // Then the names and prices from the cookies collection, never from the browser: the price an
+    // editor set in /admin is what the order pays.
+    const catalogue = await getCookieCatalogue()
+    const items: Order['items'] = []
+    let totalCents = 0
+
+    for (const { cookieId, quantity } of lines) {
+      const cookie = catalogue.find((product) => product.id === cookieId)
+      if (!cookie) {
+        return { success: false, message: 'This cookie is no longer available.' }
+      }
+      totalCents += cookie.price * quantity
       items.push({
         cookieId: cookie.id,
         cookieName: cookie.name,
