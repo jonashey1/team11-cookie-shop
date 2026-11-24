@@ -68,10 +68,6 @@ export function rowDiffers(values: Row['values']) {
   return new Set(values.filter(value => value !== undefined)).size > 1
 }
 
-export function visibleComparisonRows(rows: Row[], onlyDifferences: boolean) {
-  return onlyDifferences ? rows.filter(row => rowDiffers(row.values)) : rows
-}
-
 export function comparisonInsights(cookies: readonly CookieProduct[]) {
   function leaders(value: (cookie: CookieProduct) => number | undefined, choose: typeof Math.max) {
     const scores = cookies.map(cookie => value(cookie))

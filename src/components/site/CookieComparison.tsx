@@ -7,7 +7,7 @@ import { ButtonLink } from '@/components/site/ButtonLink'
 import { COOKIES } from '@/content/cookies'
 import {
   canCompare, comparisonInsights, comparisonProducts, comparisonRows,
-  MAX_COMPARISON, rowDiffers, visibleComparisonRows,
+  MAX_COMPARISON, rowDiffers,
 } from '@/lib/cookie-comparison'
 import { cookieImage } from '@/lib/workshop-image'
 import { formatOrderAmount, useOrderBasket } from './OrderBasket'
@@ -17,11 +17,10 @@ export function CookieComparison() {
   const { ids, message } = useCookieComparison()
   const { quantities, pending, setQuantities } = useOrderBasket()
   const [highlight, setHighlight] = useState(true)
-  const [onlyDifferences, setOnlyDifferences] = useState(false)
   const [basketFeedback, setBasketFeedback] = useState('')
   const heading = useRef<HTMLHeadingElement>(null)
   const cookies = comparisonProducts(ids)
-  const rows = visibleComparisonRows(comparisonRows(cookies), onlyDifferences)
+  const rows = comparisonRows(cookies)
 
   return (
     <section className="grid gap-block pb-block" aria-labelledby="comparison-heading">
@@ -60,14 +59,10 @@ export function CookieComparison() {
       </div>
 
       {canCompare(ids) && (
-        <div className="flex flex-wrap gap-x-6 gap-y-1 rounded-control border border-line bg-canvas px-4 py-2">
+        <div className="rounded-control border border-line bg-canvas px-4 py-2">
           <label className="flex min-h-11 cursor-pointer items-center gap-2">
             <input type="checkbox" checked={highlight} onChange={event => setHighlight(event.target.checked)} className="size-5 shrink-0 accent-ink" />
             Highlight differences
-          </label>
-          <label className="flex min-h-11 cursor-pointer items-center gap-2">
-            <input type="checkbox" checked={onlyDifferences} onChange={event => setOnlyDifferences(event.target.checked)} className="size-5 shrink-0 accent-ink" />
-            Show only differences
           </label>
         </div>
       )}

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { COOKIES } from '@/content/cookies'
 import {
   canCompare, comparisonInsights, comparisonProducts, comparisonRows, normalizeComparison,
-  removeCookie, rowDiffers, selectCookie, visibleComparisonRows,
+  removeCookie, rowDiffers, selectCookie,
 } from '@/lib/cookie-comparison'
 
 describe('cookie comparison selection', () => {
@@ -42,9 +42,6 @@ describe('catalogue comparison', () => {
     expect(rowDiffers([undefined, undefined])).toBe(false)
     expect(rowDiffers([4, undefined, 4])).toBe(false)
     expect(rowDiffers([4, undefined, 1])).toBe(true)
-    const rows = comparisonRows(comparisonProducts([1, 5]))
-    expect(visibleComparisonRows(rows, false)).toEqual(rows)
-    expect(visibleComparisonRows(rows, true).map(row => row.label)).not.toContain('Texture')
-    expect(visibleComparisonRows(rows, true).map(row => row.label)).toContain('Chocolate intensity')
+    expect(comparisonRows(comparisonProducts([1, 5])).find(row => row.label === 'Texture')?.values).toEqual(['Soft and chewy', 'Soft and chewy'])
   })
 })
