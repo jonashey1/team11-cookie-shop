@@ -4,6 +4,7 @@ This is voluntary work outside the required H2 scope. The objectives are easier 
 
 | Area | Problem and objective | Acceptance and traceability |
 |---|---|---|
+| Commercial | Customers should understand why the Cookie Shop experience is personal | Show genuine Finder, comparison, box and checkout footage. Keep direct feature links, explicit playback and an English transcript. See the [commercial acceptance and evidence](./cookie-shop-commercial.md). |
 | Customer journey | Customers need a clear route when they already know what they want or need help choosing | Homepage links to ordering, Finder, comparison and the box. Given a basket, users can see unit prices and subtotals, edit quantities or continue shopping. Browser tests check quantities and invalid input. |
 | Confirmation | A success screen needs to reflect actual storage | Given a confirmed save, show saved reference, items, date and total. Printing hides navigation and actions. No public receipt lookup, payments or email. |
 | Box builder | A customer needs to understand capacity and price | Fill exactly four slots in a 2×2 grid. Each slot lets users add, remove or replace a flavour independently, including duplicates. The box total updates at catalogue prices. Only a complete box can be added, preserving existing basket quantities. Reset clears all slots. Each suggestion fills four slots and asks before overwriting. See the box unit and browser tests. |
