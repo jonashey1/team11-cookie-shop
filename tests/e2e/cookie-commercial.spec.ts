@@ -52,6 +52,6 @@ test('offers three direct, working discovery links without playing the commercia
     const experience = page.getByRole('region', { name: 'More than just cookies.' })
     await experience.getByRole('link', { name: label }).press('Enter')
     await expect(page).toHaveURL(url => url.pathname + url.hash === path)
-    if (path.includes('#')) await expect(page.locator('#comparison')).toBeAttached()
+    if (path.includes('#')) await expect(page.locator(path.slice(path.indexOf('#')))).toBeAttached()
   }
 })
