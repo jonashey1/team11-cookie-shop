@@ -14,7 +14,6 @@ import { cache } from 'react'
 import { ArtisanPhotoFigure } from '@/components/site/ArtisanPhotoFigure'
 import { artisanPhotography } from '@/content/artisan-photography'
 import { ButtonLink } from '@/components/site/ButtonLink'
-import { Notice } from '@/components/site/Notice'
 import { PageTitle } from '@/components/site/PageTitle'
 import { ParentLink } from '@/components/site/ParentLink'
 import { TopicList } from '@/components/site/TopicList'
@@ -95,11 +94,6 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
               </>
             )}
           </dl>
-          {facts.pricingRule && (
-            <Notice>
-              <p>{facts.pricingRule}</p>
-            </Notice>
-          )}
         </section>
 
         <div className="grid min-w-0 content-start gap-block lg:col-start-1 lg:row-start-1">
