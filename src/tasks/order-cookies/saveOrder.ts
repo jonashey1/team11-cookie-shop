@@ -5,8 +5,14 @@ import { COOKIES } from '@/content/cookies'
 import type { Order } from '@/payload-types'
 import config from '@/payload.config'
 
+export type OrderReceipt = Pick<Order, 'name' | 'items' | 'totalCents' | 'createdAt'>
+
+function receiptFrom({ name, items, totalCents, createdAt }: Order): OrderReceipt {
+  return { name, items, totalCents, createdAt }
+}
+
 export type OrderResult =
-  | { success: true; orderName: string }
+  | { success: true; orderName: string; receipt: OrderReceipt }
   | { success: false; message: string }
 
 export async function saveOrder(formData: FormData): Promise<OrderResult> {
@@ -104,7 +110,7 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
       if (existing.customerName !== customerName || existing.email !== email || !sameItems) {
         return { success: false, message: 'This order reference was already used with different details.' }
       }
-      return { success: true, orderName: existing.name }
+      return { success: true, orderName: existing.name, receipt: receiptFrom(existing) }
     }
 
     const existing = await savedOrder()
@@ -113,7 +119,7 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
     const orderName = `Cookie order T11-S3F8 - ${requestId}`
 
     try {
-      await payload.create({
+      const order = await payload.create({
         collection: 'orders',
         overrideAccess: true,
         data: {
@@ -126,6 +132,7 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
           status: 'new',
         },
       })
+      return { success: true, orderName: order.name, receipt: receiptFrom(order) }
     } catch (error) {
       // A simultaneous retry may have saved the order first. Confirm only a record we can read.
       const saved = await savedOrder()
@@ -133,7 +140,6 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
       throw error
     }
 
-    return { success: true, orderName }
   } catch {
     return {
       success: false,

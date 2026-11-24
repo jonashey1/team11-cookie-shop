@@ -84,6 +84,15 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section aria-labelledby="choose-your-way" className="grid gap-3 rounded-panel border border-line bg-yellow-wash p-5 sm:p-6">
+        <h2 id="choose-your-way" className="text-2xl">Find your favourites</h2>
+        <div className="flex flex-wrap gap-3">
+          <ButtonLink href="/cookie-finder" variant="secondary">Find a flavour</ButtonLink>
+          <ButtonLink href="/workshops#comparison" variant="secondary">Compare cookies</ButtonLink>
+          <ButtonLink href="/build-your-box">Build a cookie box</ButtonLink>
+        </div>
+      </section>
+
       <section aria-labelledby="why-us" className="grid gap-block border-y border-line py-block">
         <h2 id="why-us" className="text-3xl">
           Why Choose Cookie Shop?

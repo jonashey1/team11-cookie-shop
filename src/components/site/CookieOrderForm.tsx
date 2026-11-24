@@ -1,16 +1,27 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { COOKIES } from '@/content/cookies'
-import { saveOrder } from '@/tasks/order-cookies/saveOrder'
+import { saveOrder, type OrderReceipt } from '@/tasks/order-cookies/saveOrder'
 import { track } from '@/lib/analytics'
+import { cookieImage } from '@/lib/workshop-image'
+import { ButtonLink } from './ButtonLink'
+import { AddCookieToBasket } from './AddCookieToBasket'
 import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 
 export function CookieOrderForm() {
   const { quantities, setQuantities, chosen, total, pending, setPending, getRequestId } = useOrderBasket()
   const [error, setError] = useState('')
-  const [confirmed, setConfirmed] = useState('')
+  const [confirmed, setConfirmed] = useState<OrderReceipt | null>(null)
+  const receiptHeading = useRef<HTMLHeadingElement>(null)
+  const submitting = useRef(false)
+  const selectedFlavours = new Set(chosen.map(cookie => cookie.flavour))
+  const unselected = COOKIES.filter(cookie => !quantities[cookie.id])
+  const suggestions = chosen.length ? [unselected.find(cookie => selectedFlavours.has(cookie.flavour)), unselected.find(cookie => !selectedFlavours.has(cookie.flavour))].filter(cookie => cookie !== undefined) : []
+
+  useEffect(() => { if (confirmed) receiptHeading.current?.focus() }, [confirmed])
 
   function changeQuantity(cookieId: number, delta: number) {
     if (pending) return
@@ -23,19 +34,20 @@ export function CookieOrderForm() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (pending || chosen.length === 0) return
+    if (submitting.current || pending || chosen.length === 0) return
     const data = new FormData(event.currentTarget)
     data.set('items', JSON.stringify(chosen.map((cookie) => ({
       cookieId: cookie.id,
       quantity: quantities[cookie.id],
     }))))
     data.set('requestId', getRequestId())
+    submitting.current = true
     setPending(true)
     setError('')
     try {
       const result = await saveOrder(data)
       if (result.success) {
-        setConfirmed(result.orderName)
+        setConfirmed(result.receipt)
         setQuantities({})
         track('cookie_order_saved')
       } else {
@@ -44,17 +56,37 @@ export function CookieOrderForm() {
     } catch {
       setError('We could not confirm whether your order was saved. Please try again; your basket is kept.')
     } finally {
+      submitting.current = false
       setPending(false)
     }
   }
 
   if (confirmed) {
     return (
-      <section aria-labelledby="order-confirmed" className="grid gap-stack rounded-panel border border-line bg-success-wash p-6 sm:p-block" role="status">
-        <h2 id="order-confirmed" className="text-3xl">Your test order is saved!</h2>
-        <p>We saved your order in Cookie Shop. This is a university practice project: no payment is taken and nobody will contact you.</p>
-        <p className="break-all text-sm"><strong>Reference:</strong> {confirmed}</p>
-        <Button type="button" className="w-fit max-w-full whitespace-normal text-center" onClick={() => setConfirmed('')}>Place another test order</Button>
+      <section aria-labelledby="order-confirmed" className="cookie-order-receipt grid gap-stack rounded-panel border border-line bg-success-wash p-6 sm:p-block" role="status">
+        <h2 id="order-confirmed" ref={receiptHeading} tabIndex={-1} className="text-3xl">Thank you for your order!</h2>
+        <p>Your test order is saved.</p>
+        <p>This is a fictional order for a university project. No payment has been taken and no products will be shipped.</p>
+        <dl className="grid gap-2">
+          <div><dt className="font-semibold">Reference</dt><dd className="break-all">{confirmed.name}</dd></div>
+          <div><dt className="font-semibold">Date (UTC)</dt><dd><time dateTime={confirmed.createdAt}>{confirmed.createdAt.slice(0, 10)}</time></dd></div>
+        </dl>
+        <ul className="grid gap-3">
+          {confirmed.items.map(item => {
+            const image = cookieImage(item.cookieName)
+            return <li key={item.cookieId} className="flex flex-wrap items-center gap-3 border-b border-line pb-2">
+              {image && <Image src={image.src} alt={image.alt} width={48} height={48} className="size-12 rounded-control object-cover" />}
+              <div><strong>{item.cookieName}</strong><p>{item.quantity} × {formatOrderAmount(item.unitPriceCents)} · {formatOrderAmount(item.quantity * item.unitPriceCents)}</p></div>
+            </li>
+          })}
+        </ul>
+        <p className="text-xl font-bold">Total: {formatOrderAmount(confirmed.totalCents)}</p>
+        <div className="cookie-receipt-actions flex flex-wrap gap-3">
+          <Button type="button" className="whitespace-normal" onClick={() => window.print()}>Print or save as PDF</Button>
+          <ButtonLink href="/workshops" variant="secondary">Continue shopping</ButtonLink>
+          <ButtonLink href="/" variant="quiet">Back to homepage</ButtonLink>
+          <Button type="button" variant="quiet" onClick={() => setConfirmed(null)}>Place another test order</Button>
+        </div>
       </section>
     )
   }
@@ -91,16 +123,41 @@ export function CookieOrderForm() {
         {chosen.length === 0 ? <p>Your basket is empty. Add a cookie above to continue.</p> : (
           <ul className="grid gap-3">
             {chosen.map((cookie) => (
-              <li key={cookie.id} className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3">
-                <span>{cookie.name} × {quantities[cookie.id]}</span>
-                <strong>{formatOrderAmount(cookie.price * quantities[cookie.id])}</strong>
+              <li key={cookie.id} className="flex flex-wrap items-center gap-3 border-b border-line pb-3">
+                <BasketImage name={cookie.name} />
+                <div className="min-w-0 flex-1">
+                  <strong>{cookie.name} × {quantities[cookie.id]}</strong>
+                  <p className="text-sm">{formatOrderAmount(cookie.price)} each · {formatOrderAmount(cookie.price * quantities[cookie.id])} subtotal</p>
+                </div>
+                <div className="flex flex-wrap items-center gap-1">
+                  <Button type="button" variant="secondary" size="icon" aria-label={`Decrease basket quantity of ${cookie.name}`} disabled={pending} onClick={() => changeQuantity(cookie.id, -1)}>−</Button>
+                  <Button type="button" variant="secondary" size="icon" aria-label={`Increase basket quantity of ${cookie.name}`} disabled={pending || quantities[cookie.id] >= 20} onClick={() => changeQuantity(cookie.id, 1)}>+</Button>
+                  <Button type="button" variant="quiet" aria-label={`Remove ${cookie.name} from basket`} disabled={pending} onClick={() => changeQuantity(cookie.id, -quantities[cookie.id])}>Remove</Button>
+                </div>
               </li>
             ))}
           </ul>
         )}
         <p className="font-heading text-2xl font-bold tabular-nums">Total: {formatOrderAmount(total)}</p>
         <p className="text-sm">No online payment. This is a test website: use made-up details only.</p>
+        <div className="flex flex-wrap gap-3">
+          <ButtonLink href="/workshops" variant="secondary">Continue shopping</ButtonLink>
+          {chosen.length > 0 && <ButtonLink href="/clinics#customer-details">Proceed to checkout</ButtonLink>}
+        </div>
       </section>
+
+      {suggestions.length > 0 && (
+        <section aria-labelledby="basket-suggestions" className="grid gap-3 rounded-panel border border-line bg-canvas p-4">
+          <h2 id="basket-suggestions" className="text-xl">You might also enjoy</h2>
+          <ul className="flex flex-wrap gap-4">
+            {suggestions.map(cookie => <li key={cookie.id} className="grid min-w-0 gap-1">
+              <strong>{cookie.name}</strong>
+              <span className="text-sm">{selectedFlavours.has(cookie.flavour) ? 'Similar flavour' : 'A different flavour'} · {formatOrderAmount(cookie.price)}</span>
+              <AddCookieToBasket cookie={cookie} />
+            </li>)}
+          </ul>
+        </section>
+      )}
 
       <section aria-labelledby="customer-details" className="max-w-reading grid min-w-0 gap-stack rounded-panel border border-line bg-blue-tint p-5 sm:p-block">
         <h2 id="customer-details" className="text-3xl">3. Send your test order</h2>
@@ -119,4 +176,9 @@ export function CookieOrderForm() {
       </section>
     </form>
   )
+}
+
+function BasketImage({ name }: { name: string }) {
+  const image = cookieImage(name)
+  return image ? <Image src={image.src} alt={image.alt} width={56} height={56} className="size-14 shrink-0 rounded-control object-cover" /> : null
 }
