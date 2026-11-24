@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { COOKIES } from '../../src/content/cookies'
+import { starterWorkshopSlugs, starterWorkshopTopicSlugs } from '../../src/lib/public-workshop-content'
 import { cookieImage } from '../../src/lib/workshop-image'
 
 test('puts the assortment before the Taste Map and preserves old flavour URLs', async ({ page }) => {
@@ -157,4 +158,22 @@ test('renders the CMS cookie price and blocks public changes', async ({ page, re
   } finally {
     expect((await patch(item.price)).ok()).toBe(true)
   }
+})
+
+test('public CMS reads keep current content and exclude known starter examples', async ({ request }) => {
+  for (const [collection, field, hidden, kept] of [
+    ['pages', 'slug', ['home', 'about'], 'privacy'],
+    ['clinics', 'slug', ['saturday-repair-clinic'], undefined],
+    ['repairs', 'name', ['Full service', 'Each small repair', 'Check'], undefined],
+    ['workshops', 'slug', starterWorkshopSlugs, 'cookie-baking-basics'],
+    ['topics', 'slug', starterWorkshopTopicSlugs, 'baking-techniques'],
+  ] as const) {
+    const response = await request.get('/api/' + collection + '?limit=100&depth=0')
+    expect(response.ok()).toBe(true)
+    const { docs } = await response.json()
+    const values = docs.map((doc: Record<string, string>) => doc[field])
+    for (const value of hidden) expect(values).not.toContain(value)
+    if (kept) expect(values).toContain(kept)
+  }
+  expect((await request.get('/api/globals/site-facts')).status()).toBe(403)
 })
