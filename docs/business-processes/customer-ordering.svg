@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2004 385" role="img" aria-label="Customer ordering" font-family="system-ui,sans-serif">
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#684e40"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff8ee"/><text x="12" y="21" font-size="17" font-weight="700" fill="#38251d">Customer ordering</text>
+<rect x="12" y="28" width="1978" height="172" fill="#fbefdb" stroke="#a1816c"/><text x="20" y="44" font-size="13" font-weight="700" fill="#38251d">Customer</text>
+<rect x="12" y="200" width="1978" height="172" fill="#fbefdb" stroke="#a1816c"/><text x="20" y="216" font-size="13" font-weight="700" fill="#38251d">Cookie Shop</text>
+<polyline points="102,82 214,92" fill="none" stroke="#684e40" marker-end="url(#arrow)"/>
+<polyline points="326,92 360,88" fill="none" stroke="#684e40" marker-end="url(#arrow)"/>
+<polyline points="406,88 506,92" fill="none" stroke="#684e40" marker-end="url(#arrow)"/><text x="409" y="84" font-size="10" fill="#38251d">Yes</text>
+<polyline points="383,65 383,48 708,48 708,65" fill="none" stroke="#684e40" marker-end="url(#arrow)"/><text x="386" y="61" font-size="10" fill="#38251d">No</text>
+<polyline points="618,92 652,92" fill="none" stroke="#684e40" marker-end="url(#arrow)"/>
+<polyline points="764,92 798,88" fill="none" stroke="#684e40" marker-end="url(#arrow)"/>
+<polyline points="844,88 944,92" fill="none" stroke="#684e40" marker-end="url(#arrow)"/><text x="847" y="84" font-size="10" fill="#38251d">Yes</text>
+<polyline points="821,111 821,176 708,176 708,119" fill="none" stroke="#684e40" marker-end="url(#arrow)"/><text x="824" y="107" font-size="10" fill="#38251d">Empty</text>
+<polyline points="1056,92 1073,92 1073,264 1090,264" fill="none" stroke="#684e40" marker-end="url(#arrow)"/>
+<polyline points="1202,264 1236,260" fill="none" stroke="#684e40" marker-end="url(#arrow)"/>
+<polyline points="1282,260 1382,264" fill="none" stroke="#684e40" marker-end="url(#arrow)"/><text x="1285" y="256" font-size="10" fill="#38251d">Yes</text>
+<polyline points="1259,283 1259,348 1000,348 1000,119" fill="none" stroke="#684e40" marker-end="url(#arrow)"/><text x="1262" y="279" font-size="10" fill="#38251d">Correct details</text>
+<polyline points="1494,264 1528,260" fill="none" stroke="#684e40" marker-end="url(#arrow)"/>
+<polyline points="1574,260 1624,260 1624,92 1674,92" fill="none" stroke="#684e40" marker-end="url(#arrow)"/><text x="1577" y="256" font-size="10" fill="#38251d">Yes</text>
+<polyline points="1551,283 1551,348 1000,348 1000,119" fill="none" stroke="#684e40" marker-end="url(#arrow)"/><text x="1554" y="279" font-size="10" fill="#38251d">Retry or edit</text>
+<polyline points="1786,92 1820,82" fill="none" stroke="#684e40" marker-end="url(#arrow)"/>
+<g fill="#fff8ee" stroke="#684e40"><circle cx="85" cy="82" r="17" stroke-width="1.5"/></g><text x="68" y="114" font-size="11" fill="#38251d">Visit shop</text>
+<g fill="#fff8ee" stroke="#684e40"><rect x="214" y="65" width="112" height="54" rx="8"/><text x="222" y="81" font-size="11" fill="#38251d" stroke="none">User task</text></g><text x="214" y="134" font-size="11" fill="#38251d">Explore catalogue</text>
+<g fill="#fff8ee" stroke="#684e40"><polygon points="383,65 406,88 383,111 360,88"/><path d="M378 83l10 10m0 -10l-10 10"/></g><text x="360" y="126" font-size="11" fill="#38251d">Need help?</text>
+<g fill="#fff8ee" stroke="#684e40"><rect x="506" y="65" width="112" height="54" rx="8"/><text x="514" y="81" font-size="11" fill="#38251d" stroke="none">User task</text></g><text x="506" y="134" font-size="11" fill="#38251d">Find, compare or build</text>
+<g fill="#fff8ee" stroke="#684e40"><rect x="652" y="65" width="112" height="54" rx="8"/><text x="660" y="81" font-size="11" fill="#38251d" stroke="none">User task</text></g><text x="652" y="134" font-size="11" fill="#38251d">Review basket</text>
+<g fill="#fff8ee" stroke="#684e40"><polygon points="821,65 844,88 821,111 798,88"/><path d="M816 83l10 10m0 -10l-10 10"/></g><text x="798" y="126" font-size="11" fill="#38251d">Basket has items?</text>
+<g fill="#fff8ee" stroke="#684e40"><rect x="944" y="65" width="112" height="54" rx="8"/><text x="952" y="81" font-size="11" fill="#38251d" stroke="none">User task</text></g><text x="944" y="134" font-size="11" fill="#38251d">Review and confirm details</text>
+<g fill="#fff8ee" stroke="#684e40"><rect x="1090" y="237" width="112" height="54" rx="8"/><text x="1098" y="253" font-size="11" fill="#38251d" stroke="none">Service task</text></g><text x="1090" y="306" font-size="11" fill="#38251d">Validate and price</text>
+<g fill="#fff8ee" stroke="#684e40"><polygon points="1259,237 1282,260 1259,283 1236,260"/><path d="M1254 255l10 10m0 -10l-10 10"/></g><text x="1236" y="298" font-size="11" fill="#38251d">Input valid?</text>
+<g fill="#fff8ee" stroke="#684e40"><rect x="1382" y="237" width="112" height="54" rx="8"/><text x="1390" y="253" font-size="11" fill="#38251d" stroke="none">Service task</text></g><text x="1382" y="306" font-size="11" fill="#38251d">Save or reuse request</text>
+<g fill="#fff8ee" stroke="#684e40"><polygon points="1551,237 1574,260 1551,283 1528,260"/><path d="M1546 255l10 10m0 -10l-10 10"/></g><text x="1528" y="298" font-size="11" fill="#38251d">Save confirmed?</text>
+<g fill="#fff8ee" stroke="#684e40"><rect x="1674" y="65" width="112" height="54" rx="8"/><text x="1682" y="81" font-size="11" fill="#38251d" stroke="none">User task</text></g><text x="1674" y="134" font-size="11" fill="#38251d">Read confirmation</text>
+<g fill="#fff8ee" stroke="#684e40"><circle cx="1837" cy="82" r="17" stroke-width="3"/></g><text x="1820" y="114" font-size="11" fill="#38251d">Finish</text>
+</svg>
