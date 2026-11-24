@@ -1,10 +1,12 @@
 
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { getPayload } from 'payload'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
 import { COOKIES } from '@/content/cookies'
+import { COOKIE_IMAGES } from '@/lib/workshop-image'
 import config from '@/payload.config'
 
 export const metadata: Metadata = {
@@ -28,20 +30,30 @@ export default async function CookiesPage() {
   const workshops = result.docs
 
   return (
-    <div className="pb-6">
+    <div className="pb-block">
       <PageTitle
         title="Our Cookies"
         intro="Discover our cookie collection! Explore different flavours, compare your favourites and find the perfect sweet treat."
-        tone="purple"
-      />
+        tone="blue"
+        className="border border-line"
+      >
+        <nav aria-label="On this page" className="flex flex-wrap gap-stack">
+          <ButtonLink href="/workshops#cookies" variant="secondary" size="sm" className="min-h-11">
+            Discover Our Flavours
+          </ButtonLink>
+          <ButtonLink href="/workshops#workshops" variant="secondary" size="sm" className="min-h-11">
+            Cookie Workshops
+          </ButtonLink>
+        </nav>
+      </PageTitle>
 
       <section
         id="cookies"
         aria-labelledby="cookies-heading"
         className="grid scroll-mt-24 gap-block"
       >
-        <div className="grid gap-2">
-          <h2 id="cookies-heading" className="text-2xl">
+        <div className="grid max-w-reading gap-stack">
+          <h2 id="cookies-heading" className="text-3xl">
             Discover Our Flavours
           </h2>
 
@@ -51,63 +63,71 @@ export default async function CookiesPage() {
           </p>
         </div>
 
-        <ul className="grid gap-block md:grid-cols-2 lg:grid-cols-3">
-          {COOKIES.map((cookie) => (
-            <li
-              key={cookie.id}
-              className="framed grid content-start gap-4 p-6 offset-purple"
-            >
-              <div
-                className="flex h-36 items-center justify-center rounded-xl bg-mint-wash text-6xl"
-                aria-hidden="true"
+        <ul className="grid gap-block sm:grid-cols-2 lg:grid-cols-3">
+          {COOKIES.map((cookie) => {
+            const image = COOKIE_IMAGES[cookie.name.toLowerCase().replace(' & ', ' and ').replaceAll(' ', '-')]
+
+            return (
+              <li
+                key={cookie.id}
+                className="flex flex-col gap-stack rounded-panel border border-line bg-blue-tint p-5"
               >
-                {cookie.emoji}
-              </div>
+                {image && (
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(min-width: 80rem) 21rem, (min-width: 64rem) 28vw, (min-width: 40rem) 42vw, 88vw"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
 
-              <div className="grid gap-2">
-                <p className="text-sm font-semibold text-ink-soft">
-                  {cookie.flavour}
-                </p>
+                <div className="grid content-start gap-2">
+                  <p className="text-sm font-semibold text-ink-soft">
+                    {cookie.flavour}
+                  </p>
 
-                <h3 className="text-xl">{cookie.name}</h3>
+                  <h3 className="text-xl">{cookie.name}</h3>
 
-                <p>{cookie.description}</p>
-              </div>
+                  <p>{cookie.description}</p>
+                </div>
 
-              <div className="mt-auto grid gap-3 pt-3">
-                <p className="text-xl font-bold">
-                  {new Intl.NumberFormat('en-BE', {
-                    style: 'currency',
-                    currency: 'EUR',
-                  }).format(cookie.price / 100)}
-                </p>
+                <div className="mt-auto grid gap-2 border-t border-line pt-stack">
+                  <p className="font-heading text-xl font-bold tabular-nums">
+                    {new Intl.NumberFormat('en-BE', {
+                      style: 'currency',
+                      currency: 'EUR',
+                    }).format(cookie.price / 100)}
+                  </p>
 
-                <p className="text-sm text-ink-soft">
-                  Available for fictional test orders; no payment is taken.
-                </p>
-              </div>
-            </li>
-          ))}
+                  <p className="text-sm text-ink-soft">
+                    Available for fictional test orders; no payment is taken.
+                  </p>
+                </div>
+              </li>
+            )
+          })}
         </ul>
       </section>
 
       <section
         aria-labelledby="ordering-heading"
-        className="mt-12 grid gap-4 rounded-panel bg-mint-wash p-6 sm:p-10"
+        className="mt-section grid justify-items-start gap-stack rounded-panel border border-line bg-yellow-wash p-6 sm:p-block"
       >
-        <h2 id="ordering-heading" className="text-2xl">
+        <h2 id="ordering-heading" className="text-3xl">
           Ready to Order?
         </h2>
 
-        <p className="max-w-[65ch]">
+        <p className="max-w-reading text-ink-soft">
           Choose your favourite cookies, select quantities and submit
           a fictional test order. No real purchases or payments are accepted.
         </p>
 
         <ButtonLink
           href="/clinics"
-          variant="secondary"
-          className="w-fit"
+          className="w-fit max-w-full whitespace-normal text-center"
         >
           Order Cookies
         </ButtonLink>
@@ -116,14 +136,14 @@ export default async function CookiesPage() {
       <section
         id="workshops"
         aria-labelledby="workshops-heading"
-        className="mt-12 grid scroll-mt-24 gap-block"
+        className="mt-section grid scroll-mt-24 gap-block border-t border-line pt-block"
       >
-        <div className="grid gap-2">
-          <h2 id="workshops-heading" className="text-2xl">
+        <div className="grid max-w-reading gap-stack">
+          <h2 id="workshops-heading" className="text-3xl">
             Cookie Workshops
           </h2>
 
-          <p className="max-w-[70ch]">
+          <p className="max-w-reading text-ink-soft">
             Explore our fictional cookie workshops for this student
             project. Discover baking techniques, creative decoration
             and delicious chocolate combinations. These workshops
@@ -134,7 +154,7 @@ export default async function CookiesPage() {
         {workshops.length > 0 ? (
           <ul className="grid gap-block md:grid-cols-2">
             {workshops.map((workshop) => (
-              <li key={workshop.id}>
+              <li key={workshop.id} className="grid min-w-0">
                 <WorkshopCard workshop={workshop} />
               </li>
             ))}

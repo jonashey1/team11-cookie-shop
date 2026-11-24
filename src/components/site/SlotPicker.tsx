@@ -35,7 +35,7 @@ export function SlotPicker({ slots, selected, error }: SlotPickerProps) {
         Choose a time <span className="font-normal text-ink-soft">(required)</span>
       </legend>
       {error && <FieldError id="timeSlot-error">{error}</FieldError>}
-      <ul className="grid gap-3 sm:grid-cols-2">
+      <ul className="grid gap-stack sm:grid-cols-2">
         {slots.map((slot) => {
           const full = slot.placesLeft <= 0
           return (
@@ -43,13 +43,13 @@ export function SlotPicker({ slots, selected, error }: SlotPickerProps) {
               <label
                 className={cn(
                   'flex min-h-11 cursor-pointer items-start gap-3 rounded-control border-[1.5px] border-ink bg-canvas px-4 py-3',
-                  // The chosen slot: a thicker frame and a mint wash, besides the filled radio button.
-                  'has-checked:border-2 has-checked:bg-mint-wash',
+                  // The chosen slot: a thicker frame and a caramel tint, besides the filled radio button.
+                  'has-checked:border-2 has-checked:bg-yellow-wash',
                   // The keyboard is on this slot: the whole card gets the focus ring.
                   'has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus has-focus-visible:outline-solid',
                   error && 'border-2 bg-error-wash',
                   // A full slot: quieter than the open ones (dashed frame, grey text), and "Full" in words.
-                  'has-disabled:cursor-not-allowed has-disabled:border-dashed has-disabled:bg-canvas has-disabled:text-ink-soft',
+                  'has-disabled:cursor-not-allowed has-disabled:border-dashed has-disabled:bg-blue-tint has-disabled:text-ink-soft',
                 )}
               >
                 <input

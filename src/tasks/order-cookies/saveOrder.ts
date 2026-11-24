@@ -1,8 +1,8 @@
-﻿'use server'
+'use server'
 
-import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 import { COOKIES } from '@/content/cookies'
+import type { Order } from '@/payload-types'
 import config from '@/payload.config'
 
 export type OrderResult =
@@ -40,7 +40,8 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
       return { success: false, message: 'Your shopping cart is empty.' }
     }
 
-    const items = []
+    const items: Order['items'] = []
+    const cookieIds = new Set<number>()
     let totalCents = 0
 
     for (const item of submittedItems) {
@@ -67,6 +68,10 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
         return { success: false, message: 'Invalid cookie quantity.' }
       }
 
+      if (cookieIds.has(cookie.id)) {
+        return { success: false, message: 'Include each cookie only once in your shopping cart.' }
+      }
+      cookieIds.add(cookie.id)
       totalCents += cookie.price * quantity
 
       items.push({
@@ -83,38 +88,50 @@ export async function saveOrder(formData: FormData): Promise<OrderResult> {
 
     const payload = await getPayload({ config })
 
-    const existing = await payload.find({
-      collection: 'orders',
-      where: { requestId: { equals: requestId } },
-      limit: 1,
-      overrideAccess: true,
-    })
+    async function savedOrder(): Promise<OrderResult | undefined> {
+      const { docs: [existing] } = await payload.find({
+        collection: 'orders',
+        where: { requestId: { equals: requestId } },
+        limit: 1,
+        depth: 0,
+        overrideAccess: true,
+      })
+      if (!existing) return undefined
 
-    if (existing.docs.length > 0) {
-      return {
-        success: true,
-        orderName: String(existing.docs[0].name),
+      const sameItems = existing.items.length === items.length && items.every(item =>
+        existing.items.some(saved => saved.cookieId === item.cookieId && saved.quantity === item.quantity),
+      )
+      if (existing.customerName !== customerName || existing.email !== email || !sameItems) {
+        return { success: false, message: 'This order reference was already used with different details.' }
       }
+      return { success: true, orderName: existing.name }
     }
+
+    const existing = await savedOrder()
+    if (existing) return existing
 
     const orderName = `Cookie order T11-S3F8 - ${requestId}`
 
-    await payload.create({
-      collection: 'orders',
-      overrideAccess: true,
-      data: {
-        name: orderName,
-        requestId,
-        customerName,
-        email,
-        items,
-        totalCents,
-        status: 'new',
-      },
-    })
-
-    const requestHeaders = await headers()
-    void requestHeaders
+    try {
+      await payload.create({
+        collection: 'orders',
+        overrideAccess: true,
+        data: {
+          name: orderName,
+          requestId,
+          customerName,
+          email,
+          items,
+          totalCents,
+          status: 'new',
+        },
+      })
+    } catch (error) {
+      // A simultaneous retry may have saved the order first. Confirm only a record we can read.
+      const saved = await savedOrder()
+      if (saved) return saved
+      throw error
+    }
 
     return { success: true, orderName }
   } catch {

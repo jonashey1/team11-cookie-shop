@@ -48,7 +48,7 @@ export default async function BookedPage({ params, searchParams }: Props) {
 
   if (!confirmed) {
     return (
-      <div className="pb-6">
+      <div className="pb-block">
         <PageTitle title="Booking confirmation" tone="yellow" />
         <Notice tone="warning" label="Please note" className="max-w-3xl">
           <p className="font-heading text-xl font-extrabold">We can&apos;t show this booking confirmation.</p>
@@ -69,7 +69,7 @@ export default async function BookedPage({ params, searchParams }: Props) {
   const inAccount = member !== null && booking?.member === member.id
 
   return (
-    <div className="pb-6">
+    <div className="pb-block">
       {/* The analytics step "booking_saved" (src/lib/analytics.ts): only here, where the booking is
           known to be saved. Nothing about the booking itself is sent. once: the browser tab remembers
           (sessionStorage) that this booking was counted, so a reload or Back does not count it again.
@@ -77,7 +77,7 @@ export default async function BookedPage({ params, searchParams }: Props) {
           shared and opened by someone else, counts once more. So read booking_saved as "confirmations
           seen": close to, but not exactly, the number of bookings (that number is in /admin). */}
       <TrackStep event="booking_saved" once={String(id)} />
-      <PageTitle title="Booking saved" />
+      <PageTitle title="Booking saved" tone="blue" className="border border-line" />
       <div className="grid max-w-3xl gap-block">
         <Notice tone="success" label="Saved" role="status">
           {/* "Your booking is saved." and the made-up-data notice: src/content/campus-cycle.ts. */}
@@ -88,7 +88,7 @@ export default async function BookedPage({ params, searchParams }: Props) {
             </p>
           )}
         </Notice>
-        <section aria-labelledby="booking" className="framed grid gap-4 p-6 offset-mint">
+        <section aria-labelledby="booking" className="grid gap-stack rounded-panel border border-line bg-blue-tint p-6">
           <h2 id="booking" className="text-xl">Your booking</h2>
           <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2">
             <dt className="text-ink-soft">Clinic</dt>
@@ -103,7 +103,7 @@ export default async function BookedPage({ params, searchParams }: Props) {
             )}
           </dl>
         </section>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-stack">
           <ButtonLink href={`/clinics/${clinic.slug}`} variant="secondary">Back to the clinic</ButtonLink>
           <ButtonLink href="/" variant="quiet">Home</ButtonLink>
         </div>

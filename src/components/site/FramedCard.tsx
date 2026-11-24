@@ -1,6 +1,6 @@
 
 // What this is: a card for one thing the user can open, such as a workshop:
-// a thin navy frame with a coloured offset, an optional picture,
+// a thin frame with a coloured offset, an optional picture,
 // a linked title, and additional details.
 
 import Image from 'next/image'
@@ -39,30 +39,29 @@ export function FramedCard({
   return (
     <article
       className={cn(
-        'framed grid overflow-hidden',
-        image && 'sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]',
+        'framed grid min-w-0 content-start gap-stack p-5 sm:p-6',
         OFFSETS[accent],
         className,
       )}
     >
       {image && (
-        <div className="relative aspect-[4/3] overflow-hidden border-b-2 border-ink bg-[#f7f1e8] sm:aspect-auto sm:min-h-44 sm:border-r-2 sm:border-b-0">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-frame bg-yellow-wash">
           <Image
             src={image.src}
             alt={image.alt}
             fill
-            sizes="(min-width: 640px) 16rem, 100vw"
+            sizes="(min-width: 80rem) 34rem, (min-width: 48rem) 43vw, 88vw"
             className="object-contain"
           />
         </div>
       )}
 
-      <div className="grid content-start gap-3 p-5 sm:p-6">
+      <div className="grid min-w-0 content-start gap-stack">
         <Heading className="text-xl">
           {href ? (
             <Link
               href={href}
-              className="text-ink underline decoration-ink/60 decoration-2 hover:decoration-link"
+              className="rounded-control text-ink underline decoration-ink/60 decoration-2 hover:text-link"
             >
               {title}
             </Link>

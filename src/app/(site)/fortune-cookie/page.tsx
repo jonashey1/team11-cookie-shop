@@ -100,7 +100,7 @@ function CookieIllustration({
   return (
     <svg
       viewBox="0 0 160 230"
-      className="h-full w-full drop-shadow-[0_14px_10px_rgba(88,45,15,0.2)]"
+      className="h-full w-full drop-shadow-md"
       aria-hidden="true"
     >
       <defs>
@@ -111,9 +111,9 @@ function CookieIllustration({
           x2="1"
           y2="1"
         >
-          <stop offset="0%" stopColor="#FFE4A2" />
-          <stop offset="40%" stopColor="#EAB46A" />
-          <stop offset="100%" stopColor="#B86E31" />
+          <stop offset="0%" stopColor="var(--color-cookie-highlight)" />
+          <stop offset="40%" stopColor="var(--color-cookie-gold)" />
+          <stop offset="100%" stopColor="var(--color-cookie-edge)" />
         </linearGradient>
         <linearGradient
           id={`cookie-inner-${half}`}
@@ -122,8 +122,8 @@ function CookieIllustration({
           x2="1"
           y2="1"
         >
-          <stop offset="0%" stopColor="#FFF1C9" />
-          <stop offset="100%" stopColor="#D99A50" />
+          <stop offset="0%" stopColor="var(--color-cookie-inner-light)" />
+          <stop offset="100%" stopColor="var(--color-cookie-inner-gold)" />
         </linearGradient>
       </defs>
 
@@ -132,14 +132,14 @@ function CookieIllustration({
           <path
             d="M143 17 C78 5 22 47 15 112 C7 178 55 219 139 210 C104 171 101 132 121 106 C142 77 147 44 143 17Z"
             fill={`url(#cookie-gold-${half})`}
-            stroke="#95531F"
+            stroke="var(--color-cookie-outline)"
             strokeWidth="5"
             strokeLinejoin="round"
           />
           <path
             d="M139 32 C90 29 41 63 34 112 C26 157 58 192 119 196"
             fill="none"
-            stroke="#FFF0BD"
+            stroke="var(--color-cookie-shine)"
             strokeWidth="11"
             strokeLinecap="round"
             opacity=".75"
@@ -147,7 +147,7 @@ function CookieIllustration({
           <path
             d="M143 17 C128 54 135 83 121 106 C101 132 104 171 139 210"
             fill="none"
-            stroke="#8B4C20"
+            stroke="var(--color-cookie-crease)"
             strokeWidth="7"
             strokeLinecap="round"
           />
@@ -164,14 +164,14 @@ function CookieIllustration({
           <path
             d="M17 17 C82 5 138 47 145 112 C153 178 105 219 21 210 C56 171 59 132 39 106 C18 77 13 44 17 17Z"
             fill={`url(#cookie-gold-${half})`}
-            stroke="#95531F"
+            stroke="var(--color-cookie-outline)"
             strokeWidth="5"
             strokeLinejoin="round"
           />
           <path
             d="M21 32 C70 29 119 63 126 112 C134 157 102 192 41 196"
             fill="none"
-            stroke="#FFF0BD"
+            stroke="var(--color-cookie-shine)"
             strokeWidth="11"
             strokeLinecap="round"
             opacity=".75"
@@ -179,7 +179,7 @@ function CookieIllustration({
           <path
             d="M17 17 C32 54 25 83 39 106 C59 132 56 171 21 210"
             fill="none"
-            stroke="#8B4C20"
+            stroke="var(--color-cookie-crease)"
             strokeWidth="7"
             strokeLinecap="round"
           />
@@ -193,7 +193,7 @@ function CookieIllustration({
         </>
       )}
 
-      <g fill="#A9632B" opacity=".45">
+      <g fill="var(--color-cookie-fleck)" opacity=".45">
         <circle cx={left ? 64 : 96} cy="83" r="4" />
         <circle cx={left ? 78 : 82} cy="147" r="3" />
         <circle cx={left ? 50 : 110} cy="126" r="2.5" />
@@ -254,15 +254,15 @@ export default function FortuneCookiePage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl pb-20 pt-8">
-      <div className="mb-10 text-center">
+    <div className="mx-auto max-w-5xl pb-section pt-block">
+      <div className="mb-block rounded-panel border border-line bg-blue-tint p-6 text-center sm:p-block">
         <p className="mb-3 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-ink-soft">
           <Sparkles aria-hidden="true" className="size-4" />
           Cookie Shop · Interactive Experience
           <Sparkles aria-hidden="true" className="size-4" />
         </p>
 
-        <h1 className="mb-4 text-4xl font-black sm:text-6xl">
+        <h1 className="mb-4 text-4xl font-bold">
           Crack Your Fortune
           <span className="ml-2 inline-block" aria-hidden="true">
             🥠
@@ -276,8 +276,8 @@ export default function FortuneCookiePage() {
         </p>
       </div>
 
-      <div className="framed offset-purple overflow-hidden p-5 sm:p-10">
-        <div className="fortune-scene relative flex min-h-[390px] flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-line bg-blue-tint p-5 text-center sm:min-h-[480px]">
+      <div className="rounded-panel border border-line bg-canvas p-3 sm:p-block">
+        <div className="fortune-scene relative flex min-h-[390px] flex-col items-center justify-center overflow-hidden rounded-frame border border-line bg-yellow-wash p-5 text-center sm:min-h-[480px]">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 opacity-30"
@@ -292,13 +292,13 @@ export default function FortuneCookiePage() {
 
           <span
             aria-hidden="true"
-            className="absolute left-[12%] top-[15%] text-3xl text-purple"
+            className="absolute left-[12%] top-[15%] text-3xl text-link"
           >
             ✦
           </span>
           <span
             aria-hidden="true"
-            className="absolute right-[15%] top-[23%] text-4xl text-purple"
+            className="absolute right-[15%] top-[23%] text-4xl text-link"
           >
             ✧
           </span>
@@ -323,7 +323,7 @@ export default function FortuneCookiePage() {
               >
                 <span
                   aria-hidden="true"
-                  className="absolute inset-8 rounded-full bg-purple/20 blur-3xl"
+                  className="absolute inset-8 rounded-full bg-brand/20 blur-3xl"
                 />
 
                 <span className="fortune-whole relative flex h-44 w-52 items-center justify-center sm:h-52 sm:w-64">
@@ -356,8 +356,8 @@ export default function FortuneCookiePage() {
                 aria-hidden="true"
                 className="fortune-break relative flex h-60 w-72 items-center justify-center sm:h-72 sm:w-96"
               >
-                <div className="fortune-paper absolute z-0 flex h-28 w-40 items-center justify-center border-2 border-amber-700 bg-[#FFF7DB] shadow-lg">
-                  <span className="text-3xl text-amber-800">✦</span>
+                <div className="fortune-paper absolute z-0 flex h-28 w-40 items-center justify-center border border-line bg-canvas shadow-lg">
+                  <span className="text-3xl text-link">✦</span>
                 </div>
 
                 <div className="fortune-break-left absolute left-1/2 z-10 h-44 w-24 -translate-x-full sm:h-52 sm:w-32">
@@ -371,7 +371,7 @@ export default function FortuneCookiePage() {
                 {CRUMBS.map((crumb, index) => (
                   <span
                     key={index}
-                    className="fortune-crumb absolute left-1/2 top-1/2 z-20 rounded-full bg-[#C88A45]"
+                    className="fortune-crumb absolute left-1/2 top-1/2 z-20 rounded-full bg-brand"
                     style={
                       {
                         width: crumb.size,
@@ -404,27 +404,27 @@ export default function FortuneCookiePage() {
               <div
                 role="status"
                 aria-live="polite"
-                className="fortune-unfold w-full rotate-[-1deg] border-2 border-ink bg-[#FFF7DB] px-5 py-8 text-[#382715] shadow-[6px_6px_0_#9D75D4] sm:px-10"
+                className="fortune-unfold w-full rotate-[-1deg] rounded-frame border border-line bg-canvas px-5 py-8 text-ink shadow-[4px_4px_0_0_var(--color-brand)] sm:px-10"
               >
                 <Sparkles
                   aria-hidden="true"
-                  className="mx-auto mb-4 size-7 text-[#7951B2]"
+                  className="mx-auto mb-4 size-7 text-link"
                 />
 
                 <p className="mb-4 text-2xl font-black leading-snug sm:text-3xl">
                   {fortune.message}
                 </p>
 
-                <p className="text-base text-[#68523C]">
+                <p className="text-base text-ink-soft">
                   {fortune.detail}
                 </p>
 
                 <div
                   aria-hidden="true"
-                  className="mx-auto mt-5 h-px w-24 bg-amber-700/30"
+                  className="mx-auto mt-5 h-px w-24 bg-line"
                 />
 
-                <p className="mt-3 text-xs font-bold uppercase tracking-[0.25em] text-[#7951B2]">
+                <p className="mt-3 text-xs font-bold uppercase tracking-[0.25em] text-link">
                   Your cookie fortune
                 </p>
               </div>
@@ -439,7 +439,7 @@ export default function FortuneCookiePage() {
               Your lucky cookie match
             </div>
 
-            <div className="mx-auto max-w-xl rounded-2xl border-2 border-line bg-canvas p-6">
+            <div className="mx-auto max-w-xl rounded-frame border border-line bg-blue-tint p-6">
               <div className="mb-3 text-6xl" aria-hidden="true">
                 {selectedCookie.emoji}
               </div>

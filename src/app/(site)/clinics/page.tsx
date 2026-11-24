@@ -9,11 +9,12 @@ export const metadata: Metadata = {
 
 export default function OrderCookiesPage() {
   return (
-    <div className="grid gap-section pb-6">
+    <div className="grid gap-block pb-block">
       <PageTitle
         title="Order Cookies"
         intro="Choose your favourites, review your basket and send a test order. No online payment required."
-        tone="purple"
+        tone="blue"
+        className="mb-0 border border-line"
       />
       <CookieOrderForm />
     </div>

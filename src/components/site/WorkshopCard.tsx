@@ -12,52 +12,31 @@ type WorkshopCardProps = {
   headingLevel?: 'h2' | 'h3'
 }
 
-// These images are only used on the workshop overview cards.
-// Workshop detail pages keep their original images.
-const CARD_IMAGES: Record<string, { src: string; alt: string }> = {
-  'classic-chocolate-chip': {
-    src: '/images/workshops/classic-chocolate-chip.png',
-    alt: 'Three classic chocolate chip cookies on a plate with baking ingredients.',
-  },
-  'double-chocolate': {
-    src: '/images/workshops/double-chocolate.png',
-    alt: 'Three double chocolate cookies on a plate with chocolate pieces.',
-  },
-  'salted-caramel': {
-    src: '/images/workshops/salted-caramel.png',
-    alt: 'Three salted caramel cookies on a plate with caramel and baking ingredients.',
-  },
-  'white-chocolate': {
-    src: '/images/workshops/white-chocolate.png',
-    alt: 'Three white chocolate cookies on a plate with white chocolate pieces.',
-  },
-}
-
 export function WorkshopCard({
   workshop,
   query = '',
   headingLevel = 'h3',
 }: WorkshopCardProps) {
-  const cardImage = CARD_IMAGES[workshop.slug] ?? workshopImage(workshop)
+  const cardImage = workshopImage(workshop)
 
   return (
     <FramedCard
       title={workshop.title}
       href={`/workshops/${workshop.slug}${query}`}
       image={cardImage}
-      accent="purple"
+      accent="yellow"
       headingLevel={headingLevel}
     >
       <Badge tone={workshop.level === 'beginner' ? 'mint' : 'yellow'}>
         {levelLabel(workshop.level)}
       </Badge>
 
-      <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1">
+      <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2 rounded-control bg-blue-tint p-3">
         <dt className="text-ink-soft">When</dt>
         <dd className="font-semibold">{formatWhen(workshop)}</dd>
 
         <dt className="text-ink-soft">Price</dt>
-        <dd className="font-semibold">{formatPrice(workshop.price)}</dd>
+        <dd className="font-semibold tabular-nums">{formatPrice(workshop.price)}</dd>
       </dl>
 
       <p>{workshop.summary}</p>

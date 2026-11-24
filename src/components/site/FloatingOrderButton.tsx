@@ -4,7 +4,8 @@
 import { useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ArrowRight, ShoppingBag, X } from 'lucide-react'
+import { ShoppingBag, X } from 'lucide-react'
+import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 
 const STORAGE_KEY = 'cookie-shop-hide-floating-order'
 
@@ -20,6 +21,9 @@ function getServerSnapshot() {
 
 export function FloatingOrderButton() {
   const pathname = usePathname()
+  const { count, total } = useOrderBasket()
+  const onOrderPage = pathname === '/clinics'
+  const summary = count > 0 ? `${count} ${count === 1 ? 'cookie' : 'cookies'} · ${formatOrderAmount(total)}` : null
 
   const hydrated = useSyncExternalStore(
     subscribe,
@@ -53,27 +57,24 @@ export function FloatingOrderButton() {
     !hydrated ||
     dismissed ||
     storedDismissed ||
-    pathname === '/clinics' ||
+    (onOrderPage && !summary) ||
     pathname?.startsWith('/clinics/')
   ) {
     return null
   }
 
   return (
-    <div className="fixed bottom-3 left-3 z-40 max-w-[calc(100vw-6rem)] sm:bottom-6 sm:left-6">
+    <div className="fixed bottom-3 left-3 z-40 flex max-w-[calc(100vw-7rem)] items-center gap-2 rounded-panel border border-line bg-canvas p-1.5 shadow-[3px_3px_0_0_var(--color-brand)] sm:bottom-6 sm:left-6">
       <Link
-        href="/clinics"
-        aria-label="Order cookies now"
-        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-white/30 bg-[#6941C6] px-3 py-2 text-sm font-black text-white no-underline shadow-[0_8px_28px_rgba(40,20,90,0.35)] transition-all duration-200 hover:-translate-y-1 hover:bg-[#5833B3] hover:shadow-[0_12px_32px_rgba(40,20,90,0.45)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#6941C6] sm:min-h-14 sm:gap-3 sm:px-5 sm:py-3 sm:text-base"
+        href={onOrderPage ? '#basket' : '/clinics'}
+        aria-label={summary ? `${onOrderPage ? 'Review basket' : 'Order cookies now'}: ${summary}` : 'Order cookies now'}
+        className="inline-flex min-h-11 min-w-0 items-center gap-2 rounded-control bg-ink px-3 py-2 text-sm font-bold leading-tight text-canvas no-underline transition-colors hover:bg-link focus-visible:outline-offset-2 sm:px-4"
       >
-        <ShoppingBag aria-hidden="true" className="size-5 shrink-0" />
-
-        <span className="whitespace-nowrap">
-          Order Cookies
-          <span className="hidden sm:inline"> Now</span>
+        <ShoppingBag aria-hidden="true" className="size-4 shrink-0" />
+        <span className="min-w-0">
+          {onOrderPage ? 'Review basket' : 'Order Cookies'}
+          {summary && <span className="mt-1 block font-normal tabular-nums">{summary}</span>}
         </span>
-
-        <ArrowRight aria-hidden="true" className="size-5 shrink-0" />
       </Link>
 
       <button
@@ -81,7 +82,7 @@ export function FloatingOrderButton() {
         onClick={dismiss}
         aria-label="Hide floating order button"
         title="Hide this button"
-        className="absolute -right-2 -top-3 flex size-8 items-center justify-center rounded-full border-2 border-ink bg-canvas text-ink shadow-md transition-transform hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        className="flex size-11 shrink-0 items-center justify-center rounded-control text-ink hover:bg-blue-tint focus-visible:outline-offset-2"
       >
         <X aria-hidden="true" className="size-4" />
       </button>

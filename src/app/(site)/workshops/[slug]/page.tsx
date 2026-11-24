@@ -56,23 +56,22 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
   const facts = await payload.findGlobal({ slug: 'site-facts', depth: 0 })
 
   return (
-    <article className="pb-6">
+    <article className="pb-block">
       <ParentLink href={back} label="Workshops" current={workshop.title} />
       <PageTitle
         title={workshop.title}
         intro={workshop.summary}
-        tone="purple"
+        tone="blue"
         image={workshopImage(workshop)}
-        imageAccent="purple"
-        className="mt-3 sm:mt-4"
+        className="mt-3 border border-line sm:mt-4"
       >
         <Badge tone={workshop.level === 'beginner' ? 'mint' : 'yellow'}>{levelLabel(workshop.level)}</Badge>
       </PageTitle>
 
       <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
         {/* First in the page (a phone shows it first), on the right on wide screens. */}
-        <section aria-labelledby="facts" className="framed grid gap-4 p-6 offset-purple lg:col-start-2 lg:row-start-1">
-          <h2 id="facts" className="text-xl">At a glance</h2>
+        <section aria-labelledby="facts" className="grid min-w-0 gap-stack rounded-panel border border-line bg-yellow-wash p-6 lg:col-start-2 lg:row-start-1">
+          <h2 id="facts" className="text-2xl">At a glance</h2>
           <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2">
             <dt className="text-ink-soft">Level</dt>
             <dd className="font-semibold">{levelLabel(workshop.level)}</dd>
@@ -96,17 +95,17 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
           )}
         </section>
 
-        <div className="grid content-start gap-block lg:col-start-1 lg:row-start-1">
+        <div className="grid min-w-0 content-start gap-block lg:col-start-1 lg:row-start-1">
           {workshop.description && (
-            <section aria-labelledby="learn" className="grid gap-3">
+            <section aria-labelledby="learn" className="grid gap-stack">
               <h2 id="learn" className="text-2xl">What you learn</h2>
-              <div className="rich-text">
+              <div className="rich-text max-w-reading">
                 <RichText data={workshop.description} disableContainer />
               </div>
             </section>
           )}
           <TopicList topics={workshop.topics} />
-          <ButtonLink href={back} variant="secondary" className="w-fit">
+          <ButtonLink href={back} variant="secondary" className="w-fit max-w-full whitespace-normal text-center">
             {filters.topic || filters.level ? 'Back to the filtered workshops' : 'Back to all workshops'}
           </ButtonLink>
         </div>

@@ -74,7 +74,7 @@ export function LoginForm() {
 
   return (
     // noValidate: the server explains each problem in words, the same way in every browser.
-    <form action={formAction} noValidate className="grid gap-6">
+    <form action={formAction} noValidate className="grid gap-block">
       {state && (
         <div ref={summary} tabIndex={-1} className="rounded-frame">
           <LoginProblem result={state} />

@@ -66,7 +66,7 @@ export function ThemeToggle() {
           ? 'Switch to light mode'
           : 'Switch to dark mode'
       }
-      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-control border-2 border-ink bg-canvas text-ink transition-colors hover:bg-blue-tint disabled:opacity-50"
+      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-control border border-ink bg-blue-tint text-ink transition-colors hover:bg-yellow-wash disabled:opacity-50"
     >
       {theme === 'dark' ? (
         <Sun aria-hidden="true" className="size-5" />

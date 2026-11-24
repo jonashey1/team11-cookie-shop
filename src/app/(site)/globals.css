@@ -40,29 +40,41 @@
 
 @theme {
   /* Colour: the course palette */
-  --color-ink: #001c54;
-  --color-ink-soft: #46597a;
-  --color-canvas: #ffffff;
-  --color-line: #cdd5e4;
-  --color-link: #0d51d7;
-  --color-focus: #0d51d7;
-  --color-blue-tint: #eaf0fd;
+  --color-ink: #38251d;
+  --color-ink-soft: #684e40;
+  --color-canvas: #fff8ee;
+  --color-line: #a1816c;
+  --color-link: #873b24;
+  --color-focus: #863b22;
+  --color-blue-tint: #f5e7d7;
+  --color-scrim: #231a16;
 
-  --color-mint: #33dfc8;
-  --color-mint-tint: #b5ebe4;
-  --color-mint-wash: #e4fbf8;
-  --color-purple: #705bfe;
-  --color-purple-tint: #ccc2ff;
-  --color-purple-wash: #f1eeff;
-  --color-coral: #ff6868;
-  --color-coral-tint: #ffb5b5;
-  --color-coral-wash: #fff0f0;
-  --color-yellow: #ffcf11;
-  --color-yellow-tint: #ffeeac;
-  --color-yellow-wash: #fff9df;
+  /* The illustrated fortune cookie keeps its baked colours in both themes. */
+  --color-cookie-highlight: #ffe4a2;
+  --color-cookie-gold: #eab46a;
+  --color-cookie-edge: #b86e31;
+  --color-cookie-inner-light: #fff1c9;
+  --color-cookie-inner-gold: #d99a50;
+  --color-cookie-outline: #95531f;
+  --color-cookie-shine: #fff0bd;
+  --color-cookie-crease: #8b4c20;
+  --color-cookie-fleck: #a9632b;
+
+  --color-mint: #97ad84;
+  --color-mint-tint: #d6e2c9;
+  --color-mint-wash: #eaf0e2;
+  --color-purple: #75465c;
+  --color-purple-tint: #ead2dc;
+  --color-purple-wash: #f7edf1;
+  --color-coral: #da806b;
+  --color-coral-tint: #f2c9bc;
+  --color-coral-wash: #fae9e3;
+  --color-yellow: #dfa85d;
+  --color-yellow-tint: #f3d5a6;
+  --color-yellow-wash: #fbefdb;
 
   /* The site's signature colour: offsets behind framed items, the marker on the current page. */
-  --color-brand: var(--color-mint);
+  --color-brand: var(--color-yellow);
 
   /* States: a colour for marks, a light background for boxes. The text on them stays ink. */
   --color-success: var(--color-mint);
@@ -75,7 +87,7 @@
   --color-info-wash: var(--color-blue-tint);
 
   /* Type: next/font (in layout.tsx) puts the font's real name in --font-hanken-grotesk. */
-  --font-heading: var(--font-hanken-grotesk), system-ui, sans-serif;
+  --font-heading: Georgia, Cambria, serif;
   --font-body: var(--font-hanken-grotesk), system-ui, sans-serif;
   --font-sans: var(--font-body);
 
@@ -100,15 +112,15 @@
   /* Space */
   --spacing-stack: 0.75rem;
   --spacing-block: 2rem;
-  --spacing-section: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+  --spacing-section: clamp(4rem, 2.75rem + 4vw, 7rem);
   --spacing-gutter: clamp(1rem, 4vw, 3rem);
 
   /* Shape */
   --radius-control: 0.625rem;
   --radius-frame: 0.875rem;
   --radius-panel: 1.5rem;
-  --frame-width: 2px;
-  --offset-size: 6px;
+  --frame-width: 1px;
+  --offset-size: 4px;
 
   /* Focus */
   --focus-width: 3px;
@@ -271,33 +283,33 @@
   color-scheme: dark;
 
   /* Main colours */
-  --color-ink: #f3f6ff;
-  --color-ink-soft: #bac7df;
-  --color-canvas: #101827;
-  --color-line: #41516b;
-  --color-link: #91b8ff;
-  --color-focus: #a8c5ff;
-  --color-blue-tint: #233652;
+  --color-ink: #fff1e2;
+  --color-ink-soft: #e1c9b3;
+  --color-canvas: #231a16;
+  --color-line: #9c7863;
+  --color-link: #ffc6a7;
+  --color-focus: #ffc68e;
+  --color-blue-tint: #3d2b22;
 
   /* Accent colours */
-  --color-mint: #48e5d0;
-  --color-mint-tint: #235e5b;
-  --color-mint-wash: #183a3a;
+  --color-mint: #b3ca9e;
+  --color-mint-tint: #44553a;
+  --color-mint-wash: #303c2a;
 
   --color-purple: #aa9aff;
-  --color-purple-tint: #514582;
-  --color-purple-wash: #30294e;
+  --color-purple-tint: #624254;
+  --color-purple-wash: #402d38;
 
-  --color-coral: #ff9292;
-  --color-coral-tint: #82464b;
-  --color-coral-wash: #4a292f;
+  --color-coral: #ffab98;
+  --color-coral-tint: #714338;
+  --color-coral-wash: #492e29;
 
-  --color-yellow: #ffdc65;
-  --color-yellow-tint: #776128;
-  --color-yellow-wash: #40351e;
+  --color-yellow: #f3c27d;
+  --color-yellow-tint: #69502f;
+  --color-yellow-wash: #44341f;
 
   /* Brand and feedback colours */
-  --color-brand: var(--color-mint);
+  --color-brand: var(--color-yellow);
 
   --color-success: var(--color-mint);
   --color-success-wash: var(--color-mint-wash);

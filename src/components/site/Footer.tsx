@@ -17,10 +17,10 @@ const LINKS = [
 
 export function Footer() {
   return (
-    <footer className="mt-section bg-blue-tint">
-      <div className="mx-auto grid max-w-page gap-block px-gutter py-12 sm:grid-cols-[2fr_1fr]">
-        <div className="grid content-start gap-3">
-          <p className="font-heading text-xl font-black">
+    <footer className="mt-section border-t border-line bg-blue-tint pb-24">
+      <div className="mx-auto grid max-w-page gap-block px-gutter py-block sm:grid-cols-[1.1fr_1fr] sm:py-section">
+        <div className="grid content-start gap-stack">
+          <p className="font-heading text-2xl font-bold tracking-tight text-ink">
             {SITE_NAME}
           </p>
 
@@ -35,17 +35,17 @@ export function Footer() {
           </p>
         </div>
 
-        <nav aria-label="Footer navigation" className="grid content-start gap-2">
-          <h2 className="text-sm font-bold tracking-[0.08em] uppercase">
+        <nav aria-label="Footer navigation" className="grid content-start gap-stack">
+          <h2 className="font-sans text-sm font-bold tracking-wider text-ink uppercase">
             Quick Links
           </h2>
 
-          <ul className="grid gap-2">
+          <ul className="grid grid-cols-2 gap-x-stack">
             {LINKS.map(({ href, label }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className="hover:underline"
+                  className="inline-flex min-h-11 items-center rounded-control py-1 text-sm font-semibold hover:text-ink"
                 >
                   {label}
                 </Link>
@@ -54,7 +54,7 @@ export function Footer() {
           </ul>
         </nav>
 
-        <div className="border-t border-line pt-6 sm:col-span-2">
+        <div className="border-t border-line pt-stack sm:col-span-2">
           <p className="text-sm font-semibold">
             Team 11 - Cookie Shop | UGent | Team code: T11-S3F8
           </p>

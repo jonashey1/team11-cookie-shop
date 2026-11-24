@@ -208,7 +208,7 @@ export function AccessibilityCenter() {
         onClick={() => setOpen(true)}
         aria-label="Open accessibility settings"
         title="Accessibility settings"
-        className="inline-flex min-h-11 items-center gap-2 rounded-control border-2 border-ink bg-canvas px-3 font-semibold text-ink hover:bg-blue-tint"
+        className="inline-flex min-h-11 items-center gap-2 rounded-control border border-ink bg-blue-tint px-3 font-semibold text-ink hover:bg-blue-tint"
       >
         <UniversalAccessIcon className="size-6" />
         <span className="hidden sm:inline">Accessibility</span>
@@ -216,7 +216,7 @@ export function AccessibilityCenter() {
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-scrim/70 p-4"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) {
               closePanel()
@@ -229,13 +229,13 @@ export function AccessibilityCenter() {
             aria-modal="true"
             aria-labelledby="accessibility-title"
             aria-describedby="accessibility-description"
-            className="max-h-[90dvh] w-full max-w-lg overflow-y-auto rounded-panel border-2 border-ink bg-canvas p-5 text-ink shadow-xl sm:p-7"
+            className="max-h-[90dvh] w-full max-w-lg overflow-y-auto rounded-panel border border-line bg-canvas p-5 text-ink shadow-xl sm:p-7"
           >
             <div className="mb-3 flex items-start justify-between gap-4">
               <div>
                 <h2
                   id="accessibility-title"
-                  className="flex items-center gap-2 text-2xl font-black"
+                  className="flex items-center gap-2 font-heading text-2xl font-bold"
                 >
                   <UniversalAccessIcon className="size-7" />
                   Accessibility
@@ -264,7 +264,7 @@ export function AccessibilityCenter() {
               {OPTIONS.map(({ key, label, description, Icon }) => (
                 <div
                   key={key}
-                  className="flex items-center justify-between gap-4 rounded-control border border-line p-3"
+                  className="flex items-center justify-between gap-4 rounded-frame border border-line bg-blue-tint p-3"
                 >
                   <div className="flex min-w-0 items-start gap-3">
                     <Icon

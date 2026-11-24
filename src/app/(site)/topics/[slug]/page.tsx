@@ -61,24 +61,24 @@ export default async function TopicPage({ params }: Props) {
   const { topic, workshops } = found
 
   return (
-    <div className="pb-6">
+    <div className="pb-block">
       <ParentLink href="/workshops" label="Workshops" current={topic.name} />
-      <PageTitle title={topic.name} intro={topic.description} tone="purple" className="mt-3 sm:mt-4" />
+      <PageTitle title={topic.name} intro={topic.description} tone="blue" className="mt-3 border border-line sm:mt-4" />
       <section aria-labelledby="topic-workshops" className="grid gap-block">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <h2 id="topic-workshops" className="text-2xl">
+        <div className="flex flex-wrap items-baseline justify-between gap-stack border-b border-line pb-stack">
+          <h2 id="topic-workshops" className="text-3xl">
             {workshops.length === 0
               ? 'No workshop covers this topic yet'
               : `Workshops about ${topic.name} — ${workshops.length} ${workshops.length === 1 ? 'workshop' : 'workshops'}`}
           </h2>
-          <ButtonLink href={`/workshops?topic=${topic.slug}`} variant="link">
+          <ButtonLink href={`/workshops?topic=${topic.slug}`} variant="link" className="min-h-11 max-w-full whitespace-normal text-left">
             Filter the workshop list by this topic
           </ButtonLink>
         </div>
         {workshops.length > 0 && (
-          <ul className="grid gap-block lg:grid-cols-2">
+          <ul className="grid gap-block md:grid-cols-2">
             {workshops.map((workshop) => (
-              <li key={workshop.id} className="grid">
+              <li key={workshop.id} className="grid min-w-0">
                 <WorkshopCard workshop={workshop} />
               </li>
             ))}

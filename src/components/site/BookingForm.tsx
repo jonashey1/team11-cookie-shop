@@ -132,7 +132,7 @@ export function BookingForm(props: BookingFormProps) {
   return (
     // noValidate: the server checks every field and explains each problem in words, the same way in
     // every browser, instead of the browser's own small pop-ups.
-    <form action={formAction} noValidate className="grid gap-6">
+    <form action={formAction} noValidate className="grid gap-block">
       {/* Everything inside can read what the user sent last time (useSentValues). */}
       <SentValues value={values}>
         {failed && (

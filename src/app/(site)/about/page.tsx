@@ -11,11 +11,12 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="grid gap-section pb-6">
+    <div className="grid gap-section pb-block">
       <PageTitle
         title="About Us"
         intro="Get to know Cookie Shop and discover the idea behind our online cookie store."
-        tone="purple"
+        tone="blue"
+        className="mb-0 border border-line"
       />
 
       <section aria-labelledby="our-story" className="grid gap-4">
@@ -23,14 +24,14 @@ export default function AboutPage() {
           Our Story
         </h2>
 
-        <p className="max-w-[65ch]">
+        <p className="max-w-reading text-ink-soft">
           Cookie Shop is a fictional online cookie store created
           as part of a university web development project.
           Our idea is simple: make discovering and ordering
           delicious cookies easy, clear and enjoyable.
         </p>
 
-        <p className="max-w-[65ch]">
+        <p className="max-w-reading text-ink-soft">
           We want to create a website where customers can
           explore different cookie flavours, compare products
           and find their favourites in just a few clicks.
@@ -43,7 +44,7 @@ export default function AboutPage() {
         </h2>
 
         <div className="grid gap-block md:grid-cols-3">
-          <div className="framed grid content-start gap-3 p-6 offset-purple">
+          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-6">
             <h3 className="text-xl">Discover</h3>
             <p>
               Help customers discover a variety of cookie
@@ -51,7 +52,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="framed grid content-start gap-3 p-6 offset-coral">
+          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-6">
             <h3 className="text-xl">Choose</h3>
             <p>
               Make it easy to compare cookies and choose
@@ -59,7 +60,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="framed grid content-start gap-3 p-6 offset-purple">
+          <div className="grid content-start gap-stack rounded-panel border border-line bg-blue-tint p-6">
             <h3 className="text-xl">Order</h3>
             <p>
               Develop a simple online ordering process
@@ -74,14 +75,14 @@ export default function AboutPage() {
           Our University Project
         </h2>
 
-        <p className="max-w-[65ch]">
+        <p className="max-w-reading text-ink-soft">
           This website is developed by Team 11 as part of
           a web development course at Ghent University.
           Our focus is on building a functional, accessible
           and user-friendly online store.
         </p>
 
-        <p className="max-w-[65ch]">
+        <p className="max-w-reading text-ink-soft">
           Cookie Shop is a demonstration project.
           The products and prices shown on this website
           are examples and do not represent real commercial offers.
@@ -90,7 +91,7 @@ export default function AboutPage() {
 
       <section
         aria-labelledby="explore"
-        className="grid gap-4 rounded-panel bg-mint-wash p-6 sm:p-10"
+        className="grid gap-stack rounded-panel border border-line bg-yellow-wash p-6 sm:p-block"
       >
         <h2 id="explore" className="text-2xl">
           Discover Our Cookies

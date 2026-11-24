@@ -19,22 +19,21 @@ type HeroProps = {
 
 export function Hero({ title, text, actions, image }: HeroProps) {
   return (
-    <section className="grid items-center gap-block rounded-panel bg-mint-wash p-5 sm:p-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:p-14">
-      <div className="grid min-w-0 gap-4 sm:gap-5">
+    <section className="grid items-center gap-block rounded-panel border border-line bg-blue-tint p-5 sm:p-block lg:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] lg:px-10 lg:py-10">
+      <div className="grid min-w-0 gap-stack sm:gap-5">
         <p className="text-sm font-bold tracking-[0.08em] text-ink-soft uppercase">{TAGLINE}</p>
-        <h1 className="text-3xl leading-tight sm:text-4xl">{title}</h1>
-        {text && <p className="max-w-[46ch] text-lg">{text}</p>}
-        {actions && <div className="mt-2 flex flex-col gap-3 [&>a]:w-full [&>a]:justify-center sm:flex-row sm:flex-wrap sm:[&>a]:w-auto">{actions}</div>}
+        <h1 className="max-w-[14ch] text-4xl leading-tight text-ink">{title}</h1>
+        {text && <p className="max-w-[46ch] text-base text-ink-soft sm:text-lg">{text}</p>}
+        {actions && <div className="mt-2 flex flex-col gap-stack [&>a]:w-full [&>a]:justify-center sm:flex-row sm:flex-wrap sm:[&>a]:w-auto">{actions}</div>}
       </div>
       {image && (
-        // The frame and its solid offset are the course's look for a featured picture.
-        <div className="framed relative aspect-[4/3] overflow-hidden offset-purple [--offset-size:10px]">
+        <div className="relative aspect-[5/4] overflow-hidden rounded-frame bg-yellow-wash lg:aspect-[4/5]">
           <Image
             src={image.src}
             alt={image.alt}
             fill
-            priority
-            sizes="(min-width: 1024px) 34rem, 100vw"
+            preload
+            sizes="(min-width: 80rem) 32rem, (min-width: 64rem) 43vw, 88vw"
             className="object-cover"
           />
         </div>

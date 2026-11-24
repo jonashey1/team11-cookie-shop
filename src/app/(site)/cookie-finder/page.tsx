@@ -118,8 +118,8 @@ export default function CookieFinderPage() {
   const result = finished ? findCookie(answers) : null
 
   return (
-    <div className="mx-auto max-w-3xl pb-16 pt-8">
-      <div className="mb-10 text-center">
+    <div className="mx-auto max-w-3xl pb-section pt-block">
+      <div className="mb-block rounded-panel border border-line bg-blue-tint p-6 text-center sm:p-block">
         <p className="mb-3 text-sm font-bold uppercase tracking-widest text-ink-soft">
           Cookie Shop · Interactive Experience
         </p>
@@ -134,7 +134,7 @@ export default function CookieFinderPage() {
         </p>
       </div>
 
-      <div className="framed offset-purple p-5 sm:p-10">
+      <div className="rounded-panel border border-line bg-canvas p-5 sm:p-block">
         {!finished ? (
           <>
             <div className="mb-8">
@@ -154,7 +154,7 @@ export default function CookieFinderPage() {
                 aria-valuenow={progress}
               >
                 <div
-                  className="h-full rounded-full bg-purple transition-[width] duration-300 motion-reduce:transition-none"
+                  className="h-full rounded-full bg-link transition-[width] duration-300 motion-reduce:transition-none"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -175,7 +175,7 @@ export default function CookieFinderPage() {
                     key={option.label}
                     type="button"
                     onClick={() => chooseAnswer(option.value)}
-                    className="flex min-h-28 items-center gap-4 rounded-xl border-2 border-line bg-canvas p-5 text-left font-semibold transition-colors hover:border-purple hover:bg-blue-tint focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
+                    className="flex min-h-28 items-center gap-4 rounded-frame border border-line bg-blue-tint p-5 text-left font-semibold transition-colors hover:border-ink hover:bg-yellow-wash focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-focus"
                   >
                     <span className="text-3xl" aria-hidden="true">
                       {option.emoji}
@@ -187,7 +187,7 @@ export default function CookieFinderPage() {
               </div>
             </div>
 
-            <div className="mt-8 flex items-center justify-between gap-4">
+            <div className="mt-block flex flex-wrap items-center justify-between gap-stack">
               {step > 0 ? (
                 <button
                   type="button"
@@ -217,7 +217,7 @@ export default function CookieFinderPage() {
               </p>
 
               <div
-                className="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-mint-wash text-7xl"
+                className="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-yellow-wash text-7xl"
                 aria-hidden="true"
               >
                 {result.emoji}
@@ -238,7 +238,7 @@ export default function CookieFinderPage() {
               <div className="flex flex-wrap justify-center gap-4">
                 <Link
                   href="/workshops"
-                  className="rounded-xl bg-purple px-6 py-4 font-bold text-white transition-opacity hover:opacity-90"
+                  className="inline-flex min-h-11 items-center justify-center rounded-control border border-ink bg-ink px-6 py-3 text-center font-bold text-canvas no-underline hover:bg-link"
                 >
                   Explore Our Cookies →
                 </Link>
@@ -246,7 +246,7 @@ export default function CookieFinderPage() {
                 <button
                   type="button"
                   onClick={restart}
-                  className="rounded-xl border-2 border-line bg-canvas px-6 py-4 font-bold hover:bg-blue-tint"
+                  className="min-h-11 rounded-control border border-line bg-canvas px-6 py-3 font-bold hover:bg-blue-tint"
                 >
                   Try Again ↻
                 </button>
