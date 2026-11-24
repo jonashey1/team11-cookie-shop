@@ -227,12 +227,8 @@ export default function CookieFinderPage() {
                 {result.name}
               </h2>
 
-              <p className="mx-auto mb-5 max-w-lg text-lg">
+              <p className="mx-auto mb-8 max-w-lg text-lg">
                 {result.description}
-              </p>
-
-              <p className="mb-8 text-2xl font-bold">
-                {result.price}
               </p>
 
               <div className="flex flex-wrap justify-center gap-4">
