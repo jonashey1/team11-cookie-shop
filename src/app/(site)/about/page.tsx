@@ -1,5 +1,7 @@
 
 import type { Metadata } from 'next'
+import { ArtisanPhotoFigure } from '@/components/site/ArtisanPhotoFigure'
+import { artisanPhotography } from '@/content/artisan-photography'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
 
@@ -10,6 +12,8 @@ export const metadata: Metadata = {
 }
 
 export default function AboutPage() {
+  const photo = artisanPhotography.aboutTeam
+
   return (
     <div className="grid gap-section pb-block">
       <PageTitle
@@ -20,22 +24,25 @@ export default function AboutPage() {
       />
 
       <section aria-labelledby="our-story" className="boutique-story grid gap-4">
-        <h2 id="our-story" className="text-2xl">
-          Our Story
-        </h2>
+        <div className="grid content-start gap-4">
+          <h2 id="our-story" className="text-2xl">
+            Our Story
+          </h2>
 
-        <p className="max-w-reading text-ink-soft">
-          Cookie Shop is a fictional online cookie store created
-          as part of a university web development project.
-          Our idea is simple: make discovering and ordering
-          delicious cookies easy, clear and enjoyable.
-        </p>
+          <p className="max-w-reading text-ink-soft">
+            Cookie Shop is a fictional online cookie store created
+            as part of a university web development project.
+            Our idea is simple: make discovering and ordering
+            delicious cookies easy, clear and enjoyable.
+          </p>
 
-        <p className="max-w-reading text-ink-soft">
-          We want to create a website where customers can
-          explore different cookie flavours, compare products
-          and find their favourites in just a few clicks.
-        </p>
+          <p className="max-w-reading text-ink-soft">
+            We want to create a website where customers can
+            explore different cookie flavours, compare products
+            and find their favourites in just a few clicks.
+          </p>
+        </div>
+        {photo && <ArtisanPhotoFigure photo={photo} sizes="(min-width: 80rem) 35rem, (min-width: 52rem) 48vw, 88vw" />}
       </section>
 
       <section aria-labelledby="our-mission" className="boutique-editorial grid gap-block">

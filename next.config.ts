@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
       {
         pathname: '/images/workshops/**',
       },
+      {
+        pathname: '/images/photography/**',
+      },
     ],
   },
 
