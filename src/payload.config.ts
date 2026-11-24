@@ -36,6 +36,7 @@ const transactions = databaseTransactions(databaseUrl)
 const config = buildConfig({
   admin: {
     user: Users.slug,
+    components: { afterNavLinks: ['./components/admin/OrderAnalyticsLink#OrderAnalyticsLink'] },
     importMap: {
       baseDir: path.resolve(dirname),
     },
