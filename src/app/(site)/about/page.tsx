@@ -32,14 +32,15 @@ export default function AboutPage() {
           <p className="max-w-reading text-ink-soft">
             Cookie Shop is a fictional online cookie store created
             as part of a university web development project.
-            Our idea is simple: make discovering and ordering
-            delicious cookies easy, clear and enjoyable.
+            We started with a simple question: how do you choose
+            when there are six flavours and every one sounds good?
           </p>
 
           <p className="max-w-reading text-ink-soft">
-            We want to create a website where customers can
-            explore different cookie flavours, compare products
-            and find their favourites in just a few clicks.
+            Follow your tastes with the Cookie Finder, compare the flavours
+            side by side, or make a four-cookie box of your own. Our fictional
+            workshops explore the techniques behind the flavours, from mixing dough
+            to working with chocolate and decorating with icing.
           </p>
         </div>
         {photo && <ArtisanPhotoFigure photo={photo} sizes="(min-width: 80rem) 35rem, (min-width: 52rem) 48vw, 88vw" />}
