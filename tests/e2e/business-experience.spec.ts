@@ -57,7 +57,7 @@ test('builds a box with keyboard controls and preserves existing basket items', 
   await submit.press('Enter')
   await expect(page.getByRole('status').filter({ hasText: 'Box added to your basket' })).toBeVisible()
   await expect(submit).toBeDisabled()
-  await page.getByRole('link', { name: 'Review basket' }).press('Enter')
+  await builder.getByRole('link', { name: 'Review basket' }).press('Enter')
   const basket = page.getByRole('region', { name: /Review your basket/ })
   await expect(basket).toContainText('Salted Caramel × 2')
   await expect(basket).toContainText('Classic Chocolate Chip × 1')
