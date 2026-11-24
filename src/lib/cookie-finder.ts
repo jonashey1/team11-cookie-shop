@@ -66,7 +66,7 @@ const RECOMMENDATIONS: Record<Answer, Recommendation> = {
   'cookies-and-cream': [6, 4],
 }
 
-export function findCookie(answers: readonly Answer[]) {
+function rankedCookies(answers: readonly Answer[]) {
   const scores = new Map<number, number>()
 
   for (const answer of answers) {
@@ -78,12 +78,35 @@ export function findCookie(answers: readonly Answer[]) {
     })
   }
 
-  const bestId = [...scores.entries()].sort(
+  return [...scores.entries()].sort(
     ([leftId, leftScore], [rightId, rightScore]) => {
       const byScore = rightScore - leftScore
       return byScore === 0 ? leftId - rightId : byScore
     },
-  )[0]?.[0]
+  )
 
-  return COOKIES.find((cookie) => cookie.id === bestId) ?? COOKIES[0]
+}
+
+const tasteLabels: Record<Answer, string> = {
+  chocolate: 'rich chocolate',
+  sweet: 'sweet and creamy flavours',
+  balanced: 'sweet and salty flavours',
+  adventurous: 'red velvet and adventurous flavours',
+  classic: 'classic sweet flavours',
+  'cookies-and-cream': 'a different flavour combination',
+}
+
+export function findCookie(answers: readonly Answer[]) {
+  const [best] = rankedCookies(answers)
+  return COOKIES.find(cookie => cookie.id === best?.[0]) ?? COOKIES[0]
+}
+
+export function explainCookieMatch(answers: readonly Answer[]) {
+  const [best, second] = rankedCookies(answers)
+  const cookie = COOKIES.find(product => product.id === best?.[0]) ?? COOKIES[0]
+  const alternative = COOKIES.find(product => product.id === second?.[0])
+  const relevant = answers.filter(answer => RECOMMENDATIONS[answer][0] === cookie.id)
+  const source = relevant.length ? relevant : answers.filter(answer => RECOMMENDATIONS[answer][1] === cookie.id)
+  const reasons = [...new Set(source)].map(answer => tasteLabels[answer])
+  return { cookie, alternative, reasons }
 }
