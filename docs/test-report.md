@@ -1,142 +1,88 @@
-
 # Test report
 
 **Written by:** jonashey1 — Team 11 (T11-S3F8)
 
-This report documents the functional testing, user observation and release checks of the Cookie Shop ordering system.
+This report records what we learned by watching a person use the Cookie Shop, what we changed because of it, and the release checks. Human observations and automated or AI-agent checks are kept apart: only the sessions in the first three sections were people using the site.
 
 ## What was tested, and how
 
-- **Task:** "Order three cookies through the Cookie Shop website. Select the cookies, enter the required customer details and complete the order."
-- **Who took part:** One family member (my sister). She performed the task independently, without assistance.
-- **Success:** The participant completes the ordering process independently, without encountering difficulties.
-- **Version of the site:** Cookie Shop website, with the ordering system implemented through PR #12. Production URL: https://team11-cookie-shop.vercel.app/clinics
-- **Device and browser:** Laptop. Browser not recorded.
-- **Place:** Not recorded.
-- **Date of the test:** 23 November 2026.
+### Session 1 — ordering task
+
+- **Task, as read to the participant:** "Order three cookies through the Cookie Shop website. Select the cookies, enter the required customer details and complete the order."
+- **Who took part:** One family member (the sister of a team member). What she had seen of the site before was not recorded.
+- **Version of the site:** the ordering system from PR #12, production address https://team11-cookie-shop.vercel.app/clinics
+- **Device:** laptop. Browser and place were not recorded.
+- **Date:** 23 November 2026.
+- **Success criterion:** she completes the order without help.
+
+### Session 2 — free exploration, then ordering
+
+- **Who took part:** the same participant.
+- **Task:** she first explored the site freely (including the chatbot). The observer then asked whether she could place an order.
+- **Devices:** iPhone and laptop. Browser versions were not recorded.
+- **Duration:** about three minutes in total; no timing per device.
+- **Date:** 23 November 2026.
+
+### Session 3 — retest after the change
+
+- **Who took part:** the same participant.
+- **Task:** revisit the updated homepage and find where to order cookies.
+- **Version:** the homepage after PR #17 (Order Cookies button in the hero). The exact build and device were not recorded.
+- **Date:** recorded on 23 November 2026 (PR #18).
 
 ## What we saw
 
 | # | Behaviour (what you saw) | Interpretation (what you think it means) | Uncertainty (what you are not sure of) |
 | --- | --- | --- | --- |
-| 1 | The participant independently completed the task of ordering three cookies. | The ordering process was understandable for this participant. | Other users may experience the website differently. |
-| 2 | The participant completed the task without reporting difficulties or needing assistance. | No obvious usability obstacles were identified during this test. | A single participant cannot represent all users. |
-| 3 | A separate functional test order was successfully submitted locally. | The ordering form was able to process the selected products. | Local functionality does not automatically guarantee identical production behaviour. |
-| 4 | The local test order appeared in Payload CMS with the correct products, quantities and total of €11.85. | The local ordering process correctly stored the order in the database. | This observation concerns the local database. |
+| 1 | Session 1: she ordered three cookies without help and without reporting difficulties. | The ordering form was understandable for this participant. | One participant cannot represent all users. |
+| 2 | Session 2: she explored the site and the chatbot first; after being asked to order, she completed the order without visible difficulty. | The order flow itself works once a user is on it. | We do not know whether she would have found ordering without the observer's prompt. |
+| 3 | Session 2, afterwards: she said it was not immediately easy to find where to order cookies. | Ordering was not discoverable enough from the homepage. | This is reported feedback; her click path and hesitation time were not recorded. |
+| 4 | Session 2: she said she liked dark mode and larger text, which helped her read. | The existing accessibility options were useful to her. | Her preference does not establish accessibility for other users. |
+| 5 | Session 3: she said ordering was clearer and easier to find than before. | The hero button improved discoverability for this participant. | Reported judgement, no timing; the same participant already knew the site. |
 
 ## What we changed, and the retest
 
-The historical notes below reflect their dates. The later reported follow-up supersedes earlier pending wording; its exact build and timings were not recorded.
+- **Finding 3 (ordering hard to find):** we added a prominent **Order Cookies** button to the homepage hero, a direct button in the homepage order card, and removed outdated "coming soon" copy. **Pull request: #17.**
+- **Retest:** Session 3, recorded on 23 November 2026 in **#18**: the same participant found the ordering page more easily and said it was clearer. Result: improved, as reported by the participant.
+- **Findings 1, 2, 4 and 5:** no change was needed.
 
-### Finding 1 — A working cookie ordering system was needed
-
-- **Finding:** The website previously did not support placing cookie orders.
-- **Fixed or not fixed:** Fixed.
-- **What we changed:** We implemented a cookie ordering interface with six cookie products, quantity controls, an order summary and an order form. We also added server-side validation and an Orders collection in Payload CMS.
-- **Pull request:** [#12 — Add cookie ordering system with Payload CMS](https://github.com/jonashey1/team11-cookie-shop/pull/12).
-- **Retest:** On 23 November 2026, a local test order containing Red Velvet, Salted Caramel and Cookies & Cream was successfully submitted. The order appeared in Payload CMS with the correct quantities and total price of €11.85. The ordering page was subsequently confirmed to be visible on the production website.
-
-### Finding 2 — User test with a family member
-
-- **Finding:** The participant completed the ordering task independently without difficulties.
-- **Fixed or not fixed:** No usability issue was identified.
-- **What we changed:** No additional changes were necessary based on the participant's observations.
-- **Pull request:** Not applicable. No code change resulted from this user test.
-- **Retest:** No corrective retest was required because the observed test did not reveal a usability problem.
-
-## Production verification — 23 November 2026
-
-These checks were performed separately from the observed sister usability test, using the deployed production website:
-
-- A fictional test order was submitted successfully on `/clinics`, and the confirmation displayed reference `bcf3710b-4475-4f19-83c5-cd55e43ea4b5`.
-- The matching reference was found in production Payload `/admin` under Orders, with status **New** and displayed total **€11.20**. This confirms production persistence for that order; a separate recorded item-by-item quantity comparison is still needed for the exact R2 acceptance test.
-- Vercel Web Analytics displayed **1 visitor and 7 page views** during the manual check. These are point-in-time observations, not permanent totals or evidence that custom events are supported.
-- The live Contact page displayed the OpenStreetMap integration and its privacy explanation; a recorded click-to-load test is still outstanding.
+Earlier versions of this report said the retest was "pending"; that described the state before Session 3 and is replaced by the result above.
 
 ## The release check
 
-- **Device:** Laptop for the earlier sister test; browser was not recorded.
-- **Phone-width test (390 px):** A prior report says this was checked, but the viewport, procedure and results were not recorded sufficiently to reproduce it. Recheck and document.
-- **Keyboard-only test:** Previously reported as checked; record the actual navigation steps and any focus issues in a repeatable test.
-- **Screen-reader test:** Previously reported as checked; the reader, browser, steps and results were not recorded. Do not treat this as independently confirmed accessibility compliance.
-- **Production order verification:** Confirmed as described above.
-- **Our decision:** Production ordering and page-view analytics have been demonstrated. Remaining acceptance checks and the user-driven change/retest are open.
+Manual acceptance checks on production (https://team11-cookie-shop.vercel.app/), 23 November 2026, by a team member:
 
-## Follow-up usability observation — 23 November 2026 (reported)
+| Requirement | Check | Result |
+| --- | --- | --- |
+| R1 | On /clinics order 2 Classic Chocolate Chip and 3 Double Chocolate with fictional details. | Passed: confirmation shown. |
+| R2 | Open the new order in /admin → Orders and compare items. | Passed: both products with the correct quantities. |
+| R3 | Inspect all six cookies without ordering. | Passed: each shows name, flavour, description and price. |
+| R7 | Complete an order with fictional details. | Passed: no payment step or payment data asked. |
 
-- **Participant:** My sister (family member).
-- **Task:** Explore the Cookie Shop website, then place a fictional cookie order. The tester initially explored the website freely, including the AI chatbot. The observer then explicitly asked whether she could place an order.
-- **Devices:** iPhone and laptop. Specific browser versions were not recorded.
-- **Duration:** Approximately 3 minutes (reported for the session; separate timing per device was not recorded).
-- **Outcome:** She successfully placed an order. The observer reported that the ordering process went smoothly, without visible difficulties.
-- **Observed behaviour:** She explored the website thoroughly and experimented with the AI chatbot before receiving the explicit order prompt. After that prompt, she completed the order without reported difficulty.
-- **Participant feedback:** She liked the site's appearance. She specifically appreciated the availability of dark mode and larger text, which she said helped her read the website more clearly.
-- **Interpretation:** The order flow was usable for this participant once she was directed to the ordering task. The accessibility preferences were valued by this participant.
-- **Uncertainty:** The exact browser, separate device-specific steps, order details, and whether she would have discovered the ordering flow without the observer's prompt were not recorded. Her positive feedback does not establish accessibility compliance for all users.
-- **Additional participant feedback (reported afterward):** She said it was not immediately easy to find where to order cookies. This qualifies as a reported navigation/discoverability issue, even though she completed the order successfully after being prompted.
-- **Change prepared in this patch:** The homepage hero now has a prominent **Order Cookies** link to `/clinics`, and the ordering card also has a direct button. Outdated “coming soon” copy is removed.
-- **Retest:** **Pending.** After the change is deployed, ask her to open the homepage again and find where to order without help. Record whether she finds the link, the approximate time, and any hesitation. Do not mark the retest as passed before observing it.
-- **Accessibility feedback:** Dark mode and larger-text options already existed at test time and were appreciated; they were not introduced as a result of this observation.
+Also observed on production on 23 November 2026: a fictional order persisted in Payload (status New), Vercel Web Analytics showed page views (1 visitor, 7 page views at that moment), and the contact page showed the OpenStreetMap integration with its privacy notice.
 
-### Finding 3 — Order link discoverability (participant feedback)
+Automated and agent checks (not human observation):
 
-- **Finding:** The participant said the location of the ordering flow was not immediately clear.
-- **Change:** Add a primary **Order Cookies** button in the homepage hero and a direct ordering button in the homepage order card; replace the outdated “coming soon” text.
-- **Evidence:** Reported feedback from the participant after the session. No precise hesitation time or click path was recorded.
-- **Pull request:** To be filled in after the change is pushed and merged.
-- **Retest:** **Not yet performed.** On the deployed version, ask the same participant to locate the order page starting from the homepage without instructions. Record what she clicks and whether she finds it without prompting.
+- **PR #27 candidate, 24 November 2026:** GitHub Actions run #115 on commit 599c10c passed all jobs (unit tests, types, migrations, browser checks with 72 Playwright tests passed and 4 skipped, AI note, leftovers). Locally: ESLint, TypeScript, build and 44 Vitest tests passed; 20 cold-cache local load samples of / and /cookies were all under 3 s (R8); responsive checks at ten widths from 320 to 1440 px.
+- **Production, 24 November 2026 (browser agent):** the public course check finds a Team 11 order in `orders.name`; every workshop page links to its topics and every topic page lists its workshops, both ways consistent; the footer shows T11-S3F8 on all public routes; `/api/orders` refuses a guest (403); the opt-in map loads OpenStreetMap after the click.
 
-### Suggested retest procedure
+**Conditions of these results:**
 
-Ask a participant to complete the following without guidance: "Find two cookies, compare their prices and flavours, choose three cookies and submit a fictional order." Record where they hesitate, what they click and whether they find the order page without prompting. If a real issue occurs, implement a narrowly scoped fix, identify its PR, then ask the participant to repeat the affected step and record the result. If no issue occurs, report that honestly rather than inventing one.
+| Check | Device and browser | Network | Lab or field |
+| --- | --- | --- | --- |
+| Manual acceptance checks, 23 Nov | Laptop, browser not recorded | Home connection, not throttled | Lab (team member) |
+| Keyboard-only path and 390 px width on production, 24 Nov | Chromium-based browser pane of the Claude desktop app on a laptop; 390 × 844 px by emulation | Home broadband, not throttled | Lab (browser agent) |
+| CI run #115 | GitHub-hosted Linux runner, Chromium and WebKit | Local test server, no real network | Lab |
+| R8 timing (20 samples) | Local machine (automated run by Codex), empty cache; browser per the final audit | Local production build, no real network | Lab; no field data from real users |
+
+Not tested under these conditions: a physical phone, a throttled mobile network, a screen reader, and field data from real users.
+
+**Improvement with its evidence:** the homepage Order Cookies button (#17), retested in Session 3 (#18).
 
 ## Not tested yet
 
-- Retest of the improved homepage order navigation after production deployment; record real observations.
-- Independently observed second informational user task (without prompting).
-- Exact two-cookie quantities and items in production `/admin` for the R2 acceptance scenario.
-- Reproducible keyboard-only and 390 px mobile acceptance checks.
-- Empty-cache loading measurement for R8.
-- OpenStreetMap click-to-load and workshop-to-topic-to-workshop production records.
-- Individual contributions and GitHub access are tracked separately in the H3 checklist.
-
-## Conclusion
-
-The follow-up sister test lasted approximately three minutes across an iPhone and laptop. She explored the chatbot and, after being prompted to order, completed the order smoothly. She appreciated dark mode and larger text. After the session, the participant reported difficulty quickly locating the ordering route. A homepage navigation improvement is prepared, but its deployment and retest are not yet verified. Separately, a production test order and its database record were confirmed on 23 November 2026, and Vercel Analytics recorded page views. H3's user-observation improvement and several reproducible acceptance checks remain to be completed and recorded honestly.
-
-## Follow-up usability test – After improvement
-
-**Participant:** Same participant as the initial usability test (my sister).
-
-**Improvement:** A more visible "Order Cookies" button was added to the homepage, linking directly to the ordering page.
-
-**Test:** The participant revisited the updated website and evaluated how easily she could find the ordering process.
-
-**Result:** The participant confirmed that the ordering process was clearer and easier to find than during the first test.
-
-**Conclusion:** The improvement addressed the usability issue identified during the initial test. The follow-up feedback indicates that the more visible ordering button improved navigation and discoverability.
-
-
-## H3 acceptance checks - 23 November 2026
-
-The following acceptance checks were performed manually on the live production website at https://team11-cookie-shop.vercel.app/ on 23 November 2026.
-
-| Requirement | Reproducible check | Result | Observed outcome |
-| --- | --- | --- | --- |
-| R1 | Open /clinics. Select 2 Classic Chocolate Chip cookies and 3 Double Chocolate cookies. Enter fictional contact details and submit the order. | passed | The order was successfully submitted and a confirmation was displayed. |
-| R2 | After completing R1, open /admin and inspect the newly submitted order in the Orders collection. Compare the products and quantities with the submitted order. | passed | Both products were stored with the correct quantities: 2 Classic Chocolate Chip and 3 Double Chocolate. |
-| R3 | Open /workshops. Inspect all six cookies without placing an order. Check that each cookie displays its name, flavour, description and price. | passed | All six cookies displayed the required information. |
-| R7 | Open /clinics and complete an order using fictional contact details. Check whether payment information or a payment step is required. | passed | Fictional contact details were accepted. No payment information or payment step was required. |
-
-These checks were carried out on the production website. The results above are based on the manual acceptance tests reported by the tester.
-
-
-## PR #27 final candidate audit — 24 November 2026
-
-This later technical evidence does not replace the human sessions above. The historical follow-up section reports feedback from the same participant after the ordering navigation was improved, so the earlier “pending” statements describe the earlier state. The follow-up did not record the exact build, independent timings or a second participant.
-
-- Chromium regression: 70 passed and four baseline skips at 390/1100 px; no serious or critical axe findings on sampled routes. ESLint, TypeScript, production build, 44 Vitest and the official leftovers scan passed.
-- Cold-cache local candidate R8: 20 samples under three seconds. See the final audit for the exact split and the hosted SSO limitation.
-- Isolated fictional checkout: the same request replay produced exactly one saved order at 390 and 1100 px. This is separate from production evidence. The public production course checker already finds an existing Team 11 order.
-- Workshop screenshots were recaptured after the streamed list resolved; all four expected cards and their detail pages loaded on each viewport.
-- Next human session: ask the participant to find two cookies that differ in taste and price and explain a choice. Separately ask them to order three cookies and identify whether the order was saved. Use fictional details on isolated data. Record device, commit, timings, unaided completion, observed hesitation and comments in the [existing protocol](cookie-shop-usability-protocol.md). If you change anything based on an observation, record a genuine repeat of that task.
+- **The informational task with a person** (find and compare cookies): only tested automatically. Risk: comparison or the Taste Map may be less clear to real users than the tests suggest.
+- **A second, independent participant:** all sessions used one person who knew the site by Session 3. Risk: findings may not generalise.
+- **Physical-device keyboard-only and screen-reader runs:** only automated axe, keyboard tests and viewport emulation. Risk: assistive-technology problems may remain.
+- **Hosted performance of the PR #27 preview:** blocked by Vercel preview protection; to be measured on production after merge.
+- **Chatbot answer quality:** the Watermelon widget loads, but its answers were not systematically checked. Risk: it may give inaccurate information about prices or the fictional status of the shop.

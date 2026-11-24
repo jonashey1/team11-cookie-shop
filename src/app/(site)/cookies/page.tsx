@@ -163,7 +163,7 @@ export default async function CookiesPage() {
         >
           Order Cookies
         </ButtonLink>
-        <ButtonLink href="/build-your-box" variant="secondary">Build a cookie box</ButtonLink>
+        <ButtonLink href="/clinics#build-your-box" variant="secondary">Build a cookie box</ButtonLink>
       </section>
 
     </div>

@@ -32,7 +32,7 @@ Prepared for Team 11 by Jonas (`jonashey1`), 23 November 2026. This document des
 
 1. **Finish and verify production acceptance checks:** Production order persistence was confirmed on 23 November 2026. The historical D6 acceptance table reports an item-by-item and quantity match. The live course checker already finds the team-code order.
 2. **Verify the two H3 services on production:** Vercel Web Analytics page views were confirmed on 23 November 2026. OpenStreetMap loaded live after opt-in on 24 November 2026; the campus variant was checked on the isolated PR #27 candidate. Custom-event availability is not confirmed.
-3. **Confirm the second task and the collection links:** The candidate E2E suite exercises comparison and both sides of the Workshop–Topic relation. Retest the approved deployed commit; record independent human observation separately.
+3. **Confirm the second task and the collection links:** The candidate E2E suite exercises comparison and both sides of the Workshop–Topic relation. On production (24 November 2026) all four workshop pages and three topic pages linked consistently in both directions, and the public course check reported the `workshops.topics` / `topics.workshops` relation. Retest the approved deployed commit; record independent human observation separately.
 4. **Complete the remaining team collaboration evidence:** Every member needs their own qualifying merged code PR or genuine co-authored work; all six team accounts have repository access; the existing teacher invitation is processed by the course app at an authorised hand-in.
 5. **Improve long-term operations:** Test database backup restoration using only disposable test data, confirm ownership of all services and test recovery from a failed deployment.
 

@@ -236,7 +236,7 @@ export default function CookieFinderPage() {
                   <CompareFinderResult cookie={match.alternative} alternative />
                 </div>
               )}
-              <p className="flex flex-wrap gap-4"><Link href="/cookies#taste-map" className="text-link underline">Explore the Taste Map</Link><Link href="/build-your-box" className="text-link underline">Build a cookie box</Link></p>
+              <p className="flex flex-wrap gap-4"><Link href="/cookies#taste-map" className="text-link underline">Explore the Taste Map</Link><Link href="/clinics#build-your-box" className="text-link underline">Build a cookie box</Link></p>
               <p className="text-sm text-ink-soft">
                 This is a fun recommendation quiz using fictional
                 example products. No purchase is required.

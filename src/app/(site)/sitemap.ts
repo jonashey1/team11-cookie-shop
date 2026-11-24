@@ -6,7 +6,7 @@ import { starterWorkshopSlugs, starterWorkshopTopicSlugs } from '@/lib/public-wo
 export const dynamic = 'force-dynamic'
 
 const origin = 'https://team11-cookie-shop.vercel.app'
-const destinations = ['/', '/cookies', '/cookie-finder', '/build-your-box', '/clinics', '/workshops', '/about', '/contact']
+const destinations = ['/', '/cookies', '/cookie-finder', '/clinics', '/workshops', '/about', '/contact']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const payload = await getPayload({ config })

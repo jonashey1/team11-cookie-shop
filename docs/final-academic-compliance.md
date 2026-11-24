@@ -92,8 +92,8 @@ Source: [Start: your team, your topic and your two user tasks](https://betterweb
 | Criterion | Status | Evidence and owner action |
 | --- | --- | --- |
 | Two distinct tasks | VERIFIED at previous production and independently sampled on the candidate in isolated tests | D1 keeps ordering and saving selected cookies first; the informational task is finding and comparing available cookies. Current regressions preserve the workflows. Recheck the final main deployment before hand-in. |
-| 6–9 qualifying pages | PARTIALLY VERIFIED — eight distinct fixed destinations on the candidate, with former standalone URLs redirecting. §3.1 p. 11 does not state how repeated dynamic details count. If each detail template counts once, the subtotal is ten (eight plus two); if every published detail counts, it is fifteen, before other conditional routes. Obtain the official interpretation before claiming final compliance. |
-| Four topic-specific collections | VERIFIED on the isolated candidate — `cookies`, `orders`, `workshops`, and `topics`. The additive migration initialises the six catalogue records; the website and order action use their current values. The agreed team pair must review the schema before production release. Production remains on the prior schema. |
+| 6–9 qualifying pages | VERIFIED on the PR #30 candidate by the official rule — **9 counted pages**: 7 fixed destinations (`/`, `/cookies`, `/cookie-finder`, `/clinics`, `/workshops`, `/about`, `/contact`) + 2 detail templates (`/workshops/[slug]`, `/topics/[slug]`, each counting once). Official rule, read in the course app on 24 November 2026 ([UGent 3.5 Final hand-in, step 2 "Your other pages"](https://betterwebsitesv2.vercel.app/learn/building-better-websites-ugent/final-hand-in-your-second-task-your-last-documents-and-your-release-check) and [10.8 "The nine lines of the grading list", line 3](https://betterwebsitesv2.vercel.app/learn/building-better-websites/finishing-and-handing-over#heading-the-nine-lines-of-the-grading-list)): a home page, list page or plain page counts once each; *a page that shows one record counts once for all records of its kind*; the confirmation page, the privacy page and the not-found page do not count; a page that no link leads to from the home page does not count. The Box Builder moved to `/clinics#build-your-box` (PR #30); `/compare`, `/faq`, `/fortune-cookie` and `/build-your-box` redirect to sections. The final card's automated count on the earlier production commit was 8; recheck the card after hand-in. |
+| Four topic-specific collections | VERIFIED on the candidate — `cookies`, `orders`, `workshops` and `topics` (official rule, §3.1.6: "at least four of your own topic; the starter's users, media and pages do not count"). The additive migration `20261124_202843_cookie_catalog` creates `cookies` and inserts the six existing products. Migration review: the CI `migrations` job (committed-migration check) passed; the course rule is that only the content-model pair creates migrations (§3.6.4), and this one was committed under `jonashey1`, who holds releases in the content-model/releases pair. **No separate human review of the schema took place**; a teammate's review is optional in the course (§3.6.3). |
 | Many-to-many visible both ways | VERIFIED | Workshop topics are stored in Payload; the Topic reverse join renders matching workshops. Production returned the relation in the course checker, and candidate tests exercise four workshops and three topic pages. |
 | Suggested analytics and integration; D5 | PARTIALLY VERIFIED | Two decision records; historical live analytics page views and live opt-in map verified, no confirmed custom order event. Team decision participants require confirmation. |
 | Original design and topic-specific copy | PARTIALLY VERIFIED | Approved design and live primary routes verified. The direct public legacy clinic path was discovered by this audit and redirected on the candidate. CMS API records still contain historical example copy. Owner must review Pages, Site facts and the legacy clinic in production admin without deleting historical records. |
@@ -102,22 +102,22 @@ Source: [Start: your team, your topic and your two user tasks](https://betterweb
 
 ### Route inventory
 
-Each row refers to a distinct public content destination unless noted. §3.1 p. 11 excludes confirmation, privacy and not-found; no blanket exclusion for public optional pages was found.
+Each row is a public address; the right column gives its official count. Total: 7 fixed destinations + 2 detail templates = **9** (see the 6–9 row above for the source).
 
 | Route | Meaningful content and counting |
 | --- | --- |
 | `/` | Home and commercial; 1 |
 | `/cookies` | Assortment and Taste Map; 1 |
 | `/workshops` | Workshop overview; 1 |
-| `/clinics` | Product selection, basket and checkout; 1 |
+| `/clinics` | Product selection, basket, Box Builder section and checkout; 1. The address becomes `/clinics/confirmed` after a saved order (a confirmation, not counted) |
 | `/cookie-finder` | Recommendation and Passport; 1 |
 | `/compare` | Redirect to `/cookies#compare-cookies`; 0 |
-| `/build-your-box` | Box Builder; 1 |
+| `/build-your-box` | Redirect to `/clinics#build-your-box` (PR #30); 0 |
 | `/about` | Team and project story, plus Fortune Cookie; 1 |
 | `/contact` | Contact, opt-in map and FAQ; 1 |
 | `/faq` | Redirect to `/contact#faq`; 0 |
 | `/fortune-cookie` | Redirect to `/about#fortune-cookie`; 0 |
-| `/workshops/[slug]`, `/topics/[slug]` | Four workshop details and three topic details. Counting conventions for repeated templates remain unconfirmed; excluding the seven leaves eight fixed destinations. |
+| `/workshops/[slug]`, `/topics/[slug]` | Detail templates: four workshop records and three topic records. By the official rule each template counts once: 2 |
 | `/clinics/[slug]`, `/account`, `/account/login`, CMS routes | Conditional or legacy routes, not used to reach the conservative floor. The known example clinic now redirects on the candidate; `/home` already redirects to the homepage. |
 | `/clinics/[slug]/booked`, `/privacy`, 404 | Officially excluded. |
 
