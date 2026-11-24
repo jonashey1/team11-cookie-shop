@@ -37,7 +37,7 @@ type Profile = {
   caramel?: true
 }
 
-const profiles: Partial<Record<CookieId, Profile>> = {
+export const flavourProfiles: Record<CookieId, Profile> = {
   1: { sweetness: 3, chocolate: 3, texture: 'Soft and chewy', preference: 'Classic chocolate chip flavours' },
   2: { sweetness: 4, chocolate: 5, texture: 'Rich and soft', preference: 'Deep cocoa flavours' },
   3: { sweetness: 5, chocolate: 2, texture: 'Soft and creamy', preference: 'Creamy white chocolate' },
@@ -56,10 +56,10 @@ export function comparisonRows(cookies: readonly CookieProduct[]): Row[] {
   return [
     { label: 'Price per cookie', kind: 'price', values: cookies.map(cookie => cookie.price) },
     { label: 'Flavour category', values: cookies.map(cookie => cookie.flavour) },
-    { label: 'Sweetness', kind: 'rating', values: cookies.map(cookie => profiles[cookie.id]?.sweetness) },
-    { label: 'Chocolate intensity', kind: 'rating', values: cookies.map(cookie => profiles[cookie.id]?.chocolate) },
-    { label: 'Texture', values: cookies.map(cookie => profiles[cookie.id]?.texture) },
-    { label: 'Best for', values: cookies.map(cookie => profiles[cookie.id]?.preference) },
+    { label: 'Sweetness', kind: 'rating', values: cookies.map(cookie => flavourProfiles[cookie.id]?.sweetness) },
+    { label: 'Chocolate intensity', kind: 'rating', values: cookies.map(cookie => flavourProfiles[cookie.id]?.chocolate) },
+    { label: 'Texture', values: cookies.map(cookie => flavourProfiles[cookie.id]?.texture) },
+    { label: 'Best for', values: cookies.map(cookie => flavourProfiles[cookie.id]?.preference) },
     { label: 'Description and flavour profile', values: cookies.map(cookie => cookie.description) },
   ]
 }
@@ -77,8 +77,8 @@ export function comparisonInsights(cookies: readonly CookieProduct[]) {
 
   return [
     { label: 'Most affordable', cookies: leaders(cookie => cookie.price, Math.min) },
-    { label: 'Richest chocolate flavour', cookies: leaders(cookie => profiles[cookie.id]?.chocolate, Math.max) },
-    { label: 'Sweetest option', cookies: leaders(cookie => profiles[cookie.id]?.sweetness, Math.max) },
-    { label: 'Best match for caramel lovers', cookies: cookies.filter(cookie => profiles[cookie.id]?.caramel) },
+    { label: 'Richest chocolate flavour', cookies: leaders(cookie => flavourProfiles[cookie.id]?.chocolate, Math.max) },
+    { label: 'Sweetest option', cookies: leaders(cookie => flavourProfiles[cookie.id]?.sweetness, Math.max) },
+    { label: 'Best match for caramel lovers', cookies: cookies.filter(cookie => flavourProfiles[cookie.id]?.caramel) },
   ].filter(insight => insight.cookies.length > 0)
 }

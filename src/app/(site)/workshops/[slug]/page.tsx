@@ -112,6 +112,7 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
             </section>
           )}
           {photo && <ArtisanPhotoFigure photo={photo} sizes="(min-width: 80rem) 45rem, (min-width: 64rem) 60vw, 92vw" />}
+          <p className="border-s-4 border-line ps-3 text-sm text-ink-soft">This workshop is a demonstration for a fictional university project.</p>
           <TopicList topics={workshop.topics} />
           <ButtonLink href={back} variant="secondary" className="w-fit max-w-full whitespace-normal text-center">
             {filters.topic || filters.level ? 'Back to the filtered workshops' : 'Back to all workshops'}

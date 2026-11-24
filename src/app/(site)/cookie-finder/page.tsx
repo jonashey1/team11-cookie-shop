@@ -3,6 +3,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import Image from 'next/image'
+import { passportTitles } from '@/lib/cookie-passport'
 import { cookieImage } from '@/lib/workshop-image'
 import { Cookie, IceCreamCone, Scale, Sparkles, Layers3, Candy } from 'lucide-react'
 import Link from 'next/link'
@@ -54,6 +55,7 @@ export default function CookieFinderPage() {
 
   const match = finished ? explainCookieMatch(answers) : null
   const result = match?.cookie
+  const preferences = QUESTIONS.flatMap((question, index) => question.options.filter(option => option.value === answers[index]).map(option => option.label))
   const resultImage = result && cookieImage(result.name)
   const resultHeading = useRef<HTMLHeadingElement>(null)
 
@@ -162,19 +164,15 @@ export default function CookieFinderPage() {
           </>
         ) : (
           result && (
-            <div data-flavour={result.id} className="boutique-finder-result text-center" aria-live="polite">
-              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-ink-soft">
-                Your Cookie Match
-              </p>
+            <div data-flavour={result.id} className="experience-passport boutique-finder-result" aria-live="polite">
+              <p className="boutique-kicker"><Cookie aria-hidden="true" className="inline size-5" /> Your Cookie Passport</p>
+              <p className="experience-profile-title">{passportTitles[result.id]}</p>
 
-              <div
-                className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-yellow-wash text-3xl"
-                aria-hidden="true"
-              >
-                <Cookie size={26} />
-              </div>
 
+              <div className="experience-passport-match">
               {resultImage && <Image src={resultImage.src} alt="" width={360} height={300} className="mx-auto mb-5 aspect-[6/5] w-full max-w-xs rounded-frame object-cover" />}
+              <div>
+              <p className="boutique-kicker">Your match</p>
               <h2 ref={resultHeading} tabIndex={-1} className="mb-4 text-3xl font-bold sm:text-4xl">
                 {result.name}
               </h2>
@@ -183,7 +181,13 @@ export default function CookieFinderPage() {
                 {result.description}
               </p>
 
-              <div className="flex flex-wrap justify-center gap-4">
+              </div>
+              </div>
+              <div className="experience-passport-preferences">
+                <h3 className="text-xl">Your flavour preferences</h3>
+                <ul>{preferences.map(label => <li key={label}>{label}</li>)}</ul>
+              </div>
+              <div className="flex flex-wrap gap-4">
                 <Link
                   href="/workshops"
                   className="inline-flex min-h-11 items-center justify-center rounded-control border border-ink bg-ink px-6 py-3 text-center font-bold text-canvas no-underline hover:bg-link"
@@ -215,7 +219,7 @@ export default function CookieFinderPage() {
                   <CompareFinderResult cookie={match.alternative} alternative />
                 </div>
               )}
-              <p className="mt-4"><Link href="/build-your-box" className="text-link underline">Build a cookie box</Link></p>
+              <p className="mt-4 flex flex-wrap gap-4"><Link href="/workshops#taste-map" className="text-link underline">Explore the Taste Map</Link><Link href="/build-your-box" className="text-link underline">Build a cookie box</Link></p>
               <p className="mt-8 text-sm text-ink-soft">
                 This is a fun recommendation quiz using fictional
                 example products. No purchase is required.

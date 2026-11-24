@@ -26,3 +26,23 @@ export function mergeBox(previous: Record<number, number>, ids: readonly BoxCook
   }
   return next
 }
+
+export const BOX_NAME_LIMIT = 40
+export const BOX_MESSAGE_LIMIT = 120
+
+export function boxPreviewText(text: string, limit: number) {
+  return text.slice(0, limit)
+}
+
+export function parseSavedBox(value: string | null): BoxSlots | null {
+  if (!value) return null
+  try {
+    const ids: unknown = JSON.parse(value)
+    if (!Array.isArray(ids) || ids.length !== 4) return null
+    const [a, b, c, d] = ids
+    const valid = (id: unknown): id is BoxCookieId => COOKIES.some(cookie => cookie.id === id)
+    return valid(a) && valid(b) && valid(c) && valid(d) ? [a, b, c, d] : null
+  } catch {
+    return null
+  }
+}

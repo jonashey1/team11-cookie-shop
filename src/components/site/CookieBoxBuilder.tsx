@@ -2,20 +2,39 @@
 
 import { Cookie } from 'lucide-react'
 import Image from 'next/image'
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Button } from '@/components/ui/button'
 import { ButtonLink } from './ButtonLink'
 import { COOKIES } from '@/content/cookies'
-import { BOX_SUGGESTIONS, boxPrice, emptyBox, mergeBox, type BoxCookieId, type BoxSlots } from '@/lib/cookie-box'
+import { BOX_SUGGESTIONS, BOX_NAME_LIMIT, BOX_MESSAGE_LIMIT, boxPrice, boxPreviewText, emptyBox, mergeBox, parseSavedBox, type BoxCookieId, type BoxSlots } from '@/lib/cookie-box'
 import { cookieImage } from '@/lib/workshop-image'
 import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 
-type Picker = { slot: number } | { suggestion: keyof typeof BOX_SUGGESTIONS }
+type Picker = { slot: number } | { suggestion: keyof typeof BOX_SUGGESTIONS } | { saved: BoxSlots }
+
+const SAVED_BOX_KEY = 'cookie-shop-saved-box'
+const savedBoxEvent = 'cookie-shop-saved-box-change'
+
+function subscribeSavedBox(listener: () => void) {
+  window.addEventListener('storage', listener)
+  window.addEventListener(savedBoxEvent, listener)
+  return () => {
+    window.removeEventListener('storage', listener)
+    window.removeEventListener(savedBoxEvent, listener)
+  }
+}
+
+function readSavedBox() {
+  try { return localStorage.getItem(SAVED_BOX_KEY) } catch { return null }
+}
 
 export function CookieBoxBuilder() {
   const [slots, setSlots] = useState<BoxSlots>(emptyBox)
   const [picker, setPicker] = useState<Picker | null>(null)
   const [feedback, setFeedback] = useState('')
+  const [boxName, setBoxName] = useState('')
+  const [giftMessage, setGiftMessage] = useState('')
+  const savedBox = parseSavedBox(useSyncExternalStore(subscribeSavedBox, readSavedBox, () => null))
   const dialog = useRef<HTMLDialogElement>(null)
   const slotList = useRef<HTMLUListElement>(null)
   const focusSlot = useRef<number | null>(null)
@@ -58,6 +77,22 @@ export function CookieBoxBuilder() {
     update([...BOX_SUGGESTIONS[suggestion]])
   }
 
+  function saveCombination(remove = false) {
+    try {
+      if (remove) localStorage.removeItem(SAVED_BOX_KEY)
+      else localStorage.setItem(SAVED_BOX_KEY, JSON.stringify(slots))
+      window.dispatchEvent(new Event(savedBoxEvent))
+      setFeedback(remove ? 'Saved combination removed.' : 'Combination saved on this browser.')
+    } catch {
+      setFeedback('Browser storage is unavailable.')
+    }
+  }
+
+  function restoreCombination(saved: BoxSlots) {
+    if (selection.length) openPicker({ saved })
+    else update(saved)
+  }
+
   function addToBasket() {
     if (adding.current || remaining || pending) return
     const next = mergeBox(quantities, selection)
@@ -79,6 +114,7 @@ export function CookieBoxBuilder() {
           <p>Total: {formatOrderAmount(boxPrice(selection))}</p>
         </div>
         <div aria-hidden="true" className="boutique-box-lid"><Cookie /><span>Cookie Shop</span><small>Your perfect cookie box</small></div>
+        {boxName.trim() && <p className="experience-kraft-label">{boxName}</p>}
         <ul ref={slotList} aria-label="Box slots" className="boutique-box-tray">
           {slots.map((id, index) => {
             const cookie = COOKIES.find(item => item.id === id)
@@ -118,6 +154,24 @@ export function CookieBoxBuilder() {
               aria-haspopup={selection.length ? 'dialog' : undefined} onClick={() => applySuggestion(label)}>{label}</Button>
           ))}
         </div>
+        <details className="experience-box-tools">
+          <summary className="min-h-11 cursor-pointer py-2 font-bold">Personalise your box</summary>
+          <p className="text-sm">Digital preview only. Your name and message stay here and are not included with the order.</p>
+          <label htmlFor="box-preview-name">Name your box (optional, {BOX_NAME_LIMIT} characters maximum)</label>
+          <input id="box-preview-name" className="min-h-11 w-full rounded-control border border-ink bg-canvas p-2"
+            value={boxName} maxLength={BOX_NAME_LIMIT} onChange={event => setBoxName(boxPreviewText(event.target.value, BOX_NAME_LIMIT))} />
+          <label htmlFor="box-preview-message">Add a little message (optional, {BOX_MESSAGE_LIMIT} characters maximum)</label>
+          <textarea id="box-preview-message" className="w-full rounded-control border border-ink bg-canvas p-2"
+            value={giftMessage} maxLength={BOX_MESSAGE_LIMIT} onChange={event => setGiftMessage(boxPreviewText(event.target.value, BOX_MESSAGE_LIMIT))} />
+          {giftMessage.trim() && <p className="experience-gift-card">{giftMessage}</p>}
+        </details>
+        <div className="flex flex-wrap gap-2">
+          <Button type="button" variant="secondary" disabled={remaining > 0} onClick={() => saveCombination()}>Save combination</Button>
+          {savedBox && <>
+            <Button type="button" variant="secondary" onClick={() => restoreCombination(savedBox)}>Restore saved combination</Button>
+            <Button type="button" variant="quiet" onClick={() => saveCombination(true)}>Remove saved combination</Button>
+          </>}
+        </div>
         <p className="text-sm">{remaining ? `Choose ${remaining} more ${remaining === 1 ? 'cookie' : 'cookies'} to complete your box.` : 'Your box is ready to add to your basket.'}</p>
         <div className="flex flex-wrap gap-3">
           <Button type="button" disabled={remaining > 0 || pending} onClick={addToBasket}>Add box to basket</Button>
@@ -129,7 +183,7 @@ export function CookieBoxBuilder() {
       <dialog ref={dialog} aria-labelledby="box-picker-title"
         className="fixed inset-0 m-auto max-h-[85dvh] w-[calc(100%_-_2rem)] max-w-lg overflow-y-auto rounded-panel border-2 border-line bg-canvas p-4 text-ink shadow-xl backdrop:bg-ink/60 sm:p-6">
         <div className="mb-4 flex items-start justify-between gap-2">
-          <h2 id="box-picker-title" className="text-xl">{picker && 'suggestion' in picker ? 'Replace your selection?' : 'Choose a cookie'}</h2>
+          <h2 id="box-picker-title" className="text-xl">{picker && !('slot' in picker) ? 'Replace your selection?' : 'Choose a cookie'}</h2>
           <Button type="button" variant="quiet" size="icon" aria-label="Close box dialog" onClick={() => dialog.current?.close()}>
             <span aria-hidden="true">×</span>
           </Button>
@@ -153,14 +207,14 @@ export function CookieBoxBuilder() {
             })}
           </ul>
         )}
-        {picker && 'suggestion' in picker && (
+        {picker && !('slot' in picker) && (
           <>
-            <p className="mb-4">Apply {picker.suggestion} and replace the cookies currently in your box?</p>
+            <p className="mb-4">Apply {'saved' in picker ? 'your saved combination' : picker.suggestion} and replace the cookies currently in your box?</p>
             <div className="flex flex-wrap gap-2">
               <Button type="button" variant="secondary" onClick={() => dialog.current?.close()}>Keep my selection</Button>
               <Button type="button" onClick={() => {
                 dialog.current?.close()
-                update([...BOX_SUGGESTIONS[picker.suggestion]])
+                update('saved' in picker ? picker.saved : [...BOX_SUGGESTIONS[picker.suggestion]])
               }}>Replace selection</Button>
             </div>
           </>

@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 import { getPayload, type Where } from 'payload'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
+import { CookieTasteMap } from '@/components/site/CookieTasteMap'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
 import { COOKIES, type CookieProduct } from '@/content/cookies'
 import { cookieImage } from '@/lib/workshop-image'
@@ -48,6 +49,7 @@ export default function CookiesPage({ searchParams }: { searchParams: Promise<Se
           <ButtonLink href="#workshops" size="sm" className="min-h-11">
             Explore our workshops
           </ButtonLink>
+          <ButtonLink href="#taste-map" variant="secondary" size="sm">Taste Map</ButtonLink>
         </nav>
       </PageTitle>
 
@@ -67,6 +69,7 @@ export default function CookiesPage({ searchParams }: { searchParams: Promise<Se
           </p>
         </div>
 
+        <CookieTasteMap />
         <div><ButtonLink href="/build-your-box" variant="secondary">Build a cookie box</ButtonLink></div>
         <ComparisonTray />
         <ul className="boutique-assortment">
@@ -76,7 +79,7 @@ export default function CookiesPage({ searchParams }: { searchParams: Promise<Se
             return (
               <li
                 key={cookie.id}
-                data-flavour={cookie.id} className="boutique-product"
+                id={`cookie-${cookie.id}`} data-flavour={cookie.id} className="boutique-product scroll-mt-8"
               >
                 {image && (
                   <div className="boutique-product-art relative overflow-hidden">

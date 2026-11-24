@@ -864,3 +864,54 @@ html:has(.boutique-order-dock) { scroll-padding-block-end: 6rem; }
     gap: clamp(1.25rem, 4vw, 3.5rem);
   }
 }
+
+.experience-passport {
+  position: relative;
+  border: 3px double var(--flavour-edge, var(--flavour-accent));
+  background: var(--boutique-paper);
+  display: grid;
+  gap: 1rem;
+}
+.experience-profile-title { font: italic 700 clamp(1.8rem, 5vw, 3.4rem) / 1.1 var(--font-heading); }
+.experience-passport-match { display: grid; align-items: center; gap: 1rem; }
+.experience-passport-match img { margin: 0; }
+.experience-passport-preferences { border-block: 1px dashed var(--color-line); padding-block: .7rem; }
+.experience-passport-preferences ul { display: flex; flex-wrap: wrap; gap: .5rem; margin-block-start: .5rem; }
+.experience-passport-preferences li { padding: .35rem .65rem; background: var(--flavour-paper); border-inline-start: 3px solid var(--color-line); }
+.experience-map { display: grid; gap: 1.25rem; padding: clamp(.8rem,3vw,2rem); background: var(--boutique-paper); border-block: 3px double var(--color-line); min-width: 0; }
+.experience-map h2 { font: 700 clamp(1.9rem,5vw,3.5rem) / 1.15 var(--font-heading); }
+.experience-map-layout { display: grid; gap: 1rem; min-width: 0; }
+.experience-map-grid {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  grid-template-rows: repeat(5, minmax(3rem,1fr));
+  place-items: center;
+  margin-block: .5rem;
+  border: 1px solid var(--color-line);
+  background-image: linear-gradient(to right,var(--color-line) 1px,transparent 1px), linear-gradient(to bottom,var(--color-line) 1px,transparent 1px);
+  background-size: 20% 20%;
+}
+.experience-map-marker, .experience-map-key span {
+  display: inline-grid;
+  place-items: center;
+  background: var(--flavour-paper);
+  color: var(--color-ink);
+  border: 2px solid var(--flavour-edge,var(--flavour-accent));
+  border-radius: 46% 43%;
+  font-weight: 700;
+}
+.experience-map-marker { inline-size: 44px; block-size: 44px; }
+.experience-map :is(button)[aria-pressed='true'] { outline: 2px solid var(--color-ink); outline-offset: 2px; }
+.experience-map-key { display: grid; align-content: center; gap: .25rem; }
+.experience-map-key button { min-height: 44px; text-align: start; padding-inline: .25rem; }
+.experience-map-key span { width: 1.7rem; height: 1.7rem; margin-inline-end: .35rem; }
+.experience-map-detail { display: grid; gap: 1rem; padding: .75rem; border-block-start: 3px solid var(--flavour-edge,var(--flavour-accent)); background: var(--flavour-paper); }
+.experience-box-tools { border-block: 1px dashed var(--color-line); padding-block: .5rem; }
+.experience-box-tools label { display: block; margin-block: .6rem .25rem; font-weight: 600; }
+.experience-kraft-label,.experience-gift-card { background: var(--boutique-paper); border: 1px solid var(--color-line); padding: .6rem .8rem; overflow-wrap: anywhere; white-space: pre-wrap; }
+.experience-kraft-label { width: fit-content; margin-inline: auto; font-weight: 700; }
+.experience-gift-card { max-width: 40ch; margin-block-start: .5rem; font-style: italic; }
+@media (min-width: 40rem) {
+  .experience-passport-match,.experience-map-detail { grid-template-columns: minmax(0,1fr) minmax(0,1.4fr); }
+  .experience-map-layout { grid-template-columns: minmax(0,1.5fr) minmax(0,1fr); align-items: center; }
+}
