@@ -1,90 +1,9 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { COOKIES } from '@/content/cookies'
-
-type Answer = 'chocolate' | 'sweet' | 'balanced' | 'adventurous'
-
-type Question = {
-  title: string
-  subtitle: string
-  options: {
-    label: string
-    emoji: string
-    value: Answer
-  }[]
-}
-
-const QUESTIONS: Question[] = [
-  {
-    title: 'What is your favourite flavour?',
-    subtitle: 'Every great cookie starts with your favourite taste.',
-    options: [
-      { label: 'Rich chocolate', emoji: '🍫', value: 'chocolate' },
-      { label: 'Sweet and creamy', emoji: '🍦', value: 'sweet' },
-      { label: 'A little sweet and salty', emoji: '🍯', value: 'balanced' },
-      { label: 'Something different', emoji: '✨', value: 'adventurous' },
-    ],
-  },
-  {
-    title: 'What kind of treat are you craving?',
-    subtitle: 'Choose the feeling that fits you best.',
-    options: [
-      { label: 'Something intensely chocolatey', emoji: '🍫', value: 'chocolate' },
-      { label: 'A comforting sweet treat', emoji: '🍪', value: 'sweet' },
-      { label: 'A balanced flavour combination', emoji: '⚖️', value: 'balanced' },
-      { label: 'A fun new flavour', emoji: '🎉', value: 'adventurous' },
-    ],
-  },
-  {
-    title: 'Pick your perfect dessert.',
-    subtitle: 'Your dessert choice says a lot about your cookie taste.',
-    options: [
-      { label: 'Chocolate brownie', emoji: '🍫', value: 'chocolate' },
-      { label: 'Vanilla ice cream', emoji: '🍨', value: 'sweet' },
-      { label: 'Salted caramel dessert', emoji: '🍮', value: 'balanced' },
-      { label: 'Red velvet cake', emoji: '🍰', value: 'adventurous' },
-    ],
-  },
-  {
-    title: 'How adventurous are you?',
-    subtitle: 'One final question before we find your match.',
-    options: [
-      { label: 'I always choose chocolate', emoji: '🍫', value: 'chocolate' },
-      { label: 'I love classic sweet flavours', emoji: '🤍', value: 'sweet' },
-      { label: 'I enjoy unexpected combinations', emoji: '🧂', value: 'balanced' },
-      { label: 'Surprise me!', emoji: '🎲', value: 'adventurous' },
-    ],
-  },
-]
-
-const RECOMMENDATIONS: Record<Answer, number[]> = {
-  chocolate: [2, 1],
-  sweet: [3, 6],
-  balanced: [5, 1],
-  adventurous: [4, 6],
-}
-
-function findCookie(answers: Answer[]) {
-  const scores = new Map<number, number>()
-
-  for (const answer of answers) {
-    const recommendations = RECOMMENDATIONS[answer]
-
-    recommendations.forEach((id, index) => {
-      const points = index === 0 ? 3 : 1
-      scores.set(id, (scores.get(id) ?? 0) + points)
-    })
-  }
-
-  const bestId = [...scores.entries()].sort(
-    (a, b) => b[1] - a[1] || a[0] - b[0],
-  )[0]?.[0]
-
-  return COOKIES.find((cookie) => cookie.id === bestId) ?? COOKIES[0]
-}
+import { findCookie, QUESTIONS, type Answer } from '@/lib/cookie-finder'
 
 export default function CookieFinderPage() {
   const [step, setStep] = useState(0)
@@ -116,6 +35,11 @@ export default function CookieFinderPage() {
   }
 
   const result = finished ? findCookie(answers) : null
+  const resultHeading = useRef<HTMLHeadingElement>(null)
+
+  useEffect(() => {
+    if (finished) resultHeading.current?.focus()
+  }, [finished])
 
   return (
     <div className="mx-auto max-w-3xl pb-section pt-block">
@@ -223,7 +147,7 @@ export default function CookieFinderPage() {
                 {result.emoji}
               </div>
 
-              <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+              <h2 ref={resultHeading} tabIndex={-1} className="mb-4 text-3xl font-bold sm:text-4xl">
                 {result.name}
               </h2>
 
