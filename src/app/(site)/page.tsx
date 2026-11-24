@@ -9,7 +9,14 @@ import { Cookie, Scale, PackageOpen } from 'lucide-react'
 import { COOKIES } from '@/content/cookies'
 import { COOKIE_WORKSHOP_SLUGS, cookieImage } from '@/lib/workshop-image'
 import Link from 'next/link'
+import { journeyVisuals, type ExcellenceVisual } from '@/content/excellence-visuals'
 import { CookieShopExperience } from '@/components/site/CookieShopExperience'
+
+const journeys = [
+  { title: 'Discover', label: 'Cookie Finder', text: 'Find the flavour that fits your taste.', href: '/cookie-finder', icon: Cookie, visual: journeyVisuals.discover },
+  { title: 'Compare', label: 'Cookie Comparison', text: 'See what sets each cookie apart.', href: '/workshops#comparison', icon: Scale, visual: journeyVisuals.compare },
+  { title: 'Personalise', label: 'Box Builder', text: 'Make a four-cookie box your own.', href: '/build-your-box', icon: PackageOpen, visual: journeyVisuals.personalise },
+] satisfies readonly { title: string; label: string; text: string; href: string; icon: typeof Cookie; visual: ExcellenceVisual | null }[]
 
 export const dynamic = 'force-dynamic'
 
@@ -36,13 +43,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      <nav aria-label="Explore cookie experiences" className="boutique-strip">
-        <Link href="/cookie-finder"><Cookie aria-hidden="true" /><span><strong>Discover</strong>Cookie Finder</span></Link>
-        <Link href="/workshops#comparison"><Scale aria-hidden="true" /><span><strong>Compare</strong>Cookie Comparison</span></Link>
-        <Link href="/build-your-box"><PackageOpen aria-hidden="true" /><span><strong>Personalise</strong>Box Builder</span></Link>
+      <nav aria-label="Explore cookie experiences" className="excellence-journeys">
+        {journeys.map(({ title, label, text, href, icon: Icon, visual }) => (
+          <Link key={title} href={href} data-flavour={visual?.flavour} className="excellence-journey">
+            <span className="excellence-journey-art">
+              {visual ? <Image src={visual.src} alt="" fill sizes="(min-width: 64rem) 360px, (min-width: 40rem) 31vw, 28vw" style={{ objectPosition: visual.position }} /> : <Icon aria-hidden="true" />}
+            </span>
+            <span className="excellence-journey-copy">
+              <strong>{title}</strong>
+              <span>{text}</span>
+              <span className="excellence-journey-label">{label} <span aria-hidden="true">↗</span></span>
+            </span>
+          </Link>
+        ))}
       </nav>
 
-      <section aria-labelledby="boutique-workshops" className="boutique-workshops">
+      <section aria-labelledby="boutique-workshops" className="boutique-workshops excellence-workshops">
         <div className="boutique-workshops-intro">
           <div>
             <p className="boutique-kicker">Cookie Workshops</p>
@@ -120,7 +136,7 @@ export default function HomePage() {
           Cookie Shop is a fictional cookie business created as
           a university team project. Our goal is to build a clear,
           accessible and enjoyable website where customers can
-          discover cookies and eventually place orders online.
+          discover cookies, compare flavours, build a personalised box and place a fictional test order.
         </p>
         <ButtonLink href="/about" variant="secondary" className="w-fit max-w-full whitespace-normal text-center">
           Learn More About Us
