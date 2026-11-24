@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { COOKIES } from '@/content/cookies'
+import { useCookieCatalog } from './OrderBasket'
 import { saveOrder, type OrderReceipt } from '@/tasks/order-cookies/saveOrder'
 import { track } from '@/lib/analytics'
 import { cookieImage } from '@/lib/workshop-image'
@@ -12,13 +12,14 @@ import { AddCookieToBasket } from './AddCookieToBasket'
 import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 
 export function CookieOrderForm() {
+  const products = useCookieCatalog()
   const { quantities, setQuantities, chosen, total, pending, setPending, getRequestId } = useOrderBasket()
   const [error, setError] = useState('')
   const [confirmed, setConfirmed] = useState<OrderReceipt | null>(null)
   const receiptHeading = useRef<HTMLHeadingElement>(null)
   const submitting = useRef(false)
   const selectedFlavours = new Set(chosen.map(cookie => cookie.flavour))
-  const unselected = COOKIES.filter(cookie => !quantities[cookie.id])
+  const unselected = products.filter(cookie => !quantities[cookie.id])
   const suggestions = chosen.length ? [unselected.find(cookie => selectedFlavours.has(cookie.flavour)), unselected.find(cookie => !selectedFlavours.has(cookie.flavour))].filter(cookie => cookie !== undefined) : []
 
   useEffect(() => { if (confirmed) receiptHeading.current?.focus() }, [confirmed])
@@ -41,6 +42,7 @@ export function CookieOrderForm() {
       quantity: quantities[cookie.id],
     }))))
     data.set('requestId', getRequestId())
+    data.set('expectedTotal', String(total))
     submitting.current = true
     setPending(true)
     setError('')
@@ -100,8 +102,8 @@ export function CookieOrderForm() {
           <p>Pick your favourite flavours. You can order up to 20 of each cookie.</p>
         </div>
         <div className="grid gap-block sm:grid-cols-2 lg:grid-cols-3">
-          {COOKIES.map((cookie) => {
-            const image = cookieImage(cookie.name)
+          {products.map((cookie) => {
+            const image = cookie.image
             return (
               <article key={cookie.id} data-flavour={cookie.id} className="boutique-order-choice grid min-w-0 content-between gap-stack border border-line p-5">
                 <div className="grid gap-3">
@@ -135,7 +137,7 @@ export function CookieOrderForm() {
           <ul className="grid gap-3">
             {chosen.map((cookie) => (
               <li key={cookie.id} data-flavour={cookie.id} className="boutique-basket-line boutique-basket-item border-b border-line">
-                <BasketImage name={cookie.name} />
+                {cookie.image && <Image src={cookie.image.src} alt={cookie.image.alt} width={56} height={56} className="size-14 shrink-0 rounded-control object-cover" />}
                 <div className="boutique-basket-details min-w-0 flex-1">
                   <strong>{cookie.name} × {quantities[cookie.id]}</strong>
                   <p className="text-sm">{formatOrderAmount(cookie.price)} each · {formatOrderAmount(cookie.price * quantities[cookie.id])} subtotal</p>
@@ -189,10 +191,7 @@ export function CookieOrderForm() {
   )
 }
 
-function BasketImage({ name }: { name: string }) {
-  const image = cookieImage(name)
-  return image ? <Image src={image.src} alt={image.alt} width={56} height={56} className="size-14 shrink-0 rounded-control object-cover" /> : null
-}
+
 function OrderCelebration() {
   return (
     <svg className="cookie-order-celebration" viewBox="0 0 200 104" aria-hidden="true" focusable="false">

@@ -3,17 +3,21 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
+import { CookieComparison } from '@/components/site/CookieComparison'
 import { CookieTasteMap } from '@/components/site/CookieTasteMap'
-import { COOKIES, type CookieProduct } from '@/content/cookies'
-import { cookieImage } from '@/lib/workshop-image'
+import type { CookieProduct } from '@/content/cookies'
+import { getCookieCatalog } from '@/lib/read-cookie-catalog'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
 import { CompareCookieButton, ComparisonTray } from '@/components/site/CookieComparisonControls'
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://team11-cookie-shop.vercel.app/cookies" },
   title: 'Our Cookies',
   description:
     'Discover our delicious cookie selection, explore your favourite flavours.',
 }
+
+export const dynamic = 'force-dynamic'
 
 const tastingNotes = {
   1: 'The one that started it all.',
@@ -24,7 +28,8 @@ const tastingNotes = {
   6: 'A familiar favourite with a twist.',
 } satisfies Record<CookieProduct['id'], string>
 
-export default function CookiesPage() {
+export default async function CookiesPage() {
+  const products = await getCookieCatalog().catch(() => [])
 
   return (
     <div className="pb-block">
@@ -42,6 +47,7 @@ export default function CookiesPage() {
             Explore our workshops
           </ButtonLink>
           <ButtonLink href="#taste-map" variant="secondary" size="sm">Taste Map</ButtonLink>
+          <ButtonLink href="#compare-cookies" variant="secondary" size="sm">Compare cookies</ButtonLink>
         </nav>
       </PageTitle>
 
@@ -61,7 +67,7 @@ export default function CookiesPage() {
           </p>
           <nav aria-label="Jump to a cookie flavour">
             <ul className="flex flex-wrap gap-2">
-              {COOKIES.map((cookie) => (
+              {products.map((cookie) => (
                 <li key={cookie.id}>
                   <a
                     href={`#cookie-${cookie.id}`}
@@ -76,8 +82,8 @@ export default function CookiesPage() {
         </div>
 
         <ul className="boutique-assortment">
-          {COOKIES.map((cookie) => {
-            const image = cookieImage(cookie.name)
+          {products.map((cookie) => {
+            const image = cookie.image
 
             return (
               <li
@@ -132,6 +138,10 @@ export default function CookiesPage() {
         </ul>
         <CookieTasteMap />
         <ComparisonTray />
+        <section id="compare-cookies" tabIndex={-1} aria-labelledby="compare-cookies-title" className="grid scroll-mt-24 gap-stack">
+          <h2 id="compare-cookies-title">Compare Your Cookies</h2>
+          <CookieComparison />
+        </section>
       </section>
 
       <section

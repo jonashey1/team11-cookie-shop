@@ -13,11 +13,11 @@ import { ParentLink } from '@/components/site/ParentLink'
 import { formatPrice, formatSlotTime, formatWhen, imageFrom } from '@/lib/format'
 import { membersAreaOn, signedInMember } from '@/lib/membersArea'
 import config from '@/payload.config'
+import { retiredClinicSlug } from '@/lib/public-workshop-content'
 
 export const dynamic = 'force-dynamic'
 
 // Keep the original booking records while routing the old public example link to cookie ordering.
-const retiredClinicSlug = 'saturday-repair-clinic'
 const CLINIC_IMAGE = 'clinic-tools'
 
 type Props = { params: Promise<{ slug: string }> }

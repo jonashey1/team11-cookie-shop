@@ -6,12 +6,12 @@ Team 11 · Cookie Shop. This is a retrospective inventory of PR #27. The [brief]
 
 | Content | Source and maintenance | Route and next step |
 | --- | --- | --- |
-| Six flavours, descriptions, current prices and illustrations | Code catalogue in `src/content/cookies.ts` and approved resolver in `src/lib/workshop-image.ts`; maintainer | `/cookies`: title, six flavour shortcuts, six cards, Taste Map, comparison tray and order links |
+| Six flavours, descriptions, current prices and illustrations | Payload `cookies`; editor updates content and integer-cent prices; maintainer owns approved illustration files | `/cookies`: title, six flavour shortcuts, six cards, Taste Map, comparison tray and order links |
 | Cookie workshops and topics | Published Payload workshops and topics, maintained by editors; local illustrations resolve by workshop slug | `/workshops` → `/workshops/[slug]` ↔ `/topics/[slug]`. Topic links can open the filtered overview. |
 | Home and commercial | Page copy, approved media and three workshop previews | `/`: hero, commercial, editorial journey links, workshops preview, cookie collection |
-| Recommendations and comparison | Catalogue IDs, stored qualitative comparison profiles and deterministic Finder rules | `/cookie-finder` → Passport, `/cookies#taste-map`, `/compare`, `/build-your-box` |
+| Recommendations and comparison | Catalogue IDs, stored qualitative comparison profiles and deterministic Finder rules | `/cookie-finder` → Passport, `/cookies#taste-map`, `/cookies#compare-cookies`, `/build-your-box` |
 | Cookie ordering and confirmation | Shared basket and the server-validated Payload Orders collection | `/clinics` has product selection, basket, fictional customer details and an inline printable receipt |
-| About, contact and help | Site components and CMS pages where configured; editor and maintainer | `/about`, `/contact`, `/faq`, `/privacy`. The external campus map is optional and opt-in. |
+| About, contact and help | Site components and CMS pages where configured; editor and maintainer | `/about#fortune-cookie`, `/contact#faq`, `/privacy`. The external campus map is optional and opt-in. |
 | Secondary starter compatibility | Clinics, timeslots, bookings and optional member access | `/clinics/[slug]`, `/clinics/[slug]/booked`, `/account`, `/account/login` |
 | Administration | Payload editor role | `/admin`, protected order analytics and CSV export |
 
@@ -19,13 +19,13 @@ Desktop and mobile offer Home, Our Cookies, Workshops, Cookie Finder, About Us, 
 
 ## Content model
 
-Payload collection definitions are under [src/collections](../src/collections). Public content and its presentation are separate. A Workshop is a teaching demonstration. The six retail products live in the catalogue, not in Workshop or Repairs records.
+Payload collection definitions are under [src/collections](../src/collections). Public content and its presentation are separate. A Workshop is a teaching demonstration. Six retail products live in the Payload Cookies collection.
 
 | Entity | Types, required values and identifiers |
 | --- | --- |
 | Workshop | Required title, unique public slug, level, day, start time, non-negative price, group size and summary. Optional end time, rich description, upload and topics. The server checks slug uniqueness and valid time ranges. |
 | Topic | Required name and unique public slug; optional description. Reverse Workshop join is derived. Deletion is blocked while a workshop references the topic. |
-| Cookie | Six stable numeric IDs in the catalogue. Each gives name, description, flavour and the current integer-cent unit price. Illustration and tasting profile are resolved by the matching identity. |
+| Cookie | Six stable, unique numeric product IDs and unique slugs; required name, description, flavour, integer-cent price, approved illustration key, two whole-number ratings from 1–5, texture and preference; optional caramel flag. Readable publicly, editable by an editor. Stable IDs and slugs cannot be changed from the admin API. |
 | Order | Required name, customer name and email, item array with at least one row, total in cents and timestamps. Status is a select with default new. Unique request ID is enforced by the database and required by the action; the schema also accommodates earlier records. |
 | Order line | Numeric cookie ID, name, quantity and integer-cent unit price. Lines are embedded in an order. The copied name and price preserve the confirmed receipt even if the catalogue later changes. |
 | Clinic / TimeSlot / Booking | Required Clinic name, slug and schedule; required TimeSlot clinic, start and capacity; required Booking slot, name and e-mail. Optional Booking member. Distinct from a Cookie Shop order. |
@@ -43,9 +43,9 @@ erDiagram
     MEMBER o|--o{ BOOKING : "may identify"
 ```
 
-The Cookie relationship above is a code-level reference, without a Payload collection or database foreign key. Workshop topic references are stored once; the Topic derives the reverse view. Workshop slugs remain stable across the overview reorganisation. Existing records were preserved.
+Order lines reference the Cookie product ID without a database foreign key and keep their original snapshots. Workshop topic references are stored once; the Topic derives the reverse view. Workshop slugs remain stable across the overview reorganisation. Existing records were preserved.
 
-The order action validates contact fields and item IDs, quantities and request token, and recalculates the total from the catalogue before saving. A repeated identical request ID returns the existing receipt. The same ID with different content is refused. The course checker looks in `orders.name`, independently of the legacy bookings flow.
+The order action validates contact fields, product IDs, quantities and request token and reads the current CMS catalogue before saving. If the UI total differs from the recalculated total, reload and review the basket before submitting. A missing or invalid catalogue prevents new orders and shows a temporary availability notice. A repeated identical request ID returns the existing receipt. The same ID with different content is refused. The course checker looks in `orders.name`, independently of the legacy bookings flow.
 
 ## Primary tasks
 
@@ -53,3 +53,7 @@ The order action validates contact fields and item IDs, quantities and request t
 2. **Transactional:** choose cookie quantities on Order Cookies or add from the catalogue or box. Review the shared basket, use made-up details and check the confirmation after the server saves an Order.
 
 Optional commercial, workshops and celebration support brand context and feedback. They do not add required purchase steps; the video is user-activated and the receipt appears without waiting for the celebration.
+
+## Counting for the UGent team hand-in
+
+Eight fixed destinations are Home, Our Cookies (including Taste Map and Comparison), Cookie Finder, Build Your Box, Order, Workshops, About Us (including Fortune Cookie), and Contact & FAQ. Three old standalone addresses redirect to their canonical sections. The sitemap lists the eight plus published workshop and topic records; it excludes redirects, admin, account, bookings, privacy and error paths. Workshops and topics are two dynamic templates with four and three production detail URLs respectively. The course export does not settle how those details are counted. See the [audit](final-academic-compliance.md) for both interpretations.

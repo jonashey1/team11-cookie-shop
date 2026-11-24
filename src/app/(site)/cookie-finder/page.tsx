@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import { finderVisuals } from '@/content/excellence-visuals'
 import { passportTitles } from '@/lib/cookie-passport'
-import { cookieImage } from '@/lib/workshop-image'
+import { useCookieCatalog } from '@/components/site/OrderBasket'
 import { Cookie, IceCreamCone, Scale, Sparkles, Layers3, Candy } from 'lucide-react'
 import Link from 'next/link'
 import { AddCookieToBasket } from '@/components/site/AddCookieToBasket'
@@ -24,6 +24,7 @@ const answerIcons = {
 const subscribe = () => () => {}
 
 export default function CookieFinderPage() {
+  const products = useCookieCatalog()
   // An answer cannot be handled until the quiz has hydrated.
   const interactive = useSyncExternalStore(subscribe, () => true, () => false)
   const [step, setStep] = useState(0)
@@ -57,10 +58,10 @@ export default function CookieFinderPage() {
     setAnswers([])
   }
 
-  const match = finished ? explainCookieMatch(answers) : null
+  const match = finished && products.length ? explainCookieMatch(answers, products) : null
   const result = match?.cookie
   const preferences = QUESTIONS.flatMap((question, index) => question.options.filter(option => option.value === answers[index]).map(option => option.label))
-  const resultImage = result && cookieImage(result.name)
+  const resultImage = result?.image
   const resultHeading = useRef<HTMLHeadingElement>(null)
   const questionHeading = useRef<HTMLHeadingElement>(null)
   const moveToQuestion = useRef(false)
@@ -77,6 +78,8 @@ export default function CookieFinderPage() {
       }
     }
   }, [finished, step, answers.length])
+
+  if (!products.length) return null
 
   return (
     <div className="mx-auto max-w-3xl pb-section pt-block">

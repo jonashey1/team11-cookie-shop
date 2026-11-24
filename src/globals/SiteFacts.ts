@@ -1,5 +1,5 @@
 import type { GlobalConfig } from 'payload'
-import { anyone, editorsOnly } from '../access'
+import { editorsOnly } from '../access'
 
 // The facts that several pages show: one record, so each fact has one source. An editor changes the
 // pricing rule here once, and the home page and every workshop page show the new text at once.
@@ -10,9 +10,9 @@ export const SiteFacts: GlobalConfig = {
   admin: {
     description: 'Change these here, once: every page reads them from here.',
   },
-  // The same as the Pages: anyone may read them, only editors may change them.
+  // The site reads these retained settings on the server. The public API does not expose them.
   access: {
-    read: anyone,
+    read: editorsOnly,
     update: editorsOnly,
   },
   fields: [

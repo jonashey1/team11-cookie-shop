@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { getPayload } from 'payload'
 import { saveOrder } from '@/tasks/order-cookies/saveOrder'
 
+vi.mock('@/lib/read-cookie-catalog', () => ({ readCookieCatalog: vi.fn() }))
 vi.mock('payload', () => ({ getPayload: vi.fn() }))
 vi.mock('@/payload.config', () => ({ default: {} }))
 

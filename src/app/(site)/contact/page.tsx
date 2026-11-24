@@ -4,10 +4,12 @@ import { ArtisanPhotoFigure } from '@/components/site/ArtisanPhotoFigure'
 import { artisanPhotography } from '@/content/artisan-photography'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { PageTitle } from '@/components/site/PageTitle'
+import { ContactFaq } from '@/components/site/ContactFaq'
 import { OptionalGhentMap } from '@/components/site/OptionalGhentMap'
 
 export const metadata: Metadata = {
-  title: 'Contact',
+  alternates: { canonical: "https://team11-cookie-shop.vercel.app/contact" },
+  title: 'Contact & FAQ',
   description:
     'Get in touch with Cookie Shop and learn more about our university project.',
 }
@@ -18,7 +20,7 @@ export default function ContactPage() {
   return (
     <div className="grid gap-section pb-block">
       <PageTitle
-        title="Contact Us"
+        title="Contact & FAQ"
         intro="Have a question about Cookie Shop, our cookies or our website? Find out more about our project below."
         tone="blue"
         className="mb-0 border border-line"
@@ -77,44 +79,8 @@ export default function ContactPage() {
 
       <OptionalGhentMap />
 
-      <section
-        aria-labelledby="faq"
-        className="grid gap-stack rounded-panel border border-line bg-yellow-wash p-6 sm:p-block"
-      >
-        <h2 id="faq" className="text-2xl">
-          Frequently Asked Questions
-        </h2>
-
-        <div className="grid gap-5">
-          <div className="grid gap-2">
-            <h3 className="text-lg">
-              Can I order cookies online?
-            </h3>
-            <p>
-              Yes, you can place a fictional test order through the Order Cookies page. No real orders or payments are accepted.
-            </p>
-          </div>
-
-          <div className="grid gap-2">
-            <h3 className="text-lg">
-              Are the cookies real products?
-            </h3>
-            <p>
-              No. The cookies and prices displayed on this
-              website are examples for our university project.
-            </p>
-          </div>
-
-          <div className="grid gap-2">
-            <h3 className="text-lg">
-              Do I need to pay online?
-            </h3>
-            <p>
-              No. Our planned ordering system does not
-              require online payment.
-            </p>
-          </div>
-        </div>
+      <section id="faq" tabIndex={-1} aria-label="Frequently asked questions" className="scroll-mt-24">
+        <ContactFaq />
       </section>
 
       <section aria-labelledby="explore" className="grid gap-4">

@@ -1,6 +1,6 @@
 import { HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
-import { publicContent } from '../access'
+import { isEditor, publicContent } from '../access'
 import { checkUniqueSlug } from '../lib/modelIntegrity'
 import { slug } from './fields'
 
@@ -10,7 +10,7 @@ export const Pages: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
-  access: publicContent,
+  access: { ...publicContent, read: ({ req }) => isEditor({ req }) || { slug: { not_in: ['home', 'about'] } } },
   hooks: {
     beforeChange: [checkUniqueSlug],
   },

@@ -1,5 +1,6 @@
+import { retiredClinicSlug } from '../lib/public-workshop-content'
 import type { CollectionConfig } from 'payload'
-import { publicContent } from '../access'
+import { isEditor, publicContent } from '../access'
 import { checkUniqueSlug, preventDependentDeletion } from '../lib/modelIntegrity'
 import { day, slug, startTime } from './fields'
 
@@ -9,7 +10,7 @@ export const Clinics: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
-  access: publicContent,
+  access: { ...publicContent, read: ({ req }) => isEditor({ req }) || { slug: { not_equals: retiredClinicSlug } } },
   hooks: {
     beforeChange: [checkUniqueSlug],
     beforeDelete: [

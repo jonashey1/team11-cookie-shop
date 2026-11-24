@@ -11,7 +11,7 @@ const LINKS = [
   { href: '/workshops', label: 'Workshops' },
   { href: '/cookie-finder', label: 'Cookie Finder' },
   { href: '/about', label: 'About Us' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/contact', label: 'Contact & FAQ' },
 ]
 
 const ORDER_LINK = { href: '/clinics', label: 'Order Cookies' }

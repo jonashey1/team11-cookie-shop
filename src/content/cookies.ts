@@ -50,4 +50,22 @@ export const COOKIES = [
   },
 ] as const
 
-export type CookieProduct = (typeof COOKIES)[number]
+export const COOKIE_IDS = [1, 2, 3, 4, 5, 6] as const
+
+export type CookieProfile = {
+  sweetness: number
+  chocolate: number
+  texture: string
+  preference: string
+  caramel?: boolean
+}
+
+export type CookieProduct = {
+  id: (typeof COOKIE_IDS)[number]
+  name: string
+  description: string
+  flavour: string
+  price: number
+  image?: { src: string; alt: string }
+  profile?: CookieProfile
+}

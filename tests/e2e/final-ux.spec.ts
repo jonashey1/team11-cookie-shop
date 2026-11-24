@@ -88,3 +88,73 @@ test('redirects the retired example clinic URL to the cookie ordering page', asy
   await expect(page).toHaveURL(/\/clinics$/)
   await expect(page.getByRole('heading', { name: '1. Choose your cookies' })).toBeVisible()
 })
+
+test('redirects former standalone experiences to their accessible sections', async ({ page }) => {
+  for (const [from, to] of [
+    ['/compare', '/cookies#compare-cookies'],
+    ['/faq', '/contact#faq'],
+    ['/fortune-cookie', '/about#fortune-cookie'],
+  ]) {
+    await page.goto(from)
+    await expect.poll(() => new URL(page.url()).pathname + new URL(page.url()).hash).toBe(to)
+    await expect(page.locator(to.slice(to.indexOf('#')))).toBeVisible()
+    await expect(page.locator('main h1')).toHaveCount(1)
+  }
+})
+
+test('renders the CMS cookie price and blocks public changes', async ({ page, request, baseURL }) => {
+  if (!['127.0.0.1', 'localhost'].includes(new URL(baseURL!).hostname)) throw new Error('Isolated CMS fixture required.')
+  const response = await request.get('/api/cookies?sort=productId&limit=10')
+  expect(response.ok()).toBe(true)
+  const { docs } = await response.json()
+  expect(docs.map((cookie: { productId: number }) => cookie.productId)).toEqual([1, 2, 3, 4, 5, 6])
+  const item = docs[0]
+  const guest = await request.patch('/api/cookies/' + item.id, { data: { price: 999 } })
+  expect([401, 403]).toContain(guest.status())
+  const editor = await request.post('/api/users/login', {
+    data: { email: process.env.FIRST_ADMIN_EMAIL, password: process.env.FIRST_ADMIN_PASSWORD },
+  })
+  expect(editor.ok()).toBe(true)
+  const { token } = await editor.json()
+  const headers = { Authorization: 'JWT ' + token }
+  const patch = async (price: number) => request.patch('/api/cookies/' + item.id, { headers, data: { price } })
+  try {
+    expect((await patch(425)).ok()).toBe(true)
+    await page.goto('/cookies')
+    await expect(page.locator('#cookie-1')).toContainText(/4[,.]25/)
+    await page.goto('/clinics')
+    await page.getByRole('button', { name: 'Add one Classic Chocolate Chip', exact: true }).click()
+    await expect(page.getByRole('region', { name: /Review your basket/ })).toContainText(/4[,.]25/)
+    await page.getByLabel('Name (made-up)').fill('Fictional catalogue customer')
+    const email = 'catalogue-' + Date.now() + '@example.invalid'
+    await page.getByLabel('Email (made-up)').fill(email)
+    expect((await patch(item.price)).ok()).toBe(true)
+    await page.getByRole('button', { name: 'Place test order' }).click()
+    await expect(page.locator('form').getByRole('alert')).toContainText('A price changed.')
+    await expect(page.getByRole('region', { name: /Review your basket/ })).toContainText(/4[,.]25/)
+
+    expect((await patch(425)).ok()).toBe(true)
+    const action = page.waitForRequest(r => r.method() === 'POST' && Boolean(r.headers()['next-action']))
+    await page.getByRole('button', { name: 'Place test order' }).click()
+    const savedRequest = await action
+    await expect(page.locator('.cookie-order-receipt')).toContainText(/4[,.]25/)
+    expect((await patch(item.price)).ok()).toBe(true)
+    const replay = await request.post(savedRequest.url(), {
+      headers: {
+        'next-action': savedRequest.headers()['next-action'],
+        'content-type': savedRequest.headers()['content-type'],
+      },
+      data: savedRequest.postDataBuffer()!,
+    })
+    expect(replay.ok()).toBe(true)
+    const orders = await request.get('/api/orders?where[email][equals]=' + encodeURIComponent(email), { headers })
+    expect(orders.ok()).toBe(true)
+    const persisted = await orders.json()
+    expect(persisted.totalDocs).toBe(1)
+    expect(persisted.docs[0].totalCents).toBe(425)
+    expect(persisted.docs[0].items[0].unitPriceCents).toBe(425)
+    expect(await replay.text()).toContain(persisted.docs[0].requestId)
+  } finally {
+    expect((await patch(item.price)).ok()).toBe(true)
+  }
+})

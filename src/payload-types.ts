@@ -77,6 +77,7 @@ export interface Config {
     timeSlots: TimeSlot;
     bookings: Booking;
     repairs: Repair;
+    cookies: Cooky;
     orders: Order;
     throttle: Throttle;
     members: Member;
@@ -106,6 +107,7 @@ export interface Config {
     timeSlots: TimeSlotsSelect<false> | TimeSlotsSelect<true>;
     bookings: BookingsSelect<false> | BookingsSelect<true>;
     repairs: RepairsSelect<false> | RepairsSelect<true>;
+    cookies: CookiesSelect<false> | CookiesSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
     throttle: ThrottleSelect<false> | ThrottleSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
@@ -442,6 +444,33 @@ export interface Repair {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cookies".
+ */
+export interface Cooky {
+  id: number;
+  productId: number;
+  name: string;
+  slug: string;
+  description: string;
+  flavour: string;
+  price: number;
+  illustration:
+    | 'classic-chocolate-chip'
+    | 'double-chocolate'
+    | 'salted-caramel'
+    | 'red-velvet'
+    | 'cookies-and-cream'
+    | 'white-chocolate';
+  sweetness: number;
+  chocolate: number;
+  texture: string;
+  preference: string;
+  caramel?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "orders".
  */
 export interface Order {
@@ -531,6 +560,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'repairs';
         value: number | Repair;
+      } | null)
+    | ({
+        relationTo: 'cookies';
+        value: number | Cooky;
       } | null)
     | ({
         relationTo: 'orders';
@@ -735,6 +768,26 @@ export interface RepairsSelect<T extends boolean = true> {
   name?: T;
   price?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cookies_select".
+ */
+export interface CookiesSelect<T extends boolean = true> {
+  productId?: T;
+  name?: T;
+  slug?: T;
+  description?: T;
+  flavour?: T;
+  price?: T;
+  illustration?: T;
+  sweetness?: T;
+  chocolate?: T;
+  texture?: T;
+  preference?: T;
+  caramel?: T;
   updatedAt?: T;
   createdAt?: T;
 }

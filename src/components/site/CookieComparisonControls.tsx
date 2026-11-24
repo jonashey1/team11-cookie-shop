@@ -6,7 +6,7 @@ import { useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { ButtonLink } from '@/components/site/ButtonLink'
 import { canCompare, comparisonProducts, MAX_COMPARISON } from '@/lib/cookie-comparison'
-import { cookieImage } from '@/lib/workshop-image'
+import { useCookieCatalog } from './OrderBasket'
 import type { CookieProduct } from '@/content/cookies'
 import { addToComparison, clearComparison, removeFromComparison, useCookieComparison } from './useCookieComparison'
 
@@ -26,7 +26,7 @@ export function CompareCookieButton({ cookie }: { cookie: CookieProduct }) {
 export function ComparisonTray() {
   const { ids, message } = useCookieComparison()
   const heading = useRef<HTMLHeadingElement>(null)
-  const selected = comparisonProducts(ids)
+  const selected = comparisonProducts(ids, useCookieCatalog())
   return (
     <div id="comparison" className="scroll-mt-24">
       <section aria-labelledby="comparison-selection" className="grid gap-3 rounded-panel border border-line bg-yellow-wash p-4 sm:p-5">
@@ -38,7 +38,7 @@ export function ComparisonTray() {
           <>
             <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {selected.map(cookie => {
-                const image = cookieImage(cookie.name)
+                const image = cookie.image
                 return (
                   <li key={cookie.id} className="flex min-w-0 items-center gap-2 rounded-control border border-line bg-canvas p-2">
                     {image && <Image src={image.src} alt="" width={44} height={44} className="size-11 shrink-0 rounded-control object-cover" />}
@@ -53,12 +53,12 @@ export function ComparisonTray() {
             </ul>
             <div className="flex flex-wrap gap-2">
               {canCompare(ids)
-                ? <ButtonLink href="/compare" className="whitespace-normal">Compare cookies</ButtonLink>
+                ? <ButtonLink href="/cookies#compare-cookies" className="whitespace-normal">Compare cookies</ButtonLink>
                 : <Button type="button" disabled className="whitespace-normal">Compare cookies</Button>}
               <Button type="button" variant="quiet" onClick={() => { clearComparison(); heading.current?.focus() }}>Clear all</Button>
             </div>
           </>
-        ) : <p className="text-sm text-ink-soft">Choose two or three cookies below to compare them side by side.</p>}
+        ) : <p className="text-sm text-ink-soft">Choose two or three cookies from the assortment to compare them side by side.</p>}
         <p role="status" className={message ? 'text-sm font-semibold' : 'sr-only'}>{message}</p>
       </section>
     </div>
@@ -75,7 +75,7 @@ export function CompareFinderResult({ cookie, alternative = false }: { cookie: C
         onClick={() => selected ? removeFromComparison(cookie.id, cookie.name) : addToComparison(cookie.id, cookie.name)}>
         {alternative ? 'Compare alternative' : 'Compare this cookie'}
       </Button>
-      {selected && <Link className="text-link underline" href={canCompare(ids) ? '/compare' : '/cookies#comparison'}>
+      {selected && <Link className="text-link underline" href={canCompare(ids) ? '/cookies#compare-cookies' : '/cookies#comparison'}>
         {canCompare(ids) ? 'Open comparison' : 'Choose another cookie to compare'}
       </Link>}
       {!alternative && <p role="status" className={message ? 'text-sm' : 'sr-only'}>{message}</p>}

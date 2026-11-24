@@ -86,3 +86,7 @@ The current CSS tokens use cocoa ink (#38251d) on cream (#fff8ee), soft cocoa (#
 - **Closure and figure/ground:** the receipt confirms completion with persistent text, reference and total. Motion is decorative and may be disabled. Theme tokens maintain the foreground and background distinction in the standard, dark and high-contrast views.
 - **Feedback and error prevention:** labels remain visible after typing. A failed order remains actionable without showing celebration. The successful order reference is stable on retry.
 - **Evidence:** Chromium and WebKit exercise representative mobile and desktop views. The corrected screenshots show the streamed workshop content at both widths. This review is retrospective and does not supply original sketches or new participant observations.
+
+## Compliance consolidation
+
+Our Cookies keeps the six product cards before optional exploration. Comparison now has a direct section link and the same seven characteristics, selection limit and differences control. Contact keeps the opt-in campus map and embeds the FAQ, and About keeps the project story before the optional Fortune Cookie. The three prior URLs redirect to the matching focusable sections. Screens use the same approved illustrations and visual components; editors can change catalogue content in Payload without changing the interaction design.

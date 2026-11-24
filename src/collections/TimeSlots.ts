@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 import { editorsOnlyField, isEditor, publicContent } from '../access'
 import { preventCapacityReduction, preventDependentDeletion, requireExistingRelation } from '../lib/modelIntegrity'
 import { SITE_TIME_ZONE } from '../lib/format'
+import { retiredClinicSlug } from '../lib/public-workshop-content'
 import { positiveInteger } from './fields'
 
 /**
@@ -24,7 +25,7 @@ export const TimeSlots: CollectionConfig = {
     useAsTitle: 'startsAt',
     defaultColumns: ['label', 'clinic', 'places'],
   },
-  access: publicContent,
+  access: { ...publicContent, read: ({ req }) => isEditor({ req }) || { 'clinic.slug': { not_equals: retiredClinicSlug } } },
   hooks: {
     beforeDelete: [
       preventDependentDeletion(

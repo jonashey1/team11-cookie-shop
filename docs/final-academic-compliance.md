@@ -92,8 +92,8 @@ Source: [Start: your team, your topic and your two user tasks](https://betterweb
 | Criterion | Status | Evidence and owner action |
 | --- | --- | --- |
 | Two distinct tasks | VERIFIED at previous production and independently sampled on the candidate in isolated tests | D1 keeps ordering and saving selected cookies first; the informational task is finding and comparing available cookies. Current regressions preserve the workflows. Recheck the final main deployment before hand-in. |
-| 6–9 qualifying pages | FAILED on the literal public-page count | Eleven distinct fixed public pages before counting any details. Confirm any course exclusions beyond those stated on §3.1 p. 11; if none apply, approve a consolidation that preserves approved functions and old deep links. |
-| Four topic-specific collections | FAILED on verified evidence | Three content-bearing collections confirmed: workshops, topics and orders. The server-side code catalogue is not a Payload collection. The agreed content-model pair must author and review a genuine fourth collection with relevant user-facing use and an additive migration. |
+| 6–9 qualifying pages | PARTIALLY VERIFIED — eight distinct fixed destinations on the candidate, with former standalone URLs redirecting. §3.1 p. 11 does not state how repeated dynamic details count. If each detail template counts once, the subtotal is ten (eight plus two); if every published detail counts, it is fifteen, before other conditional routes. Obtain the official interpretation before claiming final compliance. |
+| Four topic-specific collections | VERIFIED on the isolated candidate — `cookies`, `orders`, `workshops`, and `topics`. The additive migration initialises the six catalogue records; the website and order action use their current values. The agreed team pair must review the schema before production release. Production remains on the prior schema. |
 | Many-to-many visible both ways | VERIFIED | Workshop topics are stored in Payload; the Topic reverse join renders matching workshops. Production returned the relation in the course checker, and candidate tests exercise four workshops and three topic pages. |
 | Suggested analytics and integration; D5 | PARTIALLY VERIFIED | Two decision records; historical live analytics page views and live opt-in map verified, no confirmed custom order event. Team decision participants require confirmation. |
 | Original design and topic-specific copy | PARTIALLY VERIFIED | Approved design and live primary routes verified. The direct public legacy clinic path was discovered by this audit and redirected on the candidate. CMS API records still contain historical example copy. Owner must review Pages, Site facts and the legacy clinic in production admin without deleting historical records. |
@@ -111,20 +111,20 @@ Each row refers to a distinct public content destination unless noted. §3.1 p. 
 | `/workshops` | Workshop overview; 1 |
 | `/clinics` | Product selection, basket and checkout; 1 |
 | `/cookie-finder` | Recommendation and Passport; 1 |
-| `/compare` | Product comparison; 1 |
+| `/compare` | Redirect to `/cookies#compare-cookies`; 0 |
 | `/build-your-box` | Box Builder; 1 |
-| `/about` | Team and project story; 1 |
-| `/contact` | Contact and opt-in map; 1 |
-| `/faq` | Help; 1 |
-| `/fortune-cookie` | Public interactive experience; 1 |
-| `/workshops/[slug]`, `/topics/[slug]` | Four workshop details and three topic details. Counting conventions for repeated templates remain unconfirmed; even excluding all seven leaves eleven. |
+| `/about` | Team and project story, plus Fortune Cookie; 1 |
+| `/contact` | Contact, opt-in map and FAQ; 1 |
+| `/faq` | Redirect to `/contact#faq`; 0 |
+| `/fortune-cookie` | Redirect to `/about#fortune-cookie`; 0 |
+| `/workshops/[slug]`, `/topics/[slug]` | Four workshop details and three topic details. Counting conventions for repeated templates remain unconfirmed; excluding the seven leaves eight fixed destinations. |
 | `/clinics/[slug]`, `/account`, `/account/login`, CMS routes | Conditional or legacy routes, not used to reach the conservative floor. The known example clinic now redirects on the candidate; `/home` already redirects to the homepage. |
 | `/clinics/[slug]/booked`, `/privacy`, 404 | Officially excluded. |
 
 ### Collection qualification
 
-Schema locations and current fields are in [D3](content-structure.md). The production course endpoint returned 4 workshops, 3 topics, 6 orders, 1 clinic, 3 slots, 1 booking and 3 repairs. The last four kinds relate to the legacy booking example, not the main Cookie Shop ordering task. The single published clinic has the starter repair clinic name. Orders is the only one of the qualifying three marked as added outside the template, but the adapted workshop and topic records are demonstrably on this team's topic. Users, media, generic pages, members and throttling are excluded. The site is not credited for unused or generic collections.
+Schema locations and current fields are in [D3](content-structure.md). The production course endpoint returned 4 workshops, 3 topics, 6 orders, 1 clinic, 3 slots, 1 booking and 3 repairs. The last four kinds relate to the legacy booking example, not the main Cookie Shop ordering task. The single published clinic has the starter repair clinic name. The candidate adds live reads of six `cookies` fixtures and protects known legacy records at the public API, without deleting records. Users, media, generic pages, members and throttling are excluded. The site is not credited for unused or generic collections.
 
 ### Personal work and final release
 
-Use authentic unsolved work for contributions: a real route consolidation, reviewed content model and migration, an observed accessibility issue, checkout regression evidence, and consumer-facing content or relationship checks. The individual contribution threshold is evidence for the teacher; the supplied cards distinguish it from an automatic mark. Resolve the two structural gaps before approving the final merge. After approved deployment, recheck the existing course order and submit on the team Final hand-in card. Revisit A/H1/H2 if the course app still shows an unresolved access or checkpoint finding. Do not claim a new hand-in until the card records the correct SHA.
+Use authentic unsolved work for contributions: a real route consolidation, reviewed content model and migration, an observed accessibility issue, checkout regression evidence, and consumer-facing content or relationship checks. The individual contribution threshold is evidence for the teacher; the supplied cards distinguish it from an automatic mark. Confirm the official dynamic-detail counting rule and the content-model pair’s migration review before approving the final merge. After approved deployment, recheck the existing course order and submit on the team Final hand-in card. Revisit A/H1/H2 if the course app still shows an unresolved access or checkpoint finding. Do not claim a new hand-in until the card records the correct SHA.

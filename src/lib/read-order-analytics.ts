@@ -1,5 +1,6 @@
 import 'server-only'
 import { getPayload, type Where } from 'payload'
+import { readCookieCatalog } from './read-cookie-catalog'
 import config from '@/payload.config'
 import { summarizeOrders, type AnalyticsOrder, type DateFilter } from './order-analytics'
 
@@ -32,5 +33,5 @@ export async function readOrderAnalytics(editor: NonNullable<Awaited<ReturnType<
     if (!result.hasNextPage) break
     page++
   }
-  return summarizeOrders(orders)
+  return summarizeOrders(orders, await readCookieCatalog(editor.payload).catch(() => []))
 }
