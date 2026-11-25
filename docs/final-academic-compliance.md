@@ -56,7 +56,7 @@ Audit target: [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27),
 | R5 | `/cookies`, `/clinics` | PARTIALLY VERIFIED — keyboard action, focus and order cases pass; full human keyboard round trip pending |
 | R6 | `/`, `/cookies`, `/clinics` | VERIFIED for emulated widths including 390 px; new physical-device verification not performed |
 | R7 | `/clinics`, validation and receipt | VERIFIED — fictional details accepted in isolated flow; no payment step; historical production evidence retained |
-| R8 | `/`, `/cookies` | PARTIALLY VERIFIED — 20 cold-cache PR #27 local samples all under 3 s (min/median/max ms: home 390: 133/138/139; home 1100: 118/137/138; assortment 390: 96/104/119; assortment 1100: 105/109/120). 20 hosted PR #26 measurements are historical. Candidate Vercel SSO prevents hosted measurement. |
+| R8 | `/`, `/cookies` | VERIFIED on the submitted production release `a362262` on 25 November 2026. All 20 hosted cold-cache Chromium measurements were below 3 s. See [D2 for results and method](requirements.md). |
 
 ## Individual H3 evidence and access
 
