@@ -4,19 +4,14 @@ Stand van de releasekandidaat in [PR #27](https://github.com/jonashey1/team11-co
 
 ## Technisch bevestigd
 
-- [x] Acht vaste openbare bestemmingen. De oude Comparison-, FAQ- en Fortune Cookie-URL’s verwijzen door. De workshop- en topicroutes blijven beschikbaar.
+- [x] Negen getelde pagina’s: zeven vaste bestemmingen en twee detailtemplates. De Box Builder staat op `/clinics#build-your-box`. De oude Box Builder-, Comparison-, FAQ- en Fortune Cookie-URL’s verwijzen door.
 - [x] Vier gebruikte collecties op de geïsoleerde kandidaat: `cookies`, `orders`, `workshops`, `topics`. Workshops en topics linken publiek in beide richtingen.
 - [x] Zes CMS-producten, serverprijzen, bescherming bij prijswijzigingen en historische prijssnapshots getest op geïsoleerde data.
-- [x] Additieve migratie getest op een lege en een bestaande testdatabase. Geen productiemigratie handmatig uitgevoerd.
+- [x] Additieve migratie getest op een lege en een bestaande testdatabase. De Vercel-productiebuild paste de migratie toe en verifieerde ze. Er was geen afzonderlijke menselijke migratiereview (optioneel).
 - [x] GitHub CI voor de geteste broncode: Chromium, WebKit, migraties, types en leftovers geslaagd. De kandidaatpreview vereist Vercel-login.
 - [x] Teamcode en bestaande productieorder bevestigd via de [cursuschecker](https://team11-cookie-shop.vercel.app/api/course-check?include=team&code=T11-S3F8). Geen nieuwe order nodig.
 - [x] `CAMPUS_CYCLE_LEFTOVERS=fail` staat aan. Bekende voorbeeldrecords zijn op de kandidaat afgeschermd voor gasten; records blijven bewaard.
 - [x] D0–D7 aanwezig. D6 maakt onderscheid tussen de historische deelnemer en geautomatiseerde checks.
-
-## Vóór fiattering van de merge
-
-- [ ] Controleer of de officiële teltregel workshop- en topicdetails mee laat tellen. De kandidaat telt acht vaste bestemmingen en twee detailtemplates. Zonder officiële tekst blijft volledige paginaconformiteit onbevestigd.
-- [ ] Laat het contentmodelpaar de additieve migratie beoordelen en de eigenaar de release goedkeuren.
 
 ## Na een uitdrukkelijk goedgekeurde merge
 

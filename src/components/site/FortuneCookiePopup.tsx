@@ -2,13 +2,14 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Sparkles, X } from 'lucide-react'
 
 const STORAGE_KEY = 'cookie-shop-fortune-popup-seen'
 
-export function FortuneCookiePopup() {
+export function FortuneCookiePopup({ paused }: { paused: boolean }) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [ready, setReady] = useState(false)
@@ -17,7 +18,8 @@ export function FortuneCookiePopup() {
   const previousFocusRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
-    if (pathname !== '/') return
+    // Wait until the user closes accessibility settings before opening another dialog.
+    if (paused || pathname !== '/') return
 
     try {
       if (sessionStorage.getItem(STORAGE_KEY) === 'yes') return
@@ -38,7 +40,7 @@ export function FortuneCookiePopup() {
     }, 2000)
 
     return () => window.clearTimeout(timer)
-  }, [pathname])
+  }, [pathname, paused])
 
   useEffect(() => {
     if (!open) return
@@ -85,7 +87,7 @@ export function FortuneCookiePopup() {
 
   if (!ready || !open || pathname !== '/') return null
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-scrim/75 p-4 backdrop-blur-sm"
       onMouseDown={(event) => {
@@ -161,6 +163,7 @@ export function FortuneCookiePopup() {
           Just for fun. No prizes or real predictions.
         </p>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
