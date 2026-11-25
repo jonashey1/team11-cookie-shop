@@ -49,6 +49,8 @@ Why task 1 must work first: The main purpose of the website is to allow customer
 - Free plans only.
 - The website is developed by six university students within the course schedule. We use the existing starter project and free development tools. Orders are for demonstration purposes only, and no real cookies are sold or delivered.
 
+Workshop registration is a voluntary extension beyond the required H2 scope. Users can register for a fictional session from the existing workshop detail page. The two primary tasks remain ordering cookies and finding and comparing cookies.
+
 ## Not in this version
 
 | Left out | Why | We look at it again when |

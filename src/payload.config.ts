@@ -12,6 +12,8 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Topics } from './collections/Topics'
 import { Workshops } from './collections/Workshops'
+import { WorkshopSessions } from './collections/WorkshopSessions'
+import { WorkshopRegistrations } from './collections/WorkshopRegistrations'
 import { Clinics } from './collections/Clinics'
 import { TimeSlots } from './collections/TimeSlots'
 import { Bookings } from './collections/Bookings'
@@ -49,6 +51,8 @@ const config = buildConfig({
     Pages,
     Topics,
     Workshops,
+    WorkshopSessions,
+    WorkshopRegistrations,
     Clinics,
     TimeSlots,
     Bookings,

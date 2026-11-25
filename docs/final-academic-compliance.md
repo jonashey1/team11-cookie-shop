@@ -106,6 +106,8 @@ Source: [Start: your team, your topic and your two user tasks](https://betterweb
 
 Each row is a public address; the right column gives its official count. Total: 7 fixed destinations + 2 detail templates = **9** (see the 6–9 row above for the source).
 
+The optional workshop registration form, review and confirmation all live inside `/workshops/[slug]`. The six topic-specific collections now include sessions and registrations in addition to the existing four. The original ordering and comparison tasks, team-code configuration and Workshop–Topic relationship are unchanged. See [D3](content-structure.md) and [D6](test-report.md) for the model and verification.
+
 | Route | Meaningful content and counting |
 | --- | --- |
 | `/` | Home and commercial; 1 |

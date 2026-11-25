@@ -73,6 +73,8 @@ export interface Config {
     pages: Page;
     topics: Topic;
     workshops: Workshop;
+    'workshop-sessions': WorkshopSession;
+    'workshop-registrations': WorkshopRegistration;
     clinics: Clinic;
     timeSlots: TimeSlot;
     bookings: Booking;
@@ -103,6 +105,8 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     topics: TopicsSelect<false> | TopicsSelect<true>;
     workshops: WorkshopsSelect<false> | WorkshopsSelect<true>;
+    'workshop-sessions': WorkshopSessionsSelect<false> | WorkshopSessionsSelect<true>;
+    'workshop-registrations': WorkshopRegistrationsSelect<false> | WorkshopRegistrationsSelect<true>;
     clinics: ClinicsSelect<false> | ClinicsSelect<true>;
     timeSlots: TimeSlotsSelect<false> | TimeSlotsSelect<true>;
     bookings: BookingsSelect<false> | BookingsSelect<true>;
@@ -321,6 +325,50 @@ export interface Workshop {
   } | null;
   image?: (number | null) | Media;
   topics?: (number | Topic)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workshop-sessions".
+ */
+export interface WorkshopSession {
+  id: number;
+  title: string;
+  workshop: number | Workshop;
+  startsAt: string;
+  endsAt: string;
+  capacity: number;
+  /**
+   * Remaining places equal capacity minus confirmed places.
+   */
+  reservedPlaces: number;
+  status: 'open' | 'closed' | 'cancelled';
+  internalNotes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workshop-registrations".
+ */
+export interface WorkshopRegistration {
+  id: number;
+  reference: string;
+  requestId: string;
+  workshop: number | Workshop;
+  session: number | WorkshopSession;
+  participantName: string;
+  email: string;
+  participants: number;
+  workshopTitle: string;
+  sessionTitle: string;
+  sessionStartsAt: string;
+  sessionEndsAt: string;
+  /**
+   * Cancel a record to release its places. Cancellation is permanent.
+   */
+  status: 'confirmed' | 'cancelled';
   updatedAt: string;
   createdAt: string;
 }
@@ -546,6 +594,14 @@ export interface PayloadLockedDocument {
         value: number | Workshop;
       } | null)
     | ({
+        relationTo: 'workshop-sessions';
+        value: number | WorkshopSession;
+      } | null)
+    | ({
+        relationTo: 'workshop-registrations';
+        value: number | WorkshopRegistration;
+      } | null)
+    | ({
         relationTo: 'clinics';
         value: number | Clinic;
       } | null)
@@ -715,6 +771,42 @@ export interface WorkshopsSelect<T extends boolean = true> {
   description?: T;
   image?: T;
   topics?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workshop-sessions_select".
+ */
+export interface WorkshopSessionsSelect<T extends boolean = true> {
+  title?: T;
+  workshop?: T;
+  startsAt?: T;
+  endsAt?: T;
+  capacity?: T;
+  reservedPlaces?: T;
+  status?: T;
+  internalNotes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workshop-registrations_select".
+ */
+export interface WorkshopRegistrationsSelect<T extends boolean = true> {
+  reference?: T;
+  requestId?: T;
+  workshop?: T;
+  session?: T;
+  participantName?: T;
+  email?: T;
+  participants?: T;
+  workshopTitle?: T;
+  sessionTitle?: T;
+  sessionStartsAt?: T;
+  sessionEndsAt?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
