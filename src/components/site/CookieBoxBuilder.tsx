@@ -6,7 +6,7 @@ import { useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Button } from '@/components/ui/button'
 import { ButtonLink } from './ButtonLink'
 import { useCookieCatalog } from './OrderBasket'
-import { BOX_SUGGESTIONS, BOX_NAME_LIMIT, BOX_MESSAGE_LIMIT, boxPrice, boxPreviewText, emptyBox, mergeBox, parseSavedBox, type BoxCookieId, type BoxSlots } from '@/lib/cookie-box'
+import { BOX_SUGGESTIONS, BOX_NAME_LIMIT, BOX_MESSAGE_LIMIT, boxPrice, boxPreviewText, emptyBox, parseSavedBox, type BoxCookieId, type BoxSlots } from '@/lib/cookie-box'
 import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 
 type Picker = { slot: number } | { suggestion: keyof typeof BOX_SUGGESTIONS } | { saved: BoxSlots }
@@ -39,7 +39,7 @@ export function CookieBoxBuilder() {
   const slotList = useRef<HTMLUListElement>(null)
   const focusSlot = useRef<number | null>(null)
   const adding = useRef(false)
-  const { pending, quantities, setQuantities } = useOrderBasket()
+  const { pending, addBox } = useOrderBasket()
   const selection = slots.filter(id => id !== null)
   const remaining = slots.length - selection.length
 
@@ -95,13 +95,11 @@ export function CookieBoxBuilder() {
 
   function addToBasket() {
     if (adding.current || remaining || pending) return
-    const next = mergeBox(quantities, selection)
-    if (!next) {
+    if (!addBox({ cookies: selection, name: boxName.trim(), message: giftMessage.trim() })) {
       setFeedback('Your basket can hold up to 20 of each flavour. Adjust it before adding this box.')
       return
     }
     adding.current = true
-    setQuantities(next)
     setSlots(emptyBox())
     setFeedback('Box added to your basket.')
   }
@@ -158,7 +156,7 @@ export function CookieBoxBuilder() {
         </div>
         <details className="experience-box-tools">
           <summary className="min-h-11 cursor-pointer py-2 font-bold">Personalise your box</summary>
-          <p className="text-sm">Digital preview only. Your name and message stay here and are not included with the order.</p>
+          <p className="text-sm">Digital preview only. Your box name and message stay in this browser and are not included with the order.</p>
           <label htmlFor="box-preview-name">Name your box (optional, {BOX_NAME_LIMIT} characters maximum)</label>
           <input id="box-preview-name" className="min-h-11 w-full rounded-control border border-ink bg-canvas p-2"
             value={boxName} maxLength={BOX_NAME_LIMIT} onChange={event => setBoxName(boxPreviewText(event.target.value, BOX_NAME_LIMIT))} />

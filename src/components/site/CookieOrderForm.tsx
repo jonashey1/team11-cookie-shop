@@ -9,11 +9,12 @@ import { track } from '@/lib/analytics'
 import { cookieImage } from '@/lib/workshop-image'
 import { ButtonLink } from './ButtonLink'
 import { AddCookieToBasket } from './AddCookieToBasket'
+import { BasketLines } from './BasketLines'
 import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 
 export function CookieOrderForm() {
   const products = useCookieCatalog()
-  const { quantities, setQuantities, chosen, total, pending, setPending, getRequestId } = useOrderBasket()
+  const { quantities, singles, changeQuantity, clear, chosen, total, pending, setPending, getRequestId } = useOrderBasket()
   const [error, setError] = useState('')
   const [confirmed, setConfirmed] = useState<OrderReceipt | null>(null)
   const receiptHeading = useRef<HTMLHeadingElement>(null)
@@ -23,15 +24,6 @@ export function CookieOrderForm() {
   const suggestions = chosen.length ? [unselected.find(cookie => selectedFlavours.has(cookie.flavour)), unselected.find(cookie => !selectedFlavours.has(cookie.flavour))].filter(cookie => cookie !== undefined) : []
 
   useEffect(() => { if (confirmed) receiptHeading.current?.focus() }, [confirmed])
-
-  function changeQuantity(cookieId: number, delta: number) {
-    if (pending) return
-    setQuantities((previous) => {
-      const next = Math.max(0, Math.min(20, (previous[cookieId] ?? 0) + delta))
-      return { ...previous, [cookieId]: next }
-    })
-    setError('')
-  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -50,7 +42,7 @@ export function CookieOrderForm() {
       const result = await saveOrder(data)
       if (result.success) {
         setConfirmed(result.receipt)
-        setQuantities({})
+        clear()
         track('cookie_order_saved')
         // The receipt stays on this page, but the address changes to /clinics/confirmed. Vercel's free
         // plan drops custom events such as the one above; it does record page views, so a saved order
@@ -121,9 +113,9 @@ export function CookieOrderForm() {
                   <p className="font-heading text-lg font-bold tabular-nums">{formatOrderAmount(cookie.price)} each</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-stack border-t border-line pt-stack">
-                  <Button type="button" variant="secondary" size="icon" aria-label={`Remove one ${cookie.name}`} disabled={pending || !(quantities[cookie.id] > 0)} onClick={() => changeQuantity(cookie.id, -1)}>−</Button>
+                  <Button type="button" variant="secondary" size="icon" aria-label={`Remove one ${cookie.name}`} disabled={pending || !(singles[cookie.id] > 0)} onClick={() => { changeQuantity(cookie.id, -1); setError('') }}>−</Button>
                   <output className="min-w-7 text-center font-bold tabular-nums" aria-label={`${cookie.name} quantity`}>{quantities[cookie.id] ?? 0}</output>
-                  <Button type="button" variant="secondary" size="icon" aria-label={`Add one ${cookie.name}`} disabled={pending || (quantities[cookie.id] ?? 0) >= 20} onClick={() => changeQuantity(cookie.id, 1)}>+</Button>
+                  <Button type="button" variant="secondary" size="icon" aria-label={`Add one ${cookie.name}`} disabled={pending || (quantities[cookie.id] ?? 0) >= 20} onClick={() => { changeQuantity(cookie.id, 1); setError('') }}>+</Button>
                 </div>
               </article>
             )
@@ -138,24 +130,7 @@ export function CookieOrderForm() {
             <path d="M9 18h30l-5 21H14L9 18Zm7 0 8-10 8 10M19 24l2 9m8-9-2 9" />
           </svg>
           <p>Your basket is empty. Choose a cookie from the assortment or add one above.</p>
-        </div> : (
-          <ul className="grid gap-3">
-            {chosen.map((cookie) => (
-              <li key={cookie.id} data-flavour={cookie.id} className="boutique-basket-line boutique-basket-item border-b border-line">
-                {cookie.image && <Image src={cookie.image.src} alt={cookie.image.alt} width={56} height={56} className="size-14 shrink-0 rounded-control object-cover" />}
-                <div className="boutique-basket-details min-w-0 flex-1">
-                  <strong>{cookie.name} × {quantities[cookie.id]}</strong>
-                  <p className="text-sm">{formatOrderAmount(cookie.price)} each · {formatOrderAmount(cookie.price * quantities[cookie.id])} subtotal</p>
-                </div>
-                <div className="boutique-basket-controls flex flex-wrap items-center gap-1">
-                  <Button type="button" variant="secondary" size="icon" aria-label={`Decrease basket quantity of ${cookie.name}`} disabled={pending} onClick={() => changeQuantity(cookie.id, -1)}>−</Button>
-                  <Button type="button" variant="secondary" size="icon" aria-label={`Increase basket quantity of ${cookie.name}`} disabled={pending || quantities[cookie.id] >= 20} onClick={() => changeQuantity(cookie.id, 1)}>+</Button>
-                  <Button type="button" variant="quiet" aria-label={`Remove ${cookie.name} from basket`} disabled={pending} onClick={() => changeQuantity(cookie.id, -quantities[cookie.id])}>Remove</Button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        </div> : <BasketLines onChange={() => setError('')} />}
         <p className="font-heading text-2xl font-bold tabular-nums">Total: {formatOrderAmount(total)}</p>
         <p className="text-sm">No online payment. This is a test website: use made-up details only.</p>
         <div className="flex flex-wrap gap-3">

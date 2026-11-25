@@ -8,7 +8,6 @@ import Script from 'next/script'
 import type { ReactNode } from 'react'
 import { Footer } from '@/components/site/Footer'
 import { Header } from '@/components/site/Header'
-import { FloatingOrderButton } from '@/components/site/FloatingOrderButton'
 import { OrderBasketProvider } from '@/components/site/OrderBasket'
 import './globals.css'
 
@@ -60,7 +59,6 @@ export default async function SiteLayout({
       <body className="flex min-h-screen flex-col">
         <OrderBasketProvider products={products}>
           <Header />
-          <FloatingOrderButton />
 
           <main
             id="main"

@@ -68,7 +68,7 @@ export async function Header() {
             />
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="ms-auto flex max-w-full flex-wrap items-center justify-end gap-2">
             <ThemeToggle />
             <AccessibilityCenter />
           </div>

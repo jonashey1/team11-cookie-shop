@@ -24,3 +24,7 @@ The informational path begins at `/cookies`, with Comparison now a section on th
 ## Optional workshop registration
 
 Users can select an available fictional session, review their details and receive a reference only after the registration commits. Editors can cancel a registration and restore the places. Acceptance checks cover guest access, duplicate and competing requests, capacity changes and end-to-end registration. See [D6](test-report.md) for verification.
+
+## Optional global basket
+
+From the header on a public page, open the basket and check that the badge counts each loose cookie and each four-cookie box as one item. Add, adjust and remove lines, compare the current catalogue subtotal with checkout, and reload to verify that the same valid lines are kept. Verify box names and messages remain in the browser and that keyboard users can open, operate and close the drawer. See [D6](test-report.md) for verification.

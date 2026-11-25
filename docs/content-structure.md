@@ -51,6 +51,8 @@ The order action checks the contact fields, cookie numbers, quantities and reque
 
 Workshop registration adds `workshop-sessions` (one workshop to many sessions) and `workshop-registrations` (one session to many registrations). The existing Workshop–Topic many-to-many remains. The workshop detail template contains session selection, review and confirmation, so the counted inventory stays at nine pages. The site reads a server-side projection of session times, status and remaining places. Payload collection access is editor-only and private registration records hold the historical title and time snapshots. PostgreSQL updates confirmed-place counts atomically with registration or cancellation.
 
+The global basket is a header dialog. It opens on the current page and links to the existing checkout section at `/clinics#customer-details`. It adds no routes or CMS collections.
+
 ## Sitemap
 
 ```text

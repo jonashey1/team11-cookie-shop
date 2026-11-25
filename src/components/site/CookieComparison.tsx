@@ -15,7 +15,7 @@ import { addToComparison, clearComparison, removeFromComparison, useCookieCompar
 export function CookieComparison() {
   const products = useCookieCatalog()
   const { ids, message } = useCookieComparison()
-  const { quantities, pending, setQuantities } = useOrderBasket()
+  const { quantities, pending, changeQuantity } = useOrderBasket()
   const [highlight, setHighlight] = useState(true)
   const [basketFeedback, setBasketFeedback] = useState('')
   const heading = useRef<HTMLHeadingElement>(null)
@@ -90,10 +90,7 @@ export function CookieComparison() {
                         className="min-w-0 whitespace-normal px-1 text-sm sm:px-3"
                         aria-label={`Add ${cookie.name} to basket`}
                         onClick={() => {
-                          setQuantities(previous => ({
-                            ...previous,
-                            [cookie.id]: Math.min(20, (previous[cookie.id] ?? 0) + 1),
-                          }))
+                          changeQuantity(cookie.id, 1)
                           setBasketFeedback(`${cookie.name} added to your basket.`)
                         }}>
                         {atLimit ? 'Basket limit reached' : 'Add to basket'}
