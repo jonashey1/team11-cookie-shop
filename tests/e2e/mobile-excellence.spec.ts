@@ -26,15 +26,26 @@ test('keeps Finder progress and three-cookie comparison usable by touch', async 
 
 test('keeps the homepage within 320 pixels with all accessibility settings', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 844 })
+  await page.clock.install()
   await page.goto('/')
   await page.getByRole('button', { name: 'Open accessibility settings' }).click()
+  const fortune = page.getByRole('dialog', { name: 'Your fortune is waiting!' })
   for (const name of ['Larger text', 'High contrast', 'Highlight links', 'Reduce motion', 'Larger cursor']) {
-    await page.getByRole('switch', { name, exact: true }).click()
+    if (name === 'Larger cursor') await page.clock.runFor(2100)
+    const setting = page.getByRole('switch', { name, exact: true })
+    await setting.click()
+    await expect(setting).toBeChecked()
   }
+  await expect(fortune).toHaveCount(0)
   await page.keyboard.press('Escape')
+  await expect(page.getByRole('button', { name: 'Open accessibility settings' })).toBeFocused()
   await page.getByRole('button', { name: 'Switch to dark mode' }).click()
+  await page.clock.runFor(2100)
+  await expect(fortune).toBeVisible()
+  await fortune.getByRole('button', { name: 'Close fortune cookie popup' }).click()
   await page.reload()
   await expect(page.locator('html')).toHaveClass(/a11y-large-text/)
+  await expect(page.locator('html')).toHaveClass(/a11y-large-cursor/)
   await expect(page.locator('main h1')).toBeVisible()
   await page.evaluate(() => document.fonts.ready)
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)

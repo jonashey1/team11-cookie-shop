@@ -9,7 +9,6 @@ import type { ReactNode } from 'react'
 import { Footer } from '@/components/site/Footer'
 import { Header } from '@/components/site/Header'
 import { FloatingOrderButton } from '@/components/site/FloatingOrderButton'
-import { FortuneCookiePopup } from '@/components/site/FortuneCookiePopup'
 import { OrderBasketProvider } from '@/components/site/OrderBasket'
 import './globals.css'
 
@@ -74,8 +73,6 @@ export default async function SiteLayout({
 
           <Footer />
         </OrderBasketProvider>
-
-        <FortuneCookiePopup />
 
         {/* Optional creative enhancement: Watermelon AI Cookie Assistant. */}
         <Script

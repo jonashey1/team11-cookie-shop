@@ -56,7 +56,7 @@ Audit target: [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27),
 | R5 | `/cookies`, `/clinics` | PARTIALLY VERIFIED — keyboard action, focus and order cases pass; full human keyboard round trip pending |
 | R6 | `/`, `/cookies`, `/clinics` | VERIFIED for emulated widths including 390 px; new physical-device verification not performed |
 | R7 | `/clinics`, validation and receipt | VERIFIED — fictional details accepted in isolated flow; no payment step; historical production evidence retained |
-| R8 | `/`, `/cookies` | PARTIALLY VERIFIED — 20 cold-cache PR #27 local samples all under 3 s (min/median/max ms: home 390: 133/138/139; home 1100: 118/137/138; assortment 390: 96/104/119; assortment 1100: 105/109/120). 20 hosted PR #26 measurements are historical. Candidate Vercel SSO prevents hosted measurement. |
+| R8 | `/`, `/cookies` | VERIFIED on the submitted production release `a362262` on 25 November 2026. All 20 hosted cold-cache Chromium measurements were below 3 s. See [D2 for results and method](requirements.md). |
 
 ## Individual H3 evidence and access
 
@@ -129,4 +129,4 @@ Schema locations and current fields are in [D3](content-structure.md). The produ
 
 ### Personal work and final release
 
-Use authentic unsolved work for contributions: a real route consolidation, reviewed content model and migration, an observed accessibility issue, checkout regression evidence, and consumer-facing content or relationship checks. The individual contribution threshold is evidence for the teacher; the supplied cards distinguish it from an automatic mark. Confirm the official dynamic-detail counting rule and the content-model pair’s migration review before approving the final merge. After approved deployment, recheck the existing course order and submit on the team Final hand-in card. Revisit A/H1/H2 if the course app still shows an unresolved access or checkpoint finding. Do not claim a new hand-in until the card records the correct SHA.
+Record only genuine individual contributions. The individual contribution threshold is evidence for the teacher; the supplied cards distinguish it from an automatic mark. After the final deployment, recheck the existing course order and submit on the team Final hand-in card. Refresh the earlier cards as instructed in the course app. Verify that the final card records the deployed SHA.

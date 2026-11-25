@@ -11,6 +11,7 @@ import {
   Type,
   X,
 } from 'lucide-react'
+import { FortuneCookiePopup } from './FortuneCookiePopup'
 
 type Setting =
   | 'largeText'
@@ -319,6 +320,7 @@ export function AccessibilityCenter() {
           </div>
         </div>
       )}
+      <FortuneCookiePopup paused={open} />
     </>
   )
 }
