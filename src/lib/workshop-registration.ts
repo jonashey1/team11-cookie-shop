@@ -22,6 +22,8 @@ const dateFormat = new Intl.DateTimeFormat('en-GB', {
   dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/Brussels',
 })
 
+const EMAIL = /^(?![^@]*\.\.)[\w!#$%&'*+/=?^`{|}~-](?:[\w!#$%&'*+/=?^`{|}~.-]*[\w!#$%&'*+/=?^`{|}~-])?@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*$/i
+
 export function formatWorkshopSession(startsAt: string, endsAt: string) {
   return `${dateFormat.formatRange(new Date(startsAt), new Date(endsAt))} (Brussels time)`
 }
@@ -43,8 +45,8 @@ export function readWorkshopRegistration(form: FormData) {
     return { error: 'Choose a valid number of participants.' } as const
   }
   if (name.length < 2 || name.length > 100) return { error: 'Enter a fictional full name of 2 to 100 characters.' } as const
-  if (email.length > 254 || !/^[^\s@]+@[a-z0-9-]+(?:\.[a-z0-9-]+)*\.example$/i.test(email)) {
-    return { error: 'Enter a fictional email address ending in .example.' } as const
+  if (email.length > 254 || !EMAIL.test(email)) {
+    return { error: 'Enter a valid email address.' } as const
   }
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId)) {
     return { error: 'Reload the page before starting a new registration.' } as const

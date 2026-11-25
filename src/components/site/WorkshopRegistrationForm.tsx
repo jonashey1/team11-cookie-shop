@@ -163,7 +163,7 @@ export function WorkshopRegistrationForm({ workshop, title, initialSessions }: {
                       <input className={fieldClass} required minLength={2} maxLength={100} value={name} onChange={event => setName(event.target.value)} />
                     </label>
                     <label className="grid min-w-0 gap-2 font-semibold">Fictional email
-                      <input className={fieldClass} type="email" required maxLength={254} pattern="[^\s@]+@[^\s@]+[.]example"
+                      <input className={fieldClass} type="email" required maxLength={254}
                         placeholder="name@cookieshop.example" value={email} onChange={event => setEmail(event.target.value)} />
                     </label>
                   </div>
