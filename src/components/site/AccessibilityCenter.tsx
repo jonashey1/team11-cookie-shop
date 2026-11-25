@@ -12,6 +12,7 @@ import {
   X,
 } from 'lucide-react'
 import { FortuneCookiePopup } from './FortuneCookiePopup'
+import { GlobalBasket } from './GlobalBasket'
 
 type Setting =
   | 'largeText'
@@ -129,6 +130,7 @@ function UniversalAccessIcon({ className = 'size-5' }: { className?: string }) {
 }
 export function AccessibilityCenter() {
   const [open, setOpen] = useState(false)
+  const [basketOpen, setBasketOpen] = useState(false)
 
   const [preferences, setPreferences] =
     useState<Preferences>(readPreferences)
@@ -320,7 +322,8 @@ export function AccessibilityCenter() {
           </div>
         </div>
       )}
-      <FortuneCookiePopup paused={open} />
+      <GlobalBasket onOpenChange={setBasketOpen} />
+      <FortuneCookiePopup paused={open || basketOpen} />
     </>
   )
 }

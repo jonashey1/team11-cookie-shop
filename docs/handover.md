@@ -64,3 +64,7 @@ In Payload **Workshop Sessions**, choose an existing workshop, enter the start a
 In **Workshop Registrations**, search by reference and set **Cancelled** to release the associated places. Cancellation is permanent. Fictional names and email addresses are visible only to authorised editors. Users receive a server-generated reference after the record commits. Retries with the same key reuse the result. A database trigger updates the session count in the same transaction as the registration. Lowering capacity below confirmed places is rejected.
 
 The additive migration adds both collections and initialises upcoming sessions for the four existing workshops once. For monitoring, review registration counts and confirmed places in Payload. No contact details are sent to analytics or used for email. Revert the application PR if a rollback is necessary and leave the registration data intact. Automatic email, waitlists, self-service cancellation and payments remain future possibilities.
+
+## Global basket
+
+The header and checkout share the basket provider and its existing per-tab storage. The storage reader accepts the prior quantity-only format and rejects unsupported records. Boxes retain their four slots and optional preview text in the browser. Checkout sends only the combined cookie quantities to the existing order action. Test price and quantity changes against Payload catalogue data in an isolated environment. The basket requires no migration or new CMS settings, and workshop registrations stay separate.

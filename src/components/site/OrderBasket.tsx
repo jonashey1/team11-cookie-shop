@@ -1,56 +1,43 @@
 'use client'
 
 import { createContext, useContext, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from 'react'
-import { COOKIE_IDS, type CookieProduct } from '@/content/cookies'
+import type { CookieProduct } from '@/content/cookies'
+import { basketQuantities, EMPTY_BASKET, readBasket, type BasketBox, type BasketSnapshot, type Quantities } from '@/lib/order-basket'
+import { mergeBox } from '@/lib/cookie-box'
 
-type Quantities = Record<number, number>
-type BasketSnapshot = { quantities: Quantities; requestId: string | null }
-
+type NewBox = Pick<BasketBox, 'cookies' | 'name' | 'message'>
 type OrderBasket = {
   products: readonly CookieProduct[]
   quantities: Quantities
-  setQuantities: Dispatch<SetStateAction<Quantities>>
+  singles: Quantities
+  boxes: BasketBox[]
   chosen: CookieProduct[]
-  count: number
+  itemCount: number
   total: number
   pending: boolean
   setPending: Dispatch<SetStateAction<boolean>>
+  changeQuantity: (id: CookieProduct['id'], delta: number) => void
+  addBox: (box: NewBox) => boolean
+  changeBoxQuantity: (id: string, delta: number) => void
+  clear: () => void
   getRequestId: () => string
 }
 
 const OrderBasketContext = createContext<OrderBasket | null>(null)
 const currency = new Intl.NumberFormat('en-BE', { style: 'currency', currency: 'EUR' })
 const STORAGE_KEY = 'cookie-shop-order-basket'
-const EMPTY: BasketSnapshot = { quantities: {}, requestId: null }
 const listeners = new Set<() => void>()
 let snapshot: BasketSnapshot | undefined
 
-function getServerBasket() {
-  return EMPTY
-}
+const getServerBasket = () => EMPTY_BASKET
 
 function getBasket() {
   if (snapshot) return snapshot
-
-  snapshot = EMPTY
+  snapshot = EMPTY_BASKET
   try {
-    const stored = JSON.parse(sessionStorage.getItem(STORAGE_KEY) ?? 'null') as Partial<BasketSnapshot> | null
-    const quantities: Quantities = {}
-    for (const id of COOKIE_IDS) {
-      const quantity = stored?.quantities?.[id]
-      if (typeof quantity === 'number' && Number.isInteger(quantity) && quantity >= 1 && quantity <= 20) {
-        quantities[id] = quantity
-      }
-    }
-    const requestId = stored?.requestId
-    if (Object.keys(quantities).length > 0) {
-      snapshot = {
-        quantities,
-        requestId: typeof requestId === 'string' && /^[0-9a-f-]{36}$/i.test(requestId) ? requestId : null,
-      }
-    }
+    snapshot = readBasket(JSON.parse(sessionStorage.getItem(STORAGE_KEY) ?? 'null'))
   } catch {
-    // The basket still works on this page when the browser blocks storage.
+    // The basket still works in memory when the browser blocks storage.
   }
   return snapshot
 }
@@ -63,8 +50,7 @@ function subscribe(listener: () => void) {
 function saveBasket(next: BasketSnapshot) {
   snapshot = next
   try {
-    // Keep the quantities and order reference together so a retry after a reload uses the same order.
-    if (Object.values(next.quantities).some(quantity => quantity > 0)) {
+    if (Object.keys(next.quantities).length || next.boxes.length) {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(next))
     } else {
       sessionStorage.removeItem(STORAGE_KEY)
@@ -75,11 +61,34 @@ function saveBasket(next: BasketSnapshot) {
   listeners.forEach(listener => listener())
 }
 
-function setQuantities(update: SetStateAction<Quantities>) {
+function changeQuantity(id: CookieProduct['id'], delta: number) {
   const current = getBasket()
-  const quantities = typeof update === 'function' ? update(current.quantities) : update
-  saveBasket({ quantities, requestId: null })
+  const single = current.quantities[id] ?? 0
+  const next = Math.max(0, Math.min(single + delta, single + 20 - (basketQuantities(current)[id] ?? 0)))
+  if (next === single) return
+  const quantities = { ...current.quantities }
+  if (next) quantities[id] = next
+  else delete quantities[id]
+  saveBasket({ ...current, quantities, requestId: null })
 }
+
+function addBox(box: NewBox) {
+  const current = getBasket()
+  if (!mergeBox(basketQuantities(current), box.cookies)) return false
+  saveBasket({ ...current, boxes: [...current.boxes, { ...box, id: crypto.randomUUID(), quantity: 1 }], requestId: null })
+  return true
+}
+
+function changeBoxQuantity(id: string, delta: number) {
+  const current = getBasket()
+  const box = current.boxes.find(item => item.id === id)
+  if (!box || (delta > 0 && !mergeBox(basketQuantities(current), box.cookies))) return
+  const boxes = current.boxes.map(item => item.id === id ? { ...item, quantity: item.quantity + delta } : item)
+    .filter(item => item.quantity > 0)
+  saveBasket({ ...current, boxes, requestId: null })
+}
+
+const clear = () => saveBasket(EMPTY_BASKET)
 
 function getRequestId() {
   const current = getBasket()
@@ -94,14 +103,18 @@ export function formatOrderAmount(cents: number) {
 }
 
 export function OrderBasketProvider({ children, products }: { children: ReactNode; products: readonly CookieProduct[] }) {
-  const { quantities } = useSyncExternalStore(subscribe, getBasket, getServerBasket)
+  const stored = useSyncExternalStore(subscribe, getBasket, getServerBasket)
   const [pending, setPending] = useState(false)
-  const chosen = products.filter((cookie) => (quantities[cookie.id] ?? 0) > 0)
-  const count = chosen.reduce((sum, cookie) => sum + quantities[cookie.id], 0)
+  const singles = stored.quantities
+  const boxes = stored.boxes.filter(box => box.cookies.every(id => products.some(product => product.id === id)))
+  const quantities = basketQuantities({ ...stored, boxes })
+  const chosen = products.filter(cookie => (quantities[cookie.id] ?? 0) > 0)
   const total = chosen.reduce((sum, cookie) => sum + cookie.price * quantities[cookie.id], 0)
+  const itemCount = products.reduce((sum, product) => sum + (singles[product.id] ?? 0), 0)
+    + boxes.reduce((sum, box) => sum + box.quantity, 0)
 
   return (
-    <OrderBasketContext.Provider value={{ products, quantities, setQuantities, chosen, count, total, pending, setPending, getRequestId }}>
+    <OrderBasketContext.Provider value={{ products, quantities, singles, boxes, chosen, itemCount, total, pending, setPending, changeQuantity, addBox, changeBoxQuantity, clear, getRequestId }}>
       {children}
     </OrderBasketContext.Provider>
   )

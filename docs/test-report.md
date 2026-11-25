@@ -90,3 +90,7 @@ Not tested under these conditions: a physical phone, a throttled mobile network,
 ## Workshop registration extension
 
 The isolated release build and committed migration were checked separately from the historical usability sessions above. Vitest passed 56 checks, including workshop input validation and Brussels time formatting. The workshop browser and database suite passed 8 checks in WebKit (two runs) and 4 in Chromium against disposable PostgreSQL 16. It verified persistence, stale availability recovery, keyboard focus, widths from 320 to 1440 px with accessibility settings, axe, guest access denial, competing and duplicate requests, historical snapshots and editor cancellation. An upgrade rehearsal from the preceding migration added eight sessions linked to four existing workshops and retained all six cookies. This is automated evidence. No human usability session was conducted for the workshop extension.
+
+## Global basket extension
+
+The isolated production build and all 59 Vitest checks passed. The targeted basket and existing box/checkout suite passed 10 checks each in Chromium and WebKit. Coverage includes the old storage format, totals and removals, grouped boxes and preview text after reload, drawer focus and Escape, the Fortune Cookie timer, checkout, and seven widths from 320 to 1440 px with accessibility preferences and an axe scan. Workshop detail navigation and its registration section were checked without making a registration. This evidence is automated. No new human usability session was conducted.

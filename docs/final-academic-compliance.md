@@ -108,6 +108,8 @@ Each row is a public address; the right column gives its official count. Total: 
 
 The optional workshop registration form, review and confirmation all live inside `/workshops/[slug]`. The six topic-specific collections now include sessions and registrations in addition to the existing four. The original ordering and comparison tasks, team-code configuration and Workshop–Topic relationship are unchanged. See [D3](content-structure.md) and [D6](test-report.md) for the model and verification.
 
+The optional global shopping basket is an integrated component beyond the required H2 scope. It uses the existing cookie order action and adds no qualifying routes, collections or changes to the team-code transaction. Workshop registration stays separate.
+
 | Route | Meaningful content and counting |
 | --- | --- |
 | `/` | Home and commercial; 1 |

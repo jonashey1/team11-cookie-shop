@@ -816,10 +816,29 @@ html.a11y-large-cursor [contenteditable='true'] {
   color: var(--color-link);
   background: var(--color-yellow-wash);
 }
-.boutique-order-dock {
-  inset-inline-start: max(.5rem, env(safe-area-inset-left));
-  inset-block-end: max(.5rem, env(safe-area-inset-bottom));
-  max-inline-size: calc(100% - 6rem);
+.global-basket {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  inline-size: min(100%, 34rem);
+  max-inline-size: 100%;
+  block-size: 100dvh;
+  max-block-size: 100dvh;
+  overflow: hidden;
+}
+.global-basket::backdrop { background: color-mix(in srgb, var(--color-scrim) 70%, transparent); }
+.global-basket-footer { padding-block-end: max(1rem, env(safe-area-inset-bottom)); }
+.global-basket .boutique-basket-item { grid-template-columns: auto minmax(0, 1fr); }
+.global-basket .boutique-basket-controls { grid-column: 2; }
+@media (max-height: 30rem) {
+  .global-basket { overflow-y: auto; }
+  .global-basket > div { height: auto; min-height: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.a11y-reduce-motion) .global-basket[open] { animation: basket-enter 180ms ease-out both; }
+}
+@keyframes basket-enter {
+  from { transform: translateX(100%); }
 }
 .boutique-basket-item {
   display: grid;
@@ -834,14 +853,6 @@ html.a11y-large-cursor [contenteditable='true'] {
   .boutique-basket-controls { grid-column: 2; }
   .boutique-basket-controls button { min-width: 44px; min-height: 44px; }
 }
-@media (min-width: 40rem) {
-  .boutique-order-dock {
-    inset-inline-start: max(1.5rem, env(safe-area-inset-left));
-    inset-block-end: max(1.5rem, env(safe-area-inset-bottom));
-  }
-}
-
-html:has(.boutique-order-dock) { scroll-padding-block-end: 6rem; }
 
 .boutique-photo {
   min-width: 0;
@@ -1056,7 +1067,7 @@ html:has(.boutique-order-dock) { scroll-padding-block-end: 6rem; }
   .excellence-main-nav a { padding-inline: .38rem; white-space: nowrap; }
 }
 @media print {
-  .boutique-order-dock,
+  .global-basket,
   iframe[title="Watermelon chatbot"],
   iframe[src*="chatwidget-prod.web.app"] { display: none !important; }
 }
@@ -1078,7 +1089,6 @@ html:has(.boutique-order-dock) { scroll-padding-block-end: 6rem; }
   .mobile-comparison-scroll { overflow-x: auto; overscroll-behavior-inline: contain; border-block-end: 1px solid var(--color-line); }
   .mobile-comparison-scroll table { min-inline-size: 30rem; }
   section[aria-labelledby="customer-details"] input { font-size: max(16px, 1rem); scroll-margin-block-end: 5.5rem; }
-  body:has(section[aria-labelledby="customer-details"] input:focus) .boutique-order-dock { visibility: hidden; }
 }
 @media (max-width: 40rem) and (max-height: 30rem) {
   .excellence-answer-art { aspect-ratio: 2.6; }
