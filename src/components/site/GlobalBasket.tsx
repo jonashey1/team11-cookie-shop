@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type MouseEvent } from 'react'
+import { usePathname } from 'next/navigation'
 import { ShoppingBag, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ButtonLink } from './ButtonLink'
@@ -9,10 +10,12 @@ import { formatOrderAmount, useOrderBasket } from './OrderBasket'
 
 export function GlobalBasket({ onOpenChange }: { onOpenChange: (open: boolean) => void }) {
   const { products, itemCount, total, pending } = useOrderBasket()
+  const onCheckoutPage = usePathname() === '/clinics'
   const [open, setOpen] = useState(false)
   const dialog = useRef<HTMLDialogElement>(null)
   const trigger = useRef<HTMLButtonElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
+  const followingCheckout = useRef(false)
   const summary = `${itemCount} ${itemCount === 1 ? 'item' : 'items'} · ${formatOrderAmount(total)}`
 
   useEffect(() => {
@@ -32,7 +35,14 @@ export function GlobalBasket({ onOpenChange }: { onOpenChange: (open: boolean) =
   function afterClose() {
     setOpen(false)
     onOpenChange(false)
-    trigger.current?.focus({ preventScroll: true })
+    if (!followingCheckout.current) trigger.current?.focus({ preventScroll: true })
+    followingCheckout.current = false
+  }
+
+  function goToCheckout(event: MouseEvent<HTMLAnchorElement>) {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    followingCheckout.current = true
+    dialog.current?.close()
   }
 
   return (
@@ -68,7 +78,12 @@ export function GlobalBasket({ onOpenChange }: { onOpenChange: (open: boolean) =
             {itemCount > 0 && <>
               <p className="flex flex-wrap justify-between gap-1 font-bold"><span>Subtotal</span><span className="tabular-nums">{formatOrderAmount(total)}</span></p>
               {open && <span className="sr-only" role="status">Basket: {summary}</span>}
-              {!pending && <ButtonLink className="whitespace-normal text-center" href="/clinics#customer-details" onClick={() => dialog.current?.close()}>Proceed to checkout</ButtonLink>}
+              {!pending && (onCheckoutPage ? (
+                <Button asChild className="whitespace-normal text-center">
+                  {/* A same-page link replaces an existing Box Builder fragment. */}
+                  <a href="#customer-details" onClick={goToCheckout}>Proceed to checkout</a>
+                </Button>
+              ) : <ButtonLink className="whitespace-normal text-center" href="/clinics#customer-details" onClick={goToCheckout}>Proceed to checkout</ButtonLink>)}
             </>}
             {open && itemCount === 0 && <span className="sr-only" role="status">Basket is empty.</span>}
             <ButtonLink variant="secondary" className="whitespace-normal text-center" href="/cookies" onClick={() => dialog.current?.close()}>

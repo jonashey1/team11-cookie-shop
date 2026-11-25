@@ -153,7 +153,7 @@ export function CookieOrderForm() {
       )}
 
       <section aria-labelledby="customer-details" className="max-w-reading grid min-w-0 gap-stack rounded-frame border border-line border-s-4 border-s-brand bg-blue-tint p-4 sm:p-block">
-        <h2 id="customer-details" className="text-3xl">3. Send your test order</h2>
+        <h2 id="customer-details" tabIndex={-1} className="text-3xl">3. Send your test order</h2>
         <div className="grid gap-2">
           <label htmlFor="customerName" className="font-bold">Name (made-up)</label>
           <input id="customerName" name="customerName" type="text" autoCapitalize="words" required minLength={2} maxLength={100} autoComplete="off" placeholder="Example: Jan" className="min-h-11 w-full rounded-control border-2 border-ink bg-canvas px-4 py-2 text-base text-ink placeholder:text-ink-soft placeholder:opacity-100" />
