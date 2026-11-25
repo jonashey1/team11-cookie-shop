@@ -107,7 +107,9 @@ test('finds a workshop, recovers lost availability and confirms a fictional regi
       }
     }
     await useOwnAddress(page, testInfo)
-    await page.goto('/workshops')
+    // Keep this database and registration check independent of third-party widget responses.
+    await page.route(url => url.origin !== new URL(BASE_URL).origin, route => route.abort())
+    await page.goto('/workshops', { waitUntil: 'domcontentloaded' })
     await page.getByRole('link', { name: 'View available sessions for Cookie Baking Basics' }).press('Enter')
     await expect(page).toHaveURL(/cookie-baking-basics#workshop-registration$/)
     const section = page.locator('#workshop-registration')
@@ -150,7 +152,7 @@ test('finds a workshop, recovers lost availability and confirms a fictional regi
     expect(rows).toHaveLength(1)
     expect(rows[0]).toMatchObject({ participants: '2', status: 'confirmed' })
     await expect(section.getByRole('status')).toContainText(rows[0].reference)
-    await page.reload()
+    await page.reload({ waitUntil: 'domcontentloaded' })
     await expect(section.getByRole('radio', { name: new RegExp(second) })).toBeDisabled()
     await expect(section.getByRole('status')).toHaveCount(0)
   } finally {
