@@ -7,6 +7,7 @@ import * as migration_20261004_222941_members_area from './20261004_222941_membe
 import * as migration_20261123_092425 from './20261123_092425';
 import * as migration_20261123_092825 from './20261123_092825';
 import * as migration_20261124_202843_cookie_catalog from './20261124_202843_cookie_catalog';
+import * as migration_20261125_071010_workshop_registration from './20261125_071010_workshop_registration';
 
 export const migrations = [
   {
@@ -52,6 +53,11 @@ export const migrations = [
   {
     up: migration_20261124_202843_cookie_catalog.up,
     down: migration_20261124_202843_cookie_catalog.down,
-    name: '20261124_202843_cookie_catalog'
+    name: '20261124_202843_cookie_catalog',
+  },
+  {
+    up: migration_20261125_071010_workshop_registration.up,
+    down: migration_20261125_071010_workshop_registration.down,
+    name: '20261125_071010_workshop_registration'
   },
 ];

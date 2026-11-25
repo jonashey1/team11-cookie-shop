@@ -93,4 +93,6 @@ The current CSS tokens use cocoa ink (#38251d) on cream (#fff8ee), soft cocoa (#
 
 ## Compliance consolidation
 
+On workshop detail pages, the registration section follows the existing description and topics. Labelled radio buttons show date, time and actual availability in text. A separate review state lets users correct their choices before submitting. Focus moves to the review or confirmation heading, errors are announced, and the form uses the existing Artisan tokens and controls in one column at narrow widths.
+
 Our Cookies keeps the six product cards before optional exploration. Comparison now has a direct section link and the same seven characteristics, selection limit and differences control. Contact keeps the opt-in campus map and embeds the FAQ, and About keeps the project story before the optional Fortune Cookie. The three prior URLs redirect to the matching focusable sections. Screens use the same approved illustrations and visual components; editors can change catalogue content in Payload without changing the interaction design.

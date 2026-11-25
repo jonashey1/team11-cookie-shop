@@ -86,3 +86,7 @@ Not tested under these conditions: a physical phone, a throttled mobile network,
 - **Physical-device keyboard-only and screen-reader runs:** only automated axe, keyboard tests and viewport emulation. Risk: assistive-technology problems may remain.
 - **Hosted performance of the PR #27 preview:** blocked by Vercel preview protection; to be measured on production after merge.
 - **Chatbot answer quality:** the Watermelon widget loads, but its answers were not systematically checked. Risk: it may give inaccurate information about prices or the fictional status of the shop.
+
+## Workshop registration extension
+
+The isolated release build and committed migration were checked separately from the historical usability sessions above. Vitest passed 56 checks, including workshop input validation and Brussels time formatting. The workshop browser and database suite passed 8 checks in WebKit (two runs) and 4 in Chromium against disposable PostgreSQL 16. It verified persistence, stale availability recovery, keyboard focus, widths from 320 to 1440 px with accessibility settings, axe, guest access denial, competing and duplicate requests, historical snapshots and editor cancellation. An upgrade rehearsal from the preceding migration added eight sessions linked to four existing workshops and retained all six cookies. This is automated evidence. No human usability session was conducted for the workshop extension.

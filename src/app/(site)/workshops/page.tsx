@@ -7,6 +7,7 @@ import { PageTitle } from '@/components/site/PageTitle'
 import { WorkshopCard } from '@/components/site/WorkshopCard'
 import { filterQuery, parseFilters, type SearchParams } from '@/tasks/find-workshop/filters'
 import { starterWorkshopSlugs } from '@/lib/public-workshop-content'
+import { readWorkshopSessions } from '@/lib/workshop-registration-store'
 import config from '@/payload.config'
 
 import { LegacyCookieLinks } from '@/components/site/LegacyCookieLinks'
@@ -35,7 +36,7 @@ export default function WorkshopsPage({ searchParams }: { searchParams: Promise<
             Explore our fictional cookie workshops for this student
             project. Discover baking techniques, creative decoration
             and delicious chocolate combinations. These workshops
-            are demonstrations only and cannot be booked.
+            are fictional demonstrations. You can try the demo registration for available sessions.
           </p>
         </div>
 
@@ -62,6 +63,7 @@ async function WorkshopCatalogue({ searchParams }: { searchParams: Promise<Searc
   })
 
   const query = filterQuery(filters)
+  const sessions = await readWorkshopSessions(payload, workshops.map(workshop => workshop.id)).catch(() => null)
 
   return (
     <>
@@ -70,7 +72,8 @@ async function WorkshopCatalogue({ searchParams }: { searchParams: Promise<Searc
         <ul className="grid gap-block md:grid-cols-2">
           {workshops.map((workshop) => (
             <li key={workshop.id} className="grid min-w-0">
-              <WorkshopCard workshop={workshop} query={query} />
+              <WorkshopCard workshop={workshop} query={query}
+                sessions={sessions?.some(session => session.workshop === workshop.id && session.status === 'open' && session.remaining > 0)} />
             </li>
           ))}
         </ul>

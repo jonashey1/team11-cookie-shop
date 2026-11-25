@@ -1,5 +1,6 @@
 
 import type { Workshop } from '@/payload-types'
+import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { formatPrice, formatWhen, levelLabel } from '@/lib/format'
 import { workshopImage } from '@/lib/workshop-image'
@@ -11,6 +12,7 @@ type WorkshopCardProps = {
   query?: string
   preview?: boolean
   headingLevel?: 'h2' | 'h3'
+  sessions?: boolean
 }
 
 export function WorkshopCard({
@@ -18,6 +20,7 @@ export function WorkshopCard({
   query = '',
   preview = false,
   headingLevel = 'h3',
+  sessions,
 }: WorkshopCardProps) {
   const cardImage = workshopImage(workshop)
 
@@ -47,6 +50,8 @@ export function WorkshopCard({
       )}
 
       <p>{workshop.summary}</p>
+      {sessions === true && <Link href={`/workshops/${workshop.slug}${query}#workshop-registration`} className="w-fit font-semibold underline">View available sessions<span className="sr-only"> for {workshop.title}</span></Link>}
+      {sessions === false && <p className="text-ink-soft">No sessions currently available.</p>}
 
       {!preview && <TopicList topics={workshop.topics} />}
     </FramedCard>

@@ -21,6 +21,8 @@ import { Badge } from '@/components/ui/badge'
 import { formatPrice, formatWhen, levelLabel } from '@/lib/format'
 import { workshopImage } from '@/lib/workshop-image'
 import { starterWorkshopSlugs } from '@/lib/public-workshop-content'
+import { readWorkshopSessions } from '@/lib/workshop-registration-store'
+import { WorkshopRegistrationForm } from '@/components/site/WorkshopRegistrationForm'
 import config from '@/payload.config'
 import { filterQuery, parseFilters, type SearchParams } from '@/tasks/find-workshop/filters'
 
@@ -59,7 +61,10 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
   const filters = parseFilters(await searchParams)
   const back = `/workshops${filterQuery(filters)}#workshops`
   const payload = await getPayload({ config })
-  const facts = await payload.findGlobal({ slug: 'site-facts', depth: 0 })
+  const [facts, sessions] = await Promise.all([
+    payload.findGlobal({ slug: 'site-facts', depth: 0 }),
+    readWorkshopSessions(payload, [workshop.id]).catch(() => null),
+  ])
 
   return (
     <article className="pb-block">
@@ -113,6 +118,8 @@ export default async function WorkshopPage({ params, searchParams }: Props) {
           </ButtonLink>
         </div>
       </div>
+      {sessions ? <WorkshopRegistrationForm workshop={workshop.id} title={workshop.title} initialSessions={sessions} />
+        : <p role="status" className="mt-block">Workshop sessions are temporarily unavailable. Please try again later.</p>}
     </article>
   )
 }

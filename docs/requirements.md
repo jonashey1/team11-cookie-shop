@@ -20,3 +20,7 @@ These requirements describe what our Cookie Shop website must do. They are based
 ## PR #27 closure evidence
 
 The informational path begins at `/cookies`, with Comparison now a section on that page. The transactional path uses the same current CMS prices as the cards, and preserves the submitted order as a stored snapshot. Check the tests in `tests/e2e/final-ux.spec.ts` for guest write rejection, an authorised price edit, matching card and basket prices, price-change error and retry without a duplicate. A missing catalogue is treated as temporary unavailability, never as an alternate price list. The live evidence from the older production release remains historical.
+
+## Optional workshop registration
+
+Users can select an available fictional session, review their details and receive a reference only after the registration commits. Editors can cancel a registration and restore the places. Acceptance checks cover guest access, duplicate and competing requests, capacity changes and end-to-end registration. See [D6](test-report.md) for verification.
