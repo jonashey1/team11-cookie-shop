@@ -83,6 +83,12 @@ test('keeps boxes grouped across refresh and makes the drawer usable with access
   expect((await new AxeBuilder({ page }).include('.global-basket').analyze()).violations).toEqual([])
   await page.keyboard.press('Escape')
   await expect(trigger).toBeFocused()
+  await expect(page).toHaveURL(/\/clinics#build-your-box$/)
+  await trigger.press('Enter')
+  await drawer.getByRole('link', { name: 'Proceed to checkout' }).press('Enter')
+  await expect(page).toHaveURL(/\/clinics#customer-details$/)
+  await expect(drawer).toHaveCount(0)
+  await expect(page.getByRole('region', { name: /Review your basket/ })).toContainText('Chocolate evening × 1')
 })
 
 test('pauses Fortune Cookie while the native basket dialog is open', async ({ page }) => {
