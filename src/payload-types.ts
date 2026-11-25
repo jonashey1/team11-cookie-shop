@@ -335,6 +335,9 @@ export interface Workshop {
 export interface WorkshopSession {
   id: number;
   title: string;
+  /**
+   * Select the workshop when creating the session.
+   */
   workshop: number | Workshop;
   startsAt: string;
   endsAt: string;
