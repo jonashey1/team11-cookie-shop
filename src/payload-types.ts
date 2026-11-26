@@ -416,7 +416,7 @@ export interface TimeSlot {
   clinic: number | Clinic;
   startsAt: string;
   /**
-   * How many bicycles can be booked in this time slot. The clinic takes 2.
+   * Maximum number of bookings for this time slot.
    */
   places: number;
   label?: string | null;
