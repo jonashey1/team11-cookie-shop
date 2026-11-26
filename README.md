@@ -21,11 +21,13 @@ In short (the [local set-up guide](docs/guides/local-setup.md) explains each ste
 
 1. Install Node 22 (the LTS this starter is tested on).
 2. Clone your repository, then run `npm ci`.
-3. Copy `.env.example` to `.env.local`, remove the `#` in front of its `DATABASE_URL` line (that is
-   your laptop's own database: no account, and it starts by itself), and fill in the other three
-   values. Never use your live site's database.
+3. Create your ignored .env.local with the loopback database URL from the local setup guide. Generate fresh local application and editor credentials. Never copy filled example credentials or use the live database.
 4. Run `npm run migrate`, then `npm run seed`, then `npm run dev`, and open <http://localhost:3000>.
 
 ## Maintainer reference
 
 See the [local setup](docs/guides/local-setup.md), [troubleshooting](docs/guides/troubleshooting.md), [starter recipes](docs/guides/recipes.md) and [course check contract](docs/COURSE-CHECK-CONTRACT.md). Use fresh local credentials and a loopback database. Check the current branch template for unexpected populated fields before copying any values.
+
+## Licence and credits
+
+See the [MIT licence](LICENSE) for code, [starter image credits](src/seed/images/SOURCES.md) for the original photographs and the [Artisan photography provenance](docs/artisan-identity/photography/README.md#provenance-and-usage-rights) for later editorial imagery. Hanken Grotesk uses the SIL Open Font Licence.

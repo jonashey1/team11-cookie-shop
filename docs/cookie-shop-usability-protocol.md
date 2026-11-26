@@ -1,6 +1,6 @@
 # Usability protocol
 
-**Status:** pending human validation.
+**Status:** protocol for a new session on the current release. Earlier observations and the reported retest are in [D6](test-report.md). An independent observation of the current comparison flow remains open.
 
 Use a test environment with fictional records. Ask for consent to take anonymous notes. Do not record participant names, emails or production records.
 

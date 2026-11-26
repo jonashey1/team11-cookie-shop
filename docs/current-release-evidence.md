@@ -29,6 +29,8 @@ Cookie Finder recommends a product and the Passport shows the recommendation's i
 - The four earlier workshop failures on production used a CI-only workshop record. The isolated fixture-driven workshop checks passed in both browsers at both widths. A separate read-only production check verified the deployed workshop image, keyboard navigation and the registration screen.
 - Earlier R8 performance figures apply to the named release in D2. The new audit does not relabel them as measurements of the current deployment.
 
+- The documentation audit re-ran ESLint, TypeScript, 73 Vitest tests and the local production build against the ec0f5d6 application tree. Read-only live checks returned HTTP 200 for the home, assortment, ordering, workshops, About, Contact and team checker, and followed the four legacy redirects to the expected sections. These responses do not establish a new human usability or performance result.
+
 ## Hand-in
 
 Check the signed-in Final hand-in card for the saved commit, accepted teacher access and the individual evidence. After a documentation-only merge, refresh the card if the course requires the latest docs SHA or explicitly permits and expects a resubmission. If it requires the same commit on GitHub and Vercel, first verify a Ready deployment for the intended SHA. Do not create a new production order while the existing course evidence is valid.
