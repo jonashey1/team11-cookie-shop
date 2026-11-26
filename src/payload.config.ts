@@ -39,6 +39,7 @@ const transactions = databaseTransactions(databaseUrl)
 const config = buildConfig({
   admin: {
     user: Users.slug,
+    meta: { titleSuffix: ' | Cookie Shop Admin' },
     components: { afterNavLinks: ['./components/admin/OrderAnalyticsLink#OrderAnalyticsLink'] },
     importMap: {
       baseDir: path.resolve(dirname),

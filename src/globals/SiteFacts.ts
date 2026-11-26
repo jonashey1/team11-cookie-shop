@@ -36,7 +36,7 @@ export const SiteFacts: GlobalConfig = {
       type: 'email',
       required: true,
       admin: {
-        description: 'Contact email stored for Cookie Shop.',
+        description: 'Fictional email address for the Cookie Shop student project.',
       },
     },
   ],

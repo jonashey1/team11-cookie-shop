@@ -14,6 +14,7 @@ export const SLOT_GONE_MESSAGE = 'This time slot no longer exists. Choose anothe
 export const Bookings: CollectionConfig = {
   slug: 'bookings',
   admin: {
+    hidden: true,
     useAsTitle: 'name',
   },
   // Nobody can create a booking in /admin or through the API, not even an editor. The booking form on
