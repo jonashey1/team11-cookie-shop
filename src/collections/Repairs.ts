@@ -6,6 +6,7 @@ import { price } from './fields'
 export const Repairs: CollectionConfig = {
   slug: 'repairs',
   admin: {
+    hidden: true,
     useAsTitle: 'name',
   },
   access: { ...publicContent, read: ({ req }) => isEditor({ req }) || { name: { not_in: ['Full service', 'Each small repair', 'Check'] } } },

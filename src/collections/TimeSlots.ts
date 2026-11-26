@@ -20,6 +20,7 @@ export function brusselsTime(startsAt: string | Date | null | undefined): string
 export const TimeSlots: CollectionConfig = {
   slug: 'timeSlots',
   admin: {
+    hidden: true,
     // Payload can only use a saved field as a record's title, so the edit page shows startsAt. The list
     // shows the friendlier 'When (Brussels time)' column instead.
     useAsTitle: 'startsAt',
@@ -78,7 +79,7 @@ export const TimeSlots: CollectionConfig = {
       min: 1,
       validate: positiveInteger,
       admin: {
-        description: 'How many bicycles can be booked in this time slot. The clinic takes 2.',
+        description: 'Maximum number of bookings for this time slot.',
       },
     },
     // Not stored: worked out from startsAt every time a time slot is read, for the list in /admin.
