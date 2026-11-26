@@ -66,7 +66,7 @@ GitHub accepted collaborator listing identifies the accounts below. The merged P
 | --- | --- | --- | --- |
 | Jonas | jonashey1 / admin | [#12](https://github.com/jonashey1/team11-cookie-shop/pull/12), Cookie Order Form, Orders and server persistence; merged PR author | Demonstrated |
 | Tessa | teversch / write | [#37](https://github.com/jonashey1/team11-cookie-shop/pull/37), equal-height cookie cards | Merged code PR |
-| Arnaud | Arnaud-97 / write | None found | Missing |
+| Arnaud | Arnaud-97 / write | Opened [#40](https://github.com/jonashey1/team11-cookie-shop/pull/40); code commit credited to Copilot | Actual role and course credit require verification |
 | Esma | Esma1326 / write | [#38](https://github.com/jonashey1/team11-cookie-shop/pull/38), FAQ | Merged code PR |
 | Yana | KYana123 / write | [#39](https://github.com/jonashey1/team11-cookie-shop/pull/39), About content | Merged code PR |
 | Xander | xanderrooms9-spec / write | None found; legacy pending invitation also displayed | Missing |

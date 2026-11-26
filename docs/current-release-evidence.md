@@ -1,6 +1,6 @@
 ﻿# Current release evidence
 
-Audit baseline: GitHub main at ec0f5d6835da5b434f78bf2d619fc2b8d02aa0f4, 26 November 2026. The team handover records a saved Final hand-in for e88d6f9bd60eaa2b67da38ee5a93b6dde36bc7b4. The signed-in course card was unavailable for independent verification. PR #39 added About copy and PR #40 added the cookie comparison FAQ entry. Historical screenshots and reports document their named stages.
+Audit baseline: application tree at ec0f5d6835da5b434f78bf2d619fc2b8d02aa0f4, 26 November 2026. Documentation-only PR #41 merged during the audit as ee4992f and is included in this review. The team handover records a saved Final hand-in for e88d6f9bd60eaa2b67da38ee5a93b6dde36bc7b4. The signed-in course card was unavailable for independent verification. PR #39 added About copy and PR #40 added the cookie comparison FAQ entry. Historical screenshots and reports document their named stages.
 
 ## Grading cross-check
 
@@ -16,7 +16,7 @@ The public course chapters were unavailable without access. The table uses the r
 | Site-specific content, design and accessibility | Cookie product content, original design rationale, keyboard and viewport checks, accessibility controls and D6 findings. | Automated checks cannot establish full conformance or substitute for human observations. |
 | Analytics and integration | D5 records Vercel Web Analytics and the opt-in OpenStreetMap campus map. | A custom Vercel order event and current signed-in dashboard evidence are unverified. |
 | D0 through D7 | D0 team agreement, D1 brief, D2 requirements, D3 structure, D4 design, two D5 records, D6 test report and D7 handover are linked from the README. | Handover backups and an isolated recovery rehearsal still need confirmation. |
-| Release and individual contribution | GitHub includes merged code PRs for Jonas, Tessa (#37), Esma (#38) and Yana (#39). | Arnaud and Xander lack independently verified qualifying evidence. Check the signed-in card for acceptance and teacher access. Preserve truthful AI notes and do not infer authorship from assigned roles. |
+| Release and individual contribution | GitHub includes merged code PRs for Jonas, Tessa (#37), Esma (#38) and Yana (#39). | Arnaud opened merged PR #40, whose code commit is credited to Copilot. Verify his actual role and credit in the course card. Xander lacks independently verified qualifying evidence. Check the signed-in card for acceptance and teacher access. Preserve truthful AI notes and do not infer authorship from assigned roles. |
 
 ## Current implementation and optional work
 

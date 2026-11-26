@@ -46,8 +46,6 @@ This report records what we learned by watching a person use the Cookie Shop, wh
 - **Retest:** Session 3, recorded on 23 November 2026 in **#18**: the same participant found the ordering page more easily and said it was clearer. Result: improved, as reported by the participant.
 - **Findings 1, 2, 4 and 5:** no change was needed.
 
-Earlier versions of this report said the retest was "pending"; that described the state before Session 3 and is replaced by the result above.
-
 ## The release check
 
 Manual acceptance checks on production (https://team11-cookie-shop.vercel.app/), 23 November 2026, by a team member:
@@ -79,22 +77,26 @@ Not tested under these conditions: a physical phone, a throttled mobile network,
 
 **Improvement with its evidence:** the homepage Order Cookies button (#17), retested in Session 3 (#18).
 
-## Not tested yet
+## Evidence limitations
 
 - **The informational task with a person** (find and compare cookies): only tested automatically. Risk: comparison or the Taste Map may be less clear to real users than the tests suggest.
 - **A second, independent participant:** all sessions used one person who knew the site by Session 3. Risk: findings may not generalise.
 - **Physical-device keyboard-only and screen-reader runs:** only automated axe, keyboard tests and viewport emulation. Risk: assistive-technology problems may remain.
-- **Hosted performance of the PR #27 preview:** blocked by Vercel preview protection; to be measured on production after merge.
+- **Hosted performance:** the PR #27 preview was protected by Vercel. Later production measurements are recorded under R8 in [requirements.md](requirements.md); they apply to the build measured there.
 - **Chatbot answer quality:** the Watermelon widget loads, but its answers were not systematically checked. Risk: it may give inaccurate information about prices or the fictional status of the shop.
 
 ## Workshop registration extension
 
-The isolated release build and committed migration were checked separately from the historical usability sessions above. Vitest passed 56 checks, including workshop input validation and Brussels time formatting. The workshop browser and database suite passed 8 checks in WebKit (two runs) and 4 in Chromium against disposable PostgreSQL 16. It verified persistence, stale availability recovery, keyboard focus, widths from 320 to 1440 px with accessibility settings, axe, guest access denial, competing and duplicate requests, historical snapshots and editor cancellation. An upgrade rehearsal from the preceding migration added eight sessions linked to four existing workshops and retained all six cookies. This is automated evidence. No human usability session was conducted for the workshop extension.
+PR #32 introduced workshop registration. PR #35 removed the email-domain restriction while retaining the fictional-data instruction. The isolated release build and committed migration were checked separately from the historical usability sessions above. Vitest passed 56 checks, including workshop input validation and Brussels time formatting. The workshop browser and database suite passed 8 checks in WebKit (two runs) and 4 in Chromium against disposable PostgreSQL 16. It verified persistence, stale availability recovery, keyboard focus, widths from 320 to 1440 px with accessibility settings, axe, guest access denial, competing and duplicate requests, historical snapshots and editor cancellation. An upgrade rehearsal from the preceding migration added eight sessions linked to four existing workshops and retained all six cookies. This is automated evidence. No human usability session was conducted for the workshop extension.
 
 ## Global basket extension
 
+PR #33 added the shared header basket. PR #34 corrected checkout navigation from the box builder to `/clinics#customer-details`.
+
 The isolated production build and all 59 Vitest checks passed. The targeted basket and existing box/checkout suite passed 10 checks each in Chromium and WebKit. Coverage includes the old storage format, totals and removals, grouped boxes and preview text after reload, drawer focus and Escape, the Fortune Cookie timer, checkout, and seven widths from 320 to 1440 px with accessibility preferences and an axe scan. Workshop detail navigation and its registration section were checked without making a registration. This evidence is automated. No new human usability session was conducted.
 
-## Evidence dates and current release
+## Production read-only check, 26 November 2026
 
-The sessions, CI runs and performance samples above apply to their named versions. See the [current release evidence](current-release-evidence.md) for subsequent changes, the isolated browser results and outstanding human checks. A passing automated check is separate from a participant observation.
+Vercel reported a successful deployment for main commit [ec0f5d6](https://github.com/jonashey1/team11-cookie-shop/commit/ec0f5d6835da5b434f78bf2d619fc2b8d02aa0f4). The public homepage, catalogue, workshops, orders, Cookie Finder, About and Contact returned HTTP 200 and contained the Team 11 code. The comparison, FAQ and box aliases resolved to their documented sections. The public course checker reported the existing Team 11 order and the Workshop–Topic relation. See [CI run 45845834676](https://github.com/jonashey1/team11-cookie-shop/actions/runs/45845834676) for the automated results on that commit. The live checks used read requests only.
+
+See the [current release evidence](current-release-evidence.md) for the application revision tested during the documentation audit and the remaining human checks.

@@ -8,7 +8,7 @@ Prepared for Team 11 by Jonas (`jonashey1`), 26 November 2026. This document des
 - **Repository:** https://github.com/jonashey1/team11-cookie-shop
 - **Admin screen:** https://team11-cookie-shop.vercel.app/admin
 - **Latest hand-in:** The course app shows a saved hand-in on `main`, commit `e88d6f9bd60eaa2b67da38ee5a93b6dde36bc7b4`. Its checks report a successful Vercel deployment of that commit and a live site showing team code `T11-S3F8`.
-- **Teacher collaborator:** the handover records completion on 26 November. Verify accepted access in the course card because this audit could not independently inspect the signed-in view.
+- **Teacher collaborator:** The 26 November handover update reports completion. An earlier course-app result reported that the invitation could not be accepted. Confirm the current status in the course app when checking the saved hand-in.
 
 | Service | What it holds | Owner / account access |
 | --- | --- | --- |
@@ -17,15 +17,15 @@ Prepared for Team 11 by Jonas (`jonashey1`), 26 November 2026. This document des
 | Neon | Production PostgreSQL database, connected to Vercel | Jonas (`jonashey1`), account access confirmed |
 | Vercel Blob | Uploaded media if configured | Jonas (`jonashey1`), account access confirmed |
 
-The 26 November handover records that the service accounts are accessible to Jonas (`jonashey1`). The responsibility table below describes the operational roles; assign named owners and backups for those duties with the relevant team members.
+The service accounts are accessible to Jonas (`jonashey1`). The responsibility table below describes the operational roles; assign named owners and backups for those duties with the relevant team members.
 
 | Responsibility | Owner (role) | Named person | Backup | Who can log in | Last tested |
 | --- | --- | --- | --- | --- | --- |
 | Content | Content editor | Jonas (`jonashey1`) | Not yet assigned | Authorized Payload editors | 26 November 2026: tested |
-| Access | Repository administrator | Jonas (`jonashey1`) | Not yet assigned | GitHub owner and authorized Payload administrators | 26 November 2026: tested, as recorded in the handover |
+| Access | Repository administrator | Jonas (`jonashey1`) | Not yet assigned | GitHub owner and authorized Payload administrators | 26 November 2026: tested; see the course-app access status above |
 | Updates | Website developer | Jonas (`jonashey1`) | Not yet assigned | GitHub contributors with approved PR access | 26 November 2026: tested |
 | Monitoring | Website maintainer | Jonas (`jonashey1`) | Not yet assigned | Team members with Vercel access | 26 November 2026: tested |
-| Backup and restore | Database administrator | Jonas (`jonashey1`) | Not yet assigned | Authorized Neon/Vercel account owner | Account access reported on 26 November 2026; isolated restore still to rehearse |
+| Backup and restore | Database administrator | Jonas (`jonashey1`) | Not yet assigned | Authorized Neon/Vercel account owner | Account access reported on 26 November; isolated restore still to rehearse |
 | Ownership | Team project coordinator | Jonas (`jonashey1`) | Not yet assigned | GitHub/Vercel/Neon account owners | 26 November 2026: tested |
 
 - **Who edits which content in `/admin`:** An authorized content editor manages CMS pages, cookie-related records and fictional orders; the order status may be updated by an authorized shop administrator. Edit live catalogue descriptions, prices and profiles in Payload **Cookies**. Prices are integer cents. Check the six cards and the full checkout in an isolated environment before changing production content.
@@ -37,7 +37,7 @@ The 26 November handover records that the service accounts are accessible to Jon
 1. **Keep production acceptance evidence current:** Production order persistence was confirmed on 23 November 2026. The historical D6 acceptance table reports an item-by-item and quantity match. The live course checker already finds the team-code order. The 26 November hand-in checks report that the submitted commit deployed successfully and the live site shows the team code.
 2. **Verify the two H3 services on production:** Vercel Web Analytics page views were confirmed on 23 November 2026. OpenStreetMap loaded live after opt-in on 24 November 2026; the campus variant was checked on the isolated PR #27 candidate. Custom-event availability is not confirmed.
 3. **Confirm the second task and the collection links:** The candidate E2E suite exercises comparison and both sides of the Workshop–Topic relation. On production (24 November 2026) all four workshop pages and three topic pages linked consistently in both directions, and the public course check reported the `workshops.topics` / `topics.workshops` relation. Retest the approved deployed commit; record independent human observation separately.
-4. **Check teacher repository access:** The older export recorded a failed invitation. The 26 November handover records completion. In the course card, confirm accepted access before refreshing the submission.
+4. **Check teacher repository access at hand-in:** If the course app still reports a failed invitation, check the teacher account under **Settings → Collaborators** and retry the hand-in after access is resolved.
 5. **Improve long-term operations:** Assign a named primary and backup for each responsibility above. Test database backup restoration using only disposable test data, confirm ownership of all services and test recovery from a failed deployment.
 
 - **What does not work yet, or could break:** Production orders depend on the database and correct deployment configuration. Preview deployments can fail if the Neon branch quota is reached. Custom analytics events may not be supported on Vercel Hobby. The map is external and may be unavailable. No real payments or deliveries exist by design.
@@ -45,9 +45,9 @@ The 26 November handover records that the service accounts are accessible to Jon
 
 ## How you will know it works
 
-- **Saved fictional orders:** Read the `orders` collection in production Payload `/admin` weekly. If **0** new records appear after **1** deliberately submitted test order, investigate immediately.
+- **Saved fictional orders:** Use the public course checker to confirm the existing Team 11 record. Exercise new order writes on an isolated database and investigate if confirmation appears without a matching stored record.
 - **Site availability:** Check the production homepage and `/clinics` weekly in a private window. If **1** of these **2** pages fails to load, inspect Vercel deployment/runtime logs and resolve before further changes.
-- **Analytics reach:** Read the Vercel Analytics dashboard weekly. If **0** page views appear after **3** deliberate live-page visits and sufficient reporting delay, investigate configuration.
+- **Analytics reach:** Read the Vercel Analytics dashboard weekly after enabling it. If **0** page views appear after **3** deliberate live-page visits and sufficient reporting delay, investigate configuration.
 
 How to run, change and deploy the site safely:
 

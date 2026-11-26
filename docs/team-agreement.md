@@ -10,14 +10,14 @@ This agreement explains how our team works together on our cookie ordering websi
 
 | Role | Member | Works in a pair with |
 | --- | --- | --- |
-| Releases and repository | Jonas (jonashey1) | Jonas |
-| Content model and data |Jonas | Jonas |
+| Releases and repository | Jonas (jonashey1) | Confirm with the team |
+| Content model and data | Jonas (jonashey1) | Confirm with the team |
 | The informational task | Tessa (teversch) | Esma |
 | The transactional task | Arnaud | Yana |
 | Design and accessibility | Esma (Esma1326) | Tessa |
 | Research and testing | Yana (KYana123) | Arnaud |
 
-How we share the roles: We follow the course's default for a team of six. Each member has one main role. Jonas and Xander work together on the repository, releases and content model. Tessa and Esma work together on the informational task and design. Arnaud and Yana work together on the transactional task and testing. Everyone contributes to the code and documentation, even outside their main role.
+How we share the roles: The current role assignments are listed above. The previous agreement named Xander as Jonas's partner for releases and the content model. The latest role update does not specify a second person for those duties. Tessa and Esma work together on the informational task and design. Arnaud and Yana work together on the transactional task and testing. Record actual contributions using GitHub and the course app.
 
 ## How we communicate
 
@@ -29,7 +29,7 @@ How we share the roles: We follow the course's default for a team of six. Each m
 ## How we decide
 
 - What a role holder decides alone: Each member can make small decisions within their own role, as long as these do not significantly affect other parts of the website. Important changes are communicated to the team.
-- What needs the pair: Changes to a user task or its design are discussed within the responsible pair. Changes to the content model and database are coordinated between Jonas and Xander.
+- What needs the pair: Changes to a user task or its design are discussed within the responsible pair. Jonas coordinates changes to the content model and database with the team.
 - What needs the whole team: Major changes to the website's purpose, requirements, functionality, design or planning must be discussed with the whole team.
 - How we settle a disagreement, and when we write a decision record: We first discuss the different options in our Messenger group or during a meeting. We try to reach a shared decision. If we cannot agree, we decide by majority vote. Important technical decisions are documented with their reasons in the project's decision records.
 
