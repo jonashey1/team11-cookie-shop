@@ -627,7 +627,7 @@ html.a11y-large-cursor [contenteditable='true'] {
 .boutique-assortment { display: grid; gap: clamp(1.1rem, 4vw, 3.5rem); }
 .boutique-product {
   display: grid;
-  align-content: start;
+   grid-template-rows: auto 1fr auto;
   gap: 1rem;
   min-width: 0;
   border-block-start: 4px solid var(--flavour-edge, var(--flavour-accent));
@@ -720,9 +720,7 @@ html.a11y-large-cursor [contenteditable='true'] {
 }
 @media (min-width: 48rem) {
   .boutique-hero { grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr); }
-  .boutique-assortment { grid-template-columns: minmax(0, 1.13fr) minmax(0, .87fr); }
-  .boutique-product:nth-child(even) { margin-block-start: 2.15rem; }
-  .boutique-product:nth-child(even) .boutique-product-art { aspect-ratio: 1.35; }
+  .boutique-assortment { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 64rem) {
   .boutique-flavours { grid-template-columns: repeat(6, minmax(0, 1fr)); }
