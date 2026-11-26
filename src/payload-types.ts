@@ -983,23 +983,20 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Change these here, once: every page reads them from here.
+ * Shared location and contact settings for Cookie Shop.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-facts".
  */
 export interface SiteFact {
   id: number;
-  /**
-   * Shown on the home page and on every workshop page.
-   */
   pricingRule: string;
   /**
-   * Where the workshops and the clinic are. Shown on the Contact page and on every workshop page.
+   * Shown on workshop and clinic pages.
    */
   place: string;
   /**
-   * Shown on the Contact page.
+   * Contact email stored for Cookie Shop.
    */
   email: string;
   updatedAt?: string | null;

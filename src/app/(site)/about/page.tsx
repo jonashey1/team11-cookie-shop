@@ -46,9 +46,14 @@ export default function AboutPage() {
           </p>
 
           <p className="max-w-reading text-ink-soft">
-            Enjoy every bit! 
-            With lots of cookie love and sweet regards, 
-            Jonas, Esma, Tessa, Yana, Arnoud
+            Enjoy every bit!
+          </p> 
+
+          <p className="max-w-reading text-ink-soft">
+            With lots of cookie love and sweet regards,
+          </p> 
+          <p className="max-w-reading text-ink-soft">
+            Jonas, Esma, Tessa, Yana and Arnoud
           </p> 
           
         </div>
