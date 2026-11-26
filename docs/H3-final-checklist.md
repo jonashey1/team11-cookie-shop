@@ -13,10 +13,10 @@ Stand van de releasekandidaat in [PR #27](https://github.com/jonashey1/team11-co
 - [x] `CAMPUS_CYCLE_LEFTOVERS=fail` staat aan. Bekende voorbeeldrecords zijn op de kandidaat afgeschermd voor gasten; records blijven bewaard.
 - [x] D0–D7 aanwezig. D6 maakt onderscheid tussen de historische deelnemer en geautomatiseerde checks.
 
-## Na een uitdrukkelijk goedgekeurde merge
+## Stand op 26 november 2026
 
-- [ ] Controleer de exacte `main`-SHA, groene CI, Vercel Production Ready voor diezelfde SHA en de bevestigde migratie in de buildlog.
-- [ ] Controleer de live bestemmingen, vier CMS-collecties, beide kanten van Workshop–Topic, teamcode, bestaande cursusorder, publieke afscherming van voorbeelden en D0–D7 op `main`.
-- [ ] Controleer in de cursusapp de vereiste echte D6-observatie en hertest. Gebruik het [protocol](cookie-shop-usability-protocol.md). De eerder gerapporteerde hertest blijft in D6 staan.
-- [ ] Verifieer echte H3-bijdragen voor Tessa, Arnaud, Esma, Yana en Xander. Voor Jonas is een kwalificerende PR gevonden. Alle zes teamaccounts hebben GitHub-toegang. De cursusapp verwerkt de uitnodiging voor `jnmoons` bij indiening.
-- [ ] Dien in via **My team → Final hand-in** met repository `jonashey1/team11-cookie-shop`, branch `main` en website `https://team11-cookie-shop.vercel.app/`. Controleer de opgeslagen commit en docenttoegang. De laatst geëxporteerde indiening verwees naar een oudere SHA.
+- De handover meldt een opgeslagen indiening op `e88d6f9bd60eaa2b67da38ee5a93b6dde36bc7b4`. Vergelijk in de cursusapp de opgeslagen SHA met de versie die het team wil indienen.
+- De productiechecker bevestigt op 26 november een bestaande Team 11-order in `orders.name`, zes cookies, vier workshops, drie topics en de Workshop–Topic-relatie. Hij rapporteert ook acht workshop-sessies en drie registraties. Voor deze controle volstaat een publieke leesaanvraag.
+- D6 bevat een menselijke observatie en hertest van de bestelroute. De latere geautomatiseerde controles en de grenzen van het bewijs staan in het [testrapport](test-report.md).
+- Controleer de officiële bijdragecredits in de cursusapp. GitHub toont onder meer [#37](https://github.com/jonashey1/team11-cookie-shop/pull/37) (Tessa), [#38](https://github.com/jonashey1/team11-cookie-shop/pull/38) (Esma) en [#39](https://github.com/jonashey1/team11-cookie-shop/pull/39) (Yana). Arnaud opende de gemergde [#40](https://github.com/jonashey1/team11-cookie-shop/pull/40); beoordeel de bijdrage aan de hand van de werkelijke rol en de cursuscriteria. Voor elke credit telt de bevestiging in de cursusapp.
+- Dien zo nodig opnieuw in via **My team → Final hand-in** met repository `jonashey1/team11-cookie-shop`, branch `main` en website `https://team11-cookie-shop.vercel.app/`. Controleer de opgeslagen SHA, docenttoegang, bijdragecredits en de resultaten van **Check my work**.
