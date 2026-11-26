@@ -44,6 +44,13 @@ export default function AboutPage() {
             workshops explore the techniques behind the flavours, from mixing dough
             to working with chocolate and decorating with icing.
           </p>
+
+          <p className="max-w-reading text-ink-soft">
+            Enjoy every bit! 
+            With lots of cookie love and sweet regards, 
+            Jonas, Esma, Tessa, Yana, Arnoud
+          </p> 
+          
         </div>
         {photo && <ArtisanPhotoFigure photo={photo} sizes="(min-width: 80rem) 35rem, (min-width: 52rem) 48vw, 88vw" />}
       </section>
