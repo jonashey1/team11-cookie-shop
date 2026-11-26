@@ -416,7 +416,7 @@ export interface TimeSlot {
   clinic: number | Clinic;
   startsAt: string;
   /**
-   * How many bicycles can be booked in this time slot. The clinic takes 2.
+   * Maximum number of bookings for this time slot.
    */
   places: number;
   label?: string | null;
@@ -983,23 +983,20 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Change these here, once: every page reads them from here.
+ * Shared location and contact settings for Cookie Shop.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-facts".
  */
 export interface SiteFact {
   id: number;
-  /**
-   * Shown on the home page and on every workshop page.
-   */
   pricingRule: string;
   /**
-   * Where the workshops and the clinic are. Shown on the Contact page and on every workshop page.
+   * Shown on workshop and clinic pages.
    */
   place: string;
   /**
-   * Shown on the Contact page.
+   * Fictional email address for the Cookie Shop student project.
    */
   email: string;
   updatedAt?: string | null;

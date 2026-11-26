@@ -8,6 +8,7 @@ import { day, slug, startTime } from './fields'
 export const Clinics: CollectionConfig = {
   slug: 'clinics',
   admin: {
+    hidden: true,
     useAsTitle: 'name',
   },
   access: { ...publicContent, read: ({ req }) => isEditor({ req }) || { slug: { not_equals: retiredClinicSlug } } },
