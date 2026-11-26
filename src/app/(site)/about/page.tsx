@@ -53,7 +53,7 @@ export default function AboutPage() {
             With lots of cookie love and sweet regards,
           </p> 
           <p className="max-w-reading text-ink-soft">
-            Jonas, Esma, Tessa, Yana and Arnoud
+            Jonas, Esma, Tessa, Yana and Arnaud
           </p> 
           
         </div>
