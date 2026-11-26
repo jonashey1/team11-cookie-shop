@@ -27,9 +27,7 @@ In short (the [local set-up guide](docs/guides/local-setup.md) explains each ste
 
 1. Install Node 22 (the LTS this starter is tested on).
 2. Clone your repository, then run `npm ci`.
-3. Copy `.env.example` to `.env.local`, remove the `#` in front of its `DATABASE_URL` line (that is
-   your laptop's own database: no account, and it starts by itself), and fill in the other three
-   values. Never use your live site's database.
+3. Create your ignored .env.local with the loopback database URL from the local setup guide and fresh application and editor credentials. Avoid copying populated example values or connecting to the live database.
 4. Run `npm run migrate`, then `npm run seed`, then `npm run dev`, and open <http://localhost:3000>.
 
 ## Code and operations
@@ -37,3 +35,7 @@ In short (the [local set-up guide](docs/guides/local-setup.md) explains each ste
 The project uses Next.js, Payload CMS, PostgreSQL, TypeScript and Tailwind CSS. Public routes live in `src/app/(site)`, CMS collections in `src/collections`, and the ordering task in `src/tasks/order-cookies`. Use `npm run lint`, `npm run typecheck` and `npm test` for local checks. `npm run check` runs the browser tests against a running site. See [CI](.github/workflows/ci.yml) for the full check configuration.
 
 Use a local or isolated preview database for tests that create records. See the [handover](docs/handover.md) for deployment and recovery steps. The [starter guides](docs/guides/local-setup.md) still describe Campus Cycle examples in places, including bicycle repair bookings. Cookie Shop orders use `orders`, and fictional workshop sign-ups use `workshop-registrations`.
+
+## Release evidence and credits
+
+See the [current evidence](docs/current-release-evidence.md) for the feature inventory and grading cross-check. The code uses the [MIT licence](LICENSE). See [starter image credits](src/seed/images/SOURCES.md) and [Artisan photography provenance](docs/artisan-identity/photography/README.md#provenance-and-usage-rights). Hanken Grotesk uses the SIL Open Font Licence.

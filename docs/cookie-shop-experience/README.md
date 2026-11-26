@@ -1,5 +1,7 @@
 # The Cookie Shop Experience
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 Voluntary enhancements outside mandatory H2, with the Artisan Identity release as the base. Original workshops, commercial and approved photography stay in place.
 
 | Area | Design, acceptance and evidence |

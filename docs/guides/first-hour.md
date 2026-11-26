@@ -1,5 +1,7 @@
 # Your first hour: your own copy of the starter website, live
 
+> Campus Cycle starter reference. See the [Cookie Shop release evidence](../current-release-evidence.md) for the current implementation and checks.
+
 At the end of this guide you have **your copy of the starter website**, live on the internet:
 
 - your own repository on GitHub, made from the Campus Cycle starter;

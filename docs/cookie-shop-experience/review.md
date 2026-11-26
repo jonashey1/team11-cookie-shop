@@ -1,5 +1,7 @@
 # Local review and verification
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 All captures show an isolated production build and fictional data. The analytics capture shows only aggregate figures. Desktop and mobile denote CSS viewport widths, not physical devices.
 
 | Feature | 390 px | 1100 px |

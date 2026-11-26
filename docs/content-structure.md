@@ -1,6 +1,6 @@
 # Content and structure
 
-Team 11 · Cookie Shop (T11-S3F8). What content the site holds and how it is organised, as built on the PR #27 branch. The [brief](brief.md) and [requirements](requirements.md) remain the sources for the two user tasks.
+Team 11 · Cookie Shop (T11-S3F8). What content the site holds and how it is organised. The [brief](brief.md) and [requirements](requirements.md) remain the sources for the two user tasks.
 
 The collection the transactional task saves into is named in `src/course-check.config.ts`: `orders`, with the name field `name`.
 
@@ -21,12 +21,16 @@ The collection the transactional task saves into is named in `src/course-check.c
 
 ## Content model
 
+There are six topic-specific collections. The four core collections are Cookies, Orders, Workshops and Topics. Workshop Sessions and Workshop Registrations support the optional registration flow.
+
 | Collection (slug) | Fields | Links |
 | --- | --- | --- |
 | Workshop (`workshops`) | title*, slug* (unique), level*, day*, start time*, end time, price* (≥ 0), group size*, summary*, description, image (→ media), topics | many-to-many with Topic |
 | Topic (`topics`) | name*, slug* (unique), description; `workshops` is a join, not a stored field | many-to-many with Workshop; a topic cannot be deleted while a workshop uses it |
 | Order (`orders`) | name* (holds the team code for course checks), customer name*, e-mail*, items* (at least one line), total in cents*, status (default New), request ID (unique) | embeds Order lines |
 | Cookie (`cookies`) | product number* (unique, fixed), name*, slug* (unique, fixed), description*, flavour*, price in cents* (1–100,000), illustration key*, sweetness* (1–5), chocolate* (1–5), texture*, preference*, caramel | 1 cookie – many order lines, through the product number. Anyone reads; editors change; nobody creates or deletes through `/admin` |
+| Workshop Session (workshop-sessions) | start and end, capacity, confirmed places, status | links to a workshop |
+| Workshop Registration (workshop-registrations) | reference, contact details, places, status and historical snapshots | links to a session and retains workshop context |
 | Order line (embedded in an order) | cookie number, cookie name, quantity, unit price in cents | refers to a Cookie by its product number; name and price are copied so a receipt stays correct after an editor changes the cookie |
 | Clinic, TimeSlot, Booking, Repair (template) | as in the starter | Clinic 1–n TimeSlot 1–n Booking; not used by the Cookie Shop tasks |
 | Page, Media, User, Member, Throttle | generic CMS and system collections | do not count as topic collections |

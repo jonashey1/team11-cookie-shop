@@ -1,5 +1,7 @@
 # Recipes: copy-paste changes for your own site
 
+> Campus Cycle starter reference. See the [Cookie Shop release evidence](../current-release-evidence.md) for the current implementation and checks.
+
 Each recipe is one change a team project needs, written out in full: the file, the exact lines, the
 commands, and what you should see. Copy them and rename the words to your own topic. The examples are
 for a made-up team site, **Riverside Voices**, that rents practice rooms to choirs: its rooms are the

@@ -1,5 +1,7 @@
 # Cookie Shop public knowledge base
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../../current-release-evidence.md) for the latest verified status.
+
 Cookie Shop is a fictional UGent university project. There are no real payments, deliveries, bookings, pickup locations or customer support services. Verified allergen and nutrition information is unavailable. Never infer suitability for an allergy or diet.
 
 | Product | Price per cookie |

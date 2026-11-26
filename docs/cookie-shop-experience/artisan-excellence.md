@@ -1,5 +1,7 @@
 # Artisan Excellence visual refinement
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 PR #26 baseline is `059b02a78f96711f7fd9a94d9e90ec8ca255cfd7`.
 
 - The Finder uses two-column visual answers and four progress segments. Its questions, answers, ranking and progression retain their existing logic. The Passport keeps the actual answers and recommendation, with a stamped masthead and grouped actions.

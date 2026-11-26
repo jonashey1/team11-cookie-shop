@@ -77,7 +77,7 @@ Not tested under these conditions: a physical phone, a throttled mobile network,
 
 **Improvement with its evidence:** the homepage Order Cookies button (#17), retested in Session 3 (#18).
 
-## Evidence limitations
+## Not tested yet
 
 - **The informational task with a person** (find and compare cookies): only tested automatically. Risk: comparison or the Taste Map may be less clear to real users than the tests suggest.
 - **A second, independent participant:** all sessions used one person who knew the site by Session 3. Risk: findings may not generalise.
@@ -98,3 +98,5 @@ The isolated production build and all 59 Vitest checks passed. The targeted bask
 ## Production read-only check, 26 November 2026
 
 Vercel reported a successful deployment for main commit [ec0f5d6](https://github.com/jonashey1/team11-cookie-shop/commit/ec0f5d6835da5b434f78bf2d619fc2b8d02aa0f4). The public homepage, catalogue, workshops, orders, Cookie Finder, About and Contact returned HTTP 200 and contained the Team 11 code. The comparison, FAQ and box aliases resolved to their documented sections. The public course checker reported the existing Team 11 order and the Workshop–Topic relation. See [CI run 45845834676](https://github.com/jonashey1/team11-cookie-shop/actions/runs/45845834676) for the automated results on that commit. The live checks used read requests only.
+
+See the [current release evidence](current-release-evidence.md) for the application revision tested during the documentation audit and the remaining human checks.

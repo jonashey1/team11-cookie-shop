@@ -1,5 +1,7 @@
 # Artisan Identity visual evidence
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 Before: `d7a78785e04b1a7ce3757866ebe3e15fa2d47a9f`. After: the Artisan Identity production build run locally. Before appears on the left. Both versions use the same local fictional fixtures, a light theme and matched viewport widths.
 
 | Page | 390 px | 1100 px |

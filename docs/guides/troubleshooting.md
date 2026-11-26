@@ -1,5 +1,7 @@
 # Troubleshooting: what a message means and what to do
 
+> Campus Cycle starter reference. See the [Cookie Shop release evidence](../current-release-evidence.md) for the current implementation and checks.
+
 When something goes wrong, this starter prints a message that says what happened. Find the message
 below: each one has its own heading, with the message in full under it. Then read **What it means**
 and **What to do**.

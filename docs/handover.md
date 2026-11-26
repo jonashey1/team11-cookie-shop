@@ -25,7 +25,7 @@ The service accounts are accessible to Jonas (`jonashey1`). The responsibility t
 | Access | Repository administrator | Jonas (`jonashey1`) | Not yet assigned | GitHub owner and authorized Payload administrators | 26 November 2026: tested; see the course-app access status above |
 | Updates | Website developer | Jonas (`jonashey1`) | Not yet assigned | GitHub contributors with approved PR access | 26 November 2026: tested |
 | Monitoring | Website maintainer | Jonas (`jonashey1`) | Not yet assigned | Team members with Vercel access | 26 November 2026: tested |
-| Backup and restore | Database administrator | Jonas (`jonashey1`) | Not yet assigned | Authorized Neon/Vercel account owner | 26 November 2026: tested |
+| Backup and restore | Database administrator | Jonas (`jonashey1`) | Not yet assigned | Authorized Neon/Vercel account owner | Account access reported on 26 November; isolated restore still to rehearse |
 | Ownership | Team project coordinator | Jonas (`jonashey1`) | Not yet assigned | GitHub/Vercel/Neon account owners | 26 November 2026: tested |
 
 - **Who edits which content in `/admin`:** An authorized content editor manages CMS pages, cookie-related records and fictional orders; the order status may be updated by an authorized shop administrator. Edit live catalogue descriptions, prices and profiles in Payload **Cookies**. Prices are integer cents. Check the six cards and the full checkout in an isolated environment before changing production content.

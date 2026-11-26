@@ -1,5 +1,7 @@
 # Human usability protocol
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 Status: pending. The team should invite five to eight consenting people, preferably first-time users. Use anonymous labels P01, P02 and so on. Do not collect real names or contact data. Test checkout only in a disposable environment with a made-up name and email supplied by the moderator.
 
 ## Moderator

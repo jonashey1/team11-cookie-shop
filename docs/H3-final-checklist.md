@@ -1,6 +1,6 @@
 # H3-releasechecklist — Team 11
 
-Stand van de releasekandidaat in [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27). De [academische auditmatrix](final-academic-compliance.md) bevat de onderbouwing en bronverwijzingen.
+Stand van de releasekandidaat in [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27). Het [actuele releasebewijs](current-release-evidence.md) onderscheidt de jongste controles van de historische kandidaatresultaten. De [academische auditmatrix](final-academic-compliance.md) bevat de onderbouwing en bronverwijzingen.
 
 ## Technisch bevestigd
 

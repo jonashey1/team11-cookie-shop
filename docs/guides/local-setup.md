@@ -1,5 +1,7 @@
 # Working on your own computer, and previews with their own database
 
+> Campus Cycle starter reference. See the [Cookie Shop release evidence](../current-release-evidence.md) for the current implementation and checks.
+
 This guide comes after [your first hour](first-hour.md): your live site works, and CI is green. Now
 you set up the starter on your own computer, so you can change the content model (the collections)
 and try changes before they reach your live site. At the end, you see how each pull request's preview
