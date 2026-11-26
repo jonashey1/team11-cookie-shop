@@ -22,6 +22,11 @@ const faqSections = [
         answer:
           'Visit the Our Cookies page to browse the available information about our cookies.',
       },
+      {
+        question: 'Can I compare cookies before choosing?',
+        answer:
+          'Yes. On the Our Cookies page, choose Compare cookies to jump to the comparison section and review the available cookies side by side.',
+      },
     ],
   },
   {
