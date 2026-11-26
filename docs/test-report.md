@@ -77,7 +77,7 @@ Not tested under these conditions: a physical phone, a throttled mobile network,
 
 **Improvement with its evidence:** the homepage Order Cookies button (#17), retested in Session 3 (#18).
 
-## Evidence limitations
+## Not tested yet
 
 - **The informational task with a person** (find and compare cookies): only tested automatically. Risk: comparison or the Taste Map may be less clear to real users than the tests suggest.
 - **A second, independent participant:** all sessions used one person who knew the site by Session 3. Risk: findings may not generalise.
