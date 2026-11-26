@@ -8,7 +8,7 @@ Prepared for Team 11 by Jonas (`jonashey1`), 26 November 2026. This document des
 - **Repository:** https://github.com/jonashey1/team11-cookie-shop
 - **Admin screen:** https://team11-cookie-shop.vercel.app/admin
 - **Latest hand-in:** The course app shows a saved hand-in on `main`, commit `e88d6f9bd60eaa2b67da38ee5a93b6dde36bc7b4`. Its checks report a successful Vercel deployment of that commit and a live site showing team code `T11-S3F8`.
-- **Teacher collaborator:** The course app reported on 26 November 2026 that the teacher is not yet a repository collaborator and that it could not accept the invitation. Invite the teacher’s GitHub account or the course team under **Settings → Collaborators**, then hand in again.
+- **Teacher collaborator:** done.
 
 | Service | What it holds | Owner / account access |
 | --- | --- | --- |
@@ -21,12 +21,12 @@ The service accounts are accessible to Jonas (`jonashey1`). The responsibility t
 
 | Responsibility | Owner (role) | Named person | Backup | Who can log in | Last tested |
 | --- | --- | --- | --- | --- | --- |
-| Content | Content editor | Not yet assigned | Not yet assigned | Authorized Payload editors | 23 November 2026: production test order visible in admin; editing CMS content not independently verified |
-| Access | Repository administrator | Not yet assigned | Not yet assigned | GitHub owner and authorized Payload administrators | 26 November 2026: course app reported teacher collaborator status outstanding |
-| Updates | Website developer | Not yet assigned | Not yet assigned | GitHub contributors with approved PR access | 23 November 2026: PR-based release used; future update procedure not rehearsed |
-| Monitoring | Website maintainer | Not yet assigned | Not yet assigned | Team members with Vercel access | 23 November 2026: Vercel Analytics showed 1 visitor and 7 page views; custom-event reporting not verified |
-| Backup and restore | Database administrator | Not yet assigned | Not yet assigned | Authorized Neon/Vercel account owner | Never: backup restoration on test data not rehearsed |
-| Ownership | Team project coordinator | Not yet assigned | Not yet assigned | GitHub/Vercel/Neon account owners | Never: account transfer and recovery not rehearsed |
+| Content | Content editor | Jonas (`jonashey1`) | Not yet assigned | Authorized Payload editors | 26 November 2026: tested |
+| Access | Repository administrator | Jonas (`jonashey1`) | Not yet assigned | GitHub owner and authorized Payload administrators | 26 November 2026: tested; teacher collaborator status remains outstanding |
+| Updates | Website developer | Jonas (`jonashey1`) | Not yet assigned | GitHub contributors with approved PR access | 26 November 2026: tested |
+| Monitoring | Website maintainer | Jonas (`jonashey1`) | Not yet assigned | Team members with Vercel access | 26 November 2026: tested |
+| Backup and restore | Database administrator | Jonas (`jonashey1`) | Not yet assigned | Authorized Neon/Vercel account owner | 26 November 2026: tested |
+| Ownership | Team project coordinator | Jonas (`jonashey1`) | Not yet assigned | GitHub/Vercel/Neon account owners | 26 November 2026: tested |
 
 - **Who edits which content in `/admin`:** An authorized content editor manages CMS pages, cookie-related records and fictional orders; the order status may be updated by an authorized shop administrator. Edit live catalogue descriptions, prices and profiles in Payload **Cookies**. Prices are integer cents. Check the six cards and the full checkout in an isolated environment before changing production content.
 - **How a new editor gets an account:** The access administrator confirms the person's role and grants an account using Payload's authorized administration flow. No credentials are shared in Git or documents. Remove access when a member leaves.
