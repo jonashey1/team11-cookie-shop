@@ -10,8 +10,8 @@ This agreement explains how our team works together on our cookie ordering websi
 
 | Role | Member | Works in a pair with |
 | --- | --- | --- |
-| Releases and repository | Jonas (jonashey1) | Xander |
-| Content model and data | Xander (xanderrooms9-spec) | Jonas |
+| Releases and repository | Jonas (jonashey1) | Jonas |
+| Content model and data |Jonas | Jonas |
 | The informational task | Tessa (teversch) | Esma |
 | The transactional task | Arnaud | Yana |
 | Design and accessibility | Esma (Esma1326) | Tessa |
@@ -72,7 +72,6 @@ Every pull request has the section AI note: what I asked AI, and what I checked,
 | --- | --- |
 | Jonas (jonashey1) | 16 November 2026 |
 | Tessa (teversch) | 16 November 2026 |
-| Xander | 16 November 2026 |
 | Arnaud | 16 November 2026 |
 | Esma | 16 November 2026 |
 | Yana | 16 November 2026 |
