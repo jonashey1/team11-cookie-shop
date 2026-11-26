@@ -1,14 +1,13 @@
 import type { GlobalConfig } from 'payload'
 import { editorsOnly } from '../access'
 
-// The facts that several pages show: one record, so each fact has one source. An editor changes the
-// pricing rule here once, and the home page and every workshop page show the new text at once.
+// Keep shared Cookie Shop settings in one record.
 // A "global" is a record that exists exactly once (there is one set of site facts, not a list).
 export const SiteFacts: GlobalConfig = {
   slug: 'site-facts',
   label: 'Site facts',
   admin: {
-    description: 'Change these here, once: every page reads them from here.',
+    description: 'Shared location and contact settings for Cookie Shop.',
   },
   // The site reads these retained settings on the server. The public API does not expose them.
   access: {
@@ -21,7 +20,7 @@ export const SiteFacts: GlobalConfig = {
       type: 'textarea',
       required: true,
       admin: {
-        description: 'Shown on the home page and on every workshop page.',
+        hidden: true,
       },
     },
     {
@@ -29,7 +28,7 @@ export const SiteFacts: GlobalConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: 'Where the workshops and the clinic are. Shown on the Contact page and on every workshop page.',
+        description: 'Shown on workshop and clinic pages.',
       },
     },
     {
@@ -37,7 +36,7 @@ export const SiteFacts: GlobalConfig = {
       type: 'email',
       required: true,
       admin: {
-        description: 'Shown on the Contact page.',
+        description: 'Contact email stored for Cookie Shop.',
       },
     },
   ],

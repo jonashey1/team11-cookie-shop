@@ -1,4 +1,4 @@
-﻿// The facts of the example site. When you turn the starter into your own project, this file and the
+// The facts of the example site. When you turn the starter into your own project, this file and the
 // seed are where the example content lives.
 //
 // Cookie Shop is a made-up bicycle repair service at a college. Every fact here comes from the
@@ -34,7 +34,7 @@ export const CAMPUS_CYCLE = {
   // The place, the e-mail address and the pricing rule (below) go into the Site facts global
   // (src/globals/SiteFacts.ts): every page that shows them reads them from there.
   place: 'Cookie Shop, Ghent',
-  email: 'hello@cookieshop.example',
+  email: 'helllo@coockieshop.example',
   // Only the puncture workshop has a stated end time. The others have none on purpose: never make one
   // up. The gear workshop must end by 15:00 (its latestEnd), because the Saturday repair clinic uses
   // the same room from 15:00. That is a limit, not an end time.
