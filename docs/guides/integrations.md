@@ -1,5 +1,7 @@
 # Integrations: preview databases, Vercel Web Analytics and a provider's script
 
+> Campus Cycle starter reference. See the [Cookie Shop release evidence](../current-release-evidence.md) for the current implementation and checks.
+
 Three things that connect your site to another service, each with a step that is easy to miss:
 
 1. [Preview databases](#preview-databases): every pull request's preview gets a Neon branch of its

@@ -1,5 +1,7 @@
 # Artisan Signature peer and usability protocol
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 Status: prepared, pending real participants. Use an isolated preview or loopback database with fictitious accounts. Obtain permission to take anonymous notes and record only task evidence. Keep the dashboard demo separate and use a pre-created editor session without showing credentials.
 
 1. Starting from the homepage, explain what the shop offers and find the commercial.

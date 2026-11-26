@@ -1,5 +1,7 @@
 # Artisan Signature quality report
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 This is a voluntary creative improvement outside the required H2 scope. It may qualify for bonus consideration. Course requirements, safe ordering, accessibility and usability take priority over presentation. This review is internal technical work, not evidence from students or research participants.
 
 ## Scope and decisions

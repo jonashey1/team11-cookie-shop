@@ -1,5 +1,7 @@
 # Cookie Finder decision model
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../../current-release-evidence.md) for the latest verified status.
+
 ![Decision requirements diagram](decision-requirements.svg)
 
 The decision helps a user locate a cookie using four taste answers. The rule-based Finder awards exactly three points to the primary catalogue ID and one point to the secondary ID for each answer.

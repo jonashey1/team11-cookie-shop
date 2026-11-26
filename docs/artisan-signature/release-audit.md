@@ -1,5 +1,7 @@
 # Artisan Signature release candidate audit
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 This supplements the [requirements matrix](./requirements-traceability.md) and [quality report](./quality-report.md). The audit changes dependency resolution and browser coverage. Application routes, design, collections and migrations are unchanged.
 
 ## Production dependency findings

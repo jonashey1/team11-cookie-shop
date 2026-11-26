@@ -1,5 +1,7 @@
 # Payload CMS content audit
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 ## Production inventory
 
 The production read on 26 November 2026 found six cookies, four Cookie Shop workshops, three Cookie Shop topics, seven stored workshop–topic links, eight workshop sessions, three registrations and eight orders. The course checker confirmed the existing course transaction. Three old clinic slots and one related booking remain historical records. The public Privacy record already describes Cookie Shop orders, browser storage, Vercel, OpenStreetMap and Watermelon. The public privacy route adds the workshop registration notice.

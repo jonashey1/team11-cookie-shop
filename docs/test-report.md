@@ -94,3 +94,7 @@ The isolated release build and committed migration were checked separately from 
 ## Global basket extension
 
 The isolated production build and all 59 Vitest checks passed. The targeted basket and existing box/checkout suite passed 10 checks each in Chromium and WebKit. Coverage includes the old storage format, totals and removals, grouped boxes and preview text after reload, drawer focus and Escape, the Fortune Cookie timer, checkout, and seven widths from 320 to 1440 px with accessibility preferences and an axe scan. Workshop detail navigation and its registration section were checked without making a registration. This evidence is automated. No new human usability session was conducted.
+
+## Evidence dates and current release
+
+The sessions, CI runs and performance samples above apply to their named versions. See the [current release evidence](current-release-evidence.md) for subsequent changes, the isolated browser results and outstanding human checks. A passing automated check is separate from a participant observation.

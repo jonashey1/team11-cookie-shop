@@ -1,5 +1,7 @@
 # Watermelon evaluation
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../../current-release-evidence.md) for the latest verified status.
+
 Use the [import-ready knowledge base](knowledge-base.md) and [35 evaluation cases](evaluation.json). Each case has a route, the facts required to pass, acceptable paraphrase guidance and a prohibited claim. Actual outcomes are empty and pending.
 
 After approval, the Watermelon owner can import the public knowledge base into the existing assistant. Test in fresh sessions across Dutch and English, one question per case, and record the actual reply and pass or fail. Start with price, navigation, allergy and fictional delivery scenarios. Avoid personal data and excessive traffic. Do not infer chat quality from iframe or loader checks.

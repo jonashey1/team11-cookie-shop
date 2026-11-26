@@ -1,5 +1,7 @@
 # UX decisions: why the starter looks and works the way it does
 
+> Campus Cycle starter reference. See the [Cookie Shop release evidence](../current-release-evidence.md) for the current implementation and checks.
+
 Campus Cycle follows the UX rules the course teaches. This guide shows the most important design
 choices. For each one:
 

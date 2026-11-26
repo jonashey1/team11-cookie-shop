@@ -1,5 +1,7 @@
 # Artisan Identity final review
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../../current-release-evidence.md) for the latest verified status.
+
 Local production build, isolated fictional data. Each capture is available at 390 px and 1100 px.
 
 | Requested item | What was verified | Mobile | Desktop |

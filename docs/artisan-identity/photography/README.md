@@ -1,5 +1,7 @@
 # Hybrid Artisan photography
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../../current-release-evidence.md) for the latest verified status.
+
 Three new editorial images illustrate the fictional Cookie Shop. The illustrated homepage, workshop cards, commercial, Finder, Comparison and Box Builder keep their existing art.
 
 [Open the contact sheet](contact-sheet.webp) or inspect each placement in context. The captures use the same local production-build fixtures, with before on the left and after on the right. The workshop capture uses the Cookie Decorating Workshop demo record.

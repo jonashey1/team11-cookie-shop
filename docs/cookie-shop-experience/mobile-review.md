@@ -1,5 +1,7 @@
 # Mobile-first review
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 ## Benchmark at 390 px
 
 Chromium with the iPhone 13 viewport, one cold browser context per public page and read-only traffic. These were point-in-time browsing observations. No comparison of hosted R8 or actual purchase completion was attempted.

@@ -1,5 +1,7 @@
 # Competitive benchmark — Cookie Shop Experience
 
+> This record describes the implementation or evidence at the stage named below. See the [current release evidence](../current-release-evidence.md) for the latest verified status.
+
 Reference: `79bfebe780a2fa7f8b623705c1e30aec6e124103`. The separate original masterprompt could not be recovered. This audit uses the explicit completion checklist, Artisan Excellence brief and [Mobile-First review](mobile-review.md).
 
 ## Evidence

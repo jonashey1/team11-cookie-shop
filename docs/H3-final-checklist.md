@@ -1,6 +1,6 @@
 # H3-releasechecklist — Team 11
 
-Stand van de releasekandidaat in [PR #27](https://github.com/jonashey1/team11-cookie-shop/pull/27). De [academische auditmatrix](final-academic-compliance.md) bevat de onderbouwing en bronverwijzingen.
+De handover vermeldt een opgeslagen indiening op 26 november voor e88d6f9. Zie het [actuele releasebewijs](current-release-evidence.md) en de [academische auditmatrix](final-academic-compliance.md). De onderstaande technische controles verwijzen naar eerdere releases en testomgevingen.
 
 ## Technisch bevestigd
 
@@ -18,5 +18,5 @@ Stand van de releasekandidaat in [PR #27](https://github.com/jonashey1/team11-co
 - [ ] Controleer de exacte `main`-SHA, groene CI, Vercel Production Ready voor diezelfde SHA en de bevestigde migratie in de buildlog.
 - [ ] Controleer de live bestemmingen, vier CMS-collecties, beide kanten van Workshop–Topic, teamcode, bestaande cursusorder, publieke afscherming van voorbeelden en D0–D7 op `main`.
 - [ ] Controleer in de cursusapp de vereiste echte D6-observatie en hertest. Gebruik het [protocol](cookie-shop-usability-protocol.md). De eerder gerapporteerde hertest blijft in D6 staan.
-- [ ] Verifieer echte H3-bijdragen voor Tessa, Arnaud, Esma, Yana en Xander. Voor Jonas is een kwalificerende PR gevonden. Alle zes teamaccounts hebben GitHub-toegang. De cursusapp verwerkt de uitnodiging voor `jnmoons` bij indiening.
+- [ ] Controleer de individuele H3-status in de cursuskaart. GitHub toont gemergede code-PR?s van Jonas, Tessa, Esma en Yana. Voor Arnaud en Xander is individueel bewijs nog niet geverifieerd. Controleer ook de toegang voor `jnmoons` bij indiening.
 - [ ] Dien in via **My team → Final hand-in** met repository `jonashey1/team11-cookie-shop`, branch `main` en website `https://team11-cookie-shop.vercel.app/`. Controleer de opgeslagen commit en docenttoegang. De laatst geëxporteerde indiening verwees naar een oudere SHA.
