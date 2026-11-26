@@ -1,4 +1,4 @@
-// Starts your laptop's database: PGlite, a real Postgres that runs inside Node. `npm run dev`,
+//Starts your laptop's database: PGlite, a real Postgres that runs inside Node. `npm run dev`,
 // `npm run migrate`, `npm run migrate:create` and `npm run seed` start it by themselves when nothing
 // answers at its address yet (scripts/guard.mjs), and stop it when they stop. `npm run db` starts it on
 // its own, in its own terminal (scripts/db.mjs). All of them start it here, the same way.
