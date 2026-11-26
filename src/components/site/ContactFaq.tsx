@@ -37,6 +37,11 @@ const faqSections = [
         answer:
           'Availability depends on the cookies listed on our website. We do not currently guarantee vegan or gluten-free options.',
       },
+      {
+        question: 'Where do your ingredients come from?',
+        answer:
+           'We believe that exceptional cookies start with exceptional ingredients. Our chocolate is inspired by the rich tradition of Belgian chocolate-making, known worldwide for its smooth texture and refined flavour. Sugar comes from sugar cane or sugar beets, while our flour is made from carefully selected wheat. Every ingredient plays an important role in creating the perfect balance of flavour, texture and indulgence.',
+},
     ],
   },
   {
